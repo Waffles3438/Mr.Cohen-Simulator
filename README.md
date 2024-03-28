@@ -1,1 +1,1 @@
-# Plague Inc Mini
+# Mr Cohen Simulator
