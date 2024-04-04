@@ -9,17 +9,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Actor
 {
-    private static GreenfootSound clickEffect = new GreenfootSound("sounds/click_sound.mp3");
+    //private static GreenfootSound clickEffect = new GreenfootSound("sounds/click_sound.mp3");
     private boolean hover = false;
     private boolean mouseDown = false;
     protected GreenfootImage[] imageStates;
     
     /**
      * The construtor for the Button
-     * @param imageStates where the image is located
-     * @param numstates is how many different states there are of that image (at most 3 are used)
+     * @param imageStates Where the image is located
+     * @param numstates Is how many different states there are of that image (at most 3 are used)
+     * @param imageType The file type (.png, .jpeg, etc.)
      */
-    public Button(String imagePath, int numStates) {
+    public Button(String imagePath, int numStates, String imageType) {
         GreenfootImage image = new GreenfootImage(imagePath + "_1.png");
         setImage(image);
         imageStates = new GreenfootImage[numStates];
@@ -60,7 +61,7 @@ public class Button extends Actor
         }
                                                                                                                                                                                                                                                                        
         if (Greenfoot.mouseClicked(this) && mouseDown) {
-            clickEffect.play();
+            //clickEffect.play();
             action();
             mouseDown = false;
             if (imageStates.length > 2) {
