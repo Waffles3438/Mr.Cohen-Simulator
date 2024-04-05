@@ -6,6 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao
  * @version 1/18/2023
+ * 
+ * Click sound from: Minecraft
+ * 
  */
 public class Button extends Actor
 {
@@ -13,19 +16,40 @@ public class Button extends Actor
     private boolean hover = false;
     private boolean mouseDown = false;
     protected GreenfootImage[] imageStates;
+    private static GreenfootSound[] click;
+    private static int clickIndex = 0;
     
+    public static void init(){
+        clickIndex = 0;
+        click = new GreenfootSound[64];
+        for (int i = 0; i < click.length; i++){
+            click[i] = new GreenfootSound("click.mp3");
+            click[i].play();
+            Greenfoot.delay(1);
+            click[i].stop();
+        }
+    }
+    
+    public void playClick(){
+        click[clickIndex].setVolume(50);
+        click[clickIndex].play();
+        clickIndex++;
+        if (clickIndex >= click.length){
+            clickIndex = 0;
+        }
+    }
+        
     /**
      * The construtor for the Button
      * @param imageStates Where the image is located
      * @param numstates Is how many different states there are of that image (at most 3 are used)
-     * @param imageType The file type (.png, .jpeg, etc.)
+     * @param imageType The file type (.png, .jpeg, etc.) (Include the dot)
      */
     public Button(String imagePath, int numStates, String imageType) {
-        GreenfootImage image = new GreenfootImage(imagePath + "_1.png");
+        GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
         setImage(image);
         imageStates = new GreenfootImage[numStates];
         imageStates[0] = image;
-        
         for (int i = 1; i < numStates; i++) {
             imageStates[i] = new GreenfootImage(imagePath + "_" + (i+1) + ".png");
         }
@@ -61,7 +85,7 @@ public class Button extends Actor
         }
                                                                                                                                                                                                                                                                        
         if (Greenfoot.mouseClicked(this) && mouseDown) {
-            //clickEffect.play();
+            playClick();
             action();
             mouseDown = false;
             if (imageStates.length > 2) {
