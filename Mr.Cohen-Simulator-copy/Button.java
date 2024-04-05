@@ -65,7 +65,7 @@ public class Button extends Actor
             action();
             mouseDown = false;
             if (imageStates.length > 2) {
-                setImage(imageStates[0]);
+                setImage(imageStates[1]);
             }
 
         } else if (Greenfoot.mouseClicked(null)) {
