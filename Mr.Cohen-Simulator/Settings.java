@@ -21,4 +21,11 @@ public class Settings extends Button
         // Add your action code here.
         super.act();
     }
+    
+    /**
+     * Action does nothing in this class but should be in the subclasses
+     */
+    public void action() {
+        Greenfoot.setWorld(new SettingsScreen());
+    }
 }
