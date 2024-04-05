@@ -21,7 +21,7 @@ public class Button extends Actor
      * @param imageType The file type (.png, .jpeg, etc.) (Include the dot)
      */
     public Button(String imagePath, int numStates, String imageType) {
-        GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
+        GreenfootImage image = new GreenfootImage(imagePath + "_1." + imageType);
         setImage(image);
         imageStates = new GreenfootImage[numStates];
         imageStates[0] = image;
