@@ -18,10 +18,10 @@ public class Button extends Actor
      * The construtor for the Button
      * @param imageStates Where the image is located
      * @param numstates Is how many different states there are of that image (at most 3 are used)
-     * @param imageType The file type (.png, .jpeg, etc.)
+     * @param imageType The file type (.png, .jpeg, etc.) (Include the dot)
      */
     public Button(String imagePath, int numStates, String imageType) {
-        GreenfootImage image = new GreenfootImage(imagePath + "_1.png");
+        GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
         setImage(image);
         imageStates = new GreenfootImage[numStates];
         imageStates[0] = image;
