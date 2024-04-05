@@ -21,7 +21,7 @@ public class Button extends Actor
     
     public static void init(){
         clickIndex = 0;
-        click = new GreenfootSound[64]; // lots of simultaneous clicking!
+        click = new GreenfootSound[64];
         for (int i = 0; i < click.length; i++){
             click[i] = new GreenfootSound("click.mp3");
             click[i].play();
