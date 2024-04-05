@@ -8,7 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-
+    private Button start = new Button("tile", 3, "png");
+    private Button settings = new Button("tile", 3, "png");
+    private Button credits = new Button("tile", 3, "png");
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -16,6 +18,9 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1280, 720, 1); 
+        super(1280, 720, 1);
+        addObject(start, getWidth()/2, getHeight()/2);
+        addObject(settings, getWidth()/2, getHeight()/2 + 50);
+        addObject(credits, getWidth()/2, getHeight()/2 + 100);
     }
 }
