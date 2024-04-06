@@ -26,6 +26,6 @@ public class Start extends Button
      * Action does nothing in this class but should be in the subclasses
      */
     public void action() {
-        Greenfoot.setWorld(new Simulator());
+        Greenfoot.setWorld(new SimulationWorld());
     }
 }
