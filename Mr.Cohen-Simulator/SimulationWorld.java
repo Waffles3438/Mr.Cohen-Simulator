@@ -16,7 +16,7 @@ public class SimulationWorld extends World
     public SimulationWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1280, 720, 1); 
+        super(1260, 720, 1); 
         GreenfootImage image = new GreenfootImage(1280, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
