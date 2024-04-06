@@ -1,10 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MyWorld here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Image from: https://pc98backgrounds.tumblr.com/image/172810349592
+ * 
  */
 public class TitleScreen extends World
 {
@@ -24,6 +23,7 @@ public class TitleScreen extends World
         addObject(start, getWidth()/2, getHeight()/2);
         addObject(settings, getWidth()/2, getHeight()/2 + 110);
         addObject(credits, getWidth()/2, getHeight()/2 + 220);
+        addObject(new Banner(), getWidth()/2, getHeight()/2 - 200);
         if(firstTime){
             Button.init();
             firstTime = false;
