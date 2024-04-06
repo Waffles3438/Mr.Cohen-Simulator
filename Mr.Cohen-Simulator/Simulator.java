@@ -1,16 +1,16 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MyWorld here.
+ * Write a description of class Simulator here.
  * 
- * @author (your name) 
+ * @author Felix Zhao
  * @version (a version number or a date)
  */
 public class Simulator extends World
 {
     
     /**
-     * Constructor for objects of class MyWorld.
+     * Constructor for objects of class Simulator.
      * 
      */
     public Simulator()
