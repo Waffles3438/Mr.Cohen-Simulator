@@ -18,6 +18,8 @@ public class Button extends Actor
     private static GreenfootSound[] click;
     private static int clickIndex = 0;
     
+    private boolean pressed = false;
+    
     /**
      * The construtor for the Button
      * @param imageStates Where the image is located
@@ -65,7 +67,10 @@ public class Button extends Actor
                                                                                                                                                                                                                                                                        
         if (Greenfoot.mouseClicked(this) && mouseDown) {
             playClick();
-            action();
+            //action();
+            
+            pressed = true;
+            
             mouseDown = false;
             if (imageStates.length > 2) {
                 setImage(imageStates[1]);
@@ -116,5 +121,9 @@ public class Button extends Actor
      */
     public void action() {
         // does nothing should be in sub class
+    }
+    
+    public boolean isPressed(){
+        return pressed;
     }
 }
