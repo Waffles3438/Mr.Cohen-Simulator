@@ -6,14 +6,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class SimulationWorld extends World
+public class Simulator extends World
 {
     
     /**
      * Constructor for objects of class MyWorld.
      * 
      */
-    public SimulationWorld()
+    public Simulator()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
