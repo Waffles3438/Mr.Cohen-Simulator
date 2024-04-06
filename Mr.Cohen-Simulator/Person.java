@@ -13,10 +13,14 @@ import java.util.LinkedList;
  */
 public class Person extends SuperSmoothMover
 {
+    public final static int GRID_CHECK = 20; // the space in between when path finding
+    // In order of x, y
     protected Queue<int[]> currentPath;
-    
+    protected double speed;
     public Person() {
         currentPath = new LinkedList<int[]>();
+        speed = 5;
+        enableStaticRotation();
     }
     /**
      * Act - do whatever the Person wants to do. This method is called whenever
@@ -24,20 +28,30 @@ public class Person extends SuperSmoothMover
      */
     public void act()
     {
-        
-        
+        // Add your action code here.
+        if (currentPath.size() > 0) {
+            
+            int[] position = currentPath.peek();
+            turnTowards(position[0], position[1]);
+            double distance = getDistance(new int[]{getX(), getY()}, position);
+            if (distance <= speed) {
+                setLocation(position[0], position[1]);
+                currentPath.poll();
+            }
+            move(speed);
+        }
     }
     
     public void pathFind(int targetX, int targetY) {
         int exactStartX = getX();
         int exactStartY = getY();
-        int totalRows = getWorld().getHeight()/10;
-        int totalCols = getWorld().getWidth()/3*2/10;
-        int targetRow = targetY/10;
-        int targetCol = targetX/10;
+        int totalRows = getWorld().getHeight()/GRID_CHECK;
+        int totalCols = getWorld().getWidth()/3*2/GRID_CHECK;
+        int targetRow = targetY/GRID_CHECK;
+        int targetCol = targetX/GRID_CHECK;
         // r, c for current Row and current col respectivly
-        int r = getY()/10;
-        int c = getX()/10;
+        int r = getY()/GRID_CHECK;
+        int c = getX()/GRID_CHECK;
         PriorityQueue<int[]> openList = new PriorityQueue<int[]>((a, b) -> Integer.compare(a[0], b[0]));
         boolean[][] closedList = new boolean[totalRows][totalCols];
         Cell[][] cellData = new Cell[totalRows][totalCols];
@@ -64,6 +78,7 @@ public class Person extends SuperSmoothMover
             }
             closedList[r][c] = true;
             if (r == targetRow && c == targetCol) {
+                System.out.println("found path");
                 currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
                 break;
             }
@@ -71,6 +86,7 @@ public class Person extends SuperSmoothMover
             int[][] directions = new int[][] {
                 {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
             };
+            
             
             for (int[] position : directions) {
                 int newRow = r + position[0];
@@ -80,7 +96,7 @@ public class Person extends SuperSmoothMover
                     continue;
                 }
                 // check if the person can walk through the spot
-                setLocation(newRow*10, newCol*10);
+                setLocation(newCol*GRID_CHECK, newRow*GRID_CHECK);
                 if (isTouching(Actor.class)) {
                     setLocation(exactStartX, exactStartY);
                     continue;
@@ -104,7 +120,7 @@ public class Person extends SuperSmoothMover
                     cellData[child[0]][child[1]].setF(newF);
                     cellData[child[0]][child[1]].setG(newG);
                     cellData[child[0]][child[1]].setH(newH);
-                    cellData[child[0]][child[1]].setParent(child[0], child[1]);
+                    cellData[child[0]][child[1]].setParent(r, c);
                 }
                     
                 
@@ -121,14 +137,33 @@ public class Person extends SuperSmoothMover
         ArrayList<int[]> path = new ArrayList<int[]>();
         int row = target[0];
         int col = target[1];
+        
         while (!(cellData[row][col].getParent()[0] == row && cellData[row][col].getParent()[1] == col)) {
-            path.add(new int[]{row, col});
-            row = cellData[row][col].getParent()[0];
-            col = cellData[row][col].getParent()[1];
+            // reveresed as cols is the x-axis and row is the y-axis
+            path.add(new int[]{col*GRID_CHECK, row*GRID_CHECK});
+            int tempRow = cellData[row][col].getParent()[0];
+            int tempCol = cellData[row][col].getParent()[1];
+            row = tempRow;
+            col = tempCol;
+            
         }
         
         Collections.reverse(path);
         return path;
+    }
+    
+    /**
+     * Gets the distance from one (x, y) pair to another (x, y) pair
+     *
+     * @param one The first position
+     * @param two The second position
+     * @return distance The distance from point one to point 2
+     */
+    public static double getDistance(int[] one, int[] two) {
+        double xLength = one[0]-two[0];
+        double yLength = one[1]-two[1];
+        double distance = Math.sqrt(Math.pow(xLength, 2) + Math.pow(yLength, 2));
+        return distance;
     }
 }
 
