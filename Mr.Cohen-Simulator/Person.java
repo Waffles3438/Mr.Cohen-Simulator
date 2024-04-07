@@ -6,7 +6,8 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 /**
- * Write a description of class Person here.
+ * Person class
+ * Uses A* for path finding
  * 
  * @author Felix Zhao
  * @version April 6th 2024
@@ -17,10 +18,13 @@ public class Person extends SuperSmoothMover
     // In order of x, y
     protected Queue<int[]> currentPath;
     protected double speed;
+    protected ArrayList<Class<?>> avoidList;
     public Person() {
         currentPath = new LinkedList<int[]>();
         speed = 5;
         enableStaticRotation();
+        avoidList = new ArrayList<Class<?>>();
+        avoidList.add(Actor.class);
     }
     /**
      * Act - do whatever the Person wants to do. This method is called whenever
@@ -75,7 +79,9 @@ public class Person extends SuperSmoothMover
         // r, c for current Row and current col respectivly
         int r = getY()/GRID_CHECK;
         int c = getX()/GRID_CHECK;
-        PriorityQueue<int[]> openList = new PriorityQueue<int[]>((a, b) -> Integer.compare(a[0], b[0]));
+        // In order of (f, r, c)
+        // has to double[] as the first value may have to be a decimal due to diagonal movements - The points (r, c) are casted to int when used
+        PriorityQueue<double[]> openList = new PriorityQueue<double[]>((a, b) -> Double.compare(a[0], b[0]));
         boolean[][] closedList = new boolean[totalRows][totalCols];
         Cell[][] cellData = new Cell[totalRows][totalCols];
         
@@ -89,13 +95,13 @@ public class Person extends SuperSmoothMover
         cellData[r][c].setG(0);
         cellData[r][c].setH(0);
         cellData[r][c].setParent(r, c);
-        openList.add(new int[]{0, r, c});
+        openList.add(new double[]{0, r, c});
         
         while (openList.size() != 0) {
             
-            int[] item = openList.poll();
-            r = item[1];
-            c = item[2];
+            double[] item = openList.poll();
+            r = (int)item[1];
+            c = (int)item[2];
             if (closedList[r][c]) {
                 continue;
             }
@@ -105,10 +111,13 @@ public class Person extends SuperSmoothMover
                 currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
                 break;
             }
-            ArrayList<int[]> children = new ArrayList<int[]>();
+            
             int[][] directions = new int[][] {
                 {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
             };
+            // int[][] directions = new int[][] {
+                // {-1, 0},{0, -1}, {0, 1}, {1, 0}
+            // };
             
             
             for (int[] position : directions) {
@@ -120,34 +129,42 @@ public class Person extends SuperSmoothMover
                 }
                 // check if the person can walk through the spot
                 setLocation(newCol*GRID_CHECK, newRow*GRID_CHECK);
-                if (isTouching(Actor.class)) {
-                    setLocation(exactStartX, exactStartY);
-                    continue;
+                boolean valid = true;
+                for (int i = 0; i < avoidList.size(); i++) {
+                    if (isTouching(avoidList.get(i))) {
+                        valid = false;
+                        break; 
+                    }
                 }
                 setLocation(exactStartX, exactStartY);
+                if (!valid) {
+                    continue;
+                }
+                
                 
                 if (closedList[newRow][newCol]) {
                     continue;
                 }
                 
-                children.add(new int[]{newRow, newCol});
+                
+                double newG = cellData[r][c].getG()+1;
+                if (position[0] != 0 && position[1] != 0) {
+                    // adds another 0.4 because diagonal movements are longer
+                    // 1.4 is near sqrt2
+                    newG += 0.4;
+                }
+                int newH = Math.abs(targetRow-newRow) + Math.abs(targetCol-newCol);
+                double newF = newG + newH;
+                if (cellData[newRow][newCol].getF() == -1 || cellData[newRow][newCol].getF() > newF) {
+                    openList.add(new double[]{newF, newRow, newCol});
+                    cellData[newRow][newCol].setF(newF);
+                    cellData[newRow][newCol].setG(newG);
+                    cellData[newRow][newCol].setH(newH);
+                    cellData[newRow][newCol].setParent(r, c);
+                }
             }
             
-            for (int[] child : children) {
-                int newG = cellData[r][c].getG()+1;
-                int newH = Math.abs(targetRow-child[0]) + Math.abs(targetCol-child[1]);
-                int newF = newG + newH;
-                
-                if (cellData[child[0]][child[1]].getF() == -1 || cellData[child[0]][child[1]].getF() > newF) {
-                    openList.add(new int[]{newF, child[0], child[1]});
-                    cellData[child[0]][child[1]].setF(newF);
-                    cellData[child[0]][child[1]].setG(newG);
-                    cellData[child[0]][child[1]].setH(newH);
-                    cellData[child[0]][child[1]].setParent(r, c);
-                }
-                    
-                
-            }
+            
         }
         System.out.println("done");
     }
@@ -196,7 +213,8 @@ class Cell {
      * g - distance traveled from starting node
      * h - estimated cost to get to end node
      */
-    private int parent_i, parent_j, f, g, h;
+    private int parent_i, parent_j;
+    private double f, g, h;
     
     public Cell() {
         this.parent_i = -1;
@@ -219,7 +237,7 @@ class Cell {
      *
      * @return Returns the value of f
      */
-    public int getF() {
+    public double getF() {
         return f;
     }
     
@@ -228,7 +246,7 @@ class Cell {
      *
      * @return Returns the value of g
      */
-    public int getG() {
+    public double getG() {
         return g;
     }
     
@@ -237,7 +255,7 @@ class Cell {
      *
      * @return Returns the value h
      */
-    public int getH() {
+    public double getH() {
         return h;
     }
     
@@ -246,7 +264,7 @@ class Cell {
      *
      * @param val Sets f to val
      */
-    public void setF(int val) {
+    public void setF(double val) {
         f = val;
     }
     
@@ -255,7 +273,7 @@ class Cell {
      *
      * @param val Sets g to val
      */
-    public void setG(int val) {
+    public void setG(double val) {
         g = val;
     }
     
@@ -264,7 +282,7 @@ class Cell {
      *
      * @param val Sets h to val
      */
-    public void setH(int val) {
+    public void setH(double val) {
         h = val;
     }
     
