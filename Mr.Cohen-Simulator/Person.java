@@ -35,10 +35,21 @@ public class Person extends SuperSmoothMover
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
-                setLocation(position[0], position[1]);
-                currentPath.poll();
-                distanceRequired -= distance;
-                
+
+                while (distanceRequired >= distance && currentPath.size() > 0) {
+                    setLocation(position[0], position[1]);
+                    currentPath.poll();
+                    distanceRequired -= distance;
+                    if (currentPath.size() == 0) {
+                        break;
+                    }
+                    position = currentPath.peek();
+                    distance = getDistance(new int[]{getX(), getY()}, position);
+                    turnTowards(position[0], position[1]);
+                }
+                if (currentPath.size() > 0) {
+                    move(distanceRequired);
+                }
             } else {
                 move(speed);
             }
