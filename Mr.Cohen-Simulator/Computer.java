@@ -11,12 +11,13 @@ public class Computer extends Actor
     protected int durability;
     protected String type;
     
-    public Computer(int durability) {
+    public Computer(int durability, String type) {
         this.durability = durability;
+        this.type = type;
     }
     
-    public Computer(String type) {
-        this.type = type;
+    public Computer() {
+        
     }
     
     /**
