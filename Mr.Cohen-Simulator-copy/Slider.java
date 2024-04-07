@@ -15,6 +15,8 @@ public class Slider extends Actor
     private MouseInfo mouse;
     private GreenfootImage slider = new GreenfootImage("images/Slider.png");
     private Bar scale;
+    private int leftBoundary;
+    private int rightBoundary;
     private String variable;
     private int originalX;
     private boolean isDragging;
@@ -52,8 +54,8 @@ public class Slider extends Actor
     }
     
     private void boundary(){
-        int leftBoundary = scale.getX() - scale.getImage().getWidth() / 2;
-        int rightBoundary = scale.getX() + scale.getImage().getWidth() / 2;
+        leftBoundary = scale.getX() - scale.getImage().getWidth() / 2;
+        rightBoundary = scale.getX() + scale.getImage().getWidth() / 2;
         if(getX() < leftBoundary) setLocation(leftBoundary, scale.getY());
         if(getX() > rightBoundary) setLocation(rightBoundary, scale.getY());
     }
