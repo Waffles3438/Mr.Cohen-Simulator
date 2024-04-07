@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class Person extends SuperSmoothMover
 {
-    public final static int GRID_CHECK = 20; // the space in between when path finding
+    public final static int GRID_CHECK = 10; // the space in between when path finding
     // In order of x, y
     protected Queue<int[]> currentPath;
     protected double speed;
@@ -30,18 +30,30 @@ public class Person extends SuperSmoothMover
     {
         // Add your action code here.
         if (currentPath.size() > 0) {
-            
+            double distanceRequired = speed;
             int[] position = currentPath.peek();
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
                 setLocation(position[0], position[1]);
                 currentPath.poll();
+                distanceRequired -= distance;
+                
+            } else {
+                move(speed);
             }
-            move(speed);
+            
         }
     }
     
+    /**
+     * Finds the shortest path from the current location to the given location
+     * Uses A* algorithm to compute the shortest distance
+     * The algo checks every (GRID_CHECK) pixels
+     *
+     * @param targetX The X position to find
+     * @param targetY The y position to find
+     */
     public void pathFind(int targetX, int targetY) {
         int exactStartX = getX();
         int exactStartY = getY();
