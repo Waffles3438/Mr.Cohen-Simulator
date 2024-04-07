@@ -16,4 +16,11 @@ public class Janitor extends Person
     {
         // Add your action code here.
     }
+    
+    public Janitor()
+    {
+        // Create Janitor at door entrance (bottom right of classroom)
+    }
+    
+    
 }
