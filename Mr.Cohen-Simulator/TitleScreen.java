@@ -35,15 +35,15 @@ public class TitleScreen extends World{
     private void checkButtons(){
         if(start.isPressed()){
             Greenfoot.setWorld(new Simulator());
-            settings.setPressedCondition(false);
+            start.setPressedCondition(false);
         }
         if(settings.isPressed()){
             Greenfoot.setWorld(modifier);
             settings.setPressedCondition(false);
         }
         if(credits.isPressed()){
-            Greenfoot.setWorld(new CreditsScreen());
-            settings.setPressedCondition(false);
+            Greenfoot.setWorld(new CreditsScreen(this));
+            credits.setPressedCondition(false);
         }
     }
 }

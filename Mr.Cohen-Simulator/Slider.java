@@ -46,7 +46,6 @@ public class Slider extends Actor
 
             if (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(this)) {
                 isDragging = false;
-                System.out.println("wow");
             }
         }
         
