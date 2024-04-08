@@ -12,9 +12,10 @@ public class Janitor extends Person
      * Act - do whatever the Janitor wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    private int spillChance;
     public void act()
     {
-        // Add your action code here.
+        
     }
     
     public Janitor()
@@ -22,5 +23,18 @@ public class Janitor extends Person
         // Create Janitor at door entrance (bottom right of classroom)
     }
     
+    protected void spill()
+    {
+        
+    }
     
+    protected void cleanFloor()
+    {
+        
+    }
+    
+    protected int getSpillChance()
+    {
+        return spillChance;
+    }
 }
