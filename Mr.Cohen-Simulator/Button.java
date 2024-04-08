@@ -44,6 +44,9 @@ public class Button extends Actor
      */
     public void act()
     {
+        if (pressed) {
+            pressed = false;
+        }
         if (Greenfoot.mouseMoved(this)) {
             hover = true;
             if (imageStates.length > 1) {

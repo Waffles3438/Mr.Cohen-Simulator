@@ -10,10 +10,13 @@ public class Computer extends Actor
 {
     protected int durability;
     protected String type;
+    protected GreenfootImage deviceImage;
+    // change this possbily to a list
+    protected GreenfootImage screenImage;
+    protected GreenfootImage fullImage;
     
-    public Computer(String type) {
+    public Computer(double durabilityMultiplier) {
         durability = Greenfoot.getRandomNumber(101);
-        this.type = type;
     }
     
     public Computer() {
@@ -33,10 +36,12 @@ public class Computer extends Actor
     {
         if (durability > 0)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     
-    
+    public void setScreen() {
+        
+    }
 }
