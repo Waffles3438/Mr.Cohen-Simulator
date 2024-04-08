@@ -9,19 +9,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class CreditsScreen extends World
 {
     private Button back = new Button("back", 3, ".png");
+    private TitleScreen titleScreen;
     /**
      * Constructor for objects of class CreditsScreen.
      * 
      */
-    public CreditsScreen()
+    public CreditsScreen(TitleScreen titleScreen)
     {    
         super(1260, 720, 1);
         addObject(back, 75, 75);
+        this.titleScreen = titleScreen;
     }
     
     public void act(){
         if(back.isPressed()){
-            Greenfoot.setWorld(new TitleScreen());
+            Greenfoot.setWorld(titleScreen);
+            back.setPressedCondition(false);
+
         }
     }
 }

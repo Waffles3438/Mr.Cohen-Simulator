@@ -39,6 +39,8 @@ public class Bar extends Actor
     private void setSliderLocation(){
         if(Greenfoot.mousePressed(this)){
             s.setLocation(mouse.getX(), getY());
+            s.setDrag(true);
         }
+        
     }
 }

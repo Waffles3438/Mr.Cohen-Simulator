@@ -24,8 +24,8 @@ public class Modifier extends World
     private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
     private Label IQ = new Label(studentIQ, 100);
 
+    private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
-    private Button backToTitle = new Button("back", 3, ".png");
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
     
@@ -41,20 +41,19 @@ public class Modifier extends World
            Desktop -> 3
        */
     protected static int computerType;
+    private TitleScreen titleScreen;
 
     private boolean firstTime = true;
-
-    private TitleScreen world;
     
     public Modifier(TitleScreen titleScreen){
         super(1260, 720, 1, false);
         setBackground(background);
-        world = titleScreen;
         
         numDays = 10;
         chanceOfLaptopBreaking = 25;
         studentIQ = 60;
-
+        
+        this.titleScreen = titleScreen;
         prepare();
         
         if(firstTime){
@@ -64,36 +63,6 @@ public class Modifier extends World
 
         //computerType = 0;
         //choosenType = computerList[computerType];
-    }
-
-    public void act(){
-        mouse = Greenfoot.getMouseInfo();
-        updateValues();
-        checkButton();
-    }
-
-    public void updateValues(){
-        days.setValue(numDays);
-        breakingChance.setValue(chanceOfLaptopBreaking);
-        IQ.setValue(studentIQ);
-    }
-
-    private void checkButton(){
-        if(backToTitle.isPressed()){
-            Greenfoot.setWorld(world);
-            backToTitle.setPressedCondition(false);
-        }
-        if(startSim.isPressed()){
-            Greenfoot.setWorld(new Simulator());
-        }
-        if(leftFlipButton.isPressed()){
-            leftFlipButton.action();
-            leftFlipButton.setPressedCondition(false);
-        }
-        if(rightFlipButton.isPressed()){
-            rightFlipButton.action();
-            rightFlipButton.setPressedCondition(false);
-        }
     }
     
     /**
@@ -117,7 +86,7 @@ public class Modifier extends World
         addObject(bar3, 210 + 2 * 390, 490);
 
         addObject(startSim, 1050, 665);
-        addObject(backToTitle, 100, 665);
+        addObject(back, 100, 665);
 
         addObject(days, 280, 360);
         addObject(breakingChance, 245 + 390, 360);
@@ -126,5 +95,36 @@ public class Modifier extends World
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
         leftFlipButton.setLocation(75,369);
+    }
+
+    public void act(){
+        mouse = Greenfoot.getMouseInfo();
+        updateValues();
+        checkButton();
+    }
+
+    public void updateValues(){
+        days.setValue(numDays);
+        breakingChance.setValue(chanceOfLaptopBreaking);
+        IQ.setValue(studentIQ);
+    }
+
+    private void checkButton(){
+        if(back.isPressed()){
+            Greenfoot.setWorld(titleScreen);
+            back.setPressedCondition(false);
+        }
+        if(startSim.isPressed()){
+            Greenfoot.setWorld(new Simulator(titleScreen));
+            startSim.setPressedCondition(false);
+        }
+        if(leftFlipButton.isPressed()){
+            leftFlipButton.action();
+            leftFlipButton.setPressedCondition(false);
+        }
+        if(rightFlipButton.isPressed()){
+            rightFlipButton.action();
+            rightFlipButton.setPressedCondition(false);
+        }
     }
 }

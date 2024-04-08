@@ -8,12 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
-    
+    private Button back = new Button("back", 3, ".png");
+    private TitleScreen titleScreen;
     /**
      * Constructor for objects of class Simulator.
      * 
      */
-    public Simulator()
+    public Simulator(TitleScreen titleScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -24,9 +25,14 @@ public class Simulator extends World
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
         setBackground(image);
-        
+        addObject(back, 75, 75);
+        this.titleScreen = titleScreen;
     }
     
-    
-    
+    public void act(){
+        if(back.isPressed()){
+            Greenfoot.setWorld(titleScreen);
+            back.setPressedCondition(false);
+        }
+    }
 }

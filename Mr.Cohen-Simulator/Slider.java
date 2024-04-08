@@ -43,8 +43,8 @@ public class Slider extends Actor
             if (isDragging) {
                 setLocation(mouse.getX(), getY());
             }
-            
-            if (Greenfoot.mouseDragEnded(null)) {
+
+            if (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(this)) {
                 isDragging = false;
             }
         }
@@ -73,5 +73,9 @@ public class Slider extends Actor
             int increase = (int) (distance / 2.13);
             settings.studentIQ = 60 + increase;
         }
+    }
+    
+    public void setDrag(boolean state) {
+        isDragging = state;
     }
 }
