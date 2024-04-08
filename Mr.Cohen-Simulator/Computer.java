@@ -11,8 +11,8 @@ public class Computer extends Actor
     protected int durability;
     protected String type;
     
-    public Computer(int durability, String type) {
-        this.durability = durability;
+    public Computer(String type) {
+        durability = Greenfoot.getRandomNumber(101);
         this.type = type;
     }
     
