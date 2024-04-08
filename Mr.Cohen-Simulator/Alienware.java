@@ -11,7 +11,7 @@ public class Alienware extends Computer
     
     public Alienware() 
     {
-        
+        super("Alienware");
     }
     
     /**
