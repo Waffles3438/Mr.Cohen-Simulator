@@ -10,6 +10,8 @@ public class TitleScreen extends World{
     private Button settings = new Button("settings", 3, ".png");
     private Button credits = new Button("credits", 3, ".png");
     
+    private Modifier modifier;
+
     public static boolean firstTime = true;
     
     public TitleScreen(){
@@ -22,6 +24,8 @@ public class TitleScreen extends World{
             Button.init();
             firstTime = false;
         }
+        
+        modifier = new Modifier(this);
     }
     
     public void act(){
@@ -34,6 +38,8 @@ public class TitleScreen extends World{
         }
         if(settings.isPressed()){
             Greenfoot.setWorld(new SettingsScreen());
+            Greenfoot.setWorld(modifier);
+            settings.setPressedCondition(false);
         }
         if(credits.isPressed()){
             Greenfoot.setWorld(new CreditsScreen());
