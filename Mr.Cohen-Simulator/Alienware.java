@@ -16,11 +16,11 @@ public class Alienware extends Computer
         // width is 440, height is 245
         deviceImage.scale(440, 245);
         
-        screenImage = new GreenfootImage(400, 230);
-        screenImage.setColor(new Color(10, 10, 10));
+        screenImage = new GreenfootImage(deviceImage.getWidth()*49/64, deviceImage.getHeight()*72/90);
+        screenImage.setColor(new Color(255, 100, 100));
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
-        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, 10);
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, 18);
         setImage(fullImage);
     }
     
