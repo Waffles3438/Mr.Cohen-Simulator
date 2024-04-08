@@ -5,6 +5,7 @@ dependency1.from=CreditsScreen
 dependency1.to=Button
 dependency1.type=UsesDependency
 dependency10.from=Modifier
+<<<<<<< HEAD
 dependency10.to=LeftFlipButton
 dependency10.type=UsesDependency
 dependency11.from=Modifier
@@ -33,10 +34,41 @@ dependency18.to=Bar
 dependency18.type=UsesDependency
 dependency19.from=Slider
 dependency19.to=Modifier
+=======
+dependency10.to=Button
+dependency10.type=UsesDependency
+dependency11.from=Modifier
+dependency11.to=LeftFlipButton
+dependency11.type=UsesDependency
+dependency12.from=Modifier
+dependency12.to=RightFlipButton
+dependency12.type=UsesDependency
+dependency13.from=Modifier
+dependency13.to=TitleScreen
+dependency13.type=UsesDependency
+dependency14.from=Modifier
+dependency14.to=Simulator
+dependency14.type=UsesDependency
+dependency15.from=Modifier
+dependency15.to=Box
+dependency15.type=UsesDependency
+dependency16.from=Modifier
+dependency16.to=Bar
+dependency16.type=UsesDependency
+dependency17.from=SettingsScreen
+dependency17.to=Button
+dependency17.type=UsesDependency
+dependency18.from=SettingsScreen
+dependency18.to=TitleScreen
+dependency18.type=UsesDependency
+dependency19.from=Slider
+dependency19.to=Bar
+>>>>>>> AndyFeng
 dependency19.type=UsesDependency
 dependency2.from=CreditsScreen
 dependency2.to=TitleScreen
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 dependency20.from=Bar
 dependency20.to=Slider
 dependency20.type=UsesDependency
@@ -64,6 +96,38 @@ dependency27.type=UsesDependency
 dependency28.from=RightFlipButton
 dependency28.to=Label
 dependency28.type=UsesDependency
+=======
+dependency20.from=Slider
+dependency20.to=Modifier
+dependency20.type=UsesDependency
+dependency21.from=Bar
+dependency21.to=Slider
+dependency21.type=UsesDependency
+dependency22.from=LeftFlipButton
+dependency22.to=Box
+dependency22.type=UsesDependency
+dependency23.from=LeftFlipButton
+dependency23.to=Bar
+dependency23.type=UsesDependency
+dependency24.from=LeftFlipButton
+dependency24.to=Slider
+dependency24.type=UsesDependency
+dependency25.from=LeftFlipButton
+dependency25.to=Label
+dependency25.type=UsesDependency
+dependency26.from=RightFlipButton
+dependency26.to=Box
+dependency26.type=UsesDependency
+dependency27.from=RightFlipButton
+dependency27.to=Bar
+dependency27.type=UsesDependency
+dependency28.from=RightFlipButton
+dependency28.to=Slider
+dependency28.type=UsesDependency
+dependency29.from=RightFlipButton
+dependency29.to=Label
+dependency29.type=UsesDependency
+>>>>>>> AndyFeng
 dependency3.from=TitleScreen
 dependency3.to=Button
 dependency3.type=UsesDependency
@@ -77,6 +141,7 @@ dependency6.from=TitleScreen
 dependency6.to=Simulator
 dependency6.type=UsesDependency
 dependency7.from=TitleScreen
+<<<<<<< HEAD
 dependency7.to=CreditsScreen
 dependency7.type=UsesDependency
 dependency8.from=Modifier
@@ -84,13 +149,26 @@ dependency8.to=Label
 dependency8.type=UsesDependency
 dependency9.from=Modifier
 dependency9.to=Button
+=======
+dependency7.to=SettingsScreen
+dependency7.type=UsesDependency
+dependency8.from=TitleScreen
+dependency8.to=CreditsScreen
+dependency8.type=UsesDependency
+dependency9.from=Modifier
+dependency9.to=Label
+>>>>>>> AndyFeng
 dependency9.type=UsesDependency
 editor.fx.0.height=728
 editor.fx.0.width=800
 editor.fx.0.x=1966
 editor.fx.0.y=125
 height=944
+<<<<<<< HEAD
 package.numDependencies=28
+=======
+package.numDependencies=29
+>>>>>>> AndyFeng
 package.numTargets=19
 project.charset=UTF-8
 publish.hasSource=false
@@ -242,5 +320,10 @@ target9.y=0
 version=3.1.0
 width=1512
 world.lastInstantiated=TitleScreen
+<<<<<<< HEAD
 xPosition=1634
 yPosition=60
+=======
+xPosition=0
+yPosition=38
+>>>>>>> AndyFeng

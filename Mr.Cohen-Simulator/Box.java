@@ -17,6 +17,9 @@ public class Box extends Actor
      */
     private GreenfootImage box = new GreenfootImage("images/Box.png");
     
+    /**
+     * contructor of box, really just a box
+     */
     public Box(){
         setImage(box);
     }

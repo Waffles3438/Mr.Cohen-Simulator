@@ -23,6 +23,14 @@ public class Bar extends Actor
     private GreenfootImage bar = new GreenfootImage("images/bar.png");
     private Slider s;
     
+    /**
+     * the constructor of bar class, when a bar is created, a slider
+     * will be created with it
+     * 
+     * @ parameter
+     * @ String controlVariable: tells the bar which instance variable
+     * in the modifier world it is going to control
+     */
     public Bar(String controlVariable){
         setImage(bar);
         s = new Slider(this, controlVariable);
@@ -36,6 +44,11 @@ public class Bar extends Actor
         setSliderLocation();
     }
     
+    /**
+     * set the location of the slider to the position of the mouse when
+     * the mouse is clicking on the bar random location on the bar.
+     * 
+     */
     private void setSliderLocation(){
         if(Greenfoot.mousePressed(this)){
             s.setLocation(mouse.getX(), getY());
