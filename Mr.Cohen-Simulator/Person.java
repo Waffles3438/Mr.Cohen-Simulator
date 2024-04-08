@@ -24,7 +24,7 @@ public class Person extends SuperSmoothMover
         speed = 5;
         enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
-        avoidList.add(Actor.class);
+        avoidList.add(Image.class);
     }
     /**
      * Act - do whatever the Person wants to do. This method is called whenever
@@ -68,8 +68,11 @@ public class Person extends SuperSmoothMover
      *
      * @param targetX The X position to find
      * @param targetY The y position to find
+     * @param radius How far/close can the person be from the given points for it to count as a path found
+     * @return boolean Returns if a path is found
      */
-    public void pathFind(int targetX, int targetY) {
+    public boolean pathFind(int targetX, int targetY, double radius) {
+        boolean pathFound = false;
         int exactStartX = getX();
         int exactStartY = getY();
         int totalRows = getWorld().getHeight()/GRID_CHECK;
@@ -106,8 +109,9 @@ public class Person extends SuperSmoothMover
                 continue;
             }
             closedList[r][c] = true;
-            if (r == targetRow && c == targetCol) {
+            if (r == targetRow && c == targetCol || (getDistance(new int[]{c, r}, new int[]{targetCol, targetRow})*GRID_CHECK <= radius)) {
                 System.out.println("found path");
+                pathFound = true;
                 currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
                 break;
             }
@@ -167,10 +171,11 @@ public class Person extends SuperSmoothMover
             
         }
         System.out.println("done");
+        return pathFound;
     }
     
-    public void pathFind(Actor actor) {
-        pathFind(actor.getX(), actor.getY());
+    public boolean pathFind(Actor actor, double radius) {
+        return pathFind(actor.getX(), actor.getY(), radius);
     }
     
     public ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
