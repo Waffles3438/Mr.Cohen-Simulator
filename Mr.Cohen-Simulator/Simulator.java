@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
+    private Button back = new Button("back", 3, ".png");
     
     /**
      * Constructor for objects of class Simulator.
@@ -24,9 +25,13 @@ public class Simulator extends World
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
         setBackground(image);
-        
+        addObject(back, 75, 75);
     }
     
-    
-    
+    public void act(){
+        if(back.isPressed()){
+            Greenfoot.setWorld(TitleScreen.titleScreen);
+            back.setPressedCondition(false);
+        }
+    }
 }
