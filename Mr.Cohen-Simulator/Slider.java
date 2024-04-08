@@ -43,7 +43,7 @@ public class Slider extends Actor
             if (isDragging) {
                 setLocation(mouse.getX(), getY());
             }
-            
+
             if (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(this)) {
                 isDragging = false;
                 System.out.println("wow");
