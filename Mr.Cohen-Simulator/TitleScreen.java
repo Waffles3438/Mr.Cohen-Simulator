@@ -11,10 +11,10 @@ public class TitleScreen extends World{
     private Button credits = new Button("credits", 3, ".png");
     protected Button back = new Button("back", 3, ".png");
     
-    protected static Simulator simulatorScreen = new Simulator();
-    protected CreditsScreen creditsScreen = new CreditsScreen();
-    protected Modifier modifier = new Modifier(this);
-    protected static TitleScreen titleScreen = new TitleScreen();
+    protected Simulator simulatorScreen = new Simulator(this);
+    protected CreditsScreen creditsScreen;
+    protected Modifier modifier;
+    protected TitleScreen titleScreen;
 
     public static boolean firstTime = true;
     
@@ -28,6 +28,8 @@ public class TitleScreen extends World{
             Button.init();
             firstTime = false;
         }
+        creditsScreen = new CreditsScreen(this);
+        modifier = new Modifier(this);
     }
     
     public void act(){

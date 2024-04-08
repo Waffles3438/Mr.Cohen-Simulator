@@ -41,6 +41,7 @@ public class Modifier extends World
            Desktop -> 3
        */
     protected static int computerType;
+    private TitleScreen titleScreen;
 
     private boolean firstTime = true;
     
@@ -51,7 +52,8 @@ public class Modifier extends World
         numDays = 10;
         chanceOfLaptopBreaking = 25;
         studentIQ = 60;
-
+        
+        this.titleScreen = titleScreen;
         prepare();
         
         if(firstTime){
@@ -109,11 +111,11 @@ public class Modifier extends World
 
     private void checkButton(){
         if(back.isPressed()){
-            Greenfoot.setWorld(TitleScreen.titleScreen);
+            Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            Greenfoot.setWorld(TitleScreen.simulatorScreen);
+            Greenfoot.setWorld(new Simulator(titleScreen));
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed()){
