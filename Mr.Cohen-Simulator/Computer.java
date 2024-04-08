@@ -9,9 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Computer extends Actor
 {
     protected int durability;
+    protected String type;
     
-    public Computer(int durability) {
+    public Computer(int durability, String type) {
         this.durability = durability;
+        this.type = type;
     }
     
     public Computer() {
@@ -26,4 +28,15 @@ public class Computer extends Actor
     {
         // Add your action code here.
     }
+    
+    public boolean isBroken()
+    {
+        if (durability > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    
 }
