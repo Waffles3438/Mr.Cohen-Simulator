@@ -12,33 +12,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Actor
 {
-    //private static GreenfootSound clickEffect = new GreenfootSound("sounds/click_sound.mp3");
     private boolean hover = false;
     private boolean mouseDown = false;
     protected GreenfootImage[] imageStates;
     private static GreenfootSound[] click;
     private static int clickIndex = 0;
     
-    public static void init(){
-        clickIndex = 0;
-        click = new GreenfootSound[64];
-        for (int i = 0; i < click.length; i++){
-            click[i] = new GreenfootSound("click.mp3");
-            click[i].play();
-            Greenfoot.delay(1);
-            click[i].stop();
-        }
-    }
+    private boolean pressed = false;
     
-    public void playClick(){
-        click[clickIndex].setVolume(50);
-        click[clickIndex].play();
-        clickIndex++;
-        if (clickIndex >= click.length){
-            clickIndex = 0;
-        }
-    }
-        
     /**
      * The construtor for the Button
      * @param imageStates Where the image is located
@@ -86,7 +67,10 @@ public class Button extends Actor
                                                                                                                                                                                                                                                                        
         if (Greenfoot.mouseClicked(this) && mouseDown) {
             playClick();
-            action();
+            //action();
+            
+            pressed = true;
+            
             mouseDown = false;
             if (imageStates.length > 2) {
                 setImage(imageStates[1]);
@@ -112,10 +96,38 @@ public class Button extends Actor
         }
     }
     
+    public static void init(){
+        clickIndex = 0;
+        click = new GreenfootSound[64];
+        for (int i = 0; i < click.length; i++){
+            click[i] = new GreenfootSound("click.mp3");
+            click[i].play();
+            Greenfoot.delay(1);
+            click[i].stop();
+        }
+    }
+    
+    public void playClick(){
+        click[clickIndex].setVolume(50);
+        click[clickIndex].play();
+        clickIndex++;
+        if (clickIndex >= click.length){
+            clickIndex = 0;
+        }
+    }
+    
+    public void setPressedCondition(boolean trueOrFalse){
+        pressed = trueOrFalse;
+    }
+    
     /**
      * Action does nothing in this class but should be in the subclasses
      */
     public void action() {
-        // Does nothing. Should be added in the subclasses
+        // does nothing should be in sub class
+    }
+    
+    public boolean isPressed(){
+        return pressed;
     }
 }

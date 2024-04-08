@@ -24,6 +24,11 @@ public class Modifier extends World
     private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
     private Label IQ = new Label(studentIQ, 100);
 
+    private Button startSim = new Button("start", 3, ".png");
+    private Button backToTitle = new Button("back", 3, ".png");
+    private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
+    private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
+    
     protected static int numDays;
     protected static int chanceOfLaptopBreaking;
     protected static int studentIQ;
@@ -39,11 +44,13 @@ public class Modifier extends World
 
     private boolean firstTime = true;
 
+    private TitleScreen world;
     
-    public Modifier(){
+    public Modifier(TitleScreen titleScreen){
         super(1260, 720, 1, false);
         setBackground(background);
-
+        world = titleScreen;
+        
         numDays = 10;
         chanceOfLaptopBreaking = 25;
         studentIQ = 60;
@@ -62,6 +69,7 @@ public class Modifier extends World
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateValues();
+        checkButton();
     }
 
     public void updateValues(){
@@ -70,6 +78,23 @@ public class Modifier extends World
         IQ.setValue(studentIQ);
     }
 
+    private void checkButton(){
+        if(backToTitle.isPressed()){
+            Greenfoot.setWorld(world);
+            backToTitle.setPressedCondition(false);
+        }
+        if(startSim.isPressed()){
+            Greenfoot.setWorld(new Simulator());
+        }
+        if(leftFlipButton.isPressed()){
+            leftFlipButton.action();
+            leftFlipButton.setPressedCondition(false);
+        }
+        if(rightFlipButton.isPressed()){
+            rightFlipButton.action();
+            rightFlipButton.setPressedCondition(false);
+        }
+    }
     
     /**
      * Prepare the world for the start of the program.
@@ -91,9 +116,6 @@ public class Modifier extends World
         addObject(bar2, 245 + 390, 490);
         addObject(bar3, 210 + 2 * 390, 490);
 
-        Button startSim = new startButton("start", 3, ".png");
-        Button backToTitle = new backButton("back", 3, ".png");
-
         addObject(startSim, 1050, 665);
         addObject(backToTitle, 100, 665);
 
@@ -101,8 +123,6 @@ public class Modifier extends World
         addObject(breakingChance, 245 + 390, 360);
         addObject(IQ, 210 + 2 * 390, 360);
 
-        Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
-        Button rightFlipButton = new RightFlipButton("right", 3, ".png");
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
         leftFlipButton.setLocation(75,369);
