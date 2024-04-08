@@ -6,11 +6,15 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 /**
- * Person class
- * Uses A* for path finding
+ * <div>
+ * All people in the simulation are a subclass of this class
+ * This class gives the basic methods to all people
+ * </div>
+ * Uses A* for path finding. <br>
+ * Some information on the algorithm: <a href="https://en.wikipedia.org/wiki/A*_search_algorithm"> A* Star</a><br>
  * 
  * @author Felix Zhao
- * @version April 6th 2024
+ * @version April 8th 2024
  */
 public class Person extends SuperSmoothMover
 {

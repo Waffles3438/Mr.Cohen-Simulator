@@ -1,14 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Student here.
+ * <div>Students will walk around in the simulation and doing different tasks</div>
+ * They have different IQs
  * 
- * @author (your name) 
+ * @author Felix Zhao
  * @version (a version number or a date)
  */
 public class Student extends Person
 {
     private int iq;
+    
+    
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 180;
     /**
@@ -19,7 +22,9 @@ public class Student extends Person
     {
         // Add your action code here.
         super.act();
-        randomMoveCounter++;
+        if (currentPath.size() == 0) {
+            randomMoveCounter++;
+        }
         if (randomMoveCounter >= randomMoveCooldown) {
             if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0)) {
                 randomMoveCounter = 0;
