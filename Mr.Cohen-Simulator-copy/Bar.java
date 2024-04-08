@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * When create a bar, a slider will be created together, they are one
  * set. So please keep in mind to create a bar instead of a slider
  * 
- * @ Andy
+ * @ Author: Andy
  * @ version 1.0 (Apr 5th, 2024)
  * 
  * reference: 
@@ -18,6 +18,8 @@ public class Bar extends Actor
      * Act - do whatever the Bar wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    
+    private MouseInfo mouse;
     private GreenfootImage bar = new GreenfootImage("images/bar.png");
     private Slider s;
     
@@ -30,5 +32,13 @@ public class Bar extends Actor
     {
         // Add your action code here.
         getWorld().addObject(s, getX() - getImage().getWidth() / 2, getY());
+        mouse = Greenfoot.getMouseInfo();
+        setSliderLocation();
+    }
+    
+    private void setSliderLocation(){
+        if(Greenfoot.mousePressed(this)){
+            s.setLocation(mouse.getX(), getY());
+        }
     }
 }

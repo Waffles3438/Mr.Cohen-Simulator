@@ -24,5 +24,6 @@ public class startButton extends Button
     
     public void action(){
         Greenfoot.setWorld(new Modifier());
+        //change this to Greenfoot.setWorld(new Simulator());
     }
 }
