@@ -14,16 +14,18 @@ public class CreditsScreen extends World
      * Constructor for objects of class CreditsScreen.
      * 
      */
-    public CreditsScreen()
+    public CreditsScreen(TitleScreen titleScreen)
     {    
         super(1260, 720, 1);
         addObject(back, 75, 75);
+        this.titleScreen = titleScreen;
     }
     
     public void act(){
         if(back.isPressed()){
             Greenfoot.setWorld(TitleScreen.titleScreen);
             back.setPressedCondition(false);
+
         }
     }
 }
