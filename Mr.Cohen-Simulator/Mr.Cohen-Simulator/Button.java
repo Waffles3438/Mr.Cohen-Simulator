@@ -115,7 +115,7 @@ public class Button extends Actor
             clickIndex = 0;
         }
     }
-    
+
     public void setPressedCondition(boolean trueOrFalse){
         pressed = trueOrFalse;
     }
