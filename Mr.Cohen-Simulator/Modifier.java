@@ -63,14 +63,11 @@ public class Modifier extends World
             Button.init();
             firstTime = false;
         }
-
-<<<<<<< HEAD
+        
         //computerType = 0;
         //choosenType = computerList[computerType];
-=======
         canFlipLeft = false;
         canFlipRight = true;
->>>>>>> AndyFeng
     }
     
     /**
@@ -104,36 +101,30 @@ public class Modifier extends World
         addObject(rightFlipButton, 1190,360);
         leftFlipButton.setLocation(75,369);
     }
-
-<<<<<<< HEAD
-=======
+    
     //just an act method
->>>>>>> AndyFeng
+
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateValues();
         checkButton();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * update the values of labels inside the modifier world
      */
->>>>>>> AndyFeng
+
     public void updateValues(){
         days.setValue(numDays);
         breakingChance.setValue(chanceOfLaptopBreaking);
         IQ.setValue(studentIQ);
     }
 
-<<<<<<< HEAD
-=======
+
     /**
      * method which check which button is clicked
      * each button has their own function.
      */
->>>>>>> AndyFeng
     private void checkButton(){
         if(back.isPressed()){
             Greenfoot.setWorld(titleScreen);
@@ -143,15 +134,6 @@ public class Modifier extends World
             Greenfoot.setWorld(new Simulator(titleScreen));
             startSim.setPressedCondition(false);
         }
-<<<<<<< HEAD
-        if(leftFlipButton.isPressed()){
-            leftFlipButton.action();
-            leftFlipButton.setPressedCondition(false);
-        }
-        if(rightFlipButton.isPressed()){
-            rightFlipButton.action();
-            rightFlipButton.setPressedCondition(false);
-=======
         if(leftFlipButton.isPressed() && canFlipLeft){
             leftFlipButton.action();
             leftFlipButton.setPressedCondition(false);
@@ -163,7 +145,6 @@ public class Modifier extends World
             rightFlipButton.setPressedCondition(false);
             canFlipLeft = true;
             canFlipRight = false;
->>>>>>> AndyFeng
         }
     }
 }
