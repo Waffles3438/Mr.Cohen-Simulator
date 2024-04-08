@@ -8,12 +8,30 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Janitor extends Person
 {
-    /**
-     * Act - do whatever the Janitor wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private int spillChance;
+    
+    public Janitor()
+    {
+        spillChance = Greenfoot.getRandomNumber(101);
+    }
+    
     public void act()
     {
-        // Add your action code here.
+        
+    }
+    
+    protected void spill()
+    {
+        
+    }
+    
+    protected void cleanFloor()
+    {
+        
+    }
+    
+    protected int getSpillChance()
+    {
+        return spillChance;
     }
 }
