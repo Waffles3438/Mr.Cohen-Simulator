@@ -20,21 +20,30 @@ public class Slider extends Actor
     private String variable;
     private int originalX;
     private boolean isDragging;
-    private boolean valueUpdate;
     
+    /**
+     * the contructor of slider class
+     * 
+     * @ parameter
+     * @ Bar bar: the bar which created it, the bar passed it and the 
+     * slider will be one group of slider and bar
+     * @ String controlVariable: tell the slider which instance variable
+     * in the modifier world it is going to manipulate
+     */
     public Slider(Bar bar, String controlVariable){
         setImage(slider);
         scale = bar;
         variable = controlVariable;
         isDragging = false;
-        valueUpdate = false;
     }
     
+    //just an normal act method
     public void act()
     {
         originalX = scale.getX() - scale.getImage().getWidth() / 2;
         mouse = Greenfoot.getMouseInfo();
         
+        //check if the mouse is dragging the slider
         if (mouse != null) {
             if (Greenfoot.mousePressed(this)) {
                 isDragging = true;
@@ -53,6 +62,9 @@ public class Slider extends Actor
         changeAndUpdateValue();
     }
     
+    /**
+     * method which limits the slider to move only on the bar
+     */
     private void boundary(){
         leftBoundary = scale.getX() - scale.getImage().getWidth() / 2;
         rightBoundary = scale.getX() + scale.getImage().getWidth() / 2;
@@ -60,6 +72,11 @@ public class Slider extends Actor
         if(getX() > rightBoundary) setLocation(rightBoundary, scale.getY());
     }
     
+    /**
+     * change and update the value of instance variables in the modifier
+     * world by calculating the distance between the current position
+     * and the original position
+     */
     private void changeAndUpdateValue(){
         Modifier settings = (Modifier) getWorld();
         int distance = getX() - originalX;

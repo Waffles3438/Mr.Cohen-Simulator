@@ -12,17 +12,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Modifier extends World
 {
-
-    /**
-     * Constructor for objects of class MyWorld.
-     * 
-     */
     private GreenfootImage background = new GreenfootImage("images/Modifier.png");
 
     private MouseInfo mouse;
     private Label days = new Label(numDays, 100);
     private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
     private Label IQ = new Label(studentIQ, 100);
+    private boolean canFlipRight;
+    private boolean canFlipLeft;
 
     private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
@@ -45,6 +42,12 @@ public class Modifier extends World
 
     private boolean firstTime = true;
     
+    /**
+     * contructor of Modifier World
+     * @ parameter
+     * @ TitleScreen titleScreen: tell Modifier world which world it comes
+     * from, so that we dont need to constantly creating new world
+     */
     public Modifier(TitleScreen titleScreen){
         super(1260, 720, 1, false);
         setBackground(background);
@@ -61,8 +64,13 @@ public class Modifier extends World
             firstTime = false;
         }
 
+<<<<<<< HEAD
         //computerType = 0;
         //choosenType = computerList[computerType];
+=======
+        canFlipLeft = false;
+        canFlipRight = true;
+>>>>>>> AndyFeng
     }
     
     /**
@@ -97,18 +105,35 @@ public class Modifier extends World
         leftFlipButton.setLocation(75,369);
     }
 
+<<<<<<< HEAD
+=======
+    //just an act method
+>>>>>>> AndyFeng
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateValues();
         checkButton();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * update the values of labels inside the modifier world
+     */
+>>>>>>> AndyFeng
     public void updateValues(){
         days.setValue(numDays);
         breakingChance.setValue(chanceOfLaptopBreaking);
         IQ.setValue(studentIQ);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * method which check which button is clicked
+     * each button has their own function.
+     */
+>>>>>>> AndyFeng
     private void checkButton(){
         if(back.isPressed()){
             Greenfoot.setWorld(titleScreen);
@@ -118,6 +143,7 @@ public class Modifier extends World
             Greenfoot.setWorld(new Simulator(titleScreen));
             startSim.setPressedCondition(false);
         }
+<<<<<<< HEAD
         if(leftFlipButton.isPressed()){
             leftFlipButton.action();
             leftFlipButton.setPressedCondition(false);
@@ -125,6 +151,19 @@ public class Modifier extends World
         if(rightFlipButton.isPressed()){
             rightFlipButton.action();
             rightFlipButton.setPressedCondition(false);
+=======
+        if(leftFlipButton.isPressed() && canFlipLeft){
+            leftFlipButton.action();
+            leftFlipButton.setPressedCondition(false);
+            canFlipLeft = false;
+            canFlipRight = true;
+        }
+        if(rightFlipButton.isPressed() && canFlipRight){
+            rightFlipButton.action();
+            rightFlipButton.setPressedCondition(false);
+            canFlipLeft = true;
+            canFlipRight = false;
+>>>>>>> AndyFeng
         }
     }
 }

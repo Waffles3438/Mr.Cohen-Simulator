@@ -23,6 +23,9 @@ public class RightFlipButton extends Button
         super.act();
     }
     
+    /**
+     * get all Box, Bar, Slider and Label objects.
+     */
     public void action(){
         List<Box> boxes = getWorld().getObjects(Box.class);
         List<Bar> bars = getWorld().getObjects(Bar.class);
@@ -35,6 +38,9 @@ public class RightFlipButton extends Button
         moveObjects(labels);
     }
     
+    /**
+     * move every object passed into this method 1260 pixels right
+     */
     private void moveObjects(List <? extends Actor> objects){
         for(Actor object : objects){
             object.setLocation(object.getX() + 1260, object.getY());
