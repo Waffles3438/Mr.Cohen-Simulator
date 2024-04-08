@@ -11,7 +11,6 @@ public class TitleScreen extends World{
     private Button credits = new Button("credits", 3, ".png");
     protected Button back = new Button("back", 3, ".png");
     
-    protected Simulator simulatorScreen = new Simulator(this);
     protected CreditsScreen creditsScreen;
     protected Modifier modifier;
     protected TitleScreen titleScreen;
@@ -38,7 +37,7 @@ public class TitleScreen extends World{
     
     private void checkButtons(){
         if(start.isPressed()){
-            Greenfoot.setWorld(simulatorScreen);
+            Greenfoot.setWorld(new Simulator(this));
             start.setPressedCondition(false);
         }
         if(settings.isPressed()){
