@@ -9,8 +9,12 @@ public class TitleScreen extends World{
     private Button start = new Button("start", 3, ".png");
     private Button settings = new Button("settings", 3, ".png");
     private Button credits = new Button("credits", 3, ".png");
+    protected Button back = new Button("back", 3, ".png");
     
-    private Modifier modifier;
+    protected static Simulator simulatorScreen = new Simulator();
+    protected CreditsScreen creditsScreen = new CreditsScreen();
+    protected Modifier modifier = new Modifier(this);
+    protected static TitleScreen titleScreen = new TitleScreen();
 
     public static boolean firstTime = true;
     
@@ -24,8 +28,6 @@ public class TitleScreen extends World{
             Button.init();
             firstTime = false;
         }
-        
-        modifier = new Modifier(this);
     }
     
     public void act(){
@@ -34,7 +36,7 @@ public class TitleScreen extends World{
     
     private void checkButtons(){
         if(start.isPressed()){
-            Greenfoot.setWorld(new Simulator());
+            Greenfoot.setWorld(simulatorScreen);
             start.setPressedCondition(false);
         }
         if(settings.isPressed()){
@@ -42,7 +44,7 @@ public class TitleScreen extends World{
             settings.setPressedCondition(false);
         }
         if(credits.isPressed()){
-            Greenfoot.setWorld(new CreditsScreen(this));
+            Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);
         }
     }

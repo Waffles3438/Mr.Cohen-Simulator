@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class CreditsScreen extends World
 {
     private Button back = new Button("back", 3, ".png");
-    private TitleScreen titleScreen;
+    
     /**
      * Constructor for objects of class CreditsScreen.
      * 
@@ -23,7 +23,9 @@ public class CreditsScreen extends World
     
     public void act(){
         if(back.isPressed()){
-            Greenfoot.setWorld(titleScreen);
+            Greenfoot.setWorld(TitleScreen.titleScreen);
+            back.setPressedCondition(false);
+
         }
     }
 }
