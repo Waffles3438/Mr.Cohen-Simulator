@@ -23,6 +23,8 @@ public class ValueBox extends Actor
     private boolean isTyping = false;
     private String currentlyTyping = "";
     private int typeCooldown = 20;
+    private boolean showBlink = false;
+    private int blinkCooldown = 60;
     
     public ValueBox(int min, int max, int yOffset, String controlVariable) {
         minVal = min;
@@ -61,46 +63,22 @@ public class ValueBox extends Actor
         if (Greenfoot.mouseClicked(this) && mouseDown) {
             mouseDown = false;
             isTyping = true;
-        } else if (Greenfoot.mouseClicked(null)) {
+        } else if ((!Greenfoot.mousePressed(this) && Greenfoot.mousePressed(null))) {
             mouseDown = false;
             isTyping = false;
             currentlyTyping = "";
             textLabel.setValue(currentVal);
+            bar.updateValue((double)(currentVal-minVal)/(maxVal-minVal));
             setImage(textLabel.getImage());
         }
         typeCooldown -= 1;
         if (isTyping && typeCooldown <= 0) {
+            String key = Greenfoot.getKey();
             if (currentlyTyping.length() < 3) {
-                if (Greenfoot.isKeyDown("1")) {
-                    currentlyTyping += "1";    
+                if (key != null && key.matches("\\d+")) {
+                    currentlyTyping += key;
                     typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("2")) {
-                    currentlyTyping += "2";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("3")) {
-                    currentlyTyping += "3";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("4")) {
-                    currentlyTyping += "4";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("5")) {
-                    currentlyTyping += "5";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("6")) {
-                    currentlyTyping += "6";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("7")) {
-                    currentlyTyping += "7";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("8")) {
-                    currentlyTyping += "8";   
-                    typeCooldown = 20;
-                } else if (Greenfoot.isKeyDown("9")) {
-                    currentlyTyping += "9";   
-                } else if (Greenfoot.isKeyDown("0")) {
-                    currentlyTyping += "0";   
-                    typeCooldown = 20;
-                } 
+                }
             } 
             if (Greenfoot.isKeyDown("Enter")) {
                 isTyping = false;
@@ -111,12 +89,13 @@ public class ValueBox extends Actor
                 currentVal = value;
                 currentlyTyping = "";
                 typeCooldown = 20;
-                
+                bar.updateValue((double)(currentVal-minVal)/(maxVal-minVal));
             } else if (Greenfoot.isKeyDown("Escape")) {
                 isTyping = false;
                 currentlyTyping = "";
                 textLabel.setValue(currentVal);
                 typeCooldown = 20;
+                bar.updateValue((double)(currentVal-minVal)/(maxVal-minVal));
             } else if (Greenfoot.isKeyDown("Backspace") && currentlyTyping.length() > 0) {
                 currentlyTyping = currentlyTyping.substring(0, currentlyTyping.length()-1);
                 typeCooldown = 20;
@@ -129,6 +108,10 @@ public class ValueBox extends Actor
                     textLabel.setValue("-");
                 } else {
                     textLabel.setValue(currentlyTyping);
+                    int typingValue = Integer.parseInt(currentlyTyping);
+                    typingValue = Math.max(minVal, typingValue);
+                    typingValue = Math.min(maxVal, typingValue);
+                    bar.updateValue((double)(typingValue-minVal)/(maxVal-minVal));
                 }
             }
             setImage(textLabel.getImage());
