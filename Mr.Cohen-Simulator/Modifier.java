@@ -120,6 +120,14 @@ public class Modifier extends World
         IQ.setValue(studentIQ);
     }
 
+    protected void startFromFirstPage(){
+        if(canFlipLeft){
+            leftFlipButton.action();
+            canFlipLeft = false;
+            canFlipRight = true;
+        }
+        else return;
+    }
 
     /**
      * method which check which button is clicked
