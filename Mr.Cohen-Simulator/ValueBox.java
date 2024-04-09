@@ -128,7 +128,7 @@ public class ValueBox extends Actor
     }
     
     public void update(double percent) {
-        System.out.println(percent);
+        //System.out.println(percent);
         currentVal = (int)(minVal*(1-percent)+maxVal*percent);
         textLabel.setValue(currentVal);
         setImage(textLabel.getImage());
