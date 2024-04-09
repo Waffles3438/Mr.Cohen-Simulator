@@ -24,15 +24,15 @@ public class ValueBox extends Actor
     private String currentlyTyping = "";
     private int typeCooldown = 20;
     
-    public ValueBox(int min, int max, int yOffSet, String controlVariable) {
+    public ValueBox(int min, int max, int yOffset, String controlVariable) {
         minVal = min;
         maxVal = max;
         currentVal = min;
         textLabel = new Label(min, 100);
         setImage(textLabel.getImage());
-        bar = new Bar(this, controlVariable);
         this.yOffset = yOffset;
-        System.out.println(yOffset);
+        bar = new Bar(this, controlVariable);
+        
     }
     
     public void addedToWorld(World w) {
