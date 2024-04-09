@@ -63,7 +63,9 @@ public class Modifier extends World
             Button.init();
             firstTime = false;
         }
-
+        
+        //computerType = 0;
+        //choosenType = computerList[computerType];
         canFlipLeft = false;
         canFlipRight = true;
     }
@@ -99,8 +101,9 @@ public class Modifier extends World
         addObject(rightFlipButton, 1190,360);
         leftFlipButton.setLocation(75,369);
     }
-
+    
     //just an act method
+
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateValues();
@@ -110,11 +113,13 @@ public class Modifier extends World
     /**
      * update the values of labels inside the modifier world
      */
+
     public void updateValues(){
         days.setValue(numDays);
         breakingChance.setValue(chanceOfLaptopBreaking);
         IQ.setValue(studentIQ);
     }
+
 
     /**
      * method which check which button is clicked

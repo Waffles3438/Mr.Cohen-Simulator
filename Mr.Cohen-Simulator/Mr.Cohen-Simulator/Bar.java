@@ -54,5 +54,6 @@ public class Bar extends Actor
             s.setLocation(mouse.getX(), getY());
             s.setDrag(true);
         }
+        
     }
 }

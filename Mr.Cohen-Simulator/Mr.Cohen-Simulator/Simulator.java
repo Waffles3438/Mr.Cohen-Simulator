@@ -11,7 +11,8 @@ public class Simulator extends World
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     /**
-     * Constructor for objects of class Simulator.
+     * Starts the simulation. Draws borders
+     * Spawns the students and Mr. Cohen
      * 
      */
     public Simulator(TitleScreen titleScreen)
@@ -27,6 +28,12 @@ public class Simulator extends World
         setBackground(image);
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
+        // starts are negative one as the coords are based in the middle
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                addObject(new Student(), 420 + i*220, 360 + j*180 + 50);
+            }
+        }
     }
     
     public void act(){
