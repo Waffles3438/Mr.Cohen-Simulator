@@ -30,7 +30,7 @@ public class Janitor extends Person
         
     }
     
-    protected int getSpillChance()
+    public int getSpillChance()
     {
         return spillChance;
     }
