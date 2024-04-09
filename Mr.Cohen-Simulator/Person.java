@@ -306,6 +306,3 @@ class Cell {
         parent_j = j;
     }
 }
-
-
-
