@@ -146,6 +146,8 @@ public class ValueBox extends Actor
      * @param percent The percent that determines what the value (0% - minVal to 100% - maxVal)
      */
     public void update(double percent) {
+        //System.out.println(percent);
+
         currentVal = (int)(minVal*(1-percent)+maxVal*percent);
         textLabel.setValue(currentVal);
         setImage(textLabel.getImage());

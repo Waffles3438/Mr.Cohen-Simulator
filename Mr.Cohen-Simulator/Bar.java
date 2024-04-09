@@ -39,7 +39,7 @@ public class Bar extends Actor
     public Bar(ValueBox valueBox){
         
         setImage(bar);
-        bar.scale((int) (getImage().getWidth() * 1.5), (int) (getImage().getHeight() * 1.5));      
+        bar.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.4));      
         s = new Slider(valueBox, this);
     }
 
