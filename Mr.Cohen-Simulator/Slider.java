@@ -15,12 +15,14 @@ public class Slider extends Actor
     private MouseInfo mouse;
     private GreenfootImage slider = new GreenfootImage("images/Slider.png");
     private Bar scale;
+    private ValueBox valueBox;
     private int leftBoundary;
     private int rightBoundary;
     private String variable;
     private int originalX;
     private boolean isDragging;
     
+    private double percent;
     /**
      * the contructor of slider class
      * 
@@ -30,12 +32,14 @@ public class Slider extends Actor
      * @ String controlVariable: tell the slider which instance variable
      * in the modifier world it is going to manipulate
      */
-    public Slider(Bar bar, String controlVariable){
+    public Slider(ValueBox valueBox, Bar bar){
         setImage(slider);
         slider.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.5));
         scale = bar;
-        variable = controlVariable;
+        slider.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.5));
         isDragging = false;
+        percent = 0;
+        this.valueBox = valueBox;
     }
     
     //just an normal act method
@@ -43,7 +47,7 @@ public class Slider extends Actor
     {
         originalX = scale.getX() - scale.getImage().getWidth() / 2;
         mouse = Greenfoot.getMouseInfo();
-        
+
         //check if the mouse is dragging the slider
         if (mouse != null) {
             if (Greenfoot.mousePressed(this)) {
@@ -51,7 +55,7 @@ public class Slider extends Actor
             }
             
             if (isDragging) {
-                setLocation(mouse.getX(), getY());
+                setLocation(mouse.getX(), getY());                
             }
 
             if (Greenfoot.mouseDragEnded(null) || Greenfoot.mouseClicked(this)) {
@@ -81,19 +85,25 @@ public class Slider extends Actor
     private void changeAndUpdateValue(){
         Modifier settings = (Modifier) getWorld();
         int distance = getX() - originalX;
-        if(variable.equals("numDays")){
-            int increase = (int) (distance / 6.4);
-            settings.numDays = 10 + increase;
-        } else if(variable.equals("chanceOfLaptopBreaking")){
-            int increase = (int) (distance / 1.706);
-            settings.chanceOfLaptopBreaking = 25 + increase;
-        } else if(variable.equals("studentIQ")){
-            int increase = (int) (distance / 2.13);
-            settings.studentIQ = 60 + increase;
+        // if(variable.equals("numDays")){
+            // int increase = (int) (distance / 6.4);
+            // settings.numDays = 10 + increase;
+        // } else if(variable.equals("chanceOfLaptopBreaking")){
+            // int increase = (int) (distance / 1.706);
+            // settings.chanceOfLaptopBreaking = 25 + increase;
+        // } else if(variable.equals("studentIQ")){
+            // int increase = (int) (distance / 2.13);
+            // settings.studentIQ = 60 + increase;
+        // }
+        percent = (double)distance / scale.getImage().getWidth();
+        if (isDragging) {
+            valueBox.update(percent);
         }
+        
     }
     
     public void setDrag(boolean state) {
         isDragging = state;
     }
+    
 }

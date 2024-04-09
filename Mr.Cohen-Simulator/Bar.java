@@ -31,11 +31,13 @@ public class Bar extends Actor
      * @ String controlVariable: tells the bar which instance variable
      * in the modifier world it is going to control
      */
-    public Bar(String controlVariable){
+    public Bar(ValueBox valueBox){
+        
         setImage(bar);
-        bar.scale((int) (getImage().getWidth() * 1.5), (int) (getImage().getHeight() * 1.5));
-        s = new Slider(this, controlVariable);
+        bar.scale((int) (getImage().getWidth() * 1.5), (int) (getImage().getHeight() * 1.5));      
+        s = new Slider(valueBox, this);
     }
+
     
     public void act()
     {
@@ -44,6 +46,7 @@ public class Bar extends Actor
         mouse = Greenfoot.getMouseInfo();
         setSliderLocation();
     }
+    
     
     /**
      * set the location of the slider to the position of the mouse when
@@ -55,6 +58,14 @@ public class Bar extends Actor
             s.setLocation(mouse.getX(), getY());
             s.setDrag(true);
         }
-        
+    }
+    
+    public void updateValue(double percent) {
+        //percent = (double)distance / scale.getImage().getWidth();
+        //distance = percent * scale.getImage().getWidth();
+        //int distance = getX() - originalX;
+        //originalX = scale.getX() - scale.getImage().getWidth() / 2;
+        int x = (int)(percent * getImage().getWidth() + getX() - getImage().getWidth() / 2);
+        s.setLocation(x, getY());
     }
 }

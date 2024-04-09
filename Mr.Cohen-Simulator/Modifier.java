@@ -15,9 +15,12 @@ public class Modifier extends World
     private GreenfootImage background = new GreenfootImage("images/Modifier.png");
 
     private MouseInfo mouse;
-    private Label days = new Label(numDays, 100);
-    private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
-    private Label IQ = new Label(studentIQ, 100);
+    // private Label days = new Label(numDays, 100);
+    // private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
+    // private Label IQ = new Label(studentIQ, 100);
+    private ValueBox days;
+    private ValueBox breakingChance;
+    private ValueBox IQ;
     private boolean canFlipRight;
     private boolean canFlipLeft;
 
@@ -82,20 +85,20 @@ public class Modifier extends World
         addObject(new Box(), -(240 + 150), 360);
         addObject(new Box(), -(200 + 150 + 220 + 300), 360);
 
-        Bar bar1 = new Bar("numDays");
-        Bar bar2 = new Bar("chanceOfLaptopBreaking");
-        Bar bar3 = new Bar("studentIQ");
-
-        addObject(bar1, 280, 490);
-        addObject(bar2, 245 + 390, 490);
-        addObject(bar3, 210 + 2 * 390, 490);
-
-        addObject(startSim, 1050, 665);
-        addObject(back, 100, 665);
+        days = new ValueBox(10, 30, 130);
+        breakingChance = new ValueBox(25, 100, 130);
+        IQ = new ValueBox(60, 120, 130);
 
         addObject(days, 280, 360);
         addObject(breakingChance, 245 + 390, 360);
         addObject(IQ, 210 + 2 * 390, 360);
+
+        addObject(startSim, 1050, 665);
+        addObject(back, 100, 665);
+
+        // addObject(days, 280, 360);
+        // addObject(breakingChance, 245 + 390, 360);
+        // addObject(IQ, 210 + 2 * 390, 360);
 
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
@@ -115,9 +118,12 @@ public class Modifier extends World
      */
 
     public void updateValues(){
-        days.setValue(numDays);
-        breakingChance.setValue(chanceOfLaptopBreaking);
-        IQ.setValue(studentIQ);
+        // days.setValue(numDays);
+        // breakingChance.setValue(chanceOfLaptopBreaking);
+        // IQ.setValue(studentIQ);
+        numDays = days.getValue();
+        chanceOfLaptopBreaking = breakingChance.getValue();
+        studentIQ = IQ.getValue();
     }
 
     protected void startFromFirstPage(){
