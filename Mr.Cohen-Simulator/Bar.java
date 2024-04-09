@@ -32,7 +32,9 @@ public class Bar extends Actor
      * in the modifier world it is going to control
      */
     public Bar(ValueBox valueBox){
+        
         setImage(bar);
+        bar.scale((int) (getImage().getWidth() * 1.5), (int) (getImage().getHeight() * 1.5));        
         s = new Slider(valueBox, this);
     }
 

@@ -35,6 +35,7 @@ public class Slider extends Actor
     public Slider(ValueBox valueBox, Bar bar){
         setImage(slider);
         scale = bar;
+        slider.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.5));
         isDragging = false;
         percent = 0;
         this.valueBox = valueBox;
