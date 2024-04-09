@@ -25,7 +25,7 @@ public class CreditsScreen extends World
         if(back.isPressed()){
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
-
+            
         }
     }
 }

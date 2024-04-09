@@ -10,10 +10,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Student extends Person
 {
     private int iq;
-    
-    
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 180;
+    
+    public Student()
+    {
+        
+    }
     /**
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -33,5 +36,17 @@ public class Student extends Person
             }
             
         }
+        
+        
+        // Change to if IQ is a certain amount or greater, so smart students study
+        if (true)
+        {
+            work();
+        }
+    }
+    
+    protected void work()
+    {
+        
     }
 }

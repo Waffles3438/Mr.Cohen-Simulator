@@ -1,13 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * Has the logic to detect the mouse relation to the button
- * Calls the function in the subclass
+ * </p>
+ * 
+ * Click sound from: Minecraft
+ * Editied by Benny Wang, Andy Feng and Evan Xi
  * 
  * @author Felix Zhao
  * @version 1/18/2023
- * 
- * Click sound from: Minecraft
  * 
  */
 public class Button extends Actor
