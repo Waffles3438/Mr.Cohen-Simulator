@@ -37,7 +37,6 @@ public class Alienware extends Computer
         // Add your action code here.
     }
     
-    
     public void setScreen() {
         
     }
