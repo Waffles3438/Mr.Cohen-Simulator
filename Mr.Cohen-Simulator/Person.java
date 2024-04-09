@@ -73,7 +73,7 @@ public class Person extends SuperSmoothMover
      * @param targetX The X position to find
      * @param targetY The y position to find
      * @param radius How far/close can the person be from the given points for it to count as a path found
-     * @return boolean Returns if a path is found
+     * @return Returns if a path is found
      */
     public boolean pathFind(int targetX, int targetY, double radius) {
         boolean pathFound = false;
