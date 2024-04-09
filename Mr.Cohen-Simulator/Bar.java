@@ -25,6 +25,7 @@ public class Bar extends Actor
     
     public Bar(String controlVariable){
         setImage(bar);
+        bar.scale((int) (getImage().getWidth() * 1.5), (int) (getImage().getHeight() * 1.5));
         s = new Slider(this, controlVariable);
     }
     
