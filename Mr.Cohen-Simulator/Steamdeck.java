@@ -1,18 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Steamdeck here.
+ * Write a description of class SteamDeck here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Steamdeck extends Computer
+public class SteamDeck extends Computer
 {
     /**
      * Act - do whatever the Steamdeck wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Steamdeck(double durabilityMultiplier){
+    public SteamDeck(double durabilityMultiplier){
         super(durabilityMultiplier);
         deviceImage = new GreenfootImage("images/SteamDeck.png");
         //setImage(deviceImage);
