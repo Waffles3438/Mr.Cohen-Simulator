@@ -82,9 +82,9 @@ public class Modifier extends World
         addObject(new Box(), -(240 + 150), 360);
         addObject(new Box(), -(200 + 150 + 220 + 300), 360);
 
-        Bar bar1 = new Bar("numDays");
-        Bar bar2 = new Bar("chanceOfLaptopBreaking");
-        Bar bar3 = new Bar("studentIQ");
+        ValueBox bar1 = new ValueBox(10, 30, 200, "numDays");
+        ValueBox bar2 = new ValueBox(25, 100, 200, "chanceOfLaptopBreaking");
+        ValueBox bar3 = new ValueBox(60, 120, 200, "studentIQ");
 
         addObject(bar1, 280, 490);
         addObject(bar2, 245 + 390, 490);
