@@ -42,6 +42,7 @@ public class TitleScreen extends World{
         }
         if(settings.isPressed()){
             Greenfoot.setWorld(modifier);
+            modifier.startFromFirstPage();
             settings.setPressedCondition(false);
         }
         if(credits.isPressed()){
