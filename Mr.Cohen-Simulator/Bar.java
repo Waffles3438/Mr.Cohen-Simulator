@@ -31,9 +31,9 @@ public class Bar extends Actor
      * @ String controlVariable: tells the bar which instance variable
      * in the modifier world it is going to control
      */
-    public Bar(ValueBox valueBox, String controlVariable){
+    public Bar(ValueBox valueBox){
         setImage(bar);
-        s = new Slider(valueBox, this, controlVariable);
+        s = new Slider(valueBox, this);
     }
 
     

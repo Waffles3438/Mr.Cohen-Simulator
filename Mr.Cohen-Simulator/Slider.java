@@ -32,10 +32,9 @@ public class Slider extends Actor
      * @ String controlVariable: tell the slider which instance variable
      * in the modifier world it is going to manipulate
      */
-    public Slider(ValueBox valueBox, Bar bar, String controlVariable){
+    public Slider(ValueBox valueBox, Bar bar){
         setImage(slider);
         scale = bar;
-        variable = controlVariable;
         isDragging = false;
         percent = 0;
         this.valueBox = valueBox;
@@ -84,16 +83,16 @@ public class Slider extends Actor
     private void changeAndUpdateValue(){
         Modifier settings = (Modifier) getWorld();
         int distance = getX() - originalX;
-        if(variable.equals("numDays")){
-            int increase = (int) (distance / 6.4);
-            settings.numDays = 10 + increase;
-        } else if(variable.equals("chanceOfLaptopBreaking")){
-            int increase = (int) (distance / 1.706);
-            settings.chanceOfLaptopBreaking = 25 + increase;
-        } else if(variable.equals("studentIQ")){
-            int increase = (int) (distance / 2.13);
-            settings.studentIQ = 60 + increase;
-        }
+        // if(variable.equals("numDays")){
+            // int increase = (int) (distance / 6.4);
+            // settings.numDays = 10 + increase;
+        // } else if(variable.equals("chanceOfLaptopBreaking")){
+            // int increase = (int) (distance / 1.706);
+            // settings.chanceOfLaptopBreaking = 25 + increase;
+        // } else if(variable.equals("studentIQ")){
+            // int increase = (int) (distance / 2.13);
+            // settings.studentIQ = 60 + increase;
+        // }
         percent = (double)distance / scale.getImage().getWidth();
         if (isDragging) {
             valueBox.update(percent);

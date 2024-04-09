@@ -26,14 +26,14 @@ public class ValueBox extends Actor
     private boolean showBlink = false;
     private int blinkCooldown = 60;
     
-    public ValueBox(int min, int max, int yOffset, String controlVariable) {
+    public ValueBox(int min, int max, int yOffset) {
         minVal = min;
         maxVal = max;
         currentVal = min;
         textLabel = new Label(min, 100);
         setImage(textLabel.getImage());
         this.yOffset = yOffset;
-        bar = new Bar(this, controlVariable);
+        bar = new Bar(this);
         
     }
     
@@ -72,7 +72,13 @@ public class ValueBox extends Actor
             setImage(textLabel.getImage());
         }
         typeCooldown -= 1;
+        
         if (isTyping && typeCooldown <= 0) {
+            blinkCooldown -= 1;
+            if (blinkCooldown <= 0) {
+                showBlink = !showBlink;
+                blinkCooldown = 60;
+            }
             String key = Greenfoot.getKey();
             if (currentlyTyping.length() < 3) {
                 if (key != null && key.matches("\\d+")) {
@@ -103,16 +109,19 @@ public class ValueBox extends Actor
             // has to check again because it could be changed
             
             if (isTyping) {
-                if (currentlyTyping.equals("")) {
-                    textLabel.setFillColor(new Color(100, 100, 100, 50));
-                    textLabel.setValue("-");
+                if (showBlink && currentlyTyping.length() < 3) {
+                    textLabel.setValue(currentlyTyping + "|");
                 } else {
                     textLabel.setValue(currentlyTyping);
+                }
+                if (!currentlyTyping.equals("")) {
                     int typingValue = Integer.parseInt(currentlyTyping);
                     typingValue = Math.max(minVal, typingValue);
                     typingValue = Math.min(maxVal, typingValue);
                     bar.updateValue((double)(typingValue-minVal)/(maxVal-minVal));
                 }
+                
+                
             }
             setImage(textLabel.getImage());
         }
@@ -124,5 +133,9 @@ public class ValueBox extends Actor
         currentVal = (int)(minVal*(1-percent)+maxVal*percent);
         textLabel.setValue(currentVal);
         setImage(textLabel.getImage());
+    }
+    
+    public int getValue() {
+        return currentVal;
     }
 }
