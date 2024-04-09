@@ -38,7 +38,6 @@ public class ValueBox extends Actor
     }
     
     public void addedToWorld(World w) {
-        System.out.println(yOffset);
         w.addObject(bar, getX(), getY()+yOffset);
     }
     /**
