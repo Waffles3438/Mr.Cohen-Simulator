@@ -28,7 +28,7 @@ public class Person extends SuperSmoothMover
         speed = 5;
         enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
-        avoidList.add(HitBox.class);
+        avoidList.add(Image.class);
     }
     /**
      * Act - do whatever the Person wants to do. This method is called whenever

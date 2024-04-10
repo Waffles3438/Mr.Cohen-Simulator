@@ -22,9 +22,10 @@ public class Simulator extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
-        GreenfootImage image = new GreenfootImage(1280, 720);
+        GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
+        image.drawImage(new GreenfootImage("school_image.png"), 0, 0);
         image.setColor(new Color(0, 0, 0));
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
@@ -42,6 +43,7 @@ public class Simulator extends World
         // if (startType == 0) {
             // addObject(new Alienware());
         // }
+        
     }
     
     public void act(){
