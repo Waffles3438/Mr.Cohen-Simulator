@@ -155,7 +155,6 @@ public class Modifier extends World
         // breakingChance.setValue(chanceOfLaptopBreaking);
         // IQ.setValue(studentIQ);
         numDays = days.getValue();
-        chanceOfLaptopBreaking = breakingChance.getValue();
         chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
@@ -180,7 +179,6 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfLaptopBreaking, studentIQ, customerSupportRespondChance, 0));
             Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
             startSim.setPressedCondition(false);
         }
