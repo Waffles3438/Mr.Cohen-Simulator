@@ -12,7 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Modifier extends World
 {
-    private GreenfootImage background = new GreenfootImage("images/Modifier.png");
+    private GreenfootImage background = new GreenfootImage("images/TitleScreen.jpeg");
 
     private MouseInfo mouse;
     // private Label days = new Label(numDays, 100);

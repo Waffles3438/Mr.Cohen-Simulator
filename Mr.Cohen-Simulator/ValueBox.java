@@ -122,7 +122,7 @@ public class ValueBox extends Actor
             
             if (isTyping) {
                 if (showBlink && currentlyTyping.length() < 3) {
-                    textLabel.setValue(currentlyTyping + "|");
+                    textLabel.setValue(currentlyTyping + "I");
                 } else {
                     textLabel.setValue(currentlyTyping);
                 }
