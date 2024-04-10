@@ -43,7 +43,13 @@ public class Simulator extends World
         // if (startType == 0) {
             // addObject(new Alienware());
         // }
-        
+        // 125 by 60 pixesl
+        // starts are negative one as the coords are based in the middle
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                addObject(new Image(125, 60), 420 + i*211-66, 360 + j*146+38);
+            }
+        }
     }
     
     public void act(){
