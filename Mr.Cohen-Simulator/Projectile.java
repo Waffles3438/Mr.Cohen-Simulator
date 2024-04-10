@@ -19,6 +19,7 @@ public class Projectile extends SuperSmoothMover
     public Projectile(double speed, int pointX, int pointY) {
         this.speed = speed;
     }
+    
     /**
      * Act - do whatever the Obstacle wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -26,6 +27,7 @@ public class Projectile extends SuperSmoothMover
     public void act()
     {
         move(speed);
+        
         if (isAtEdge()) {
             getWorld().removeObject(this);
         }

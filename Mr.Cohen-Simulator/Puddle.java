@@ -20,6 +20,7 @@ public class Puddle extends Projectile
     public Puddle(double speed, int pointX, int pointY) {
         super(speed, pointX, pointY);
     }
+    
     /**
      * Act - do whatever the Puddle wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
