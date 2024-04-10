@@ -177,7 +177,7 @@ public class Person extends SuperSmoothMover
         //System.out.println("done");
         return pathFound;
     }
-    
+            
     public boolean pathFind(Actor actor, double radius) {
         return pathFind(actor.getX(), actor.getY(), radius);
     }
