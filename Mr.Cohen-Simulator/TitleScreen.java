@@ -13,7 +13,6 @@ public class TitleScreen extends World{
     
     protected CreditsScreen creditsScreen;
     protected Modifier modifier;
-    protected TitleScreen titleScreen;
 
     public static boolean firstTime = true;
     
@@ -40,11 +39,6 @@ public class TitleScreen extends World{
             Greenfoot.setWorld(modifier);
             modifier.startFromFirstPage();
             start.setPressedCondition(false);
-        }
-        if(settings.isPressed()){
-            Greenfoot.setWorld(modifier);
-            modifier.startFromFirstPage();
-            settings.setPressedCondition(false);
         }
         if(credits.isPressed()){
             Greenfoot.setWorld(creditsScreen);
