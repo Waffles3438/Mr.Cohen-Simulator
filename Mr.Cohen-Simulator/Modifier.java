@@ -85,6 +85,8 @@ public class Modifier extends World
         canFlipRight = true;
     }
 
+    private int y = 400;
+    private int offSetT = 90;
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -106,18 +108,17 @@ public class Modifier extends World
         addObject(new Box(), (245+390-1260), 355);
         addObject(new Box(), (210+390*2-1260), 355);
 
-        days = new ValueBox(10, 30, 130);
-        breakingChance = new ValueBox(25, 100, 130);
-        IQ = new ValueBox(80, 120, 130);
-        supportChance = new ValueBox(0, 50, 130);
-        chaoValue = new ValueBox(1, 5, 130);
+        days = new ValueBox(10, 30,offSetT);
+        breakingChance = new ValueBox(25, 100, offSetT);
+        IQ = new ValueBox(80, 120, offSetT);
+        supportChance = new ValueBox(0, 50, offSetT);
+        chaoValue = new ValueBox(1, 5, offSetT);
 
-        addObject(days, 280, 360);
-        addObject(breakingChance, 245 + 390, 360);
-        addObject(IQ, 210 + 2 * 390, 360);
-        addObject(supportChance, (280-1260), 355);
-        addObject(supportChance, (280-1260), 360);
-        addObject(chaoValue, (245 + 390 - 1260), 360);
+        addObject(days, 280, y);
+        addObject(breakingChance, 245 + 390, y);
+        addObject(IQ, 210 + 2 * 390, y);
+        addObject(supportChance, (280-1260), y);
+        addObject(chaoValue, (245 + 390 - 1260), y);
 
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
