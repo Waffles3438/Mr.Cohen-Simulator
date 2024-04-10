@@ -23,7 +23,7 @@ public class ValueBox extends Actor
     private boolean hover = false;
     private boolean isTyping = false;
     private String currentlyTyping = "";
-    private int typeCooldown = 20;
+    private int typeCooldown = 10;
     private boolean showBlink = false;
     private int blinkCooldown = 60;
     
@@ -95,7 +95,7 @@ public class ValueBox extends Actor
             if (currentlyTyping.length() < 3) {
                 if (key != null && key.matches("\\d+")) {
                     currentlyTyping += key;
-                    typeCooldown = 20;
+                    typeCooldown = 10;
                 }
             } 
             if (Greenfoot.isKeyDown("Enter")) {
@@ -106,17 +106,17 @@ public class ValueBox extends Actor
                 textLabel.setValue(value);
                 currentVal = value;
                 currentlyTyping = "";
-                typeCooldown = 20;
+                typeCooldown = 10;
                 bar.updateValue((double)(currentVal-minVal)/(maxVal-minVal));
             } else if (Greenfoot.isKeyDown("Escape")) {
                 isTyping = false;
                 currentlyTyping = "";
                 textLabel.setValue(currentVal);
-                typeCooldown = 20;
+                typeCooldown = 10;
                 bar.updateValue((double)(currentVal-minVal)/(maxVal-minVal));
             } else if (Greenfoot.isKeyDown("Backspace") && currentlyTyping.length() > 0) {
                 currentlyTyping = currentlyTyping.substring(0, currentlyTyping.length()-1);
-                typeCooldown = 20;
+                typeCooldown = 10;
             }
             // has to check again because it could be changed
             

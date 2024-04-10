@@ -12,10 +12,16 @@ public class Student extends Person
     private int iq;
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 180;
+    private int projectedMark;
     
-    public Student()
-    {
-        
+    /**
+     * Creates a student which an iq close to the given iq
+     *
+     * @param iq The iq to set the student around at
+     */
+    public Student(int iq) {
+        this.iq = iq + Greenfoot.getRandomNumber(40)-20;
+        projectedMark = 70 * iq / 100;
     }
     /**
      * Act - do whatever the Student wants to do. This method is called whenever
@@ -45,8 +51,7 @@ public class Student extends Person
         }
     }
     
-    protected void work()
-    {
+    protected void work() {
         
     }
 }
