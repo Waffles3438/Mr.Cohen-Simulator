@@ -1,16 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * the scale and bar of the slider
+ * <p>
+ * The scale and bar of the slider
  * When create a bar, a slider will be created together, they are one
  * set. So please keep in mind to create a bar instead of a slider
+ * </p>
  * 
- * @ Author: Andy
- * @ version 1.0 (Apr 5th, 2024)
- * 
- * reference: 
+ * Reference: 
  * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
- * Slider and bar image from vecteezy.com
+ * Slider and bar image from vecteezy.com and image edited by Benny Wang
+ * 
+ * Edited by Felix Zhao
+ * 
+ * @author Andy
+ * @version 1.0 (Apr 5th, 2024)
+ * 
  */
 public class Bar extends Actor
 {

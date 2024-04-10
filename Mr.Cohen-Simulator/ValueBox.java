@@ -2,6 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * An actor that stores an integer in a range. The number can be set by typing it in
+ * It goes with the slider
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -26,6 +27,13 @@ public class ValueBox extends Actor
     private boolean showBlink = false;
     private int blinkCooldown = 60;
     
+    /**
+     * Creates an instance of valueBox
+     *
+     * @param min The min value for the valueBox
+     * @param max The max value for the valueBox
+     * @param yOffset Offsets the slider by the value
+     */
     public ValueBox(int min, int max, int yOffset) {
         minVal = min;
         maxVal = max;
@@ -34,15 +42,20 @@ public class ValueBox extends Actor
         setImage(textLabel.getImage());
         this.yOffset = yOffset;
         bar = new Bar(this);
-        
     }
     
+    /**
+     * Adds the bar/slider into the world with it
+     *
+     * @param w The world the object was placed into
+     */
     public void addedToWorld(World w) {
         w.addObject(bar, getX(), getY()+yOffset);
     }
+    
     /**
-     * Act - do whatever the ValueBox wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * The act method checks if the user clicks on it and types on to it
+     * 
      */
     public void act()
     {
@@ -127,13 +140,22 @@ public class ValueBox extends Actor
         
     }
     
+    /**
+     * Updates the value of the valueBox given a percent
+     *
+     * @param percent The percent that determines what the value (0% - minVal to 100% - maxVal)
+     */
     public void update(double percent) {
-        System.out.println(percent);
         currentVal = (int)(minVal*(1-percent)+maxVal*percent);
         textLabel.setValue(currentVal);
         setImage(textLabel.getImage());
     }
     
+    /**
+     * returns the current value of the instance
+     *
+     * @return Returns the current value
+     */
     public int getValue() {
         return currentVal;
     }
