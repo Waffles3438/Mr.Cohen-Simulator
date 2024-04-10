@@ -12,7 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Modifier extends World
 {
-    private GreenfootImage background = new GreenfootImage("images/Modifier.png");
+    private GreenfootImage background = new GreenfootImage("images/TitleScreen.jpeg");
 
     private MouseInfo mouse;
     // private Label days = new Label(numDays, 100);
@@ -79,11 +79,11 @@ public class Modifier extends World
      */
     private void prepare()
     {
-        addObject(new Box(), 280, 360);
-        addObject(new Box(), 245 + 390, 360);
-        addObject(new Box(), 210 + 2 * 390, 360);
-        addObject(new Box(), -(240 + 150), 360);
-        addObject(new Box(), -(200 + 150 + 220 + 300), 360);
+        addObject(new Box(), 280, 355);
+        addObject(new Box(), 245 + 390, 355);
+        addObject(new Box(), 210 + 2 * 390, 355);
+        addObject(new Box(), -(240 + 150), 355);
+        addObject(new Box(), -(200 + 150 + 220 + 300), 355);
 
         days = new ValueBox(10, 30, 130);
         breakingChance = new ValueBox(25, 100, 130);
