@@ -65,6 +65,10 @@ public class Bar extends Actor
         }
     }
     
+    /**
+     * Setter for X
+     * @param percent what percent it is at
+     */
     public void updateValue(double percent) {
         //percent = (double)distance / scale.getImage().getWidth();
         //distance = percent * scale.getImage().getWidth();

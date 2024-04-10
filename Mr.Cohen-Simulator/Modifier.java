@@ -9,6 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @ Author: Andy Feng
  * @ version 1.1 (Apr 6th, 2024)
+ * 
+ * refrence:
+ * desktop image from vectorstock:
+ * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
  */
 public class Modifier extends World
 {
@@ -22,6 +26,7 @@ public class Modifier extends World
     private ValueBox breakingChance;
     private ValueBox IQ;
     private ValueBox supportChance;
+    private ValueBox chaoValue;
     private boolean canFlipRight;
     private boolean canFlipLeft;
     private Label numOfDaysText; 
@@ -32,8 +37,11 @@ public class Modifier extends World
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
 
+    private Button changeDeviceRight = new Button("left", 3, ".png");
+    private Button changeDeviceLeft = new Button("right", 3, ".png");
+    
     protected static int numDays;
-    protected static int chanceOfLaptopBreaking;
+    protected static int chanceOfComputerBreaking;
     protected static int studentIQ;
     protected static int customerSupportRespondChance;
     /*
@@ -59,7 +67,7 @@ public class Modifier extends World
         setBackground(background);
 
         numDays = 10;
-        chanceOfLaptopBreaking = 25;
+        chanceOfComputerBreaking = 25;
         studentIQ = 60;
 
         this.titleScreen = titleScreen;
@@ -77,6 +85,8 @@ public class Modifier extends World
         canFlipRight = true;
     }
 
+    private int y = 400;
+    private int offSetT = 90;
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -98,15 +108,17 @@ public class Modifier extends World
         addObject(new Box(), (245+390-1260), 355);
         addObject(new Box(), (210+390*2-1260), 355);
 
-        days = new ValueBox(10, 30, 130);
-        breakingChance = new ValueBox(25, 100, 130);
-        IQ = new ValueBox(80, 120, 130);
-        supportChance = new ValueBox(0, 50, 130);
+        days = new ValueBox(10, 30,offSetT);
+        breakingChance = new ValueBox(25, 100, offSetT);
+        IQ = new ValueBox(80, 120, offSetT);
+        supportChance = new ValueBox(0, 50, offSetT);
+        chaoValue = new ValueBox(1, 5, offSetT);
 
-        addObject(days, 280, 360);
-        addObject(breakingChance, 245 + 390, 360);
-        addObject(IQ, 210 + 2 * 390, 360);
-        addObject(supportChance, (280-1260), 355);
+        addObject(days, 280, y);
+        addObject(breakingChance, 245 + 390, y);
+        addObject(IQ, 210 + 2 * 390, y);
+        addObject(supportChance, (280-1260), y);
+        addObject(chaoValue, (245 + 390 - 1260), y);
 
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
@@ -144,7 +156,8 @@ public class Modifier extends World
         // breakingChance.setValue(chanceOfLaptopBreaking);
         // IQ.setValue(studentIQ);
         numDays = days.getValue();
-        chanceOfLaptopBreaking = breakingChance.getValue();
+        chanceOfComputerBreaking = breakingChance.getValue();
+        chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
     }
@@ -168,7 +181,8 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfLaptopBreaking, studentIQ, customerSupportRespondChance, 0));
+            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
+            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed() && canFlipLeft){

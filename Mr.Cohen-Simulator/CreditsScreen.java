@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class CreditsScreen here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Benny
+ * @version 1.0.0
  */
 public class CreditsScreen extends World
 {

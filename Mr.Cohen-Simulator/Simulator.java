@@ -13,6 +13,7 @@ public class Simulator extends World
     private int dayNumber;
     private int numDays;
     private int chanceOfLaptopBreaking;
+    private int chanceOfComputerBreaking;
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -34,6 +35,7 @@ public class Simulator extends World
         this.titleScreen = titleScreen;
         this.numDays = days;
         this.chanceOfLaptopBreaking = chanceOfLaptopBreaking;
+        this.chanceOfComputerBreaking = chanceOfLaptopBreaking;
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
