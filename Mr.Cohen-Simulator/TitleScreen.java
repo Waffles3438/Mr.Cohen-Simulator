@@ -1,9 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * @author Benny
+ * @version 1.0.0
  * 
  * Image from: https://pc98backgrounds.tumblr.com/image/172810349592
- * 
  */
 public class TitleScreen extends World{
     private Button start = new Button("start", 3, ".png");
@@ -15,6 +16,9 @@ public class TitleScreen extends World{
 
     public static boolean firstTime = true;
     
+    /**
+     * Constructor for TitleScreen
+     */
     public TitleScreen(){
         super(1260, 720, 1);
         addObject(start, getWidth()/2, getHeight()/2 + 110);
@@ -32,12 +36,16 @@ public class TitleScreen extends World{
         checkButtons();
     }
     
+    /**
+     * Check if buttons are pressed
+     */
     private void checkButtons(){
         if(start.isPressed()){
             Greenfoot.setWorld(modifier);
             modifier.startFromFirstPage();
             start.setPressedCondition(false);
         }
+        
         if(credits.isPressed()){
             Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);

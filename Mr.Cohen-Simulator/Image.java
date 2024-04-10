@@ -7,6 +7,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Image extends Actor
 {
+    /**
+     * @param imageName, name of the image
+     */
     public Image(String imageName){
         setImage(imageName);
     }

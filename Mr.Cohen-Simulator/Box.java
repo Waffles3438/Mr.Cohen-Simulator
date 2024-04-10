@@ -23,9 +23,4 @@ public class Box extends Actor
     public Box(){
         setImage(box);
     }
-    
-    public void act()
-    {
-        // Add your action code here.
-    }
 }

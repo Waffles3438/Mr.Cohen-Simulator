@@ -107,6 +107,9 @@ public class Slider extends Actor
         
     }
     
+    /**
+     * @param state, set the state of isDragging to state
+     */
     public void setDrag(boolean state) {
         isDragging = state;
     }

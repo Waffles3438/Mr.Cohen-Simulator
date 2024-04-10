@@ -49,6 +49,7 @@ public class Button extends Actor
         if (pressed) {
             pressed = false;
         }
+        
         if (Greenfoot.mouseMoved(this)) {
             hover = true;
             if (imageStates.length > 1) {
@@ -101,6 +102,9 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Preload sounds
+     */
     public static void init(){
         clickIndex = 0;
         click = new GreenfootSound[64];
@@ -112,6 +116,9 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Play click sound
+     */
     public void playClick(){
         click[clickIndex].setVolume(50);
         click[clickIndex].play();
@@ -121,6 +128,10 @@ public class Button extends Actor
         }
     }
 
+    /**
+     * Setter for pressed
+     * @param trueOrFalse sets press as true or false
+     */
     public void setPressedCondition(boolean trueOrFalse){
         pressed = trueOrFalse;
     }
@@ -132,6 +143,9 @@ public class Button extends Actor
         // does nothing should be in sub class
     }
     
+    /**
+     * Getter for pressed
+     */
     public boolean isPressed(){
         return pressed;
     }
