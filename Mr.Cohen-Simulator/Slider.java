@@ -1,17 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+/**
+ * <p>
+ * The slider which is used to change the value in the modifier world
+ * </p>
+ * reference: 
+ * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
+ * Slider and bar image from vecteezy.com
+ * <br>
+ * Edited by Felix Zhao
+ * 
+ * @author Andy Feng
+ * @version 1.0 (Apr 5th, 2024)
+ * 
+ * 
+ */
 public class Slider extends Actor
 {
-    /**
-     * The slider which is used to change the value in the modifier world
-     * 
-     * @ Andy Feng
-     * @ version 1.0 (Apr 5th, 2024)
-     * 
-     * reference: 
-     * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
-     * Slider and bar image from vecteezy.com
-     */
+    
     private MouseInfo mouse;
     private GreenfootImage slider = new GreenfootImage("images/Slider.png");
     private Bar scale;
