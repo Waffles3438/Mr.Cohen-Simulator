@@ -1,16 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * the scale and bar of the slider
+ * <p>
+ * The scale and bar of the slider
  * When create a bar, a slider will be created together, they are one
  * set. So please keep in mind to create a bar instead of a slider
+ * </p>
  * 
- * @ Author: Andy
- * @ version 1.0 (Apr 5th, 2024)
- * 
- * reference: 
+ * Reference: 
  * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
- * Slider and bar image from vecteezy.com
+ * Slider and bar image from vecteezy.com and image edited by Benny Wang
+ * 
+ * Edited by Felix Zhao
+ * 
+ * @author Andy
+ * @version 1.0 (Apr 5th, 2024)
+ * 
  */
 public class Bar extends Actor
 {
@@ -31,10 +36,13 @@ public class Bar extends Actor
      * @ String controlVariable: tells the bar which instance variable
      * in the modifier world it is going to control
      */
-    public Bar(String controlVariable){
+    public Bar(ValueBox valueBox){
+        
         setImage(bar);
-        s = new Slider(this, controlVariable);
+        bar.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.4));      
+        s = new Slider(valueBox, this);
     }
+
     
     public void act()
     {
@@ -43,6 +51,7 @@ public class Bar extends Actor
         mouse = Greenfoot.getMouseInfo();
         setSliderLocation();
     }
+    
     
     /**
      * set the location of the slider to the position of the mouse when
@@ -54,6 +63,14 @@ public class Bar extends Actor
             s.setLocation(mouse.getX(), getY());
             s.setDrag(true);
         }
-        
+    }
+    
+    public void updateValue(double percent) {
+        //percent = (double)distance / scale.getImage().getWidth();
+        //distance = percent * scale.getImage().getWidth();
+        //int distance = getX() - originalX;
+        //originalX = scale.getX() - scale.getImage().getWidth() / 2;
+        int x = (int)(percent * getImage().getWidth() + getX() - getImage().getWidth() / 2);
+        s.setLocation(x, getY());
     }
 }

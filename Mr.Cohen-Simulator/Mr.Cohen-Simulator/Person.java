@@ -73,7 +73,7 @@ public class Person extends SuperSmoothMover
      * @param targetX The X position to find
      * @param targetY The y position to find
      * @param radius How far/close can the person be from the given points for it to count as a path found
-     * @return boolean Returns if a path is found
+     * @return Returns if a path is found
      */
     public boolean pathFind(int targetX, int targetY, double radius) {
         boolean pathFound = false;
@@ -114,7 +114,7 @@ public class Person extends SuperSmoothMover
             }
             closedList[r][c] = true;
             if (r == targetRow && c == targetCol || (getDistance(new int[]{c, r}, new int[]{targetCol, targetRow})*GRID_CHECK <= radius)) {
-                System.out.println("found path");
+                //System.out.println("found path");
                 pathFound = true;
                 currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
                 break;
@@ -174,7 +174,7 @@ public class Person extends SuperSmoothMover
             
             
         }
-        System.out.println("done");
+        //System.out.println("done");
         return pathFound;
     }
     
@@ -306,6 +306,3 @@ class Cell {
         parent_j = j;
     }
 }
-
-
-

@@ -10,10 +10,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Student extends Person
 {
     private int iq;
-    
-    
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 180;
+    private int projectedMark;
+    
+    /**
+     * Creates a student which an iq close to the given iq
+     *
+     * @param iq The iq to set the student around at
+     */
+    public Student(int iq) {
+        this.iq = iq + Greenfoot.getRandomNumber(40)-20;
+        projectedMark = 70 * iq / 100;
+    }
     /**
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -33,5 +42,16 @@ public class Student extends Person
             }
             
         }
+        
+        
+        // Change to if IQ is a certain amount or greater, so smart students study
+        if (true)
+        {
+            work();
+        }
+    }
+    
+    protected void work() {
+        
     }
 }
