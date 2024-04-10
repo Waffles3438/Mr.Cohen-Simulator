@@ -24,28 +24,30 @@ public class Modifier extends World
     private ValueBox supportChance;
     private boolean canFlipRight;
     private boolean canFlipLeft;
-
+    private Label numOfDaysText; 
+    private Label chanceOfLaptopBreakingText; 
+    private Label studentIQText; 
     private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
-    
+
     protected static int numDays;
     protected static int chanceOfLaptopBreaking;
     protected static int studentIQ;
     protected static int customerSupportRespondChance;
     /*
-       different computers have different number:
-           AlienWare -> 0
-           SteamDeck -> 1
-           MacMini -> 2
-           Desktop -> 3
-       */
+    different computers have different number:
+    AlienWare -> 0
+    SteamDeck -> 1
+    MacMini -> 2
+    Desktop -> 3
+     */
     protected static int computerType;
     private TitleScreen titleScreen;
 
     private boolean firstTime = true;
-    
+
     /**
      * contructor of Modifier World
      * @ parameter
@@ -55,25 +57,26 @@ public class Modifier extends World
     public Modifier(TitleScreen titleScreen){
         super(1260, 720, 1, false);
         setBackground(background);
-        
+
         numDays = 10;
         chanceOfLaptopBreaking = 25;
         studentIQ = 60;
-        
+
         this.titleScreen = titleScreen;
         prepare();
-        
+
         if(firstTime){
             Button.init();
             firstTime = false;
         }
-        
+
+
         //computerType = 0;
         //choosenType = computerList[computerType];
         canFlipLeft = false;
         canFlipRight = true;
     }
-    
+
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -115,8 +118,15 @@ public class Modifier extends World
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
         leftFlipButton.setLocation(75,369);
+
+        numOfDaysText = new Label("# Of Days", 40);
+        addObject(numOfDaysText, 285, 285);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 30);
+        addObject(chanceOfLaptopBreakingText, 635, 285);
+        studentIQText = new Label("Student IQ", 40);
+        addObject(studentIQText, 990, 285);
     }
-    
+
     //just an act method
 
     public void act(){
