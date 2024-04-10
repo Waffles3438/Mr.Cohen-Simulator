@@ -49,7 +49,5 @@ public class Simulator extends World
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
-        
-        
     }
 }
