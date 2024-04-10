@@ -10,12 +10,15 @@ public class Simulator extends World
 {
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
+    private int dayNumber;
+    private int numDays;
+    private int chanceOfLaptopBreaking;
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
      * 
      */
-    public Simulator(TitleScreen titleScreen)
+    public Simulator(TitleScreen titleScreen, int days, int chanceOfLaptopBreaking, int studentIQ, int customerSupportRespondChance, int startType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -28,12 +31,17 @@ public class Simulator extends World
         setBackground(image);
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
+        this.numDays = days;
+        this.chanceOfLaptopBreaking = chanceOfLaptopBreaking;
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                addObject(new Student(), 420 + i*220, 360 + j*180 + 50);
+                addObject(new Student(studentIQ), 420 + i*220, 360 + j*180 + 50);
             }
         }
+        // if (startType == 0) {
+            // addObject(new Alienware());
+        // }
     }
     
     public void act(){
@@ -41,5 +49,7 @@ public class Simulator extends World
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
+        
+        
     }
 }

@@ -21,6 +21,7 @@ public class Modifier extends World
     private ValueBox days;
     private ValueBox breakingChance;
     private ValueBox IQ;
+    private ValueBox supportChance;
     private boolean canFlipRight;
     private boolean canFlipLeft;
 
@@ -79,19 +80,30 @@ public class Modifier extends World
      */
     private void prepare()
     {
+        /**
+         * Old positioning
+         * addObject(new Box(), 280, 355);
+         * addObject(new Box(), 245 + 390, 355);
+         * addObject(new Box(), 210 + 2 * 390, 355);
+         * addObject(new Box(), -(240 + 150), 355); 
+         * addObject(new Box(), -(200 + 150 + 220 + 300), 355);
+         */
         addObject(new Box(), 280, 355);
         addObject(new Box(), 245 + 390, 355);
         addObject(new Box(), 210 + 2 * 390, 355);
-        addObject(new Box(), -(240 + 150), 355);
-        addObject(new Box(), -(200 + 150 + 220 + 300), 355);
+        addObject(new Box(), (280-1260), 355);
+        addObject(new Box(), (245+390-1260), 355);
+        addObject(new Box(), (210+390*2-1260), 355);
 
         days = new ValueBox(10, 30, 130);
         breakingChance = new ValueBox(25, 100, 130);
-        IQ = new ValueBox(60, 120, 130);
+        IQ = new ValueBox(80, 120, 130);
+        supportChance = new ValueBox(0, 50, 130);
 
         addObject(days, 280, 360);
         addObject(breakingChance, 245 + 390, 360);
         addObject(IQ, 210 + 2 * 390, 360);
+        addObject(supportChance, (280-1260), 355);
 
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
@@ -124,6 +136,7 @@ public class Modifier extends World
         numDays = days.getValue();
         chanceOfLaptopBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
+        customerSupportRespondChance = supportChance.getValue();
     }
 
     protected void startFromFirstPage(){
@@ -145,7 +158,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            Greenfoot.setWorld(new Simulator(titleScreen));
+            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfLaptopBreaking, studentIQ, customerSupportRespondChance, 0));
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed() && canFlipLeft){

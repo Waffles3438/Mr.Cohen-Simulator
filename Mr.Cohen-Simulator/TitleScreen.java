@@ -37,7 +37,8 @@ public class TitleScreen extends World{
     
     private void checkButtons(){
         if(start.isPressed()){
-            Greenfoot.setWorld(new Simulator(this));
+            Greenfoot.setWorld(modifier);
+            modifier.startFromFirstPage();
             start.setPressedCondition(false);
         }
         if(settings.isPressed()){
