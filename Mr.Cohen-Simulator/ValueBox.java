@@ -26,6 +26,7 @@ public class ValueBox extends Actor
     private int typeCooldown = 10;
     private boolean showBlink = false;
     private int blinkCooldown = 25;
+    private int blinkCooldown = 60;
     
     /**
      * Creates an instance of valueBox
@@ -90,6 +91,7 @@ public class ValueBox extends Actor
             if (blinkCooldown <= 0) {
                 showBlink = !showBlink;
                 blinkCooldown = 25;
+                blinkCooldown = 60;
             }
             String key = Greenfoot.getKey();
             if (currentlyTyping.length() < 3) {
