@@ -13,6 +13,7 @@ public class Student extends Person
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 180;
     private int projectedMark;
+    private static int variation;
     
     /**
      * Creates a student which an iq close to the given iq
@@ -22,7 +23,12 @@ public class Student extends Person
     public Student(int iq) {
         this.iq = iq + Greenfoot.getRandomNumber(40)-20;
         projectedMark = 70 * iq / 100;
+        variation = Greenfoot.getRandomNumber(9) + 1;
+        setImage("student" + variation + ".png");
+        getImage().scale(77, 77);
+        variation++;
     }
+    
     /**
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
