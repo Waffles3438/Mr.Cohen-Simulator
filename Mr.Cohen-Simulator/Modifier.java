@@ -27,46 +27,32 @@ public class Modifier extends World
     private ValueBox IQ;
     private ValueBox supportChance;
     private ValueBox chaosValue;
-<<<<<<< HEAD
+
     private boolean canFlipRight;
     private boolean canFlipLeft;
     private Label numOfDaysText; 
     private Label chanceOfLaptopBreakingText; 
-    private Label studentIQText; 
-=======
-
-    private Label numOfDaysText; 
-    private Label chanceOfLaptopBreakingText; 
-    private Label studentIQText; 
+    private Label studentIQText;
     private Label customerSupportRespond;
     private Label chaosNumber;
-    
-    private boolean canFlipRight;
-    private boolean canFlipLeft;
-    
->>>>>>> AndyFeng
+
+
     private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
 
-<<<<<<< HEAD
+
     private Button changeDeviceRight = new Button("left", 3, ".png");
     private Button changeDeviceLeft = new Button("right", 3, ".png");
-=======
-    private Button changeDeviceRight = new Button("left", 3, ".png", 40);
-    private Button changeDeviceLeft = new Button("right", 3, ".png", 40);
->>>>>>> AndyFeng
+
     
     protected static int numDays;
     protected static int chanceOfComputerBreaking;
     protected static int studentIQ;
     protected static int customerSupportRespondChance;
-<<<<<<< HEAD
-    protected static int chaosNumber;
-=======
+
     protected static int chaos;
->>>>>>> AndyFeng
     /*
     different computers have different number:
     AlienWare -> 0
@@ -74,19 +60,14 @@ public class Modifier extends World
     MacMini -> 2
     Desktop -> 3
      */
-<<<<<<< HEAD
     protected static int computerType;
     private TitleScreen titleScreen;
 
     private boolean firstTime = true;
-=======
+
     private GreenfootImage[] deviceImages;
     private Image computerImage;
-    protected static int computerType;
-    private TitleScreen titleScreen;
 
-    private static boolean firstTime = true;
->>>>>>> AndyFeng
 
     /**
      * contructor of Modifier World
@@ -101,9 +82,6 @@ public class Modifier extends World
         numDays = 10;
         chanceOfComputerBreaking = 25;
         studentIQ = 60;
-<<<<<<< HEAD
-
-=======
         customerSupportRespondChance = 0;
         chaos = 1;
         computerType = 0;
@@ -115,7 +93,7 @@ public class Modifier extends World
             new GreenfootImage("images/Desktop.png")       // Desktop -> 3
         };
         computerImage = new Image(deviceImages[computerType]);
->>>>>>> AndyFeng
+
         this.titleScreen = titleScreen;
         prepare();
 
@@ -123,23 +101,18 @@ public class Modifier extends World
             Button.init();
             firstTime = false;
         }
-<<<<<<< HEAD
 
 
         //computerType = 0;
         //choosenType = computerList[computerType];
-=======
-        
->>>>>>> AndyFeng
+
         canFlipLeft = false;
         canFlipRight = true;
     }
 
-<<<<<<< HEAD
     private int y = 400;
     private int offSetT = 90;
-=======
->>>>>>> AndyFeng
+
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -161,7 +134,6 @@ public class Modifier extends World
         addObject(new Box(), (245+390-1260), 355);
         addObject(new Box(), (210+390*2-1260), 355);
 
-<<<<<<< HEAD
         days = new ValueBox(10, 30,offSetT);
         breakingChance = new ValueBox(25, 100, offSetT);
         IQ = new ValueBox(80, 120, offSetT);
@@ -174,20 +146,7 @@ public class Modifier extends World
         addObject(supportChance, (280-1260), y);
         addObject(chaosValue, (245 + 390 - 1260), y);
 
-=======
-        days = new ValueBox(10, 30, 130);
-        breakingChance = new ValueBox(25, 100, 130);
-        IQ = new ValueBox(80, 120, 130);
-        supportChance = new ValueBox(0, 50, 130);
-        chaosValue = new ValueBox(1, 5, 130);
-
-        addObject(days, 280, 360);
-        addObject(breakingChance, 245 + 390, 360);
-        addObject(IQ, 210 + 2 * 390, 360);
-        addObject(supportChance, (280-1260), 360);
-        addObject(chaosValue, (245 + 390 - 1260), 360);
         
->>>>>>> AndyFeng
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
 
@@ -200,10 +159,8 @@ public class Modifier extends World
         addObject(changeDeviceRight, (210+390*2-1260) - 75, 475);
         addObject(changeDeviceLeft, (210+390*2-1260) + 75, 475);
         leftFlipButton.setLocation(75,369);
-<<<<<<< HEAD
-=======
         addObject(computerImage, (210+390*2-1260), 355);
->>>>>>> AndyFeng
+
 
         numOfDaysText = new Label("# Of Days", 40);
         addObject(numOfDaysText, 285, 285);
@@ -211,13 +168,10 @@ public class Modifier extends World
         addObject(chanceOfLaptopBreakingText, 635, 285);
         studentIQText = new Label("Student IQ", 40);
         addObject(studentIQText, 990, 285);
-<<<<<<< HEAD
-=======
         customerSupportRespond = new Label("customer support \n respond chance", 30);
         addObject(customerSupportRespond, (280-1260), 285);
         chaosNumber = new Label("level of chaos", 40);
         addObject(chaosNumber, (245+390-1260), 285);
->>>>>>> AndyFeng
     }
 
     //just an act method
@@ -241,11 +195,8 @@ public class Modifier extends World
         chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
-<<<<<<< HEAD
-        chaosNumber = chaosValue.getValue();
-=======
+
         chaos = chaosValue.getValue();
->>>>>>> AndyFeng
     }
 
     protected void startFromFirstPage(){
@@ -269,12 +220,10 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-<<<<<<< HEAD
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaosNumber, 0));
-=======
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
->>>>>>> AndyFeng
+
+    
+            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0));
+            
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed() && canFlipLeft){
