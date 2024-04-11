@@ -10,6 +10,8 @@ public class Image extends Actor
     /**
      * @param imageName, name of the image
      */
+    private double ratio;
+    
     public Image(String imageName){
         setImage(imageName);
     }
@@ -19,5 +21,18 @@ public class Image extends Actor
         image.setColor(new Color(0, 0, 0));
         image.drawRect(0, 0, width-1, height-1);
         setImage(image);
+    }
+    
+    public Image(GreenfootImage image){
+        setImage(image);
+        
+    }
+    
+    public void act(){
+        
+    }
+    
+    private void adjustSize(){
+        
     }
 }
