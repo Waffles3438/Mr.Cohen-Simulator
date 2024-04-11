@@ -43,8 +43,8 @@ public class Modifier extends World
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
 
 
-    private Button changeDeviceRight = new Button("left", 3, ".png", 75);
-    private Button changeDeviceLeft = new Button("right", 3, ".png", 75);
+    private Button changeDeviceRight = new Button("left", 3, ".png", 50);
+    private Button changeDeviceLeft = new Button("right", 3, ".png", 50);
 
     
     protected static int numDays;
