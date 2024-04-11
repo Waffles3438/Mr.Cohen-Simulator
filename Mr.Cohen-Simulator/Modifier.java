@@ -92,7 +92,9 @@ public class Modifier extends World
             new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
             new GreenfootImage("images/Desktop.png")       // Desktop -> 3
         };
+        
         computerImage = new Image(deviceImages[computerType]);
+        
 
         this.titleScreen = titleScreen;
         prepare();
@@ -263,6 +265,9 @@ public class Modifier extends World
     
     private void updateDeviceImage() {
         GreenfootImage chosenDeviceImage = deviceImages[computerType];
+        
         computerImage.setImage(chosenDeviceImage);
+        computerImage.updateRatio();
+        computerImage.adjustSize(200);
     }
 }
