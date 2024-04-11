@@ -186,6 +186,8 @@ public class Modifier extends World
     protected void startFromFirstPage(){
         if(canFlipLeft){
             leftFlipButton.action();
+            changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
+            changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             canFlipLeft = false;
             canFlipRight = true;
         }
@@ -210,6 +212,7 @@ public class Modifier extends World
             leftFlipButton.action();
             changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
             changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
+            computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
             leftFlipButton.setPressedCondition(false);
             canFlipLeft = false;
             canFlipRight = true;
@@ -219,6 +222,7 @@ public class Modifier extends World
             rightFlipButton.setPressedCondition(false);
             changeDeviceLeft.setLocation(changeDeviceLeft.getX() + 1260, changeDeviceLeft.getY());
             changeDeviceRight.setLocation(changeDeviceRight.getX() + 1260, changeDeviceRight.getY());
+            computerImage.setLocation(computerImage.getX() + 1260, computerImage.getY());
             canFlipLeft = true;
             canFlipRight = false;
         }
