@@ -25,7 +25,7 @@ public class Student extends Person
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
-        getImage().scale(77, 77);
+        getImage().scale(50, 50);
         variation++;
     }
     
