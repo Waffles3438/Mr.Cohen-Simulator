@@ -32,6 +32,7 @@ public class Person extends SuperSmoothMover
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
         avoidList.add(Person.class);
+        avoidList.add(Button.class);
         getImage().scale(50, 50);
     }
     
