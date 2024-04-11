@@ -39,7 +39,6 @@ public class Image extends Actor
     public Image(GreenfootImage image){
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
-        System.out.println(ratio);
     }
     
     public void act(){
