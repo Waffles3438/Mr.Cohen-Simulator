@@ -17,7 +17,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Modifier extends World
 {
     private GreenfootImage background = new GreenfootImage("images/TitleScreen.jpeg");
-
+    
     private MouseInfo mouse;
     // private Label days = new Label(numDays, 100);
     // private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
@@ -26,24 +26,30 @@ public class Modifier extends World
     private ValueBox breakingChance;
     private ValueBox IQ;
     private ValueBox supportChance;
-    private ValueBox chaoValue;
-    private boolean canFlipRight;
-    private boolean canFlipLeft;
+    private ValueBox chaosValue;
+
     private Label numOfDaysText; 
     private Label chanceOfLaptopBreakingText; 
     private Label studentIQText; 
+    private Label customerSupportRespond;
+    private Label chaosNumber;
+    
+    private boolean canFlipRight;
+    private boolean canFlipLeft;
+    
     private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
 
-    private Button changeDeviceRight = new Button("left", 3, ".png");
-    private Button changeDeviceLeft = new Button("right", 3, ".png");
+    private Button changeDeviceRight = new Button("left", 3, ".png", 40);
+    private Button changeDeviceLeft = new Button("right", 3, ".png", 40);
     
     protected static int numDays;
     protected static int chanceOfComputerBreaking;
     protected static int studentIQ;
     protected static int customerSupportRespondChance;
+    protected static int chaos;
     /*
     different computers have different number:
     AlienWare -> 0
@@ -51,10 +57,12 @@ public class Modifier extends World
     MacMini -> 2
     Desktop -> 3
      */
+    private GreenfootImage[] deviceImages;
+    private Image computerImage;
     protected static int computerType;
     private TitleScreen titleScreen;
 
-    private boolean firstTime = true;
+    private static boolean firstTime = true;
 
     /**
      * contructor of Modifier World
@@ -69,7 +77,17 @@ public class Modifier extends World
         numDays = 10;
         chanceOfComputerBreaking = 25;
         studentIQ = 60;
-
+        customerSupportRespondChance = 0;
+        chaos = 1;
+        computerType = 0;
+        
+        deviceImages = new GreenfootImage[] {
+            new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
+            new GreenfootImage("images/SteamDeck.png"),    // SteamDeck -> 1
+            new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
+            new GreenfootImage("images/Desktop.png")       // Desktop -> 3
+        };
+        computerImage = new Image(deviceImages[computerType]);
         this.titleScreen = titleScreen;
         prepare();
 
@@ -77,10 +95,7 @@ public class Modifier extends World
             Button.init();
             firstTime = false;
         }
-
-
-        //computerType = 0;
-        //choosenType = computerList[computerType];
+        
         canFlipLeft = false;
         canFlipRight = true;
     }
@@ -110,15 +125,14 @@ public class Modifier extends World
         breakingChance = new ValueBox(25, 100, 130);
         IQ = new ValueBox(80, 120, 130);
         supportChance = new ValueBox(0, 50, 130);
-        chaoValue = new ValueBox(1, 5, 130);
+        chaosValue = new ValueBox(1, 5, 130);
 
         addObject(days, 280, 360);
         addObject(breakingChance, 245 + 390, 360);
         addObject(IQ, 210 + 2 * 390, 360);
-        addObject(supportChance, (280-1260), 355);
         addObject(supportChance, (280-1260), 360);
-        addObject(chaoValue, (245 + 390 - 1260), 360);
-
+        addObject(chaosValue, (245 + 390 - 1260), 360);
+        
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
 
@@ -128,7 +142,10 @@ public class Modifier extends World
 
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
+        addObject(changeDeviceRight, (210+390*2-1260) - 75, 475);
+        addObject(changeDeviceLeft, (210+390*2-1260) + 75, 475);
         leftFlipButton.setLocation(75,369);
+        addObject(computerImage, (210+390*2-1260), 355);
 
         numOfDaysText = new Label("# Of Days", 40);
         addObject(numOfDaysText, 285, 285);
@@ -136,6 +153,10 @@ public class Modifier extends World
         addObject(chanceOfLaptopBreakingText, 635, 285);
         studentIQText = new Label("Student IQ", 40);
         addObject(studentIQText, 990, 285);
+        customerSupportRespond = new Label("customer support \n respond chance", 30);
+        addObject(customerSupportRespond, (280-1260), 285);
+        chaosNumber = new Label("level of chaos", 40);
+        addObject(chaosNumber, (245+390-1260), 285);
     }
 
     //just an act method
@@ -159,6 +180,7 @@ public class Modifier extends World
         chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
+        chaos = chaosValue.getValue();
     }
 
     protected void startFromFirstPage(){
@@ -186,6 +208,8 @@ public class Modifier extends World
         }
         if(leftFlipButton.isPressed() && canFlipLeft){
             leftFlipButton.action();
+            changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
+            changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             leftFlipButton.setPressedCondition(false);
             canFlipLeft = false;
             canFlipRight = true;
@@ -193,8 +217,30 @@ public class Modifier extends World
         if(rightFlipButton.isPressed() && canFlipRight){
             rightFlipButton.action();
             rightFlipButton.setPressedCondition(false);
+            changeDeviceLeft.setLocation(changeDeviceLeft.getX() + 1260, changeDeviceLeft.getY());
+            changeDeviceRight.setLocation(changeDeviceRight.getX() + 1260, changeDeviceRight.getY());
             canFlipLeft = true;
             canFlipRight = false;
         }
+        if(changeDeviceRight.isPressed()){
+            changeComputerType(true);
+        }
+        if(changeDeviceLeft.isPressed()){
+            changeComputerType(false);
+        }
+    }
+    
+    private void changeComputerType(boolean next) {
+        if (next) {
+            computerType = (computerType + 1) % deviceImages.length; // Move to next type, cycle to 0 if at the end
+        } else {
+            computerType = (computerType - 1 + deviceImages.length) % deviceImages.length; // Move to previous type, cycle to last if at the beginning
+        }
+        updateDeviceImage();
+    }
+    
+    private void updateDeviceImage() {
+        GreenfootImage chosenDeviceImage = deviceImages[computerType];
+        computerImage.setImage(chosenDeviceImage);
     }
 }

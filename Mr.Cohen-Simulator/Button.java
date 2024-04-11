@@ -38,6 +38,18 @@ public class Button extends Actor
         }
     }
     
+    public Button(String imagePath, int numStates, String imageType, int initialSize) {
+        GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
+        image.scale(initialSize, initialSize);
+        setImage(image);
+        imageStates = new GreenfootImage[numStates];
+        imageStates[0] = image;
+        for (int i = 1; i < numStates; i++) {
+            imageStates[i] = new GreenfootImage(imagePath + "_" + (i+1) + ".png");
+            imageStates[i].scale(initialSize, initialSize);
+        }
+    }
+    
     /**
      * Checks the state of the mouse in relation to the button
      * If the mouse is hovering

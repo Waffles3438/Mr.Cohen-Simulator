@@ -26,7 +26,6 @@ public class ValueBox extends Actor
     private int typeCooldown = 10;
     private boolean showBlink = false;
     private int blinkCooldown = 25;
-    private int blinkCooldown = 60;
     
     /**
      * Creates an instance of valueBox

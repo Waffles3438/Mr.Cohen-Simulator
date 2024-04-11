@@ -20,4 +20,12 @@ public class Image extends Actor
         image.drawRect(0, 0, width-1, height-1);
         setImage(image);
     }
+    
+    public Image(GreenfootImage image){
+        setImage(image);
+    }
+    
+    public void act(){
+        
+    }
 }
