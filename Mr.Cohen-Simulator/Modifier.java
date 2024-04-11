@@ -26,7 +26,7 @@ public class Modifier extends World
     private ValueBox breakingChance;
     private ValueBox IQ;
     private ValueBox supportChance;
-    private ValueBox chaoValue;
+    private ValueBox chaosValue;
     private boolean canFlipRight;
     private boolean canFlipLeft;
     private Label numOfDaysText; 
@@ -44,6 +44,7 @@ public class Modifier extends World
     protected static int chanceOfComputerBreaking;
     protected static int studentIQ;
     protected static int customerSupportRespondChance;
+    protected static int chaosNumber;
     /*
     different computers have different number:
     AlienWare -> 0
@@ -112,13 +113,13 @@ public class Modifier extends World
         breakingChance = new ValueBox(25, 100, offSetT);
         IQ = new ValueBox(80, 120, offSetT);
         supportChance = new ValueBox(0, 50, offSetT);
-        chaoValue = new ValueBox(1, 5, offSetT);
+        chaosValue = new ValueBox(1, 5, offSetT);
 
         addObject(days, 280, y);
         addObject(breakingChance, 245 + 390, y);
         addObject(IQ, 210 + 2 * 390, y);
         addObject(supportChance, (280-1260), y);
-        addObject(chaoValue, (245 + 390 - 1260), y);
+        addObject(chaosValue, (245 + 390 - 1260), y);
 
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
@@ -160,6 +161,7 @@ public class Modifier extends World
         chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
+        chaosNumber = chaosValue.getValue();
     }
 
     protected void startFromFirstPage(){
@@ -181,8 +183,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, 0));
+            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaosNumber, 0));
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed() && canFlipLeft){

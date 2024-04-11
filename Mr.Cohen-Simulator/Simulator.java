@@ -12,14 +12,14 @@ public class Simulator extends World
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
-    private int chanceOfLaptopBreaking;
     private int chanceOfComputerBreaking;
+    private int chaosNumber;
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
      * 
      */
-    public Simulator(TitleScreen titleScreen, int days, int chanceOfLaptopBreaking, int studentIQ, int customerSupportRespondChance, int startType)
+    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, int chaosNumber, int startType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -34,8 +34,8 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
-        this.chanceOfLaptopBreaking = chanceOfLaptopBreaking;
-        this.chanceOfComputerBreaking = chanceOfLaptopBreaking;
+        this.chanceOfComputerBreaking = chanceOfComputerBreaking;
+        this.chaosNumber = chaosNumber;
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
