@@ -12,6 +12,7 @@ public class Simulator extends World
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
+    private int chanceOfLaptopBreaking;
     private int chanceOfComputerBreaking;
     private int chaosNumber;
     /**
@@ -34,8 +35,10 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosNumber = chaosNumber;
+
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -54,6 +57,11 @@ public class Simulator extends World
         }
         addObject(new Image(65, 317), 812, 283);
         addObject(new Image(275, 85), 351, 118);
+        // if (startType == 0) {
+            // addObject(new Alienware());
+        // }
+        
+
     }
     
     public void act(){
