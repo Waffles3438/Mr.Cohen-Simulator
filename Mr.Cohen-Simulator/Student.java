@@ -35,7 +35,7 @@ public class Student extends Person
             randomMoveCounter++;
         }
         if (randomMoveCounter >= randomMoveCooldown) {
-            if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0)) {
+            if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
                 randomMoveCounter = 0;
             } else {
                 randomMoveCounter = randomMoveCooldown / 2;

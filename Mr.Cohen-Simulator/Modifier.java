@@ -94,7 +94,7 @@ public class Modifier extends World
         };
         
         computerImage = new Image(deviceImages[computerType]);
-        
+        computerImage.adjustSize(200);
 
         this.titleScreen = titleScreen;
         prepare();

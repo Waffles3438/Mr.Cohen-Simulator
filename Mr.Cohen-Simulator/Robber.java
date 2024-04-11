@@ -25,7 +25,7 @@ public class Robber extends Person
     // Add code to steal laptop
     protected void steal()
     {
-        pathFind(360, 150, 70);
+        pathFind(360, 150, 70, true);
         if (currentPath.size() == 0) 
         {
 

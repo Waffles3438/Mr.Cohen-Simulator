@@ -12,7 +12,6 @@ public class Simulator extends World
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
-    private int chanceOfLaptopBreaking;
     private int chanceOfComputerBreaking;
     private int chaosNumber;
     /**
