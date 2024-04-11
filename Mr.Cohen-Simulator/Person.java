@@ -25,13 +25,17 @@ public class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     public Person() {
+        
         currentPath = new LinkedList<int[]>();
         speed = 5;
         enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
+        avoidList.add(Person.class);
+        avoidList.add(Button.class);
         getImage().scale(50, 50);
     }
+    
     /**
      * Act - do whatever the Person wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.

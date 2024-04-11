@@ -41,7 +41,7 @@ public class Simulator extends World
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                addObject(new Student(studentIQ), 354 + i*211, 360 + j*146 + 100);
+                addObject(new Student(studentIQ), 354 + i*211, 360 + j*146 + 110);
             } 
         }
         if (startType == 0) {
@@ -54,7 +54,7 @@ public class Simulator extends World
                 addObject(new Image(125, 60), 354 + i*211, 360 + j*146+38);
             }
         }
-        addObject(new Image(65, 317), 812, 283);
+        addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
         // if (startType == 0) {
             // addObject(new Alienware());
