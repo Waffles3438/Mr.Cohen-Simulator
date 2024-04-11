@@ -15,13 +15,10 @@ public class Computer extends Actor
     protected GreenfootImage screenImage;
     protected GreenfootImage fullImage;
     
-    public Computer(double durabilityMultiplier) {
-        durability = Greenfoot.getRandomNumber(101);
-    }
-    
     public Computer() {
         
     }
+
     
     /**
      * Act - do whatever the Computer wants to do. This method is called whenever

@@ -29,6 +29,7 @@ public class Person extends SuperSmoothMover
         enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
+        getImage().scale(50, 50);
     }
     /**
      * Act - do whatever the Person wants to do. This method is called whenever

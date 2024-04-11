@@ -9,9 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Alienware extends Computer
 {
     
-    public Alienware(double durabilityMultiplier) 
+    public Alienware() 
     {
-        super(durabilityMultiplier);
+        super();
         deviceImage = new GreenfootImage("laptop_temo.png");
         // width is 440, height is 245
         deviceImage.scale(440, 245);

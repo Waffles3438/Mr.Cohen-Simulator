@@ -12,8 +12,8 @@ public class Steamdeck extends Computer
      * Act - do whatever the Steamdeck wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Steamdeck(double durabilityMultiplier){
-        super(durabilityMultiplier);
+    public Steamdeck(){
+        super();
         deviceImage = new GreenfootImage("images/SteamDeck.png");
         //setImage(deviceImage);
         deviceImage.scale(392, 156);
