@@ -20,6 +20,7 @@ public class Black extends Actor
     
     public Black()
     {
+        img.setTransparency(200);
         img.scale(840, 720);
         setImage(img);
     }
