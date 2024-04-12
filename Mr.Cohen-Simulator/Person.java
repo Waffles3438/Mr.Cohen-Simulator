@@ -24,13 +24,15 @@ public abstract class Person extends SuperSmoothMover
     protected double speed;
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
+    protected boolean moved;
+    
     public Person() {
         
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
-
+        moved = false;
         getImage().scale(50, 50);
     }
     
@@ -65,7 +67,7 @@ public abstract class Person extends SuperSmoothMover
             } else {
                 move(speed);
             }
-            
+            moved = true;
         }
     }
     

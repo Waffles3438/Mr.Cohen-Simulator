@@ -14,6 +14,7 @@ public class Student extends Person
     private int randomMoveCooldown = 180;
     private int projectedMark;
     private static int variation;
+    private boolean counter = false;
     
     /**
      * Creates a student which an iq close to the given iq
@@ -25,8 +26,8 @@ public class Student extends Person
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
-        getImage().scale(50, 50);
-        getImage().rotate(90);
+        getImage().scale(66, 66);
+        //getImage().rotate(90);
         variation++;
     }
     
@@ -37,6 +38,10 @@ public class Student extends Person
     public void act()
     {
         // Add your action code here.
+        if(moved && !counter){
+            getImage().rotate(90);
+            counter = true;
+        }
         super.act();
         if (currentPath.size() == 0) {
             randomMoveCounter++;
