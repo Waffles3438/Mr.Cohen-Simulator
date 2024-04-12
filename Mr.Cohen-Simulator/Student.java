@@ -33,7 +33,7 @@ public class Student extends Person
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
-        getImage().scale(60, 60);
+        getImage().scale(66, 66);
         getImage().rotate(90);
         setRotation(-90);
         this.deskX = deskX;
