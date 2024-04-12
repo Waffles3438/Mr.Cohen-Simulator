@@ -11,9 +11,12 @@ public class Robber extends Person
     private int counter = 0; 
     Black black = new Black();
     ExclamationMark mark = new ExclamationMark();
+    private boolean robbed;
     public Robber()
     {
         super();
+        getImage().rotate(90);
+        robbed = false;
     }
 
     public void act()
@@ -25,7 +28,11 @@ public class Robber extends Person
     // Add code to steal laptop
     protected void steal()
     {
-        pathFind(360, 150, 70, true);
+        if (!robbed) {
+            pathFind(360, 150, 120, true);
+            robbed = true;
+        }
+        
         if (currentPath.size() == 0) 
         {
 

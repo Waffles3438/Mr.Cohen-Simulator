@@ -11,14 +11,14 @@ public class Student extends Person
 {
     private int iq;
     private int randomMoveCounter = 0;
-    private int randomMoveCooldown = 180;
+    private int randomMoveCooldown = 240;
     private int projectedMark;
     private static int variation;
     private boolean counter = false;
     private boolean goingBackToWork = false;
     private int x;
     private int y;
-    private int previousRotation = -12309;
+    private boolean atDesk;
     
     /**
      * Creates a student which an iq close to the given iq
@@ -30,10 +30,12 @@ public class Student extends Person
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
-        getImage().scale(50, 50);
+        getImage().scale(60, 60);
         getImage().rotate(90);
+        setRotation(-90);
         this.x = x;
         this.y = y;
+        atDesk = true;
     }
     
     /**
@@ -64,13 +66,17 @@ public class Student extends Person
         
         if(Greenfoot.getRandomNumber(1000) == 0){
             goingBackToWork = true;
-            if (pathFind(x, y, 0, true)) {
-                goingBackToWork = false;
-            }
+            pathFind(x, y, 0, true);
         }
         
+        if (goingBackToWork && currentPath.size() == 0) {
+            goingBackToWork = false;
+            atDesk = true;
+            setRotation(-90);
+            randomMoveCounter = 0;
+        }
         // Change to if IQ is a certain amount or greater, so smart students study
-        if (true)
+        if (atDesk)
         {
             work();
         }
