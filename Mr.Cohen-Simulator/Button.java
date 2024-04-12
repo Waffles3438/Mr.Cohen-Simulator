@@ -1,13 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * Has the logic to detect the mouse relation to the button
- * Calls the function in the subclass
+ * </p>
+ * 
+ * Click sound from: Minecraft
+ * Editied by Benny Wang, Andy Feng and Evan Xi
  * 
  * @author Felix Zhao
  * @version 1/18/2023
- * 
- * Click sound from: Minecraft
  * 
  */
 public class Button extends Actor
@@ -36,6 +38,18 @@ public class Button extends Actor
         }
     }
     
+    public Button(String imagePath, int numStates, String imageType, int initialSize) {
+        GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
+        image.scale(initialSize, initialSize);
+        setImage(image);
+        imageStates = new GreenfootImage[numStates];
+        imageStates[0] = image;
+        for (int i = 1; i < numStates; i++) {
+            imageStates[i] = new GreenfootImage(imagePath + "_" + (i+1) + ".png");
+            imageStates[i].scale(initialSize, initialSize);
+        }
+    }
+    
     /**
      * Checks the state of the mouse in relation to the button
      * If the mouse is hovering
@@ -44,6 +58,10 @@ public class Button extends Actor
      */
     public void act()
     {
+        if (pressed) {
+            pressed = false;
+        }
+        
         if (Greenfoot.mouseMoved(this)) {
             hover = true;
             if (imageStates.length > 1) {
@@ -96,6 +114,9 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Preload sounds
+     */
     public static void init(){
         clickIndex = 0;
         click = new GreenfootSound[64];
@@ -107,6 +128,9 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Play click sound
+     */
     public void playClick(){
         click[clickIndex].setVolume(50);
         click[clickIndex].play();
@@ -114,6 +138,14 @@ public class Button extends Actor
         if (clickIndex >= click.length){
             clickIndex = 0;
         }
+    }
+
+    /**
+     * Setter for pressed
+     * @param trueOrFalse sets press as true or false
+     */
+    public void setPressedCondition(boolean trueOrFalse){
+        pressed = trueOrFalse;
     }
     
     /**
@@ -123,6 +155,9 @@ public class Button extends Actor
         // does nothing should be in sub class
     }
     
+    /**
+     * Getter for pressed
+     */
     public boolean isPressed(){
         return pressed;
     }

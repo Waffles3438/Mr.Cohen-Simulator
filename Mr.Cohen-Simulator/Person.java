@@ -2,30 +2,38 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Deque;
 
 /**
- * Person class
- * Uses A* for path finding
+ * <div>
+ * All people in the simulation are a subclass of this class
+ * This class gives the basic methods to all people
+ * </div>
+ * Uses A* for path finding. <br>
+ * Some information on the algorithm: <a href="https://en.wikipedia.org/wiki/A*_search_algorithm"> A* Star</a><br>
  * 
  * @author Felix Zhao
- * @version April 6th 2024
+ * @version April 8th 2024
  */
 public class Person extends SuperSmoothMover
 {
     public final static int GRID_CHECK = 10; // the space in between when path finding
     // In order of x, y
-    protected Queue<int[]> currentPath;
+    protected Deque<int[]> currentPath;
     protected double speed;
     protected ArrayList<Class<?>> avoidList;
+    protected int[] finalPosition;
     public Person() {
+        
         currentPath = new LinkedList<int[]>();
         speed = 5;
-        enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
-        avoidList.add(Actor.class);
+        avoidList.add(Image.class);
+
+        getImage().scale(50, 50);
     }
+    
     /**
      * Act - do whatever the Person wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -35,19 +43,19 @@ public class Person extends SuperSmoothMover
         // Add your action code here.
         if (currentPath.size() > 0) {
             double distanceRequired = speed;
-            int[] position = currentPath.peek();
+            int[] position = currentPath.peekFirst();
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
 
                 while (distanceRequired >= distance && currentPath.size() > 0) {
                     setLocation(position[0], position[1]);
-                    currentPath.poll();
+                    currentPath.pollFirst();
                     distanceRequired -= distance;
                     if (currentPath.size() == 0) {
                         break;
                     }
-                    position = currentPath.peek();
+                    position = currentPath.peekFirst();
                     distance = getDistance(new int[]{getX(), getY()}, position);
                     turnTowards(position[0], position[1]);
                 }
@@ -68,10 +76,15 @@ public class Person extends SuperSmoothMover
      *
      * @param targetX The X position to find
      * @param targetY The y position to find
+     * @param radius How far/close can the person be from the given points for it to count as a path found
+     * @param overWrite If true the path find will overwrite the current path
+     * @return Returns if a path is found
      */
-    public void pathFind(int targetX, int targetY) {
+    public boolean pathFind(int targetX, int targetY, double radius, boolean overWrite) {
+        boolean pathFound = false;
         int exactStartX = getX();
         int exactStartY = getY();
+        
         int totalRows = getWorld().getHeight()/GRID_CHECK;
         int totalCols = getWorld().getWidth()/3*2/GRID_CHECK;
         int targetRow = targetY/GRID_CHECK;
@@ -79,6 +92,12 @@ public class Person extends SuperSmoothMover
         // r, c for current Row and current col respectivly
         int r = getY()/GRID_CHECK;
         int c = getX()/GRID_CHECK;
+        if (!overWrite && finalPosition != null) {
+            exactStartX = finalPosition[0];
+            exactStartY = finalPosition[1];
+            r = exactStartY/GRID_CHECK;
+            c = exactStartX/GRID_CHECK;
+        }
         // In order of (f, r, c)
         // has to double[] as the first value may have to be a decimal due to diagonal movements - The points (r, c) are casted to int when used
         PriorityQueue<double[]> openList = new PriorityQueue<double[]>((a, b) -> Double.compare(a[0], b[0]));
@@ -106,9 +125,18 @@ public class Person extends SuperSmoothMover
                 continue;
             }
             closedList[r][c] = true;
-            if (r == targetRow && c == targetCol) {
-                System.out.println("found path");
-                currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
+            if (r == targetRow && c == targetCol || (getDistance(new int[]{c, r}, new int[]{targetCol, targetRow})*GRID_CHECK <= radius)) {
+                //System.out.println("found path");
+                pathFound = true;
+                if (overWrite) {
+                    currentPath = new LinkedList<int[]>(tracePath(cellData, new int[]{r, c}));
+                } else {
+                    for (int[] coord : tracePath(cellData, new int[]{r, c})) {
+                        currentPath.addLast(coord);
+                    }
+                }
+                finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
+                
                 break;
             }
             
@@ -128,7 +156,10 @@ public class Person extends SuperSmoothMover
                     continue;
                 }
                 // check if the person can walk through the spot
+                int currentX = getX();
+                int currentY = getY();
                 setLocation(newCol*GRID_CHECK, newRow*GRID_CHECK);
+                
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
@@ -136,7 +167,7 @@ public class Person extends SuperSmoothMover
                         break; 
                     }
                 }
-                setLocation(exactStartX, exactStartY);
+                setLocation(currentX, currentY);
                 if (!valid) {
                     continue;
                 }
@@ -166,11 +197,12 @@ public class Person extends SuperSmoothMover
             
             
         }
-        System.out.println("done");
+        //System.out.println("done");
+        return pathFound;
     }
-    
-    public void pathFind(Actor actor) {
-        pathFind(actor.getX(), actor.getY());
+            
+    public boolean pathFind(Actor actor, double radius, boolean overWrite) {
+        return pathFind(actor.getX(), actor.getY(), radius, overWrite);
     }
     
     public ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
@@ -297,6 +329,3 @@ class Cell {
         parent_j = j;
     }
 }
-
-
-

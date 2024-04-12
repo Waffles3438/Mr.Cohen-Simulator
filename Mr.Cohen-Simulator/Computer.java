@@ -10,15 +10,15 @@ public class Computer extends Actor
 {
     protected int durability;
     protected String type;
-    
-    public Computer(String type) {
-        durability = Greenfoot.getRandomNumber(101);
-        this.type = type;
-    }
+    protected GreenfootImage deviceImage;
+    // change this possbily to a list
+    protected GreenfootImage screenImage;
+    protected GreenfootImage fullImage;
     
     public Computer() {
         
     }
+
     
     /**
      * Act - do whatever the Computer wants to do. This method is called whenever
@@ -33,10 +33,12 @@ public class Computer extends Actor
     {
         if (durability > 0)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     
-    
+    public void setScreen() {
+        
+    }
 }
