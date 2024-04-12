@@ -185,8 +185,9 @@ public abstract class Person extends SuperSmoothMover
                 // check if the person can walk through the spot
                 int currentX = getX();
                 int currentY = getY();
+                int currentRotation = getRotation();
                 setLocation(newCol*GRID_CHECK, newRow*GRID_CHECK);
-                
+                setRotation(0);
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
@@ -195,6 +196,7 @@ public abstract class Person extends SuperSmoothMover
                     }
                 }
                 setLocation(currentX, currentY);
+                setRotation(currentRotation);
                 if (!valid) {
                     continue;
                 }

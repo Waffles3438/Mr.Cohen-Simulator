@@ -77,7 +77,7 @@ public class ValueBox extends Actor
         if (Greenfoot.mouseClicked(this) && mouseDown) {
             mouseDown = false;
             isTyping = true;
-        } else if ((!Greenfoot.mousePressed(this) && Greenfoot.mousePressed(null))) {
+        } else if ((!Greenfoot.mousePressed(this) && Greenfoot.mousePressed(null) && isTyping)) {
             mouseDown = false;
             isTyping = false;
             currentlyTyping = "";
