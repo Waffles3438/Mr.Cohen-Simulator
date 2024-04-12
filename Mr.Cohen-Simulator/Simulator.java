@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Simulator here.
  * 
  * @author Felix Zhao
- * @version (a version number or a date)
+ * @version 0.0.1 April 11th, 2024
  */
 public class Simulator extends World
 {
