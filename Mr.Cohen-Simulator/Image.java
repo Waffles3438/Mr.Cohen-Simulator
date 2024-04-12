@@ -36,6 +36,11 @@ public class Image extends Actor
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
     
+    /**
+     * Creates an image using GreenfootImage
+     *
+     * @param image Set the image to the given image
+     */
     public Image(GreenfootImage image){
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
@@ -45,6 +50,11 @@ public class Image extends Actor
         
     }
     
+    /**
+     * Changes the width of the image to x and height is changed according the ratio and x
+     *
+     * @param x The width of the new image
+     */
     public void adjustSize(int x){
         getImage().scale(x, (int)(x*ratio));
     }

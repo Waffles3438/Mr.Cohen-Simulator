@@ -135,7 +135,10 @@ public abstract class Person extends SuperSmoothMover
                         currentPath.addLast(coord);
                     }
                 }
-                finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
+                if (currentPath.peekLast() != null) {
+                    finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
+                }
+                
                 
                 break;
             }
@@ -201,11 +204,19 @@ public abstract class Person extends SuperSmoothMover
         return pathFound;
     }
             
+    /**
+     * Finds the shortest path from it's current location to an actor
+     *
+     * @param actor The actor to go to
+     * @param radius The max distance away
+     * @param overWrite If true the path find will overwrite the current path
+     * @return Returns if the path is found
+     */
     public boolean pathFind(Actor actor, double radius, boolean overWrite) {
         return pathFind(actor.getX(), actor.getY(), radius, overWrite);
     }
     
-    public ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
+    private ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
         ArrayList<int[]> path = new ArrayList<int[]>();
         int row = target[0];
         int col = target[1];
