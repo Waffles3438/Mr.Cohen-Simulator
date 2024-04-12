@@ -48,7 +48,7 @@ public class Student extends Person
     public void act()
     {
         // Add your action code here.
-        if(Greenfoot.getRandomNumber(100) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
         
