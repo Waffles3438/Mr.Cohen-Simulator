@@ -26,6 +26,7 @@ public class Student extends Person
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
         getImage().scale(50, 50);
+        getImage().rotate(90);
         variation++;
     }
     
