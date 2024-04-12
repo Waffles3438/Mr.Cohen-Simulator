@@ -16,7 +16,7 @@ import java.util.Deque;
  * @author Felix Zhao
  * @version April 8th 2024
  */
-public class Person extends SuperSmoothMover
+public abstract class Person extends SuperSmoothMover
 {
     public final static int GRID_CHECK = 10; // the space in between when path finding
     // In order of x, y
