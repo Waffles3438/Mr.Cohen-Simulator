@@ -168,7 +168,7 @@ public class Modifier extends World
         addObject(numOfDaysText, 285, 285);
         chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 30);
         addObject(chanceOfLaptopBreakingText, 635, 285);
-        studentIQText = new Label("Student IQ", 40);
+        studentIQText = new Label("Average \n Student IQ", 40);
         addObject(studentIQText, 990, 285);
         customerSupportRespond = new Label("customer support \n respond chance", 30);
         addObject(customerSupportRespond, (280-1260), 285);

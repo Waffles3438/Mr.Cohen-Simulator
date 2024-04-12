@@ -4,8 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * An actor that stores an integer in a range. The number can be set by typing it in
  * It goes with the slider
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version 0.01 April 11th, 2024
  */
 public class ValueBox extends Actor
 {
@@ -77,7 +77,7 @@ public class ValueBox extends Actor
         if (Greenfoot.mouseClicked(this) && mouseDown) {
             mouseDown = false;
             isTyping = true;
-        } else if ((!Greenfoot.mousePressed(this) && Greenfoot.mousePressed(null))) {
+        } else if ((!Greenfoot.mousePressed(this) && Greenfoot.mousePressed(null) && isTyping)) {
             mouseDown = false;
             isTyping = false;
             currentlyTyping = "";

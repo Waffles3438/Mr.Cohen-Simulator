@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Simulator here.
+ * This is the world that contains the simulation
  * 
  * @author Felix Zhao
- * @version (a version number or a date)
+ * @version 0.0.1 April 11th, 2024
  */
 public class Simulator extends World
 {
@@ -41,7 +41,7 @@ public class Simulator extends World
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                addObject(new Student(studentIQ), 354 + i*211, 360 + j*146 + 110);
+                addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
         if (startType == 0) {

@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Janitor here.
+ * The janitor
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -12,6 +12,7 @@ public class Janitor extends Person
     
     public Janitor()
     {
+        super();
         spillChance = Greenfoot.getRandomNumber(101);
     }
     

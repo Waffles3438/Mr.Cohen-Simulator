@@ -3,12 +3,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Alienware here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version April 11th, 2024
  */
 public class Alienware extends Computer
 {
     
+    /**
+     * Creates an alienware laptop to be used in the simulation
+     *
+     */
     public Alienware() 
     {
         super();
