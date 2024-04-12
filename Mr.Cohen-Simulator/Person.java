@@ -51,7 +51,7 @@ public abstract class Person extends SuperSmoothMover
         } else {
             speed = speed + Math.random();
         }
-        if(speed == 0){
+        if(speed <= 0){
             speed = Math.random();
         } else if(speed > 7){
             speed = 7;

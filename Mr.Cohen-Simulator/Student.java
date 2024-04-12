@@ -30,7 +30,8 @@ public class Student extends Person
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
-        getImage().scale(66, 66);
+        getImage().scale(50, 50);
+        getImage().rotate(90);
         this.x = x;
         this.y = y;
     }
@@ -46,10 +47,6 @@ public class Student extends Person
             slowerOrFaster();
         }
         
-        if(moved && !counter){
-            getImage().rotate(90);
-            counter = true;
-        }
         super.act();
         if (currentPath.size() == 0) {
             randomMoveCounter++;
