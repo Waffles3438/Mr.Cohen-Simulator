@@ -4,8 +4,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs
  * 
- * @author Felix Zhao
- * @version (a version number or a date)
+ * @author Felix Zhao 
+ * @author Benny Wang
+ * @version 1.0.0
  */
 public class Student extends Person
 {
@@ -16,16 +17,18 @@ public class Student extends Person
     private static int variation;
     private boolean counter = false;
     private boolean goingBackToWork = false;
-    private int x;
-    private int y;
+    private int deskX;
+    private int deskY;
     private boolean atDesk;
     
     /**
      * Creates a student which an iq close to the given iq
      *
      * @param iq The iq to set the student around at
+     * @param deskX The x position of the students desk
+     * @param deskY The y position of the students desk
      */
-    public Student(int iq, int x, int y) {
+    public Student(int iq, int deskX, int deskY) {
         this.iq = iq + Greenfoot.getRandomNumber(40)-20;
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
@@ -33,8 +36,8 @@ public class Student extends Person
         getImage().scale(60, 60);
         getImage().rotate(90);
         setRotation(-90);
-        this.x = x;
-        this.y = y;
+        this.deskX = deskX;
+        this.deskY = deskY;
         atDesk = true;
     }
     
@@ -66,7 +69,7 @@ public class Student extends Person
         
         if(Greenfoot.getRandomNumber(1000) == 0){
             goingBackToWork = true;
-            pathFind(x, y, 0, true);
+            pathFind(deskX, deskY, 0, true);
         }
         
         if (goingBackToWork && currentPath.size() == 0) {

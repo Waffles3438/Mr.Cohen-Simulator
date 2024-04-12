@@ -1,6 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * The title screen of the simulation
+ * 
  * @author Benny
  * @version 1.0.0
  * 

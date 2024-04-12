@@ -5,8 +5,8 @@ import greenfoot.Actor;
 /**
  * Write a description of class LeftFlipButton here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy Feng
+ * @version 1.0.0
  */
 public class LeftFlipButton extends Button
 {

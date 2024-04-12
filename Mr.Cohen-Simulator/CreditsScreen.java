@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class CreditsScreen here.
+ * The screen with credits / the creators
  * 
  * @author Benny
  * @version 1.0.0

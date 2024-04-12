@@ -1,13 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Box here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- * 
- * art from vecteezy.com
+ * <div>
+ * The box used to hold the different modifers 
+ * </div>
+ * Art from vecteezy.com
  * https://www.vecteezy.com/vector-art/5146435-old-paper-in-pixel-art-style
+ * 
+ * @author Andy Feng
+ * @version 1.0.0
+ *
  */
 public class Box extends Actor
 {
