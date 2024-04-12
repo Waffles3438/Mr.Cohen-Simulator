@@ -12,6 +12,7 @@ public class Janitor extends Person
     
     public Janitor()
     {
+        super();
         spillChance = Greenfoot.getRandomNumber(101);
     }
     

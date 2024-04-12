@@ -24,14 +24,39 @@ public abstract class Person extends SuperSmoothMover
     protected double speed;
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
+    protected boolean moved;
+    protected boolean atDesk = false;
+    
     public Person() {
         
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
-
-        getImage().scale(50, 50);
+        moved = false;
+        getImage().scale(66, 66);
+    }
+    
+    /**
+     * Setter for speed
+     * @param a The new speed
+     */
+    public void setSpeed(double a){
+        speed = a;
+    }
+    
+    public void slowerOrFaster(){
+        if(Greenfoot.getRandomNumber(2) == 0){
+            speed = speed - Math.random();
+        } else {
+            speed = speed + Math.random();
+        }
+        if(speed == 0){
+            speed = Math.random();
+        } else if(speed > 7){
+            speed = 7;
+        }
+        
     }
     
     /**
@@ -65,7 +90,7 @@ public abstract class Person extends SuperSmoothMover
             } else {
                 move(speed);
             }
-            
+            moved = true;
         }
     }
     
@@ -117,7 +142,6 @@ public abstract class Person extends SuperSmoothMover
         openList.add(new double[]{0, r, c});
         
         while (openList.size() != 0) {
-            
             double[] item = openList.poll();
             r = (int)item[1];
             c = (int)item[2];
@@ -135,7 +159,10 @@ public abstract class Person extends SuperSmoothMover
                         currentPath.addLast(coord);
                     }
                 }
-                finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
+                if (currentPath.peekLast() != null) {
+                    finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
+                }
+                
                 
                 break;
             }
@@ -201,11 +228,19 @@ public abstract class Person extends SuperSmoothMover
         return pathFound;
     }
             
+    /**
+     * Finds the shortest path from it's current location to an actor
+     *
+     * @param actor The actor to go to
+     * @param radius The max distance away
+     * @param overWrite If true the path find will overwrite the current path
+     * @return Returns if the path is found
+     */
     public boolean pathFind(Actor actor, double radius, boolean overWrite) {
         return pathFind(actor.getX(), actor.getY(), radius, overWrite);
     }
     
-    public ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
+    private ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
         ArrayList<int[]> path = new ArrayList<int[]>();
         int row = target[0];
         int col = target[1];
