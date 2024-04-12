@@ -16,7 +16,7 @@ import java.util.Deque;
  * @author Felix Zhao
  * @version April 8th 2024
  */
-public class Person extends SuperSmoothMover
+public abstract class Person extends SuperSmoothMover
 {
     public final static int GRID_CHECK = 10; // the space in between when path finding
     // In order of x, y
@@ -28,11 +28,9 @@ public class Person extends SuperSmoothMover
         
         currentPath = new LinkedList<int[]>();
         speed = 5;
-        enableStaticRotation();
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
-        avoidList.add(Person.class);
-        avoidList.add(Button.class);
+
         getImage().scale(50, 50);
     }
     
@@ -45,19 +43,19 @@ public class Person extends SuperSmoothMover
         // Add your action code here.
         if (currentPath.size() > 0) {
             double distanceRequired = speed;
-            int[] position = currentPath.peek();
+            int[] position = currentPath.peekFirst();
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
 
                 while (distanceRequired >= distance && currentPath.size() > 0) {
                     setLocation(position[0], position[1]);
-                    currentPath.poll();
+                    currentPath.pollFirst();
                     distanceRequired -= distance;
                     if (currentPath.size() == 0) {
                         break;
                     }
-                    position = currentPath.peek();
+                    position = currentPath.peekFirst();
                     distance = getDistance(new int[]{getX(), getY()}, position);
                     turnTowards(position[0], position[1]);
                 }
@@ -86,10 +84,7 @@ public class Person extends SuperSmoothMover
         boolean pathFound = false;
         int exactStartX = getX();
         int exactStartY = getY();
-        if (!overWrite && finalPosition != null) {
-            exactStartX = finalPosition[0];
-            exactStartY = finalPosition[1];
-        }
+        
         int totalRows = getWorld().getHeight()/GRID_CHECK;
         int totalCols = getWorld().getWidth()/3*2/GRID_CHECK;
         int targetRow = targetY/GRID_CHECK;
@@ -97,6 +92,12 @@ public class Person extends SuperSmoothMover
         // r, c for current Row and current col respectivly
         int r = getY()/GRID_CHECK;
         int c = getX()/GRID_CHECK;
+        if (!overWrite && finalPosition != null) {
+            exactStartX = finalPosition[0];
+            exactStartY = finalPosition[1];
+            r = exactStartY/GRID_CHECK;
+            c = exactStartX/GRID_CHECK;
+        }
         // In order of (f, r, c)
         // has to double[] as the first value may have to be a decimal due to diagonal movements - The points (r, c) are casted to int when used
         PriorityQueue<double[]> openList = new PriorityQueue<double[]>((a, b) -> Double.compare(a[0], b[0]));
@@ -155,7 +156,10 @@ public class Person extends SuperSmoothMover
                     continue;
                 }
                 // check if the person can walk through the spot
+                int currentX = getX();
+                int currentY = getY();
                 setLocation(newCol*GRID_CHECK, newRow*GRID_CHECK);
+                
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
@@ -163,7 +167,7 @@ public class Person extends SuperSmoothMover
                         break; 
                     }
                 }
-                setLocation(exactStartX, exactStartY);
+                setLocation(currentX, currentY);
                 if (!valid) {
                     continue;
                 }
