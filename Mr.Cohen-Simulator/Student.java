@@ -15,20 +15,24 @@ public class Student extends Person
     private int projectedMark;
     private static int variation;
     private boolean counter = false;
+    private boolean goingBackToWork = false;
+    private int x;
+    private int y;
+    private int previousRotation = -12309;
     
     /**
      * Creates a student which an iq close to the given iq
      *
      * @param iq The iq to set the student around at
      */
-    public Student(int iq) {
+    public Student(int iq, int x, int y) {
         this.iq = iq + Greenfoot.getRandomNumber(40)-20;
         projectedMark = 70 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
         getImage().scale(66, 66);
-        //getImage().rotate(90);
-        variation++;
+        this.x = x;
+        this.y = y;
     }
     
     /**
@@ -38,6 +42,10 @@ public class Student extends Person
     public void act()
     {
         // Add your action code here.
+        if(Greenfoot.getRandomNumber(100) == 0){
+            slowerOrFaster();
+        }
+        
         if(moved && !counter){
             getImage().rotate(90);
             counter = true;
@@ -46,7 +54,9 @@ public class Student extends Person
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
-        if (randomMoveCounter >= randomMoveCooldown) {
+        
+        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork) {
+            atDesk = false;
             if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
                 randomMoveCounter = 0;
             } else {
@@ -55,6 +65,12 @@ public class Student extends Person
             
         }
         
+        if(Greenfoot.getRandomNumber(1000) == 0){
+            goingBackToWork = true;
+            if (pathFind(x, y, 0, true)) {
+                goingBackToWork = false;
+            }
+        }
         
         // Change to if IQ is a certain amount or greater, so smart students study
         if (true)

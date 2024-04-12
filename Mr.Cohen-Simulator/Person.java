@@ -25,6 +25,7 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
+    protected boolean atDesk = false;
     
     public Person() {
         
@@ -33,7 +34,29 @@ public abstract class Person extends SuperSmoothMover
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
         moved = false;
-        getImage().scale(50, 50);
+        getImage().scale(66, 66);
+    }
+    
+    /**
+     * Setter for speed
+     * @param a The new speed
+     */
+    public void setSpeed(double a){
+        speed = a;
+    }
+    
+    public void slowerOrFaster(){
+        if(Greenfoot.getRandomNumber(2) == 0){
+            speed = speed - Math.random();
+        } else {
+            speed = speed + Math.random();
+        }
+        if(speed == 0){
+            speed = Math.random();
+        } else if(speed > 7){
+            speed = 7;
+        }
+        
     }
     
     /**
@@ -119,7 +142,6 @@ public abstract class Person extends SuperSmoothMover
         openList.add(new double[]{0, r, c});
         
         while (openList.size() != 0) {
-            
             double[] item = openList.poll();
             r = (int)item[1];
             c = (int)item[2];
