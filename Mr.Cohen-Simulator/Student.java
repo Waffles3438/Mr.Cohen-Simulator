@@ -67,7 +67,7 @@ public class Student extends Person
             
         }
         
-        if(Greenfoot.getRandomNumber(1000) == 0){
+        if(Greenfoot.getRandomNumber(1000) == 0 && !atDesk && !goingBackToWork){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
         }

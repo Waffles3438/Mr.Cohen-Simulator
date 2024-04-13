@@ -14,9 +14,23 @@ public class Computer extends Actor
     // change this possbily to a list
     protected GreenfootImage screenImage;
     protected GreenfootImage fullImage;
+
+    /*
+     * These are for the mouse
+     * There is no screenX as the computers should be symmetrical on the x-axis
+     */
+    protected int screenY;
+ 
+    protected Mouse mouse;
+    
     
     public Computer() {
         
+    }
+    
+    public void addedToWorld(World w) {
+        mouse = new Mouse(getX()-screenImage.getWidth()/2, getX()+screenImage.getWidth()/2, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 10);
+        w.addObject(mouse, getX(), getY()-getImage().getHeight()/2+screenY+screenImage.getHeight()/2);
     }
 
     
@@ -26,7 +40,13 @@ public class Computer extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        int screenLeftBound = getX()-screenImage.getWidth()/2;
+        int screenRightBound = getX()+screenImage.getWidth()/2;
+        int screenTopBound = screenY-screenImage.getHeight()/2;
+        int screenBottomBound = screenY+screenImage.getHeight()/2;
+        
+        
+        
     }
     
     public boolean isBroken()
