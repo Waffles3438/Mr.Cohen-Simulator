@@ -38,6 +38,11 @@ public class Simulator extends World
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosNumber = chaosNumber;
 
+        
+        
+        Image computerImage = new Image("temp_computer.png");
+        computerImage.adjustSize(50);
+        addObject(computerImage, 100, 100); 
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
