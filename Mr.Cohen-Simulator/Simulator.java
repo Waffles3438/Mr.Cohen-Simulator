@@ -41,7 +41,7 @@ public class Simulator extends World
         
         
         Image computerImage = new Image("temp_computer.png");
-        computerImage.adjustSize(50);
+        computerImage.adjustSize(70);
         addObject(computerImage, 100, 100); 
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
