@@ -25,6 +25,7 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
+    protected Fader speech;
     
     
     public Person() {
@@ -89,6 +90,10 @@ public abstract class Person extends SuperSmoothMover
                 move(speed);
             }
             moved = true;
+        }
+        
+        if (speech != null) {
+            speech.setLocation(getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
     }
     
