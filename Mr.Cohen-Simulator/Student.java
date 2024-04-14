@@ -13,13 +13,17 @@ public class Student extends Person
     private int iq;
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 240;
-    private int projectedMark;
+    private double projectedMark;
     private static int variation;
     private boolean counter = false;
     private boolean goingBackToWork = false;
     private int deskX;
     private int deskY;
     private boolean atDesk;
+    private boolean isWorking;
+    private int workTimer;
+    private boolean isWastingTime;
+    private int wasteTimeCounter;
     
     /**
      * Creates a student which an iq close to the given iq
@@ -30,7 +34,7 @@ public class Student extends Person
      */
     public Student(int iq, int deskX, int deskY) {
         this.iq = iq + Greenfoot.getRandomNumber(40)-20;
-        projectedMark = 70 * iq / 100;
+        projectedMark = 60 * iq / 100;
         variation = Greenfoot.getRandomNumber(9) + 1;
         setImage("student" + variation + ".png");
         getImage().scale(66, 66);
@@ -39,6 +43,10 @@ public class Student extends Person
         this.deskX = deskX;
         this.deskY = deskY;
         atDesk = true;
+        isWorking = false;
+        workTimer = 0;
+        isWastingTime = false;
+        wasteTimeCounter = 0;
     }
     
     /**
@@ -57,14 +65,8 @@ public class Student extends Person
             randomMoveCounter++;
         }
         
-        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork) {
-            atDesk = false;
-            if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
-                randomMoveCounter = 0;
-            } else {
-                randomMoveCounter = randomMoveCooldown / 2;
-            }
-            
+        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && !isWorking) {
+            moveRandom();
         }
         
         if(Greenfoot.getRandomNumber(1000) == 0 && !atDesk && !goingBackToWork){
@@ -79,13 +81,65 @@ public class Student extends Person
             randomMoveCounter = 0;
         }
         // Change to if IQ is a certain amount or greater, so smart students study
-        if (atDesk)
-        {
-            work();
+        if (atDesk && !isWorking && !isWastingTime) {
+            // Added a curve so people with low iq don't study way less
+            double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
+            if (chance >= 70) {
+                work();
+            } else if (chance <= 20) {
+                wasteTime();
+            }
+            
+        }
+        
+        if (workTimer > 0) {
+            workTimer -= 1;
+        } else if (workTimer == 0) {
+            workTimer--;
+            getWorld().removeObject(speech);
+            speech = null;
+            isWorking = false;
+            //moveRandom();
+        }
+        
+        if (wasteTimeCounter > 0) {
+            wasteTimeCounter --;
+        } else if (wasteTimeCounter == 0) {
+            wasteTimeCounter --;
+            getWorld().removeObject(speech);
+            speech = null;
+            isWastingTime = false;
         }
     }
     
     protected void work() {
-        
+        if (speech != null) {
+            getWorld().removeObject(speech);
+        }
+        isWorking = true;
+        workTimer = Greenfoot.getRandomNumber(iq)+50;
+        projectedMark += workTimer / 100.0;
+        speech = new Fader("study_bubble.png", 255, 0, 10);
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+    }
+    
+    private void moveRandom() {
+        atDesk = false;
+        if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
+            randomMoveCounter = 0;
+        } else {
+            randomMoveCounter = randomMoveCooldown / 2;
+        }
+    }
+    
+    private void wasteTime() {
+        isWastingTime = true;
+        if (speech != null) {
+            getWorld().removeObject(speech);
+        }
+        speech = new Fader("happy_emotion.png", 255, 0, 10);
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
+        projectedMark -= (double)wasteTimeCounter / iq;
     }
 }

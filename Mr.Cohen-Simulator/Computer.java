@@ -29,7 +29,7 @@ public class Computer extends Actor
     }
     
     public void addedToWorld(World w) {
-        mouse = new Mouse(getX()-screenImage.getWidth()/2, getX()+screenImage.getWidth()/2, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 10);
+        mouse = new Mouse(getX()-screenImage.getWidth()/2, getX()+screenImage.getWidth()/2, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 15);
         w.addObject(mouse, getX(), getY()-getImage().getHeight()/2+screenY+screenImage.getHeight()/2);
     }
 
