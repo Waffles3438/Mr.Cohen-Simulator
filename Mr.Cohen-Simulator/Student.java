@@ -88,6 +88,8 @@ public class Student extends Person
                 work();
             } else if (chance <= 20) {
                 wasteTime();
+            } else {
+                moveRandom();
             }
             
         }
@@ -141,5 +143,9 @@ public class Student extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
+    public double getMark() {
+        return projectedMark;
     }
 }

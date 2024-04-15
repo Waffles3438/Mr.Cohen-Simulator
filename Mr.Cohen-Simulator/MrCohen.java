@@ -3,25 +3,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class MrCohen here.
  * 
- * @author (your name) 
+ * @author Felix Zhao
  * @version (a version number or a date)
  */
 public class MrCohen extends Person
 {
     private int daysSinceAngry; 
+    private Computer computer;
     
-    public MrCohen()
-    {
-        
+    public MrCohen(Computer computer) {
+        this.computer = computer;
     }
     
-    public void act()
-    {
-        // Add your action code here.
+    public void act() {
+        
     }
     
     public int getDaysSinceAngry()
     {
         return daysSinceAngry;
     }
+    
 }

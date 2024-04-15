@@ -44,8 +44,9 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
+        Computer computer = new Alienware();
         if (startType == 0) {
-            addObject(new Alienware(), 0, 0);
+            addObject(computer, 0, 0);
         }
         // 125 by 60 pixesl
         // starts are negative one as the coords are based in the middle
@@ -56,9 +57,7 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        // if (startType == 0) {
-            // addObject(new Alienware());
-        // }
+        addObject(new MrCohen(computer), 360, 35);
         
 
     }
