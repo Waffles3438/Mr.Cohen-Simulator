@@ -15,13 +15,13 @@ public class Simulator extends World
     private int dayNumber;
     private int numDays;
     private int chanceOfComputerBreaking;
-    private int chaosNumber;
+    private boolean chaosMode;
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
      * 
      */
-    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, int chaosNumber, int startType)
+    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -38,7 +38,7 @@ public class Simulator extends World
         this.numDays = days;
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
-        this.chaosNumber = chaosNumber;
+        this.chaosMode = chaosMode;
 
         
         

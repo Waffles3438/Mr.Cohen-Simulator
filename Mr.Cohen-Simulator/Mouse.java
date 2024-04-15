@@ -5,9 +5,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao
  * @version (a version number or a date)
+ * 
+ * Editied by Andy Feng
  */
 public class Mouse extends SuperSmoothMover
 {
+    private GreenfootSound mouseClick = new GreenfootSound("sounds/mouseClick.mp3");
+    private GreenfootImage mouseIcon = new GreenfootImage("images/Mouse.png");
+    
     private int leftBound;
     private int rightBound;
     private int topBound;
@@ -21,6 +26,8 @@ public class Mouse extends SuperSmoothMover
     private int targetY;
     private boolean isMoving;
     private double mouseSpeed;
+    
+    private boolean playClickSound = true;
     /**
      * Mouse Constructor
      *
@@ -31,6 +38,8 @@ public class Mouse extends SuperSmoothMover
      * @param margin The mininun distance the distance can be away from the edge
      */
     public Mouse(int leftBound, int rightBound, int topBound, int bottomBound, int margin) {
+        setImage(mouseIcon);
+        
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.topBound = topBound;
@@ -42,27 +51,33 @@ public class Mouse extends SuperSmoothMover
 
     }
     
-    public void act()
-    {
-        // Add your action code here.
-        if (mouseMoveCounter >= mouseMoveCooldown) {
-            targetX = Greenfoot.getRandomNumber(rightBound-leftBound-margin)+leftBound+margin;
-            targetY = Greenfoot.getRandomNumber(bottomBound-topBound-margin)+topBound+margin;
-            isMoving = true;
-            turnTowards(targetX, targetY);
-            mouseMoveCounter = 0;
+    public void act() {
+        if (!isMoving) {
+            checkAndInitiateMovement();
+        } else {
+            executeMovement();
         }
-        
-        if (isMoving) {
-            double distance = Person.getDistance(new int[]{getX(), getY()}, new int[]{targetX, targetY});
-            if (mouseSpeed >= distance) {
-                setLocation(targetX, targetY);
-                isMoving = false;
-            } else {
-                move(mouseSpeed);
-            }
+    }
+    
+    private void checkAndInitiateMovement() {
+        if (mouseMoveCounter >= mouseMoveCooldown) {
+            targetX = Greenfoot.getRandomNumber(rightBound - leftBound) + leftBound;
+            targetY = Greenfoot.getRandomNumber(bottomBound - topBound) + topBound;
+            turnTowards(targetX, targetY);
+            isMoving = true;
+            mouseMoveCounter = 0;
         } else {
             mouseMoveCounter++;
+        }
+    }
+    
+    private void executeMovement() {
+        double distance = Math.hypot(targetX - getX(), targetY - getY());
+        if (mouseSpeed >= distance) {
+            setLocation(targetX, targetY);
+            isMoving = false;
+        } else {
+            move(mouseSpeed);
         }
     }
 }
