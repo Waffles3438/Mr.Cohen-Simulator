@@ -204,6 +204,7 @@ public class Modifier extends World
     protected void startFromFirstPage(){
         if(canFlipLeft){
             leftFlipButton.action();
+            computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
             changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
             changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             canFlipLeft = false;
