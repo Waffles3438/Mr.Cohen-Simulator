@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.List;
 /**
  * Write a description of class Robber here.
  * 
@@ -51,4 +51,7 @@ public class Robber extends Person
          }
     }
 
+    private void shock(){
+        List<Student> student = getWorld().getObjects(Student.class);
+    }
 }
