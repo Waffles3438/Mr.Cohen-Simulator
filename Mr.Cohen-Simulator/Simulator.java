@@ -8,18 +8,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
+    Image computerImage = new Image("temp_computer.png");
+    
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
     private int chanceOfComputerBreaking;
-    private int chaosNumber;
+    private boolean chaosMode;
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
      * 
      */
-    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, int chaosNumber, int startType)
+    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -36,8 +38,13 @@ public class Simulator extends World
         this.numDays = days;
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
-        this.chaosNumber = chaosNumber;
+        this.chaosMode = chaosMode;
 
+        
+        
+        computerImage.adjustSize(70);
+        addObject(computerImage, 360, 150); 
+        
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -59,6 +66,7 @@ public class Simulator extends World
         addObject(new Image(275, 85), 351, 118);
         addObject(new MrCohen(computer), 360, 35);
         
+        
 
     }
     
@@ -66,6 +74,12 @@ public class Simulator extends World
         if(back.isPressed()){
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
+        }
+        
+        int dayChecker = dayNumber-1;
+        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
+            //System.out.println(dayNumber);
+            //removeObject(computerImage);
         }
     }
 }
