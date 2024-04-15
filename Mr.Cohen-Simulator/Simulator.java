@@ -13,6 +13,7 @@ public class Simulator extends World
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
+    private int dayActCounter = 0;
     private int numDays;
     private int chanceOfComputerBreaking;
     private boolean chaosMode;
@@ -66,7 +67,7 @@ public class Simulator extends World
         addObject(new Image(275, 85), 351, 118);
         addObject(new MrCohen(computer), 360, 35);
         
-        
+        dayActCounter = 0;
 
     }
     
@@ -76,10 +77,10 @@ public class Simulator extends World
             back.setPressedCondition(false);
         }
         
-        int dayChecker = dayNumber-1;
-        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
-            //System.out.println(dayNumber);
-            //removeObject(computerImage);
+        dayActCounter++;
+        if (dayActCounter >= 600) {
+            dayActCounter = 0;
+            
         }
     }
 }

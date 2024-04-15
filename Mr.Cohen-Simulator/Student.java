@@ -86,9 +86,9 @@ public class Student extends Person
             double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
             if (chance >= 70) {
                 work();
-            } else if (chance <= 20) {
+            } else if (chance <= 30) {
                 wasteTime();
-            } else {
+            } else if (chance <= 5){
                 moveRandom();
             }
             
@@ -147,5 +147,19 @@ public class Student extends Person
     
     public double getMark() {
         return projectedMark;
+    }
+    
+    /**
+     * Updates the projected mark of the student (Increase/decrease)
+     *
+     * @param amountLearned How much to change it by, the amount actually gained/lost is determined by IQ
+     */
+    public void changedProjectedMark(double amountLearned) {
+        if (amountLearned > 0) {
+            projectedMark += amountLearned * iq / 150.0;
+        } else {
+            projectedMark += amountLearned * 100.0 / iq;
+        }
+        
     }
 }

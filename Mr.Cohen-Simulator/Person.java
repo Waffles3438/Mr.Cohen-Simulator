@@ -282,11 +282,6 @@ public abstract class Person extends SuperSmoothMover
 }
 
 class Cell {
-    /**
-     * f - total estimated cost (g+h)
-     * g - distance traveled from starting node
-     * h - estimated cost to get to end node
-     */
     private int parent_i, parent_j;
     private double f, g, h;
     
