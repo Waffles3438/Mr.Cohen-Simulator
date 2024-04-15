@@ -8,8 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
-    Image computerImage = new Image("temp_computer.png");
-    
+    Image computerImage; 
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
@@ -45,7 +44,7 @@ public class Simulator extends World
         this.chaosMode = chaosMode;
 
         addObject(day, 1175, 30);
-        
+        computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
         addObject(computerImage, 360, 150); 
         
@@ -71,8 +70,6 @@ public class Simulator extends World
             // addObject(new Alienware());
         // }
         
-        
-
     }
     
     public void act(){
