@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Modifier world which allows the user to change te startup value of 
  * the simulation. The users can chnage the number of days of the 
- * simulation, chance of Mr.Cohen's laptop break, student's IQ, the speed
+ * simulation, chance of Mr.Cohen's computer breaking, student's IQ, the speed
  * customer support respond Mr.Cohen's email and the type of device 
  * Mr.Cohen starts with.
  * 
@@ -166,7 +166,7 @@ public class Modifier extends World
 
         numOfDaysText = new Label("# Of Days", 40);
         addObject(numOfDaysText, 285, 285);
-        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 30);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Computer Breaking", 30);
         addObject(chanceOfLaptopBreakingText, 635, 285);
         studentIQText = new Label("Average \n Student IQ", 40);
         addObject(studentIQText, 990, 285);
