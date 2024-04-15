@@ -8,6 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
+    Image computerImage = new Image("temp_computer.png");
+    
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
@@ -38,6 +40,11 @@ public class Simulator extends World
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosNumber = chaosNumber;
 
+        
+        
+        computerImage.adjustSize(70);
+        addObject(computerImage, 360, 150); 
+        
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -60,6 +67,7 @@ public class Simulator extends World
             // addObject(new Alienware());
         // }
         
+        
 
     }
     
@@ -67,6 +75,12 @@ public class Simulator extends World
         if(back.isPressed()){
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
+        }
+        
+        int dayChecker = dayNumber-1;
+        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
+            //System.out.println(dayNumber);
+            //removeObject(computerImage);
         }
     }
 }
