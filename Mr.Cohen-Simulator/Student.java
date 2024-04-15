@@ -54,9 +54,9 @@ public class Student extends Person
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
-    {
+    {   
         // Add your action code here.
-        if(Greenfoot.getRandomNumber(100) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
         
@@ -137,9 +137,24 @@ public class Student extends Person
         if (speech != null) {
             getWorld().removeObject(speech);
         }
-        speech = new Fader("happy_emotion.png", 255, 0, 10);
+        if(Greenfoot.getRandomNumber(2) == 0){
+            speech = new Fader("happy_emotion0.png", 255, 0, 10);
+        } else {
+            speech = new Fader("happy_emotion1.png", 255, 0, 10);
+        }
+        
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
+    /**
+     * Returns students to desk
+     */
+    public void returnToDesk(){
+        setLocation(deskX, deskY);
+        setRotation(-90);
+        clearPath();
+        //System.out.println("should return to desk");
     }
 }
