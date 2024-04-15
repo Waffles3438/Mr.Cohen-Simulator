@@ -8,15 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
-    Image computerImage = new Image("temp_computer.png");
-    
+    Image computerImage; 
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
-    private int dayActCounter = 0;
     private int numDays;
     private int chanceOfComputerBreaking;
     private boolean chaosMode;
+    private int actsCount = 0;
+    private int dayCount = 1;
+    private Label day = new Label("Day: " + dayCount, 50);
+    
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -41,8 +43,8 @@ public class Simulator extends World
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
 
-        
-        
+        addObject(day, 1175, 30);
+        computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
         addObject(computerImage, 360, 150); 
         
@@ -52,9 +54,8 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
-        Computer computer = new Alienware();
         if (startType == 0) {
-            addObject(computer, 0, 0);
+            addObject(new Alienware(), 0, 0);
         }
         // 125 by 60 pixesl
         // starts are negative one as the coords are based in the middle
@@ -65,10 +66,10 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        addObject(new MrCohen(computer), 360, 35);
+        // if (startType == 0) {
+            // addObject(new Alienware());
+        // }
         
-        dayActCounter = 0;
-
     }
     
     public void act(){
@@ -77,10 +78,23 @@ public class Simulator extends World
             back.setPressedCondition(false);
         }
         
-        dayActCounter++;
-        if (dayActCounter >= 600) {
-            dayActCounter = 0;
-            
+        int dayChecker = dayNumber-1;
+        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
+            //System.out.println(dayNumber);
+            //removeObject(computerImage);
+        }
+        
+        actsCount++;
+        if(actsCount >= 600){
+            dayCount++;
+            if(dayCount > 30){
+                dayCount = 30;
+            }
+            day.setValue("Day: " + dayCount);
+            actsCount = 0;
+            for(Student student : getObjects(Student.class)){
+                student.returnToDesk();
+            }
         }
     }
 }

@@ -54,9 +54,9 @@ public class Student extends Person
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
-    {
+    {   
         // Add your action code here.
-        if(Greenfoot.getRandomNumber(100) == 0){
+        if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
         
@@ -86,10 +86,8 @@ public class Student extends Person
             double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
             if (chance >= 70) {
                 work();
-            } else if (chance <= 30) {
+            } else if (chance <= 20) {
                 wasteTime();
-            } else if (chance <= 5){
-                moveRandom();
             }
             
         }
@@ -139,27 +137,24 @@ public class Student extends Person
         if (speech != null) {
             getWorld().removeObject(speech);
         }
-        speech = new Fader("happy_emotion.png", 255, 0, 10);
+        if(Greenfoot.getRandomNumber(2) == 0){
+            speech = new Fader("happy_emotion0.png", 255, 0, 10);
+        } else {
+            speech = new Fader("happy_emotion1.png", 255, 0, 10);
+        }
+        
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
     }
     
-    public double getMark() {
-        return projectedMark;
-    }
-    
     /**
-     * Updates the projected mark of the student (Increase/decrease)
-     *
-     * @param amountLearned How much to change it by, the amount actually gained/lost is determined by IQ
+     * Returns students to desk
      */
-    public void changedProjectedMark(double amountLearned) {
-        if (amountLearned > 0) {
-            projectedMark += amountLearned * iq / 150.0;
-        } else {
-            projectedMark += amountLearned * 100.0 / iq;
-        }
-        
+    public void returnToDesk(){
+        setLocation(deskX, deskY);
+        setRotation(-90);
+        clearPath();
+        //System.out.println("should return to desk");
     }
 }
