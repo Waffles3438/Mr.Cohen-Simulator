@@ -22,19 +22,9 @@ public class Modifier extends World
     // private Label days = new Label(numDays, 100);
     // private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
     // private Label IQ = new Label(studentIQ, 100);
-    private ValueBox days;
-    private ValueBox breakingChance;
-    private ValueBox IQ;
-    private ValueBox supportChance;
-    private ValueBox chaosValue;
 
     private boolean canFlipRight;
     private boolean canFlipLeft;
-    private Label numOfDaysText; 
-    private Label chanceOfLaptopBreakingText; 
-    private Label studentIQText;
-    private Label customerSupportRespond;
-    private Label chaosNumber;
 
 
     private Button back = new Button("back", 3, ".png");
@@ -48,11 +38,26 @@ public class Modifier extends World
 
     
     protected static int numDays;
+    private Label numOfDaysText; 
+    private ValueBox days;
+    
     protected static int chanceOfComputerBreaking;
+    private Label chanceOfLaptopBreakingText; 
+    private ValueBox breakingChance;
+    
     protected static int studentIQ;
+    private Label studentIQText;
+    private ValueBox IQ;
+    private boolean Janitors;
+    private CheckBox hasJanitors;
+    private boolean Robbers;
+    private CheckBox hasRobbers;
+    
     protected static int customerSupportRespondChance;
-
-    protected static int chaos;
+    private Label customerSupportRespond;
+    private ValueBox supportChance;
+    protected static boolean chaos;
+    private Label chaosNumber;
     /*
     different computers have different number:
     AlienWare -> 0
@@ -83,8 +88,10 @@ public class Modifier extends World
         chanceOfComputerBreaking = 25;
         studentIQ = 60;
         customerSupportRespondChance = 0;
-        chaos = 1;
+        chaos = false;
         computerType = 0;
+        Janitors = false;
+        Robbers = false;
         
         deviceImages = new GreenfootImage[] {
             new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
@@ -140,13 +147,11 @@ public class Modifier extends World
         breakingChance = new ValueBox(25, 100, offSetT);
         IQ = new ValueBox(80, 120, offSetT);
         supportChance = new ValueBox(0, 50, offSetT);
-        chaosValue = new ValueBox(1, 5, offSetT);
 
         addObject(days, 280, y);
         addObject(breakingChance, 245 + 390, y);
         addObject(IQ, 210 + 2 * 390, y);
         addObject(supportChance, (280-1260), y);
-        addObject(chaosValue, (245 + 390 - 1260), y);
 
         
         addObject(startSim, 1050, 665);
@@ -198,7 +203,6 @@ public class Modifier extends World
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
 
-        chaos = chaosValue.getValue();
     }
 
     protected void startFromFirstPage(){
