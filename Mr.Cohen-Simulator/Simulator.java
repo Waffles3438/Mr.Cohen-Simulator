@@ -16,6 +16,10 @@ public class Simulator extends World
     private int numDays;
     private int chanceOfComputerBreaking;
     private boolean chaosMode;
+    private int actsCount = 0;
+    private int dayCount = 1;
+    private Label day = new Label("Day: " + dayCount, 50);
+    
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -40,7 +44,7 @@ public class Simulator extends World
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
 
-        
+        addObject(day, 1175, 30);
         
         computerImage.adjustSize(70);
         addObject(computerImage, 360, 150); 
@@ -81,6 +85,19 @@ public class Simulator extends World
         if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
             //System.out.println(dayNumber);
             //removeObject(computerImage);
+        }
+        
+        actsCount++;
+        if(actsCount >= 600){
+            dayCount++;
+            if(dayCount > 30){
+                dayCount = 30;
+            }
+            day.setValue("Day: " + dayCount);
+            actsCount = 0;
+            for(Student student : getObjects(Student.class)){
+                student.returnToDesk();
+            }
         }
     }
 }

@@ -257,6 +257,15 @@ public abstract class Person extends SuperSmoothMover
         return path;
     }
     
+        /**
+     * Clears the current path of the person
+     * Useful when you want to stop a person
+     *
+     */
+    public void clearPath() {
+        currentPath = new LinkedList<int[]>();
+    }
+    
     /**
      * Gets the distance from one (x, y) pair to another (x, y) pair
      *
