@@ -27,7 +27,6 @@ public class Fader extends Actor{
             this.getImage().setTransparency(getImage().getTransparency() - fadeSpeed);
         }
         else{
-            sleepFor(30);
             getWorld().removeObject(this);
             return;
         }

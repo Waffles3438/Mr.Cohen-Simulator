@@ -23,6 +23,7 @@ public class Simulator extends World
     private boolean fadeIn = false;
     private boolean fadeOut = false;
     private boolean firstTime = true;
+    private FinishedWorld finishedWorld;
     
     /**
      * Starts the simulation. Draws borders
@@ -44,6 +45,8 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        
+        finishedWorld = new FinishedWorld();
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
@@ -93,12 +96,17 @@ public class Simulator extends World
         actsCount++;
         if(actsCount >= 600){
             transitionToNextDay = true;
+            dayCount++;
             addObject(blackScreen, getWidth()/2, getHeight()/2);
             fadeIn = true;
             actsCount = 0;
         }
         
         if(transitionToNextDay){
+            if(dayCount > Modifier.getNumberOfDays()){
+                Greenfoot.setWorld(finishedWorld);
+            }
+            
             if(fadeIn){
                 blackScreen.fadeIn();
                 if(blackScreen.getImage().getTransparency() >= 254){
@@ -109,10 +117,6 @@ public class Simulator extends World
             
             if(fadeOut){
                 if(firstTime){
-                    dayCount++;
-                    if(dayCount > 30){
-                        dayCount = 30;
-                    }
                     day.setValue("Day: " + dayCount);
                     for(Student student : getObjects(Student.class)){
                         student.returnToDesk();
