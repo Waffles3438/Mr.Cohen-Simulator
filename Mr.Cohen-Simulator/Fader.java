@@ -14,7 +14,7 @@ public class Fader extends Actor{
     private boolean done = false;
     private boolean finished = false;
     
-    public Fader(String image, int max, int min, int speed){
+    public Fader(String image, int max, int min, int speed) {
         setImage(image);
         maxTransparency = max;
         minTransparency = min;  

@@ -25,7 +25,7 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
-    protected Fader speech;
+    protected BubbleSpeech speech;
     
     
     public Person() {
@@ -267,6 +267,15 @@ public abstract class Person extends SuperSmoothMover
     }
     
     /**
+     * Returns the size of the path of this person
+     *
+     * @return The size of the current path
+     */
+    public int getPathSize() {
+        return currentPath.size();
+    }
+    
+    /**
      * Gets the distance from one (x, y) pair to another (x, y) pair
      *
      * @param one The first position
@@ -282,11 +291,6 @@ public abstract class Person extends SuperSmoothMover
 }
 
 class Cell {
-    /**
-     * f - total estimated cost (g+h)
-     * g - distance traveled from starting node
-     * h - estimated cost to get to end node
-     */
     private int parent_i, parent_j;
     private double f, g, h;
     

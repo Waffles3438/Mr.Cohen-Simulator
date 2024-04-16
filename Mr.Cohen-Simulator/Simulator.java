@@ -18,13 +18,16 @@ public class Simulator extends World
     private int actsCount = 0;
     private int dayCount = 1;
     private Label day = new Label("Day: " + dayCount, 50);
+
+    private SuperStatBar averageProjectedMark;
+
     private Fader blackScreen;
     private boolean transitionToNextDay = false;
     private boolean fadeIn = false;
     private boolean fadeOut = false;
     private boolean firstTime = true;
     private FinishedWorld finishedWorld;
-    
+
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -50,7 +53,7 @@ public class Simulator extends World
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
-
+        
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
@@ -62,11 +65,13 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
+        Computer computer = new Alienware();
         
         if (startType == 0) {
+            computer = new Alienware();
             addObject(new Alienware(), 0, 0);
         }
-        // 125 by 60 pixesl
+
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -75,10 +80,15 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        // if (startType == 0) {
-            // addObject(new Alienware());
-        // }
+        
+        addObject(new MrCohen(computer), 360, 35);
+        
+        averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
+        addObject(averageProjectedMark, 1050, 100);
+
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
+        
+        
     }
     
     public void act(){
@@ -92,6 +102,12 @@ public class Simulator extends World
             //System.out.println(dayNumber);
             //removeObject(computerImage);
         }
+        
+        double mark = 0;
+        for (Student student : getObjects(Student.class)) {
+            mark += student.getProjectedMark();
+        }
+        averageProjectedMark.update((int)(mark/9));
         
         actsCount++;
         if(actsCount >= 600){
