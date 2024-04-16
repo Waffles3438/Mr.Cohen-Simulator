@@ -29,7 +29,6 @@ public abstract class Person extends SuperSmoothMover
     
     
     public Person() {
-        
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
