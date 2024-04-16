@@ -267,6 +267,15 @@ public abstract class Person extends SuperSmoothMover
     }
     
     /**
+     * Returns the size of the path of this person
+     *
+     * @return The size of the current path
+     */
+    public int getPathSize() {
+        return currentPath.size();
+    }
+    
+    /**
      * Gets the distance from one (x, y) pair to another (x, y) pair
      *
      * @param one The first position

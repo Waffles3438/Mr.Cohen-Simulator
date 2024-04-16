@@ -18,6 +18,7 @@ public class Simulator extends World
     private int actsCount = 0;
     private int dayCount = 1;
     private Label day = new Label("Day: " + dayCount, 50);
+    private SuperStatBar averageProjectedMark;
     
     /**
      * Starts the simulation. Draws borders
@@ -42,7 +43,7 @@ public class Simulator extends World
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
-
+        
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
@@ -54,7 +55,9 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
+        Computer computer = new Alienware();
         if (startType == 0) {
+            computer = new Alienware();
             addObject(new Alienware(), 0, 0);
         }
         // 125 by 60 pixesl
@@ -66,10 +69,11 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        // if (startType == 0) {
-            // addObject(new Alienware());
-        // }
         
+        addObject(new MrCohen(computer), 360, 35);
+        
+        averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
+        addObject(averageProjectedMark, 1050, 100);
     }
     
     public void act(){
@@ -84,8 +88,10 @@ public class Simulator extends World
             //removeObject(computerImage);
         }
         
+        
+        
         actsCount++;
-        if(actsCount >= 600){
+        if(actsCount >= 30000){
             dayCount++;
             if(dayCount > 30){
                 dayCount = 30;
