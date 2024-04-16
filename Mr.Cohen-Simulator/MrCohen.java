@@ -20,6 +20,10 @@ public class MrCohen extends Person
         teachingTimer = 0;
     }
     
+    public void addedToWorld(World w) {
+        newDay();
+    }
+    
     public void act() {
         if (teachingTimer > 0) {
             teachingTimer --;
@@ -54,8 +58,16 @@ public class MrCohen extends Person
         }
         isTeaching = true;
         teachingTimer = 80;
-        speech = new BubbleSpeech("study_bubble.png");
+        speech = new BubbleSpeech("angry_emotion.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
+    public void newDay() {
+        setLocation(360, 35);
+        if (computer.isBroken()) {
+            rage();
+        } else {
+            teachStudents();
+        }
+    }
 }
