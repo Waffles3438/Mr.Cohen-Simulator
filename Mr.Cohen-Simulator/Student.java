@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * <div>Students will walk around in the simulation and doing different tasks</div>
@@ -20,10 +21,14 @@ public class Student extends Person
     private int deskX;
     private int deskY;
     private boolean atDesk;
-    private boolean isWorking;
+
     private int workTimer;
-    private boolean isWastingTime;
+
     private int wasteTimeCounter;
+
+    private int talkingCounter;
+    private Student talkStudent;
+
     
     /**
      * Creates a student which an iq close to the given iq
@@ -43,10 +48,13 @@ public class Student extends Person
         this.deskX = deskX;
         this.deskY = deskY;
         atDesk = true;
-        isWorking = false;
-        workTimer = 0;
-        isWastingTime = false;
-        wasteTimeCounter = 0;
+        //isWorking = false;
+        workTimer = -1;
+        //isWastingTime = false;
+        wasteTimeCounter = -1;
+        //isTalking = false;
+        talkStudent = null;
+        talkingCounter = -1;
     }
     
     /**
@@ -54,22 +62,27 @@ public class Student extends Person
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
-    {
-        // Add your action code here.
-        if(Greenfoot.getRandomNumber(100) == 0){
+    {   
+        super.act();
+        if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
         
-        super.act();
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
         
-        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && !isWorking) {
-            moveRandom();
+        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
+            int task = Greenfoot.getRandomNumber(2);
+            if (task == 0) {
+                moveRandom();
+            } else if (task == 1) {
+                talkToSomeone();
+            }
+            
         }
         
-        if(Greenfoot.getRandomNumber(1000) == 0 && !atDesk && !goingBackToWork){
+        if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
         }
@@ -80,14 +93,16 @@ public class Student extends Person
             setRotation(-90);
             randomMoveCounter = 0;
         }
-        // Change to if IQ is a certain amount or greater, so smart students study
-        if (atDesk && !isWorking && !isWastingTime) {
+
+        if (atDesk && doingNothing()) {
             // Added a curve so people with low iq don't study way less
             double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
             if (chance >= 70) {
                 work();
-            } else if (chance <= 20) {
+            } else if (chance <= 30) {
                 wasteTime();
+            } else if (chance <= 10) {
+                moveRandom();
             }
             
         }
@@ -98,7 +113,7 @@ public class Student extends Person
             workTimer--;
             getWorld().removeObject(speech);
             speech = null;
-            isWorking = false;
+
             //moveRandom();
         }
         
@@ -108,7 +123,29 @@ public class Student extends Person
             wasteTimeCounter --;
             getWorld().removeObject(speech);
             speech = null;
-            isWastingTime = false;
+
+        }
+        
+        
+        
+        if (talkStudent != null && currentPath.size() == 0 && talkStudent.getPathSize() == 0 && talkingCounter == -1) {
+            turnTowards(talkStudent);
+            talkingCounter = 80;
+            if (speech != null) {
+                getWorld().removeObject(speech);
+            }
+            speech = new BubbleSpeech("angry_emotion.png");
+            getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        }
+        
+        if (talkingCounter > 0) {
+            talkingCounter--;
+        } else if (talkingCounter == 0) {
+            talkingCounter--;
+            talkStudent = null;
+            getWorld().removeObject(speech);
+            speech = null;
+            moveRandom();
         }
     }
     
@@ -116,10 +153,9 @@ public class Student extends Person
         if (speech != null) {
             getWorld().removeObject(speech);
         }
-        isWorking = true;
         workTimer = Greenfoot.getRandomNumber(iq)+50;
         projectedMark += workTimer / 100.0;
-        speech = new Fader("study_bubble.png", 255, 0, 10);
+        speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
@@ -133,13 +169,94 @@ public class Student extends Person
     }
     
     private void wasteTime() {
-        isWastingTime = true;
         if (speech != null) {
             getWorld().removeObject(speech);
         }
-        speech = new Fader("happy_emotion.png", 255, 0, 10);
+        if(Greenfoot.getRandomNumber(2) == 0){
+            speech = new BubbleSpeech("happy_emotion0.png");
+        } else {
+            speech = new BubbleSpeech("happy_emotion1.png");
+        }
+        
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
+    private void talkToSomeone() {
+        ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
+        for (Student student : students) {
+            if (!student.isTalking() && student != this) {
+                if (pathFind(student, 75, true)) {
+                    student.requestToTalk(this);
+                    talkStudent = student;
+                } 
+                
+                break;
+            }
+        }
+        
+        
+    }
+    
+    private boolean doingNothing() {
+        return workTimer == -1 && wasteTimeCounter == -1 && talkStudent == null && talkingCounter == -1;
+    }
+    
+    /**
+     * A student will request another student to talk
+     *
+     * @param student The student that requested to talk
+     */
+    public void requestToTalk(Student student) {
+        clearPath();
+        goingBackToWork = false;
+        talkStudent = student;
+    }
+    
+    /**
+     * Returns students to desk
+     */
+    public void returnToDesk(){
+        setLocation(deskX, deskY);
+        setRotation(-90);
+        clearPath();
+        workTimer = -1;
+        wasteTimeCounter = -1;
+        talkStudent = null;
+        talkingCounter = -1;
+        getWorld().removeObject(speech);
+        speech = null;
+        //System.out.println("should return to desk");
+    }
+    
+    /**
+     * Returns if the student is talking or not
+     *
+     */
+    public boolean isTalking() {
+        return talkStudent != null || talkingCounter >= 0;
+    }
+    
+    /**
+     * Updates the projected mark of the student (Increase/decrease)
+     *
+     * @param amountLearned How much to change it by, the amount actually gained/lost is determined by IQ
+     */
+    public void changedProjectedMark(double amountLearned) {
+        if (amountLearned > 0) {
+            projectedMark += amountLearned * iq / 150.0;
+        } else {
+            projectedMark += amountLearned * 100.0 / iq;
+        }
+
+    }
+    
+    /**
+     * Returns the student's projected mark
+     *
+     */
+    public double getProjectedMark() {
+        return projectedMark;
     }
 }

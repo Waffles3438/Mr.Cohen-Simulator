@@ -16,4 +16,9 @@ public class MacMini extends Computer
     {
         // Add your action code here.
     }
+    
+    public MacMini()
+    {
+        
+    }
 }

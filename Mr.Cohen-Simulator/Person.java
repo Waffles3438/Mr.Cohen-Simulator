@@ -25,7 +25,7 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
-    protected Fader speech;
+    protected BubbleSpeech speech;
     
     
     public Person() {
@@ -57,7 +57,6 @@ public abstract class Person extends SuperSmoothMover
         } else if(speed > 7){
             speed = 7;
         }
-        
     }
     
     /**
@@ -73,7 +72,6 @@ public abstract class Person extends SuperSmoothMover
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
-
                 while (distanceRequired >= distance && currentPath.size() > 0) {
                     setLocation(position[0], position[1]);
                     currentPath.pollFirst();
@@ -167,8 +165,6 @@ public abstract class Person extends SuperSmoothMover
                 if (currentPath.peekLast() != null) {
                     finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
                 }
-                
-                
                 break;
             }
             
@@ -178,8 +174,7 @@ public abstract class Person extends SuperSmoothMover
             // int[][] directions = new int[][] {
                 // {-1, 0},{0, -1}, {0, 1}, {1, 0}
             // };
-            
-            
+
             for (int[] position : directions) {
                 int newRow = r + position[0];
                 int newCol = c + position[1];
@@ -205,13 +200,11 @@ public abstract class Person extends SuperSmoothMover
                 if (!valid) {
                     continue;
                 }
-                
-                
+
                 if (closedList[newRow][newCol]) {
                     continue;
                 }
-                
-                
+
                 double newG = cellData[r][c].getG()+1;
                 if (position[0] != 0 && position[1] != 0) {
                     // adds another 0.4 because diagonal movements are longer
@@ -228,8 +221,6 @@ public abstract class Person extends SuperSmoothMover
                     cellData[newRow][newCol].setParent(r, c);
                 }
             }
-            
-            
         }
         //System.out.println("done");
         return pathFound;
@@ -266,6 +257,24 @@ public abstract class Person extends SuperSmoothMover
         return path;
     }
     
+        /**
+     * Clears the current path of the person
+     * Useful when you want to stop a person
+     *
+     */
+    public void clearPath() {
+        currentPath = new LinkedList<int[]>();
+    }
+    
+    /**
+     * Returns the size of the path of this person
+     *
+     * @return The size of the current path
+     */
+    public int getPathSize() {
+        return currentPath.size();
+    }
+    
     /**
      * Gets the distance from one (x, y) pair to another (x, y) pair
      *
@@ -282,11 +291,6 @@ public abstract class Person extends SuperSmoothMover
 }
 
 class Cell {
-    /**
-     * f - total estimated cost (g+h)
-     * g - distance traveled from starting node
-     * h - estimated cost to get to end node
-     */
     private int parent_i, parent_j;
     private double f, g, h;
     
