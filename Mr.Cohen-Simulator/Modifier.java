@@ -275,4 +275,8 @@ public class Modifier extends World
         computerImage.updateRatio();
         computerImage.adjustSize(200);
     }
+    
+    public static int getNumberOfDays(){
+        return numDays;
+    }
 }

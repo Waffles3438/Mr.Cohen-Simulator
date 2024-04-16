@@ -18,8 +18,16 @@ public class Simulator extends World
     private int actsCount = 0;
     private int dayCount = 1;
     private Label day = new Label("Day: " + dayCount, 50);
+
     private SuperStatBar averageProjectedMark;
-    
+
+    private Fader blackScreen;
+    private boolean transitionToNextDay = false;
+    private boolean fadeIn = false;
+    private boolean fadeOut = false;
+    private boolean firstTime = true;
+    private FinishedWorld finishedWorld;
+
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -40,6 +48,8 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        
+        finishedWorld = new FinishedWorld();
 
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
@@ -56,6 +66,7 @@ public class Simulator extends World
             } 
         }
         Computer computer = new Alienware();
+        
         if (startType == 0) {
             computer = new Alienware();
             addObject(new Alienware(), 0, 0);
@@ -74,6 +85,10 @@ public class Simulator extends World
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
         addObject(averageProjectedMark, 1050, 100);
+        // if (startType == 0) {
+            // addObject(new Alienware());
+        // }
+        blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
     }
     
     public void act(){
@@ -91,15 +106,43 @@ public class Simulator extends World
         
         
         actsCount++;
-        if(actsCount >= 30000){
+        if(actsCount >= 600){
+            transitionToNextDay = true;
             dayCount++;
-            if(dayCount > 30){
-                dayCount = 30;
-            }
-            day.setValue("Day: " + dayCount);
+            addObject(blackScreen, getWidth()/2, getHeight()/2);
+            fadeIn = true;
             actsCount = 0;
-            for(Student student : getObjects(Student.class)){
-                student.returnToDesk();
+        }
+        
+        if(transitionToNextDay){
+            if(dayCount > Modifier.getNumberOfDays()){
+                Greenfoot.setWorld(finishedWorld);
+            }
+            
+            if(fadeIn){
+                blackScreen.fadeIn();
+                if(blackScreen.getImage().getTransparency() >= 254){
+                    fadeIn = false;
+                    fadeOut = true;
+                }
+            }
+            
+            if(fadeOut){
+                if(firstTime){
+                    day.setValue("Day: " + dayCount);
+                    for(Student student : getObjects(Student.class)){
+                        student.returnToDesk();
+                    }
+                    firstTime = false;
+                }
+                blackScreen.fadeOut();
+            }
+            
+            if(blackScreen.getWorld() == null){
+                fadeOut = false;
+                actsCount = 0;
+                transitionToNextDay = false;
+                firstTime = true;
             }
         }
     }
