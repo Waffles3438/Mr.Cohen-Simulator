@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 /**
  * An actor that displays an image and/or acts as a hitbox for the people pathfinding
  * An actor that has no purpose other than displaying an image
@@ -13,6 +14,7 @@ public class Image extends Actor
 {
     
     private double ratio;
+    protected ArrayList<GreenfootImage> list = new ArrayList<GreenfootImage>();
     
     /**
      * @param imageName, name of the image
@@ -44,6 +46,15 @@ public class Image extends Actor
     public Image(GreenfootImage image){
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
+    }
+    
+    public Image(String name, int numberOfImage, String fileType){
+        for(int i = 0; i < numberOfImage; i++){
+            list.add(new GreenfootImage(name + (i+1) + fileType));
+        }
+        for(GreenfootImage image : list){
+            image.scale(120, 120);
+        }
     }
     
     public void act(){
