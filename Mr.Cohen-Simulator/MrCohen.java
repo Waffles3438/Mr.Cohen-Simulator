@@ -42,7 +42,7 @@ public class MrCohen extends Person
         }
         isTeaching = true;
         teachingTimer = 80;
-        speech = new Fader("study_bubble.png", 255, 0, 1);
+        speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
@@ -54,7 +54,7 @@ public class MrCohen extends Person
         }
         isTeaching = true;
         teachingTimer = 80;
-        speech = new Fader("study_bubble.png", 255, 0, 1);
+        speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     

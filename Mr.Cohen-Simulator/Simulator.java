@@ -71,7 +71,7 @@ public class Simulator extends World
             computer = new Alienware();
             addObject(new Alienware(), 0, 0);
         }
-        // 125 by 60 pixesl
+
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -85,10 +85,10 @@ public class Simulator extends World
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
         addObject(averageProjectedMark, 1050, 100);
-        // if (startType == 0) {
-            // addObject(new Alienware());
-        // }
+
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
+        
+        
     }
     
     public void act(){
@@ -103,7 +103,11 @@ public class Simulator extends World
             //removeObject(computerImage);
         }
         
-        
+        double mark = 0;
+        for (Student student : getObjects(Student.class)) {
+            mark += student.getProjectedMark();
+        }
+        averageProjectedMark.update((int)(mark/9));
         
         actsCount++;
         if(actsCount >= 600){

@@ -134,7 +134,7 @@ public class Student extends Person
             if (speech != null) {
                 getWorld().removeObject(speech);
             }
-            speech = new Fader("angry_emotion.png", 255, 0, 10);
+            speech = new BubbleSpeech("angry_emotion.png");
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
@@ -155,7 +155,7 @@ public class Student extends Person
         }
         workTimer = Greenfoot.getRandomNumber(iq)+50;
         projectedMark += workTimer / 100.0;
-        speech = new Fader("study_bubble.png", 255, 0, 10);
+        speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
@@ -173,9 +173,9 @@ public class Student extends Person
             getWorld().removeObject(speech);
         }
         if(Greenfoot.getRandomNumber(2) == 0){
-            speech = new Fader("happy_emotion0.png", 255, 0, 10);
+            speech = new BubbleSpeech("happy_emotion0.png");
         } else {
-            speech = new Fader("happy_emotion1.png", 255, 0, 10);
+            speech = new BubbleSpeech("happy_emotion1.png");
         }
         
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
@@ -203,6 +203,11 @@ public class Student extends Person
         return workTimer == -1 && wasteTimeCounter == -1 && talkStudent == null && talkingCounter == -1;
     }
     
+    /**
+     * A student will request another student to talk
+     *
+     * @param student The student that requested to talk
+     */
     public void requestToTalk(Student student) {
         clearPath();
         goingBackToWork = false;
@@ -245,5 +250,13 @@ public class Student extends Person
             projectedMark += amountLearned * 100.0 / iq;
         }
 
+    }
+    
+    /**
+     * Returns the student's projected mark
+     *
+     */
+    public double getProjectedMark() {
+        return projectedMark;
     }
 }

@@ -25,7 +25,7 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
-    protected Fader speech;
+    protected BubbleSpeech speech;
     
     
     public Person() {
