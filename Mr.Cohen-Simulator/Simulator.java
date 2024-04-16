@@ -18,6 +18,11 @@ public class Simulator extends World
     private int actsCount = 0;
     private int dayCount = 1;
     private Label day = new Label("Day: " + dayCount, 50);
+    private Fader blackScreen;
+    private boolean transitionToNextDay = false;
+    private boolean fadeIn = false;
+    private boolean fadeOut = false;
+    private boolean firstTime = true;
     
     /**
      * Starts the simulation. Draws borders
@@ -54,6 +59,7 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
+        
         if (startType == 0) {
             addObject(new Alienware(), 0, 0);
         }
@@ -69,7 +75,7 @@ public class Simulator extends World
         // if (startType == 0) {
             // addObject(new Alienware());
         // }
-        
+        blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
     }
     
     public void act(){
@@ -86,14 +92,41 @@ public class Simulator extends World
         
         actsCount++;
         if(actsCount >= 600){
-            dayCount++;
-            if(dayCount > 30){
-                dayCount = 30;
-            }
-            day.setValue("Day: " + dayCount);
+            transitionToNextDay = true;
+            addObject(blackScreen, getWidth()/2, getHeight()/2);
+            fadeIn = true;
             actsCount = 0;
-            for(Student student : getObjects(Student.class)){
-                student.returnToDesk();
+        }
+        
+        if(transitionToNextDay){
+            if(fadeIn){
+                blackScreen.fadeIn();
+                if(blackScreen.getImage().getTransparency() >= 254){
+                    fadeIn = false;
+                    fadeOut = true;
+                }
+            }
+            
+            if(fadeOut){
+                if(firstTime){
+                    dayCount++;
+                    if(dayCount > 30){
+                        dayCount = 30;
+                    }
+                    day.setValue("Day: " + dayCount);
+                    for(Student student : getObjects(Student.class)){
+                        student.returnToDesk();
+                    }
+                    firstTime = false;
+                }
+                blackScreen.fadeOut();
+            }
+            
+            if(blackScreen.getWorld() == null){
+                fadeOut = false;
+                actsCount = 0;
+                transitionToNextDay = false;
+                firstTime = true;
             }
         }
     }
