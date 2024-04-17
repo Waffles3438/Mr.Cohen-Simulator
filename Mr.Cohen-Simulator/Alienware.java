@@ -27,7 +27,7 @@ public class Alienware extends Computer
         screenY = 18;
         fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
         setImage(fullImage);
-        durability = 10;
+        durability = 80;
     }
     
     public void addedToWorld(World w) {

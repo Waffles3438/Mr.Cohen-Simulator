@@ -8,6 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Simulator extends World
 {
+    public final static Color BLACK = new Color(0, 0, 0);
+    public final static Color GREEN = new Color(100, 255, 100);
+    public final static Color ORANGE = new Color(240, 100, 10);
+    public final static Color BLUE = new Color(80, 80, 255);
+    
     Image computerImage; 
     private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
@@ -20,6 +25,8 @@ public class Simulator extends World
     private Label day = new Label("Day: " + dayCount, 50);
 
     private SuperStatBar averageProjectedMark;
+    private SuperStatBar cohenAngerMeter;
+    private SuperStatBar computerDurability;
 
     private Fader blackScreen;
     private boolean transitionToNextDay = false;
@@ -85,8 +92,12 @@ public class Simulator extends World
         cohen = new MrCohen(computer);
         addObject(cohen, 360, 35);
         
-        averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
+        averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
+        cohenAngerMeter = new SuperStatBar(100, 0, null, 360, 20, 0, ORANGE, BLACK);
+        computerDurability = new SuperStatBar(100, 0, null, 360, 20, 0, BLUE, BLACK);
         addObject(averageProjectedMark, 1050, 100);
+        addObject(cohenAngerMeter, 1050, 140);
+        addObject(computerDurability, 1050, 180);
 
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
@@ -110,6 +121,8 @@ public class Simulator extends World
             mark += student.getProjectedMark();
         }
         averageProjectedMark.update((int)(mark/9));
+        cohenAngerMeter.update(cohen.getAnger());
+        computerDurability.update(computer.getDurability());
         
         actsCount++;
         if(actsCount >= 600){
@@ -140,6 +153,9 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     firstTime = false;
+                    if (Greenfoot.getRandomNumber(100/chanceOfComputerBreaking) == 0) {
+                        computer.breakComputer();
+                    }
                 }
                 blackScreen.fadeOut();
             }
@@ -149,7 +165,9 @@ public class Simulator extends World
                 actsCount = 0;
                 transitionToNextDay = false;
                 firstTime = true;
+                
                 cohen.newDay();
+                
             }
         }
     }

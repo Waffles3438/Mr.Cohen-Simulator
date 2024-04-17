@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/** This is the computer class
+/** 
+ * This is the computer class
  * A subclass instance will be seen during the simulation
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version 0.0.1
  */
 public class Computer extends Actor
 {
@@ -20,7 +21,6 @@ public class Computer extends Actor
      * There is no screenX as the computers should be symmetrical on the x-axis
      */
     protected int screenY;
- 
     protected Mouse mouse;
     
     
@@ -46,6 +46,11 @@ public class Computer extends Actor
         int screenBottomBound = screenY+screenImage.getHeight()/2;
     }
     
+    /**
+     * Method isBroken
+     *
+     * @return Returns true if computer is broken
+     */
     public boolean isBroken()
     {
         if (durability > 0)
@@ -57,5 +62,22 @@ public class Computer extends Actor
     
     public void setScreen() {
         
+    }
+    
+    /**
+     * Returns the durability of the computer
+     *
+     * @return Returns the durability
+     */
+    public int getDurability() {
+        return durability;
+    }
+    
+    /**
+     * Instantly breaks the computer
+     *
+     */
+    public void breakComputer() {
+        durability = 0;
     }
 }

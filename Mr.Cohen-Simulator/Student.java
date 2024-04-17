@@ -13,7 +13,7 @@ public class Student extends Person
 {
     private int iq;
     private int randomMoveCounter = 0;
-    private int randomMoveCooldown = 240;
+    private int randomMoveCooldown = 360;
     private double projectedMark;
     private static int variation;
     private boolean counter = false;
