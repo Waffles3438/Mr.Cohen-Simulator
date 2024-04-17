@@ -3,6 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * This is the world that contains the simulation
  * 
+ * https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm
+ * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
  */
