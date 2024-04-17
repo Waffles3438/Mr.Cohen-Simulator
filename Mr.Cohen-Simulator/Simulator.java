@@ -3,6 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * This is the world that contains the simulation
  * 
+ * https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm
+ * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
  */
@@ -36,7 +38,8 @@ public class Simulator extends World
     private FinishedWorld finishedWorld;
     private MrCohen cohen;
     private Computer computer;
-
+    private int secondsPerDay = 20; 
+    
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -57,6 +60,7 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        
         
         finishedWorld = new FinishedWorld();
 
@@ -125,10 +129,10 @@ public class Simulator extends World
         computerDurability.update(computer.getDurability());
         
         actsCount++;
-        if(actsCount >= 600){
+        if(actsCount >= secondsPerDay * 60){
             transitionToNextDay = true;
             dayCount++;
-            addObject(blackScreen, getWidth()/2, getHeight()/2);
+            addObject(blackScreen, getWidth()/4 - 125, getHeight()/2);
             fadeIn = true;
             actsCount = 0;
         }
