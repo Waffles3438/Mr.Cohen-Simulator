@@ -134,7 +134,13 @@ public class Student extends Person
             if (speech != null) {
                 getWorld().removeObject(speech);
             }
-            speech = new BubbleSpeech("angry_emotion.png");
+            speech = new BubbleSpeech("talk_bubble.png");
+            if (Greenfoot.getRandomNumber(2) == 0) {
+                projectedMark += (iq + talkStudent.getIQ()) / 100.0;
+            } else {
+                projectedMark += 100.0 / (iq + talkStudent.getIQ());
+                speech = new BubbleSpeech("happy_emotion0.png");
+            }
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
@@ -258,5 +264,9 @@ public class Student extends Person
      */
     public double getProjectedMark() {
         return projectedMark;
+    }
+    
+    public int getIQ() {
+        return iq;
     }
 }

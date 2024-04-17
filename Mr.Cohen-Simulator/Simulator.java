@@ -27,6 +27,8 @@ public class Simulator extends World
     private boolean fadeOut = false;
     private boolean firstTime = true;
     private FinishedWorld finishedWorld;
+    private MrCohen cohen;
+    private Computer computer;
 
     /**
      * Starts the simulation. Draws borders
@@ -65,7 +67,7 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
             } 
         }
-        Computer computer = new Alienware();
+        computer = new Alienware();
         
         if (startType == 0) {
             computer = new Alienware();
@@ -80,15 +82,15 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        
-        addObject(new MrCohen(computer), 360, 35);
+        cohen = new MrCohen(computer);
+        addObject(cohen, 360, 35);
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, new Color(100, 255, 100), new Color(0, 0, 0));
         addObject(averageProjectedMark, 1050, 100);
 
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
-        
+        setPaintOrder(Fader.class);
     }
     
     public void act(){
@@ -147,6 +149,7 @@ public class Simulator extends World
                 actsCount = 0;
                 transitionToNextDay = false;
                 firstTime = true;
+                cohen.newDay();
             }
         }
     }
