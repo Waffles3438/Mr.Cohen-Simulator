@@ -29,7 +29,8 @@ public class Simulator extends World
     private FinishedWorld finishedWorld;
     private MrCohen cohen;
     private Computer computer;
-
+    private int secondsPerDay = 20; 
+    
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -50,6 +51,7 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        
         
         finishedWorld = new FinishedWorld();
 
@@ -112,10 +114,10 @@ public class Simulator extends World
         averageProjectedMark.update((int)(mark/9));
         
         actsCount++;
-        if(actsCount >= 600){
+        if(actsCount >= secondsPerDay * 60){
             transitionToNextDay = true;
             dayCount++;
-            addObject(blackScreen, getWidth()/2, getHeight()/2);
+            addObject(blackScreen, getWidth()/4 - 125, getHeight()/2);
             fadeIn = true;
             actsCount = 0;
         }
