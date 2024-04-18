@@ -96,7 +96,7 @@ public class Student extends Person
 
         if (atDesk && doingNothing()) {
             // Added a curve so people with low iq don't study way less
-            double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
+            double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
             if (chance >= 70) {
                 work();
             } else if (chance <= 30) {
