@@ -21,6 +21,7 @@ public class Simulator extends World
     private int dayNumber;
     private int numDays;
     private int chanceOfComputerBreaking;
+    private int customerSupportRespondChance;
     private boolean chaosMode;
     private int actsCount = 0;
     private int dayCount = 1;
@@ -60,6 +61,7 @@ public class Simulator extends World
         addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        this.customerSupportRespondChance = customerSupportRespondChance;
         
         
         finishedWorld = new FinishedWorld();
@@ -93,7 +95,7 @@ public class Simulator extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
-        cohen = new MrCohen(computer);
+        cohen = new MrCohen(computer, startType);
         addObject(cohen, 360, 35);
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
@@ -157,7 +159,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     firstTime = false;
-                    if (Greenfoot.getRandomNumber(100/chanceOfComputerBreaking) == 0) {
+                    if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
                         computer.breakComputer();
                     }
                 }
@@ -175,4 +177,21 @@ public class Simulator extends World
             }
         }
     }
+    
+    public int getSupportChance() {
+        return customerSupportRespondChance;
+    }
+    
+    /**
+     * Updates Mr Cohen's current computer
+     *
+     * @param computer The new computer
+     */
+    public void updateComputer(Computer computer) {
+        removeObject(computer);
+        this.computer = computer;
+        addObject(computer, 0, 0);
+    }
 }
+
+

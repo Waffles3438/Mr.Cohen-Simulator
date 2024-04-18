@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MrCohen extends Person
 {
-
+    private Computer[] computerList;
     private Computer computer;
     private int teachingTimer;
     private int callingTimer;
@@ -19,12 +19,16 @@ public class MrCohen extends Person
      * Creates Mr Cohen
      *
      * @param computer Mr Cohen's computer
+     * @Param startType The number that coresponds to the computer
      */
-    public MrCohen(Computer computer) {
+    public MrCohen(Computer computer, int startType) {
+        computerList = new Computer[]{new Alienware(), new Desktop(), new MacMini(), new Steamdeck()};
         this.computer = computer;
+        computerList[startType] = this.computer;
         teachingTimer = -1;
         callingTimer = -1;
         angerMeter = 0;
+        speed = 2;
     }
     
     public void addedToWorld(World w) {
@@ -35,17 +39,37 @@ public class MrCohen extends Person
         if (teachingTimer > 0) {
             teachingTimer --;
         } else if (teachingTimer == 0) {
+            teachingTimer--;
             getWorld().removeObject(speech);
             speech = null;
             // After teaching, if computer is broken call support
+            
             if (computer.isBroken()) {
                 callSupport();
             }
         }
+        
+        if (callingTimer > 0) {
+            callingTimer --;
+        } else if (callingTimer == 0) {
+            callingTimer--;
+            getWorld().removeObject(speech);
+            speech = null;
+        }
     }
     
     private void callSupport() {
+        Simulator world = (Simulator)getWorld();
+        callingTimer = 80;
+        if (speech != null) {
+            world.removeObject(speech);
+        }
+        speech = new BubbleSpeech("calling_bubble.png");
+        world.addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         
+        if (Greenfoot.getRandomNumber(100)+1 <= world.getSupportChance()) {
+            
+        }
     }
     
     private void teachStudents() {
@@ -80,6 +104,10 @@ public class MrCohen extends Person
      */
     public void newDay() {
         setLocation(360, 35);
+        getWorld().removeObject(speech);
+        speech = null;
+        teachingTimer = -1;
+        callingTimer = -1;
         if (computer.isBroken()) {
             rage();
         } else {
