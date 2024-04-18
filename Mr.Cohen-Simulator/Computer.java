@@ -10,6 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Computer extends Actor
 {
     protected int durability;
+    protected int maxDurability;
     protected String type;
     protected GreenfootImage deviceImage;
     // change this possbily to a list
@@ -79,5 +80,23 @@ public class Computer extends Actor
      */
     public void breakComputer() {
         durability = 0;
+    }
+    
+    /**
+     * Fixes the computer with a random durability ranging from 5 to default for the computer
+     *
+     */
+    public void fixComputer() {
+        durability = Greenfoot.getRandomNumber(maxDurability) + 6;
+    }
+    
+    
+    /**
+     * Method getMaxDurability
+     *
+     * @return Returns the max durability of the computer
+     */
+    public int getMaxDurability() {
+        return maxDurability;
     }
 }

@@ -24,6 +24,8 @@ public class Steamdeck extends Computer
         fullImage = new GreenfootImage(deviceImage);
         fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, 14);
         setImage(fullImage);
+        durability = 50;
+        durability = 50;
     }
     
     public void act()

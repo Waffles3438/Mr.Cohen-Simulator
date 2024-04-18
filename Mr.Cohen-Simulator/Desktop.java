@@ -9,9 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Desktop extends Computer
 {
     
-    public Desktop()
-    {
-        
+    public Desktop() {
+        durability = 100;
+        maxDurability = 100;
     }
     
     /**

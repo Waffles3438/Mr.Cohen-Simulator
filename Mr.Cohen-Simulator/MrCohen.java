@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class MrCohen here.
+ * Mr Cohen is the teacher of the class
  * 
  * @author Felix Zhao
  * @version (a version number or a date)
@@ -10,10 +10,11 @@ import java.util.ArrayList;
 public class MrCohen extends Person
 {
     private Computer[] computerList;
-    private Computer computer;
+    private Computer currentComputer;
     private int teachingTimer;
     private int callingTimer;
     private int angerMeter;
+    private Computer startingComputer;
     
     /**
      * Creates Mr Cohen
@@ -23,8 +24,9 @@ public class MrCohen extends Person
      */
     public MrCohen(Computer computer, int startType) {
         computerList = new Computer[]{new Alienware(), new Desktop(), new MacMini(), new Steamdeck()};
-        this.computer = computer;
-        computerList[startType] = this.computer;
+        currentComputer = computer;
+        startingComputer = computer;
+        computerList[startType] = currentComputer;
         teachingTimer = -1;
         callingTimer = -1;
         angerMeter = 0;
@@ -43,8 +45,13 @@ public class MrCohen extends Person
             getWorld().removeObject(speech);
             speech = null;
             // After teaching, if computer is broken call support
-            
-            if (computer.isBroken()) {
+            boolean isBroken = false;
+            for (Computer computer : computerList) {
+                if (computer.isBroken()) {
+                    isBroken = true;
+                }
+            }
+            if (isBroken) {
                 callSupport();
             }
         }
@@ -66,10 +73,16 @@ public class MrCohen extends Person
         }
         speech = new BubbleSpeech("calling_bubble.png");
         world.addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
-        
-        if (Greenfoot.getRandomNumber(100)+1 <= world.getSupportChance()) {
-            
+        for (Computer computer : computerList) {
+            if (!computer.isBroken()) {
+                continue;
+            }
+            callingTimer += 40;
+            if (Greenfoot.getRandomNumber(100)+1 <= world.getSupportChance()) {
+                computer.fixComputer();
+            }
         }
+        
     }
     
     private void teachStudents() {
@@ -83,9 +96,9 @@ public class MrCohen extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
-    private void rage() {
+    private void rage(int brokenCount) {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
-        angerMeter += 5;
+        angerMeter += 3*brokenCount;
         for (Student student : students) {
             student.changedProjectedMark(Greenfoot.getRandomNumber(angerMeter/15+5)-(angerMeter/15+5));
             if (angerMeter >= 100) {
@@ -108,8 +121,30 @@ public class MrCohen extends Person
         speech = null;
         teachingTimer = -1;
         callingTimer = -1;
-        if (computer.isBroken()) {
-            rage();
+        boolean found = false;
+        if (!startingComputer.isBroken() && currentComputer != startingComputer) {
+            ((Simulator)getWorld()).updateComputer(startingComputer);
+        }
+        if (currentComputer.isBroken()) {
+            for (Computer computer : computerList) {
+                if (!computer.isBroken()) {
+                    ((Simulator)getWorld()).updateComputer(computer);
+                    found = true;
+                }
+            }
+            if (!found) {
+                // switch to nothing
+                // and have to check for nothing
+            }
+        }
+        int brokenCount = 0;
+        for (Computer computer : computerList) {
+            if (computer.isBroken()) {
+                brokenCount++;
+            }
+        }
+        if (brokenCount > 0) {
+            rage(brokenCount);
         } else {
             teachStudents();
         }

@@ -100,7 +100,7 @@ public class Simulator extends World
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
         cohenAngerMeter = new SuperStatBar(100, 0, null, 360, 20, 0, ORANGE, BLACK);
-        computerDurability = new SuperStatBar(100, 0, null, 360, 20, 0, BLUE, BLACK);
+        computerDurability = new SuperStatBar(computer.getMaxDurability(), 0, null, 360, 20, 0, BLUE, BLACK);
         addObject(averageProjectedMark, 1050, 100);
         addObject(cohenAngerMeter, 1050, 140);
         addObject(computerDurability, 1050, 180);
@@ -188,9 +188,10 @@ public class Simulator extends World
      * @param computer The new computer
      */
     public void updateComputer(Computer computer) {
-        removeObject(computer);
+        removeObject(this.computer);
         this.computer = computer;
         addObject(computer, 0, 0);
+        computerDurability.setMaxVal(computer.getMaxDurability());
     }
 }
 
