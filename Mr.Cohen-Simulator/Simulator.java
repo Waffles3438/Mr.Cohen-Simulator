@@ -16,7 +16,6 @@ public class Simulator extends World
     public final static Color BLUE = new Color(80, 80, 255);
     
     Image computerImage; 
-    private Button back = new Button("back", 3, ".png");
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
@@ -40,6 +39,7 @@ public class Simulator extends World
     private MrCohen cohen;
     private Computer computer;
     private int secondsPerDay = 20; 
+    private PauseScreen pause;
     
     /**
      * Starts the simulation. Draws borders
@@ -47,7 +47,7 @@ public class Simulator extends World
      * 
      */
     public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType)
-    {    
+    {   
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
         GreenfootImage image = new GreenfootImage(1260, 720);
@@ -58,11 +58,11 @@ public class Simulator extends World
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
         setBackground(image);
-        addObject(back, 75, 75);
         this.titleScreen = titleScreen;
         this.numDays = days;
         this.customerSupportRespondChance = customerSupportRespondChance;
         
+        pause = new PauseScreen(titleScreen, this);
         
         finishedWorld = new FinishedWorld();
 
@@ -111,9 +111,8 @@ public class Simulator extends World
     }
     
     public void act(){
-        if(back.isPressed()){
-            Greenfoot.setWorld(titleScreen);
-            back.setPressedCondition(false);
+        if(Greenfoot.isKeyDown("escape")){
+            Greenfoot.setWorld(pause);
         }
         
         int dayChecker = dayNumber-1;

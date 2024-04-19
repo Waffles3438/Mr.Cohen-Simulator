@@ -72,7 +72,7 @@ public class Modifier extends World
 
     private GreenfootImage[] deviceImages;
     private Image computerImage;
-
+    private Simulator simulator;
 
     /**
      * contructor of Modifier World
@@ -117,6 +117,8 @@ public class Modifier extends World
 
         canFlipLeft = false;
         canFlipRight = true;
+        
+        simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
     }
 
     private int y = 400;
@@ -227,10 +229,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-
-    
-            Greenfoot.setWorld(new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0));
-            
+            Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);
         }
         if(leftFlipButton.isPressed() && canFlipLeft){
@@ -278,5 +277,9 @@ public class Modifier extends World
     
     public static int getNumberOfDays(){
         return numDays;
+    }
+    
+    public Simulator getSimulatorWorld(){
+        return simulator;
     }
 }
