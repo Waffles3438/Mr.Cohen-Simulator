@@ -229,6 +229,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
+            simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);
         }
