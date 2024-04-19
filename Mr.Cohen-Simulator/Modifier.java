@@ -97,7 +97,7 @@ public class Modifier extends World
             new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
             new GreenfootImage("images/SteamDeck.png"),    // SteamDeck -> 1
             new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
-            new GreenfootImage("images/Desktop.png")       // Desktop -> 3
+            new GreenfootImage("images/desktop.png")       // Desktop -> 3
         };
         
         computerImage = new Image(deviceImages[computerType]);
@@ -118,7 +118,7 @@ public class Modifier extends World
         canFlipLeft = false;
         canFlipRight = true;
         
-        simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
+        
     }
 
     private int y = 400;
@@ -229,6 +229,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
+            simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);
         }

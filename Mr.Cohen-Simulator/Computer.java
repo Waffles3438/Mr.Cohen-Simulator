@@ -65,6 +65,10 @@ public class Computer extends Actor
         
     }
     
+    public void deleteMouse() {
+        getWorld().removeObject(mouse);
+    }
+    
     /**
      * Returns the durability of the computer
      *

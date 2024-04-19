@@ -25,7 +25,12 @@ public class Steamdeck extends Computer
         fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, 14);
         setImage(fullImage);
         durability = 50;
-        durability = 50;
+        maxDurability = 50;
+    }
+    
+    public void addedToWorld(World w) {
+        setLocation(1050, 575);
+        super.addedToWorld(w);
     }
     
     public void act()

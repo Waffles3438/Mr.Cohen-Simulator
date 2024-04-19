@@ -23,7 +23,7 @@ public class MrCohen extends Person
      * @Param startType The number that coresponds to the computer
      */
     public MrCohen(Computer computer, int startType) {
-        computerList = new Computer[]{new Alienware(), new Desktop(), new MacMini(), new Steamdeck()};
+        computerList = new Computer[]{new Alienware(),  new Steamdeck(), new MacMini(), new Desktop()};
         currentComputer = computer;
         startingComputer = computer;
         computerList[startType] = currentComputer;

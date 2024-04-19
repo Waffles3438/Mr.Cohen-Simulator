@@ -84,7 +84,6 @@ public class Simulator extends World
         
         if (startType == 0) {
             computer = new Alienware();
-            addObject(new Alienware(), 0, 0);
         }
 
         // starts are negative one as the coords are based in the middle
@@ -96,6 +95,7 @@ public class Simulator extends World
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 118);
         cohen = new MrCohen(computer, startType);
+        addObject(computer, 0, 0);
         addObject(cohen, 360, 35);
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
@@ -148,6 +148,9 @@ public class Simulator extends World
                 if(blackScreen.getImage().getTransparency() >= 254){
                     fadeIn = false;
                     fadeOut = true;
+                    if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
+                        computer.breakComputer();
+                    }
                 }
             }
             
@@ -158,9 +161,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     firstTime = false;
-                    if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
-                        computer.breakComputer();
-                    }
+                    
                 }
                 blackScreen.fadeOut();
             }
@@ -186,9 +187,11 @@ public class Simulator extends World
      *
      * @param computer The new computer
      */
-    public void updateComputer(Computer computer) {
-        removeObject(this.computer);
-        this.computer = computer;
+    public void updateComputer(Computer newComputer) {
+        System.out.println(computer);
+        computer.deleteMouse();
+        removeObject(computer);
+        this.computer = newComputer;
         addObject(computer, 0, 0);
         computerDurability.setMaxVal(computer.getMaxDurability());
     }
