@@ -365,6 +365,7 @@ public class Modifier extends World
         }
         if(flipTimes == 0){
             student.setLocation(student.getX() - 1260, student.getY());
+            chaosModeImage.setLocation(630, chaosModeImage.getY());
             if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX() - 1260, student.getY());
             if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX() - 1260, student.getY());
         }
