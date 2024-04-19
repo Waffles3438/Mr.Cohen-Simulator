@@ -60,9 +60,19 @@ public class Modifier extends World
     MacMini -> 2
     Desktop -> 3
      */
+    
+    private Image student = new Image("student", 9, ".png");
+    private Image janitorImage = new Image("images/janitor.png");
+    private Image robberImage = new Image("images/robber.png");
+    private Image chaosModeImage = new Image("images/happyFace.png");
     private GreenfootImage[] deviceImages;
+    private int computerType;
     private Image computerImage;
     private Simulator simulator;
+    private TitleScreen titleScreen;
+    
+    private static boolean firstTime = true;
+    private ArrayList<Image> secondPageImage = new ArrayList<Image>();
 
     /**
      * contructor of Modifier World
@@ -105,9 +115,6 @@ public class Modifier extends World
         prepare();
         //computerType = 0;
         //choosenType = computerList[computerType];
-
-        canFlipLeft = false;
-        canFlipRight = true;
         
         simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
     }
