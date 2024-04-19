@@ -52,7 +52,7 @@ public class Image extends Actor
             list.add(new GreenfootImage(name + (i+1) + fileType));
         }
         for(GreenfootImage image : list){
-            image.scale(120, 120);
+            image.scale(150, 150);
         }
     }
     
@@ -77,4 +77,8 @@ public class Image extends Actor
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
     
+    protected void addImage(Image other, int gap){
+        setLocation(getX() - gap, getY());
+        other.setLocation(getX() + gap, getY());
+    }
 }
