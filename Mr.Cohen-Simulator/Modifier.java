@@ -129,11 +129,11 @@ public class Modifier extends World
          * addObject(new Box(), -(240 + 150), 355); 
          * addObject(new Box(), -(200 + 150 + 220 + 300), 355);
          */
-        addObject(new Box(), 280, 355);
-        addObject(new Box(), (280-1260), 355);
         addObject(student, 630 - 1260, 230);
         addObject(chaosModeImage, 630, 230);
         
+        addObject(new Box(), 460, 485);
+        addObject(new Box(), 820, 485);
         addObject(new Box(), 360 - 1260, 485);
         addObject(new Box(), 630 - 1260, 485);
         addObject(new Box(), 900 - 1260, 485);
