@@ -26,6 +26,7 @@ public abstract class Person extends SuperSmoothMover
     protected int[] finalPosition;
     protected boolean moved;
     protected BubbleSpeech speech;
+    protected int currentRotationalAngle;
     
     
     public Person() {
@@ -69,6 +70,7 @@ public abstract class Person extends SuperSmoothMover
         if (currentPath.size() > 0) {
             double distanceRequired = speed;
             int[] position = currentPath.peekFirst();
+            currentRotationalAngle = calculateAngleToTarget(position[0], position[1]);
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
@@ -256,6 +258,24 @@ public abstract class Person extends SuperSmoothMover
         Collections.reverse(path);
         return path;
     }
+    
+    /**
+     * Calculate the angle from the current position to the target position.
+     * @param targetX The x-coordinate of the target position
+     * @param targetY The y-coordinate of the target position
+     * @return The angle in degrees from the current position to the target position.
+     */
+    public int calculateAngleToTarget(int targetX, int targetY) {
+        int dx = targetX - getX(); // Change in x
+        int dy = targetY - getY(); // Change in y
+    
+        // Calculate the angle using arctan, converting from radians to degrees
+        double angle = Math.toDegrees(Math.atan2(dy, dx));
+    
+        // Normalize the angle into a 0-360 range
+        return (int)((angle + 360) % 360);
+    }
+
     
         /**
      * Clears the current path of the person

@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * Modifier world which allows the user to change te startup value of 
  * the simulation. The users can chnage the number of days of the 
@@ -19,24 +19,15 @@ public class Modifier extends World
     private GreenfootImage background = new GreenfootImage("images/TitleScreen.jpeg");
     
     private MouseInfo mouse;
-    // private Label days = new Label(numDays, 100);
-    // private Label breakingChance = new Label(chanceOfLaptopBreaking, 100);
-    // private Label IQ = new Label(studentIQ, 100);
-
-    private boolean canFlipRight;
-    private boolean canFlipLeft;
-
 
     private Button back = new Button("back", 3, ".png");
     private Button startSim = new Button("start", 3, ".png");
     private Button leftFlipButton = new LeftFlipButton("left", 3, ".png");
     private Button rightFlipButton = new RightFlipButton("right", 3, ".png");
 
-
     private Button changeDeviceRight = new Button("left", 3, ".png", 50);
     private Button changeDeviceLeft = new Button("right", 3, ".png", 50);
 
-    
     protected static int numDays;
     private Label numOfDaysText; 
     private ValueBox days;
@@ -49,15 +40,19 @@ public class Modifier extends World
     private Label studentIQText;
     private ValueBox IQ;
     private boolean Janitors;
+    private Label janitorsText;
     private CheckBox hasJanitors;
     private boolean Robbers;
     private CheckBox hasRobbers;
+    private Label robberText;
     
     protected static int customerSupportRespondChance;
     private Label customerSupportRespond;
     private ValueBox supportChance;
     protected static boolean chaos;
-    private Label chaosNumber;
+    private Label chaosMode;
+    private CheckBox chaosModeCheckBox;
+    private int flipTimes;
     /*
     different computers have different number:
     AlienWare -> 0
@@ -65,14 +60,19 @@ public class Modifier extends World
     MacMini -> 2
     Desktop -> 3
      */
-    protected static int computerType;
-    private TitleScreen titleScreen;
-
-    private boolean firstTime = true;
-
+    
+    private Image student = new Image("student", 9, ".png");
+    private Image janitorImage = new Image("images/janitor.png");
+    private Image robberImage = new Image("images/robber.png");
+    private Image chaosModeImage = new Image("images/happyFace.png");
     private GreenfootImage[] deviceImages;
+    private int computerType;
     private Image computerImage;
     private Simulator simulator;
+    private TitleScreen titleScreen;
+    
+    private static boolean firstTime = true;
+    private ArrayList<Image> secondPageImage = new ArrayList<Image>();
 
     /**
      * contructor of Modifier World
@@ -83,6 +83,7 @@ public class Modifier extends World
     public Modifier(TitleScreen titleScreen){
         super(1260, 720, 1, false);
         setBackground(background);
+        this.titleScreen = titleScreen;
 
         numDays = 10;
         chanceOfComputerBreaking = 25;
@@ -101,27 +102,24 @@ public class Modifier extends World
         };
         
         computerImage = new Image(deviceImages[computerType]);
-        computerImage.adjustSize(200);
-
-        this.titleScreen = titleScreen;
-        prepare();
-
+        computerImage.adjustSize(250);
+        janitorImage.adjustSize(170);
+        robberImage.adjustSize(175);
+        chaosModeImage.getImage().scale(150, 150);
+        
         if(firstTime){
             Button.init();
             firstTime = false;
         }
 
-
+        prepare();
         //computerType = 0;
         //choosenType = computerList[computerType];
-
-        canFlipLeft = false;
-        canFlipRight = true;
         
         
     }
 
-    private int y = 400;
+    private int y = 485;
     private int offSetT = 90;
 
     /**
@@ -138,57 +136,69 @@ public class Modifier extends World
          * addObject(new Box(), -(240 + 150), 355); 
          * addObject(new Box(), -(200 + 150 + 220 + 300), 355);
          */
-        addObject(new Box(), 280, 355);
-        addObject(new Box(), 245 + 390, 355);
-        addObject(new Box(), 210 + 2 * 390, 355);
-        addObject(new Box(), (280-1260), 355);
-        addObject(new Box(), (245+390-1260), 355);
-        addObject(new Box(), (210+390*2-1260), 355);
+        addObject(student, 630 - 1260, 230);
+        addObject(chaosModeImage, 630, 230);
+        
+        addObject(new Box(), 460, 485);
+        addObject(new Box(), 820, 485);
+        addObject(new Box(), 360 - 1260, 485);
+        addObject(new Box(), 630 - 1260, 485);
+        addObject(new Box(), 900 - 1260, 485);
+        addObject(new Box(), 460 - 2*1260, 485);
+        addObject(new Box(), 820 - 2*1260, 485);
 
         days = new ValueBox(10, 30,offSetT);
         breakingChance = new ValueBox(25, 100, offSetT);
         IQ = new ValueBox(80, 120, offSetT);
         supportChance = new ValueBox(0, 50, offSetT);
+        hasJanitors = new CheckBox();
+        hasRobbers = new CheckBox();
+        chaosModeCheckBox = new CheckBox();
 
-        addObject(days, 280, y);
-        addObject(breakingChance, 245 + 390, y);
-        addObject(IQ, 210 + 2 * 390, y);
-        addObject(supportChance, (280-1260), y);
-
+        addObject(days, 460, y);
+        addObject(IQ, 360 - 1260, y);
+        addObject(breakingChance, 460 - 2*1260, y);
+        addObject(supportChance, 820 - 2*1260, y);
+        addObject(hasJanitors, 630 - 1260, y);
+        addObject(hasRobbers, 900 - 1260, y);
+        addObject(chaosModeCheckBox, 820, 485);
         
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
 
-        // addObject(days, 280, 360);
-        // addObject(breakingChance, 245 + 390, 360);
-        // addObject(IQ, 210 + 2 * 390, 360);
-
         addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
-        addObject(changeDeviceRight, (210+390*2-1260) - 75, 475);
-        addObject(changeDeviceLeft, (210+390*2-1260) + 75, 475);
+        addObject(changeDeviceRight, 400 - 2*1260, 200);
+        addObject(changeDeviceLeft, 860 - 2*1260, 200);
         leftFlipButton.setLocation(75,369);
-        addObject(computerImage, (210+390*2-1260), 355);
-
-
-        numOfDaysText = new Label("# Of Days", 40);
-        addObject(numOfDaysText, 285, 285);
-        chanceOfLaptopBreakingText = new Label("Chance of \n Computer Breaking", 30);
-        addObject(chanceOfLaptopBreakingText, 635, 285);
-        studentIQText = new Label("Average \n Student IQ", 40);
-        addObject(studentIQText, 990, 285);
-        customerSupportRespond = new Label("customer support \n respond chance", 30);
-        addObject(customerSupportRespond, (280-1260), 285);
-        chaosNumber = new Label("level of chaos", 40);
-        addObject(chaosNumber, (245+390-1260), 285);
+        addObject(computerImage, 630 - 2*1260, 200);
+        
+        numOfDaysText = new Label("# Of Days", 30);
+        addObject(numOfDaysText, 460, 385);
+        chaosMode = new Label("Chaos Mode", 30);
+        addObject(chaosMode, 820, 385);
+        studentIQText = new Label("Average \n Student IQ", 30);
+        addObject(studentIQText, 360 - 1260, 400);
+        janitorsText = new Label("has Janitors", 30);
+        addObject(janitorsText, 630 - 1260, 385);
+        robberText = new Label("has Robbers", 30);
+        addObject(robberText, 900 - 1260, 385);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 25);
+        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 390);
+        customerSupportRespond = new Label("customer support \n respond chance", 25);
+        addObject(customerSupportRespond, (820 - 2*1260), 390);
     }
 
     //just an act method
 
     public void act(){
         mouse = Greenfoot.getMouseInfo();
+        updateImageEffect();
+        addMoreImage();
         updateValues();
         checkButton();
+        if(flipTimes < 0) flipTimes = 0;
+        if(flipTimes > 2) flipTimes = 2;
     }
 
     /**
@@ -196,25 +206,26 @@ public class Modifier extends World
      */
 
     public void updateValues(){
-        // days.setValue(numDays);
-        // breakingChance.setValue(chanceOfLaptopBreaking);
-        // IQ.setValue(studentIQ);
         numDays = days.getValue();
         chanceOfComputerBreaking = breakingChance.getValue();
         chanceOfComputerBreaking = breakingChance.getValue();
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
 
+        Janitors = hasJanitors.updateBoolean();
+        Robbers = hasRobbers.updateBoolean();
+        chaos = chaosModeCheckBox.updateBoolean();
     }
 
     protected void startFromFirstPage(){
-        if(canFlipLeft){
-            leftFlipButton.action();
-            computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
-            changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
-            changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
-            canFlipLeft = false;
-            canFlipRight = true;
+        if(flipTimes > 0){
+            for(int i = 0; i < flipTimes; i++){
+                leftFlipButton.action();
+                computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
+                changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
+                changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
+            }
+            flipTimes = 0;
         }
         else return;
     }
@@ -233,23 +244,29 @@ public class Modifier extends World
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);
         }
-        if(leftFlipButton.isPressed() && canFlipLeft){
+        if(leftFlipButton.isPressed() && flipTimes > 0){
             leftFlipButton.action();
             changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
             changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
+            student.setLocation(student.getX() - 1260, student.getY());
+            chaosModeImage.setLocation(chaosModeImage.getX() - 1260, chaosModeImage.getY());
+            if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX() - 1260, janitorImage.getY());
+            if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX() - 1260, robberImage.getY());
             leftFlipButton.setPressedCondition(false);
-            canFlipLeft = false;
-            canFlipRight = true;
+            flipTimes--;
         }
-        if(rightFlipButton.isPressed() && canFlipRight){
+        if(rightFlipButton.isPressed() && flipTimes < 2){
             rightFlipButton.action();
             rightFlipButton.setPressedCondition(false);
             changeDeviceLeft.setLocation(changeDeviceLeft.getX() + 1260, changeDeviceLeft.getY());
             changeDeviceRight.setLocation(changeDeviceRight.getX() + 1260, changeDeviceRight.getY());
             computerImage.setLocation(computerImage.getX() + 1260, computerImage.getY());
-            canFlipLeft = true;
-            canFlipRight = false;
+            student.setLocation(student.getX() + 1260, student.getY());
+            chaosModeImage.setLocation(chaosModeImage.getX() + 1260, chaosModeImage.getY());
+            if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX() + 1260, janitorImage.getY());
+            if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX() + 1260, robberImage.getY());
+            flipTimes++;
         }
         if(changeDeviceRight.isPressed()){
             changeComputerType(true);
@@ -270,10 +287,93 @@ public class Modifier extends World
     
     private void updateDeviceImage() {
         GreenfootImage chosenDeviceImage = deviceImages[computerType];
-        
         computerImage.setImage(chosenDeviceImage);
         computerImage.updateRatio();
-        computerImage.adjustSize(200);
+        computerImage.adjustSize(250);
+    }
+    
+    private int frame = 1;
+    private SimpleTimer timer = new SimpleTimer();
+    private void updateImageEffect(){
+        if(timer.millisElapsed() < 600) return;
+        timer.mark();
+        student.setImage(student.list.get(frame % 9));
+        frame++;
+    }
+    
+    private boolean robberImageAdded = false;
+    private boolean janitorImageAdded = false;
+    private void addMoreImage(){
+        if(Janitors && !janitorImageAdded){
+            secondPageImage.add(janitorImage);
+            janitorImageAdded = true;
+        }
+        if(!Janitors){
+            if(janitorImage.getWorld() != null) removeObject(janitorImage);
+            secondPageImage.remove(janitorImage);
+            janitorImageAdded = false;
+        }
+        if(Robbers && !robberImageAdded){
+            secondPageImage.add(robberImage);
+            robberImageAdded = true;
+        }
+        if(!Robbers){
+            if(robberImage.getWorld() != null) removeObject(robberImage);
+            secondPageImage.remove(robberImage);
+            robberImageAdded = false;
+        }
+        if(!Robbers && !Janitors){
+            student.setLocation(630, student.getY());
+        }
+        if(chaos){
+            chaosModeImage.setImage("images/chaosMode.png");
+        } else {
+            chaosModeImage.setImage("images/happyFace.png");
+        }
+        chaosModeImage.getImage().scale(150, 150);
+        drawImage();
+    }
+    
+    private void drawImage(){
+        int length = secondPageImage.size();
+        int gap = 200;
+        if(length == 1){
+            for(Image image : secondPageImage){
+                removeObject(image);
+            }
+            student.setLocation(530, student.getY());
+            for(Image image : secondPageImage){
+                addObject(image, 530 + length*gap, student.getY());
+            }
+        }
+        if(length == 2){
+            for(Image image : secondPageImage){
+                removeObject(image);
+            }
+            student.setLocation(430, student.getY());
+            for(Image image : secondPageImage){
+                if(secondPageImage.indexOf(image) != 0){
+                    addObject(image, secondPageImage.get(secondPageImage.indexOf(image) - 1).getX() + 200, student.getY());
+                }
+                else addObject(image, student.getX() + 200, student.getY());
+            }
+        }
+        if(flipTimes == 1){
+            student.setLocation(student.getX(), student.getY());
+            if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX(), student.getY());
+            if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX(), student.getY());
+        }
+        if(flipTimes == 0){
+            student.setLocation(student.getX() - 1260, student.getY());
+            chaosModeImage.setLocation(630, chaosModeImage.getY());
+            if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX() - 1260, student.getY());
+            if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX() - 1260, student.getY());
+        }
+        if(flipTimes == 2){
+            student.setLocation(student.getX() + 1260, student.getY());
+            if(robberImage.getWorld() != null) robberImage.setLocation(robberImage.getX() + 1260, student.getY());
+            if(janitorImage.getWorld() != null) janitorImage.setLocation(janitorImage.getX() + 1260, student.getY());
+        }
     }
     
     public static int getNumberOfDays(){
