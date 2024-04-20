@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.ArrayList;
 /**
  * This is the world that contains the simulation
  * 
@@ -7,6 +7,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
+ * 
+ * Edited by Andy Feng
  */
 public class Simulator extends World
 {
@@ -31,7 +33,10 @@ public class Simulator extends World
     private MrCohen cohen;
     private Computer computer;
     private int secondsPerDay = 20; 
-    private PauseScreen pause;
+    //private PauseScreen pause;
+    
+    private ArrayList<Actor> actorList;
+    private ArrayList<GreenfootImage> images;
     
     /**
      * Starts the simulation. Draws borders
@@ -52,7 +57,7 @@ public class Simulator extends World
         setBackground(image);
         this.titleScreen = titleScreen;
         this.numDays = days;
-        pause = new PauseScreen(titleScreen, this);
+        //pause = new PauseScreen(titleScreen, this);
         
         finishedWorld = new FinishedWorld();
 
@@ -97,9 +102,13 @@ public class Simulator extends World
     }
     
     public void act(){
-        if(Greenfoot.isKeyDown("escape")){
+        /*if(Greenfoot.isKeyDown("escape")){
             Greenfoot.setWorld(pause);
-        }
+        }*/
+        
+        actorList = (ArrayList<Actor>) getObjects(Actor.class);
+        images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
+        pause();
         
         int dayChecker = dayNumber-1;
         if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
@@ -153,6 +162,12 @@ public class Simulator extends World
                 firstTime = true;
                 cohen.newDay();
             }
+        }
+    }
+    
+    private void pause(){
+        if(Greenfoot.mouseClicked(null)){
+            Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList));
         }
     }
 }

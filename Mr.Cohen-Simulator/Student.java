@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * @author Felix Zhao 
  * @author Benny Wang
  * @version 1.0.0
+ * 
+ * Edited by Andy Feng
  */
 public class Student extends Person
 {
@@ -48,11 +50,8 @@ public class Student extends Person
         this.deskX = deskX;
         this.deskY = deskY;
         atDesk = true;
-        //isWorking = false;
         workTimer = -1;
-        //isWastingTime = false;
         wasteTimeCounter = -1;
-        //isTalking = false;
         talkStudent = null;
         talkingCounter = -1;
     }
@@ -64,10 +63,21 @@ public class Student extends Person
     public void act()
     {   
         super.act();
+        handleRandomSpeedChange();
+        handleRandomMovement();
+        handleReturnToDesk();
+        handleWorkBehavior();
+        handleTimers();
+        handleTalking();
+    }
+    
+    private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
-        
+    }
+    
+    private void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
@@ -79,9 +89,10 @@ public class Student extends Person
             } else if (task == 1) {
                 talkToSomeone();
             }
-            
         }
-        
+    }
+    
+    private void handleReturnToDesk() {
         if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
@@ -93,9 +104,10 @@ public class Student extends Person
             setRotation(-90);
             randomMoveCounter = 0;
         }
+    }
 
+    private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
-            // Added a curve so people with low iq don't study way less
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
             if (chance >= 70) {
                 work();
@@ -104,17 +116,16 @@ public class Student extends Person
             } else if (chance <= 10) {
                 moveRandom();
             }
-            
         }
-        
+    }
+    
+    private void handleTimers() {
         if (workTimer > 0) {
             workTimer -= 1;
         } else if (workTimer == 0) {
             workTimer--;
             getWorld().removeObject(speech);
             speech = null;
-
-            //moveRandom();
         }
         
         if (wasteTimeCounter > 0) {
@@ -123,11 +134,10 @@ public class Student extends Person
             wasteTimeCounter --;
             getWorld().removeObject(speech);
             speech = null;
-
         }
-        
-        
-        
+    }
+    
+    private void handleTalking() {
         if (talkStudent != null && currentPath.size() == 0 && talkStudent.getPathSize() == 0 && talkingCounter == -1) {
             turnTowards(talkStudent);
             talkingCounter = 80;
@@ -201,8 +211,6 @@ public class Student extends Person
                 break;
             }
         }
-        
-        
     }
     
     private boolean doingNothing() {
@@ -233,7 +241,6 @@ public class Student extends Person
         talkingCounter = -1;
         getWorld().removeObject(speech);
         speech = null;
-        //System.out.println("should return to desk");
     }
     
     /**
@@ -255,7 +262,6 @@ public class Student extends Person
         } else {
             projectedMark += amountLearned * 100.0 / iq;
         }
-
     }
     
     /**
