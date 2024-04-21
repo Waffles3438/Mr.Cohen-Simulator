@@ -24,6 +24,7 @@ public class Steamdeck extends Computer
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
         screenY = 14;
+        screenX = -1;
         fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, screenY);
         
         setImage(fullImage);

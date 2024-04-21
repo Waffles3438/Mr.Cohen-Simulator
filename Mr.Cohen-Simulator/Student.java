@@ -5,11 +5,12 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs
  * 
+ * * Edited by Andy Feng
+ * 
  * @author Felix Zhao 
  * @author Benny Wang
  * @version 1.0.0
  * 
- * Edited by Andy Feng
  */
 public class Student extends Person
 {
@@ -30,6 +31,7 @@ public class Student extends Person
 
     private int talkingTimer;
     private Person talkPerson;
+    private boolean frozen;
 
     
     /**
@@ -54,6 +56,7 @@ public class Student extends Person
         wasteTimeCounter = -1;
         talkPerson = null;
         talkingTimer = -1;
+        frozen = false;
     }
     
     /**
@@ -62,6 +65,9 @@ public class Student extends Person
      */
     public void act()
     {   
+        if (frozen) {
+            return;
+        }
         super.act();
         handleRandomSpeedChange();
         handleRandomMovement();
@@ -83,11 +89,13 @@ public class Student extends Person
         }
         
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
-            int task = Greenfoot.getRandomNumber(2);
+            int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
                 moveRandom();
             } else if (task == 1) {
                 talkToSomeone();
+            } else if (task == 2) {
+                talkToCohen();
             }
         }
     }
@@ -164,10 +172,12 @@ public class Student extends Person
             talkingTimer--;
         } else if (talkingTimer == 0) {
             talkingTimer--;
+            
             talkPerson = null;
             getWorld().removeObject(speech);
             speech = null;
-            moveRandom();
+            goingBackToWork = true;
+            pathFind(deskX, deskY, 0, true);
         }
     }
     
@@ -176,7 +186,7 @@ public class Student extends Person
             getWorld().removeObject(speech);
         }
         workTimer = Greenfoot.getRandomNumber(iq)+50;
-        projectedMark += workTimer / 100.0;
+        projectedMark += workTimer / 200.0;
         speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
@@ -215,6 +225,15 @@ public class Student extends Person
                 } 
                 break;
             }
+        }
+    }
+    
+    private void talkToCohen() {
+        MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
+        if (cohen.doingNothing()) {
+            cohen.requestToTalk(this);
+            pathFind(cohen, 80, true);
+            talkPerson = cohen;
         }
     }
     

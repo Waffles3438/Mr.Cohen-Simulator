@@ -18,9 +18,9 @@ public class Computer extends Actor
     protected GreenfootImage fullImage;
 
     /*
-     * These are for the mouse
-     * There is no screenX as the computers should be symmetrical on the x-axis
+     * Offset of the screen image
      */
+    protected int screenX;
     protected int screenY;
     protected Mouse mouse;
     
@@ -30,7 +30,7 @@ public class Computer extends Actor
     }
     
     public void addedToWorld(World w) {
-        mouse = new Mouse(getX()-screenImage.getWidth()/2, getX()+screenImage.getWidth()/2, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 15);
+        mouse = new Mouse(getX()-screenImage.getWidth()/2+screenX, getX()+screenImage.getWidth()/2+screenX, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 15);
         w.addObject(mouse, getX(), getY()-getImage().getHeight()/2+screenY+screenImage.getHeight()/2);
     }
 

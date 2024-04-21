@@ -25,7 +25,8 @@ public class Alienware extends Computer
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
         screenY = 27;
-        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
+        screenX = 2;
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2+screenX, screenY);
         setImage(fullImage);
         durability = 80;
         maxDurability = 80;
