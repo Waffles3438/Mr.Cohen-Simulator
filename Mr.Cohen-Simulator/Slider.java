@@ -39,7 +39,7 @@ public class Slider extends Actor
      */
     public Slider(ValueBox valueBox, Bar bar){
         setImage(slider);
-        slider.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.5));
+        slider.scale((int) (getImage().getWidth() * 1), (int) (getImage().getHeight() * 1.25));
         scale = bar;
         slider.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.5));
         isDragging = false;

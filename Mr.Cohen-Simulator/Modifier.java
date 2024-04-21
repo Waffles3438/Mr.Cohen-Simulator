@@ -166,7 +166,7 @@ public class Modifier extends World
         addObject(startSim, 1050, 665);
         addObject(back, 100, 665);
 
-        addObject(leftFlipButton, 60,360);
+        //addObject(leftFlipButton, 60,360);
         addObject(rightFlipButton, 1190,360);
         addObject(changeDeviceRight, 400 - 2*1260, 200);
         addObject(changeDeviceLeft, 860 - 2*1260, 200);
@@ -197,8 +197,20 @@ public class Modifier extends World
         addMoreImage();
         updateValues();
         checkButton();
-        if(flipTimes < 0) flipTimes = 0;
-        if(flipTimes > 2) flipTimes = 2;
+        if(flipTimes <= 0){
+            flipTimes = 0;
+            if(leftFlipButton != null){
+                removeObject(leftFlipButton);
+            }
+        }
+        if(flipTimes >= 2){
+            flipTimes = 2;
+            removeObject(rightFlipButton);
+        }
+        if(flipTimes > 0 && flipTimes < 2){
+            addObject(leftFlipButton, 60,360);
+            addObject(rightFlipButton, 1190,360);
+        }
     }
 
     /**
