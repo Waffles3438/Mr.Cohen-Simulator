@@ -16,15 +16,15 @@ public class Alienware extends Computer
     public Alienware() 
     {
         super();
-        deviceImage = new GreenfootImage("laptop_temo.png");
+        deviceImage = new GreenfootImage("GamingLaptop.png");
         // width is 440, height is 245
-        deviceImage.scale(440, 245);
+        deviceImage.scale(491, 347);
 
-        screenImage = new GreenfootImage(deviceImage.getWidth()*49/64, deviceImage.getHeight()*72/90);
+        screenImage = new GreenfootImage(deviceImage.getWidth()*43/64, deviceImage.getHeight()*50/90);
         screenImage.setColor(new Color(255, 100, 100));
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
-        screenY = 18;
+        screenY = 27;
         fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
         setImage(fullImage);
         durability = 80;
@@ -32,7 +32,7 @@ public class Alienware extends Computer
     }
     
     public void addedToWorld(World w) {
-        setLocation(1050, 575);
+        setLocation(1050, 640);
         super.addedToWorld(w);
     }
     

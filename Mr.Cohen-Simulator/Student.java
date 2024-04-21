@@ -28,8 +28,8 @@ public class Student extends Person
 
     private int wasteTimeCounter;
 
-    private int talkingCounter;
-    private Student talkStudent;
+    private int talkingTimer;
+    private Person talkPerson;
 
     
     /**
@@ -52,8 +52,8 @@ public class Student extends Person
         atDesk = true;
         workTimer = -1;
         wasteTimeCounter = -1;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
     }
     
     /**
@@ -138,27 +138,33 @@ public class Student extends Person
     }
     
     private void handleTalking() {
-        if (talkStudent != null && currentPath.size() == 0 && talkStudent.getPathSize() == 0 && talkingCounter == -1) {
-            turnTowards(talkStudent);
-            talkingCounter = 80;
+        if (talkPerson != null && currentPath.size() == 0 && talkPerson.getPathSize() == 0 && talkingTimer == -1) {
+            turnTowards(talkPerson);
+            talkingTimer = 80;
             if (speech != null) {
                 getWorld().removeObject(speech);
             }
             speech = new BubbleSpeech("talk_bubble.png");
-            if (Greenfoot.getRandomNumber(2) == 0) {
-                projectedMark += (iq + talkStudent.getIQ()) / 100.0;
-            } else {
-                projectedMark += 100.0 / (iq + talkStudent.getIQ());
-                speech = new BubbleSpeech("happy_emotion0.png");
+            if (talkPerson instanceof Student) {
+                Student talkStudent = (Student) talkPerson;
+                if (Greenfoot.getRandomNumber(2) == 0) {
+                    projectedMark += (iq + talkStudent.getIQ()) / 100.0;
+                } else {
+                    projectedMark += 100.0 / (iq + talkStudent.getIQ());
+                    speech = new BubbleSpeech("happy_emotion0.png");
+                }
+            } else if (talkPerson instanceof MrCohen) {
+                changedProjectedMark(10);
             }
+            
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
-        if (talkingCounter > 0) {
-            talkingCounter--;
-        } else if (talkingCounter == 0) {
-            talkingCounter--;
-            talkStudent = null;
+        if (talkingTimer > 0) {
+            talkingTimer--;
+        } else if (talkingTimer == 0) {
+            talkingTimer--;
+            talkPerson = null;
             getWorld().removeObject(speech);
             speech = null;
             moveRandom();
@@ -205,16 +211,15 @@ public class Student extends Person
             if (!student.isTalking() && student != this) {
                 if (pathFind(student, 75, true)) {
                     student.requestToTalk(this);
-                    talkStudent = student;
+                    talkPerson = student;
                 } 
-                
                 break;
             }
         }
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkStudent == null && talkingCounter == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1;
     }
     
     /**
@@ -222,10 +227,10 @@ public class Student extends Person
      *
      * @param student The student that requested to talk
      */
-    public void requestToTalk(Student student) {
+    public void requestToTalk(Person person) {
         clearPath();
         goingBackToWork = false;
-        talkStudent = student;
+        talkPerson = person;
     }
     
     /**
@@ -237,8 +242,8 @@ public class Student extends Person
         clearPath();
         workTimer = -1;
         wasteTimeCounter = -1;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
     }
@@ -248,7 +253,7 @@ public class Student extends Person
      *
      */
     public boolean isTalking() {
-        return talkStudent != null || talkingCounter >= 0;
+        return talkPerson != null || talkingTimer >= 0;
     }
     
     /**

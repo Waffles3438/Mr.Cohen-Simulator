@@ -3,8 +3,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class SteamDeck here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix
+ * @author Andy
+ * @version 0.0.1
  */
 public class Steamdeck extends Computer
 {
@@ -22,7 +23,9 @@ public class Steamdeck extends Computer
         screenImage.setColor(new Color(255, 100, 100));
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
-        fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, 14);
+        screenY = 14;
+        fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, screenY);
+        
         setImage(fullImage);
         durability = 50;
         maxDurability = 50;

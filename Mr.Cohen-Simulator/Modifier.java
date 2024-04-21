@@ -1,18 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
+ * <p>
  * Modifier world which allows the user to change te startup value of 
  * the simulation. The users can chnage the number of days of the 
  * simulation, chance of Mr.Cohen's computer breaking, student's IQ, the speed
  * customer support respond Mr.Cohen's email and the type of device 
  * Mr.Cohen starts with.
+ * </p>
+ * 
+ * 
+ * Desktop image from vectorstock:
+ * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
  * 
  * @ Author: Andy Feng
  * @ version 1.1 (Apr 6th, 2024)
  * 
- * refrence:
- * desktop image from vectorstock:
- * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
  */
 public class Modifier extends World
 {
@@ -39,10 +42,10 @@ public class Modifier extends World
     protected static int studentIQ;
     private Label studentIQText;
     private ValueBox IQ;
-    private boolean Janitors;
+    private boolean janitors;
     private Label janitorsText;
     private CheckBox hasJanitors;
-    private boolean Robbers;
+    private boolean robbers;
     private CheckBox hasRobbers;
     private Label robberText;
     
@@ -91,14 +94,14 @@ public class Modifier extends World
         customerSupportRespondChance = 0;
         chaos = false;
         computerType = 0;
-        Janitors = false;
-        Robbers = false;
+        janitors = false;
+        robbers = false;
         
         deviceImages = new GreenfootImage[] {
             new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
             new GreenfootImage("images/SteamDeck.png"),    // SteamDeck -> 1
             new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
-            new GreenfootImage("images/desktop.png")       // Desktop -> 3
+            new GreenfootImage("images/Desktop.png")       // Desktop -> 3
         };
         
         computerImage = new Image(deviceImages[computerType]);
@@ -212,8 +215,8 @@ public class Modifier extends World
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
 
-        Janitors = hasJanitors.updateBoolean();
-        Robbers = hasRobbers.updateBoolean();
+        janitors = hasJanitors.updateBoolean();
+        robbers = hasRobbers.updateBoolean();
         chaos = chaosModeCheckBox.updateBoolean();
     }
 
@@ -240,7 +243,7 @@ public class Modifier extends World
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
-            simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, 0);
+            simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, computerType, janitors, robbers);
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);
         }
@@ -269,10 +272,10 @@ public class Modifier extends World
             flipTimes++;
         }
         if(changeDeviceRight.isPressed()){
-            changeComputerType(true);
+            changeComputerType(false);
         }
         if(changeDeviceLeft.isPressed()){
-            changeComputerType(false);
+            changeComputerType(true);
         }
     }
     
@@ -304,25 +307,25 @@ public class Modifier extends World
     private boolean robberImageAdded = false;
     private boolean janitorImageAdded = false;
     private void addMoreImage(){
-        if(Janitors && !janitorImageAdded){
+        if(janitors && !janitorImageAdded){
             secondPageImage.add(janitorImage);
             janitorImageAdded = true;
         }
-        if(!Janitors){
+        if(!janitors){
             if(janitorImage.getWorld() != null) removeObject(janitorImage);
             secondPageImage.remove(janitorImage);
             janitorImageAdded = false;
         }
-        if(Robbers && !robberImageAdded){
+        if(robbers && !robberImageAdded){
             secondPageImage.add(robberImage);
             robberImageAdded = true;
         }
-        if(!Robbers){
+        if(!robbers){
             if(robberImage.getWorld() != null) removeObject(robberImage);
             secondPageImage.remove(robberImage);
             robberImageAdded = false;
         }
-        if(!Robbers && !Janitors){
+        if(!robbers && !janitors){
             student.setLocation(630, student.getY());
         }
         if(chaos){

@@ -1,14 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
+ * <p>
  * This is the world that contains the simulation
+ * </p>
  * 
- * https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm
+ * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
+ * 
+ * 
+ * Edited by Andy Feng
  * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
- * 
- * Edited by Andy Feng
  */
 public class Simulator extends World
 {
@@ -51,7 +54,7 @@ public class Simulator extends World
      * Spawns the students and Mr. Cohen
      * 
      */
-    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType)
+    public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType, boolean hasJanitors, boolean hasRobbers)
     {   
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1); 
@@ -68,7 +71,7 @@ public class Simulator extends World
         //pause = new PauseScreen(titleScreen, this);
         
         finishedWorld = new FinishedWorld();
-
+        this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
         
@@ -87,6 +90,12 @@ public class Simulator extends World
         
         if (startType == 0) {
             computer = new Alienware();
+        } else if (startType == 1) {
+            computer = new Steamdeck();
+        } else if (startType == 2) {
+            computer = new MacMini();
+        } else {
+            computer = new Desktop();
         }
 
         // starts are negative one as the coords are based in the middle
@@ -127,7 +136,7 @@ public class Simulator extends World
             //System.out.println(dayNumber);
             //removeObject(computerImage);
         }
-        
+
         double mark = 0;
         for (Student student : getObjects(Student.class)) {
             mark += student.getProjectedMark();
@@ -158,6 +167,7 @@ public class Simulator extends World
                     if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
                         computer.breakComputer();
                     }
+                    cohen.returnToDesk();
                 }
             }
             
@@ -185,6 +195,11 @@ public class Simulator extends World
         }
     }
     
+    /**
+     * Returns the chance of customer support responding
+     *
+     * @return Returns support chance
+     */
     public int getSupportChance() {
         return customerSupportRespondChance;
     }

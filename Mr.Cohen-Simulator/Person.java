@@ -30,7 +30,6 @@ public abstract class Person extends SuperSmoothMover
     
     
     public Person() {
-        
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
@@ -41,6 +40,7 @@ public abstract class Person extends SuperSmoothMover
     
     /**
      * Setter for speed
+     * 
      * @param a The new speed
      */
     public void setSpeed(double a){
@@ -61,8 +61,8 @@ public abstract class Person extends SuperSmoothMover
     }
     
     /**
-     * Act - do whatever the Person wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * This act method moves the instance on its path
+     * 
      */
     public void act()
     {
@@ -104,11 +104,11 @@ public abstract class Person extends SuperSmoothMover
      * Uses A* algorithm to compute the shortest distance
      * The algo checks every (GRID_CHECK) pixels
      *
-     * @param targetX The X position to find
+     * @param targetX The x position to find
      * @param targetY The y position to find
      * @param radius How far/close can the person be from the given points for it to count as a path found
-     * @param overWrite If true the path find will overwrite the current path
-     * @return Returns if a path is found
+     * @param overWrite If true the path find will overwrite the current path else it will just add to it
+     * @return Returns true if a path is found
      */
     public boolean pathFind(int targetX, int targetY, double radius, boolean overWrite) {
         boolean pathFound = false;
@@ -224,7 +224,7 @@ public abstract class Person extends SuperSmoothMover
                 }
             }
         }
-        //System.out.println("done");
+
         return pathFound;
     }
             
