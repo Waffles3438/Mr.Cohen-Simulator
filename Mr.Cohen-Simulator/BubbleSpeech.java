@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class BubbleSpeech extends Actor
 {
     /**
-     * @param imageName, name of the image
+     * @param imageName Name of the image
      */
     public BubbleSpeech(String imageName){
         setImage(imageName);

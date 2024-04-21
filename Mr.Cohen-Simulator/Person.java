@@ -26,10 +26,10 @@ public abstract class Person extends SuperSmoothMover
     protected int[] finalPosition;
     protected boolean moved;
     protected BubbleSpeech speech;
+    protected int currentRotationalAngle;
     
     
     public Person() {
-        
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
@@ -40,6 +40,7 @@ public abstract class Person extends SuperSmoothMover
     
     /**
      * Setter for speed
+     * 
      * @param a The new speed
      */
     public void setSpeed(double a){
@@ -60,8 +61,8 @@ public abstract class Person extends SuperSmoothMover
     }
     
     /**
-     * Act - do whatever the Person wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * This act method moves the instance on its path
+     * 
      */
     public void act()
     {
@@ -69,6 +70,7 @@ public abstract class Person extends SuperSmoothMover
         if (currentPath.size() > 0) {
             double distanceRequired = speed;
             int[] position = currentPath.peekFirst();
+            currentRotationalAngle = calculateAngleToTarget(position[0], position[1]);
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
@@ -102,11 +104,11 @@ public abstract class Person extends SuperSmoothMover
      * Uses A* algorithm to compute the shortest distance
      * The algo checks every (GRID_CHECK) pixels
      *
-     * @param targetX The X position to find
+     * @param targetX The x position to find
      * @param targetY The y position to find
      * @param radius How far/close can the person be from the given points for it to count as a path found
-     * @param overWrite If true the path find will overwrite the current path
-     * @return Returns if a path is found
+     * @param overWrite If true the path find will overwrite the current path else it will just add to it
+     * @return Returns true if a path is found
      */
     public boolean pathFind(int targetX, int targetY, double radius, boolean overWrite) {
         boolean pathFound = false;
@@ -222,7 +224,7 @@ public abstract class Person extends SuperSmoothMover
                 }
             }
         }
-        //System.out.println("done");
+
         return pathFound;
     }
             
@@ -256,6 +258,24 @@ public abstract class Person extends SuperSmoothMover
         Collections.reverse(path);
         return path;
     }
+    
+    /**
+     * Calculate the angle from the current position to the target position.
+     * @param targetX The x-coordinate of the target position
+     * @param targetY The y-coordinate of the target position
+     * @return The angle in degrees from the current position to the target position.
+     */
+    public int calculateAngleToTarget(int targetX, int targetY) {
+        int dx = targetX - getX(); // Change in x
+        int dy = targetY - getY(); // Change in y
+    
+        // Calculate the angle using arctan, converting from radians to degrees
+        double angle = Math.toDegrees(Math.atan2(dy, dx));
+    
+        // Normalize the angle into a 0-360 range
+        return (int)((angle + 360) % 360);
+    }
+
     
         /**
      * Clears the current path of the person
