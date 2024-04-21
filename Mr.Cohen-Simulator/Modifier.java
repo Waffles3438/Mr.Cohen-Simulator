@@ -398,4 +398,8 @@ public class Modifier extends World
     public Simulator getSimulatorWorld(){
         return simulator;
     }
+    
+    public static int getchanceOfLaptopBreaking(){
+        return chanceOfComputerBreaking;
+    }
 }

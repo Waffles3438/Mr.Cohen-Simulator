@@ -41,6 +41,10 @@ public class Computer extends Actor
      */
     public void act()
     {
+        int screenLeftBound = getX()-screenImage.getWidth()/2;
+        int screenRightBound = getX()+screenImage.getWidth()/2;
+        int screenTopBound = screenY-screenImage.getHeight()/2;
+        int screenBottomBound = screenY+screenImage.getHeight()/2;
         
     }
     
