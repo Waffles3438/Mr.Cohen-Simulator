@@ -44,6 +44,7 @@ public class Computer extends Actor
         int screenRightBound = getX()+screenImage.getWidth()/2;
         int screenTopBound = screenY-screenImage.getHeight()/2;
         int screenBottomBound = screenY+screenImage.getHeight()/2;
+        
     }
     
     public boolean isBroken()
