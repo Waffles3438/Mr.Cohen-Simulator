@@ -52,7 +52,7 @@ public class ValueBox extends Actor
      * @param w The world the object was placed into
      */
     public void addedToWorld(World w) {
-        w.addObject(bar, getX(), getY() + yOffset);
+        w.addObject(bar, getX(), getY() + yOffset+3);
     }
     
     /**
