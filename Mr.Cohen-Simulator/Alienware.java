@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Alienware extends Computer
 {
+    private boolean broken = false;
     
     /**
      * Creates an alienware laptop to be used in the simulation
@@ -16,22 +17,24 @@ public class Alienware extends Computer
     public Alienware() 
     {
         super();
-        deviceImage = new GreenfootImage("laptop_temo.png");
+        deviceImage = new GreenfootImage("GamingLaptop.png");
         // width is 440, height is 245
-        deviceImage.scale(440, 245);
+        deviceImage.scale(491, 347);
 
-        screenImage = new GreenfootImage(deviceImage.getWidth()*49/64, deviceImage.getHeight()*72/90);
+        screenImage = new GreenfootImage(deviceImage.getWidth()*43/64, deviceImage.getHeight()*50/90);
         screenImage.setColor(new Color(255, 100, 100));
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
-        screenY = 18;
-        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
+        screenY = 27;
+        screenX = 2;
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2+screenX, screenY);
         setImage(fullImage);
-        durability = 10;
+        durability = 80;
+        maxDurability = 80;
     }
     
     public void addedToWorld(World w) {
-        setLocation(1050, 575);
+        setLocation(1050, 640);
         super.addedToWorld(w);
     }
     
@@ -42,6 +45,13 @@ public class Alienware extends Computer
     public void act()
     {
         super.act();
+        if(Greenfoot.getRandomNumber(50000) <= Modifier.getchanceOfLaptopBreaking() && !broken){
+            screenImage = new GreenfootImage("bsod.png");
+            fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
+            setImage(fullImage);
+            getWorld().removeObject(mouse);
+            broken = true;
+        }
     }
     
     public void setScreen() {

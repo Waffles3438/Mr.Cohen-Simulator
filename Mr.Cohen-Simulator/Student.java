@@ -5,9 +5,12 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs
  * 
+ * * Edited by Andy Feng
+ * 
  * @author Felix Zhao 
  * @author Benny Wang
  * @version 1.0.0
+ * 
  */
 public class Student extends Person
 {
@@ -26,8 +29,9 @@ public class Student extends Person
 
     private int wasteTimeCounter;
 
-    private int talkingCounter;
-    private Student talkStudent;
+    private int talkingTimer;
+    private Person talkPerson;
+    private boolean frozen;
 
     
     /**
@@ -48,13 +52,11 @@ public class Student extends Person
         this.deskX = deskX;
         this.deskY = deskY;
         atDesk = true;
-        //isWorking = false;
         workTimer = -1;
-        //isWastingTime = false;
         wasteTimeCounter = -1;
-        //isTalking = false;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
+        frozen = false;
     }
     
     /**
@@ -63,25 +65,42 @@ public class Student extends Person
      */
     public void act()
     {   
+        if (frozen) {
+            return;
+        }
         super.act();
+        handleRandomSpeedChange();
+        handleRandomMovement();
+        handleReturnToDesk();
+        handleWorkBehavior();
+        handleTimers();
+        handleTalking();
+    }
+    
+    private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
-        
+    }
+    
+    private void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
         
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
-            int task = Greenfoot.getRandomNumber(2);
+            int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
                 moveRandom();
             } else if (task == 1) {
                 talkToSomeone();
+            } else if (task == 2) {
+                talkToCohen();
             }
-            
         }
-        
+    }
+    
+    private void handleReturnToDesk() {
         if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
@@ -93,9 +112,10 @@ public class Student extends Person
             setRotation(-90);
             randomMoveCounter = 0;
         }
+    }
 
+    private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
-            // Added a curve so people with low iq don't study way less
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
             if (chance >= 70) {
                 work();
@@ -104,17 +124,16 @@ public class Student extends Person
             } else if (chance <= 10) {
                 moveRandom();
             }
-            
         }
-        
+    }
+    
+    private void handleTimers() {
         if (workTimer > 0) {
             workTimer -= 1;
         } else if (workTimer == 0) {
             workTimer--;
             getWorld().removeObject(speech);
             speech = null;
-
-            //moveRandom();
         }
         
         if (wasteTimeCounter > 0) {
@@ -123,35 +142,42 @@ public class Student extends Person
             wasteTimeCounter --;
             getWorld().removeObject(speech);
             speech = null;
-
         }
-        
-        
-        
-        if (talkStudent != null && currentPath.size() == 0 && talkStudent.getPathSize() == 0 && talkingCounter == -1) {
-            turnTowards(talkStudent);
-            talkingCounter = 80;
+    }
+    
+    private void handleTalking() {
+        if (talkPerson != null && currentPath.size() == 0 && talkPerson.getPathSize() == 0 && talkingTimer == -1) {
+            turnTowards(talkPerson);
+            talkingTimer = 80;
             if (speech != null) {
                 getWorld().removeObject(speech);
             }
             speech = new BubbleSpeech("talk_bubble.png");
-            if (Greenfoot.getRandomNumber(2) == 0) {
-                projectedMark += (iq + talkStudent.getIQ()) / 100.0;
-            } else {
-                projectedMark += 100.0 / (iq + talkStudent.getIQ());
-                speech = new BubbleSpeech("happy_emotion0.png");
+            if (talkPerson instanceof Student) {
+                Student talkStudent = (Student) talkPerson;
+                if (Greenfoot.getRandomNumber(2) == 0) {
+                    projectedMark += (iq + talkStudent.getIQ()) / 100.0;
+                } else {
+                    projectedMark += 100.0 / (iq + talkStudent.getIQ());
+                    speech = new BubbleSpeech("happy_emotion0.png");
+                }
+            } else if (talkPerson instanceof MrCohen) {
+                changedProjectedMark(10);
             }
+            
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
-        if (talkingCounter > 0) {
-            talkingCounter--;
-        } else if (talkingCounter == 0) {
-            talkingCounter--;
-            talkStudent = null;
+        if (talkingTimer > 0) {
+            talkingTimer--;
+        } else if (talkingTimer == 0) {
+            talkingTimer--;
+            
+            talkPerson = null;
             getWorld().removeObject(speech);
             speech = null;
-            moveRandom();
+            goingBackToWork = true;
+            pathFind(deskX, deskY, 0, true);
         }
     }
     
@@ -160,7 +186,7 @@ public class Student extends Person
             getWorld().removeObject(speech);
         }
         workTimer = Greenfoot.getRandomNumber(iq)+50;
-        projectedMark += workTimer / 100.0;
+        projectedMark += workTimer / 200.0;
         speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
@@ -195,18 +221,24 @@ public class Student extends Person
             if (!student.isTalking() && student != this) {
                 if (pathFind(student, 75, true)) {
                     student.requestToTalk(this);
-                    talkStudent = student;
+                    talkPerson = student;
                 } 
-                
                 break;
             }
         }
-        
-        
+    }
+    
+    private void talkToCohen() {
+        MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
+        if (cohen.doingNothing()) {
+            cohen.requestToTalk(this);
+            pathFind(cohen, 80, true);
+            talkPerson = cohen;
+        }
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkStudent == null && talkingCounter == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1;
     }
     
     /**
@@ -214,10 +246,10 @@ public class Student extends Person
      *
      * @param student The student that requested to talk
      */
-    public void requestToTalk(Student student) {
+    public void requestToTalk(Person person) {
         clearPath();
         goingBackToWork = false;
-        talkStudent = student;
+        talkPerson = person;
     }
     
     /**
@@ -229,11 +261,10 @@ public class Student extends Person
         clearPath();
         workTimer = -1;
         wasteTimeCounter = -1;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
-        //System.out.println("should return to desk");
     }
     
     /**
@@ -241,7 +272,7 @@ public class Student extends Person
      *
      */
     public boolean isTalking() {
-        return talkStudent != null || talkingCounter >= 0;
+        return talkPerson != null || talkingTimer >= 0;
     }
     
     /**
@@ -255,7 +286,6 @@ public class Student extends Person
         } else {
             projectedMark += amountLearned * 100.0 / iq;
         }
-
     }
     
     /**

@@ -32,7 +32,7 @@ public class Image extends Actor
     public Image(int width, int height) {
         GreenfootImage image = new GreenfootImage(width, height);
         image.setColor(new Color(0, 0, 0));
-        image.drawRect(0, 0, width-1, height-1);
+        //image.drawRect(0, 0, width-1, height-1);
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
