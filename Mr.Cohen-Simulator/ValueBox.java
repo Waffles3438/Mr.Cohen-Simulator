@@ -40,9 +40,9 @@ public class ValueBox extends Actor
         minVal = min;
         maxVal = max;
         currentVal = min;
-        textLabel = new Label(min, 100);
+        textLabel = new Label(min, 70);
         setImage(textLabel.getImage());
-        this.yOffset = yOffset;
+        this.yOffset = yOffset + 5;
         bar = new Bar(this);
     }
     
@@ -52,7 +52,7 @@ public class ValueBox extends Actor
      * @param w The world the object was placed into
      */
     public void addedToWorld(World w) {
-        w.addObject(bar, getX(), getY()+yOffset);
+        w.addObject(bar, getX(), getY() + yOffset+3);
     }
     
     /**

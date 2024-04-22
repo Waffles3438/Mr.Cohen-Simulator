@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 /**
  * An actor that displays an image and/or acts as a hitbox for the people pathfinding
- * An actor that has no purpose other than displaying an image
  * 
  * Wooden banner: https://en.ac-illust.com/clip-art/1354907/pixelated-banner-set
  * 
@@ -13,6 +13,7 @@ public class Image extends Actor
 {
     
     private double ratio;
+    protected ArrayList<GreenfootImage> list = new ArrayList<GreenfootImage>();
     
     /**
      * @param imageName, name of the image
@@ -31,7 +32,7 @@ public class Image extends Actor
     public Image(int width, int height) {
         GreenfootImage image = new GreenfootImage(width, height);
         image.setColor(new Color(0, 0, 0));
-        image.drawRect(0, 0, width-1, height-1);
+        //image.drawRect(0, 0, width-1, height-1);
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
@@ -44,6 +45,15 @@ public class Image extends Actor
     public Image(GreenfootImage image){
         setImage(image);
         ratio = (double)getImage().getHeight() / getImage().getWidth();
+    }
+    
+    public Image(String name, int numberOfImage, String fileType){
+        for(int i = 0; i < numberOfImage; i++){
+            list.add(new GreenfootImage(name + (i+1) + fileType));
+        }
+        for(GreenfootImage image : list){
+            image.scale(150, 150);
+        }
     }
     
     public void act(){
@@ -67,4 +77,8 @@ public class Image extends Actor
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
     
+    protected void addImage(Image other, int gap){
+        setLocation(getX() - gap, getY());
+        other.setLocation(getX() + gap, getY());
+    }
 }

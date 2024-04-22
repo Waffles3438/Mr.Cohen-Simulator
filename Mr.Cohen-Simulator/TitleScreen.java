@@ -3,10 +3,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * The title screen of the simulation
  * 
+ * Image from: https://pc98backgrounds.tumblr.com/image/172810349592
+ * 
  * @author Benny
  * @version 1.0.0
  * 
- * Image from: https://pc98backgrounds.tumblr.com/image/172810349592
+ * 
  */
 public class TitleScreen extends World{
     private Button start = new Button("start", 3, ".png");

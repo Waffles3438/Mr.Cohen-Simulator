@@ -34,14 +34,15 @@ public class LeftFlipButton extends Button
         List<Slider> sliders = getWorld().getObjects(Slider.class);
         List<Label> labels = getWorld().getObjects(Label.class);
         List<ValueBox> valueBoxes = getWorld().getObjects(ValueBox.class);
+        List<CheckBox> checkBoxes = getWorld().getObjects(CheckBox.class);
         
         moveObjects(boxes);
         moveObjects(bars);
         moveObjects(sliders);
         moveObjects(labels);
         moveObjects(valueBoxes);
+        moveObjects(checkBoxes);
     }
-    
     /**
      * move every object passed into this method 1260 pixels left
      */

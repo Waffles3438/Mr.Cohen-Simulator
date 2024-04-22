@@ -25,10 +25,11 @@ public abstract class Person extends SuperSmoothMover
     protected ArrayList<Class<?>> avoidList;
     protected int[] finalPosition;
     protected boolean moved;
+    protected BubbleSpeech speech;
+    protected int currentRotationalAngle;
     
     
     public Person() {
-        
         currentPath = new LinkedList<int[]>();
         speed = 5;
         avoidList = new ArrayList<Class<?>>();
@@ -39,6 +40,7 @@ public abstract class Person extends SuperSmoothMover
     
     /**
      * Setter for speed
+     * 
      * @param a The new speed
      */
     public void setSpeed(double a){
@@ -56,12 +58,11 @@ public abstract class Person extends SuperSmoothMover
         } else if(speed > 7){
             speed = 7;
         }
-        
     }
     
     /**
-     * Act - do whatever the Person wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * This act method moves the instance on its path
+     * 
      */
     public void act()
     {
@@ -69,10 +70,10 @@ public abstract class Person extends SuperSmoothMover
         if (currentPath.size() > 0) {
             double distanceRequired = speed;
             int[] position = currentPath.peekFirst();
+            currentRotationalAngle = calculateAngleToTarget(position[0], position[1]);
             turnTowards(position[0], position[1]);
             double distance = getDistance(new int[]{getX(), getY()}, position);
             if (distance <= speed) {
-
                 while (distanceRequired >= distance && currentPath.size() > 0) {
                     setLocation(position[0], position[1]);
                     currentPath.pollFirst();
@@ -92,6 +93,10 @@ public abstract class Person extends SuperSmoothMover
             }
             moved = true;
         }
+        
+        if (speech != null) {
+            speech.setLocation(getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        }
     }
     
     /**
@@ -99,11 +104,11 @@ public abstract class Person extends SuperSmoothMover
      * Uses A* algorithm to compute the shortest distance
      * The algo checks every (GRID_CHECK) pixels
      *
-     * @param targetX The X position to find
+     * @param targetX The x position to find
      * @param targetY The y position to find
      * @param radius How far/close can the person be from the given points for it to count as a path found
-     * @param overWrite If true the path find will overwrite the current path
-     * @return Returns if a path is found
+     * @param overWrite If true the path find will overwrite the current path else it will just add to it
+     * @return Returns true if a path is found
      */
     public boolean pathFind(int targetX, int targetY, double radius, boolean overWrite) {
         boolean pathFound = false;
@@ -162,8 +167,6 @@ public abstract class Person extends SuperSmoothMover
                 if (currentPath.peekLast() != null) {
                     finalPosition = new int[]{currentPath.peekLast()[0], currentPath.peekLast()[1]};
                 }
-                
-                
                 break;
             }
             
@@ -173,8 +176,7 @@ public abstract class Person extends SuperSmoothMover
             // int[][] directions = new int[][] {
                 // {-1, 0},{0, -1}, {0, 1}, {1, 0}
             // };
-            
-            
+
             for (int[] position : directions) {
                 int newRow = r + position[0];
                 int newCol = c + position[1];
@@ -200,13 +202,11 @@ public abstract class Person extends SuperSmoothMover
                 if (!valid) {
                     continue;
                 }
-                
-                
+
                 if (closedList[newRow][newCol]) {
                     continue;
                 }
-                
-                
+
                 double newG = cellData[r][c].getG()+1;
                 if (position[0] != 0 && position[1] != 0) {
                     // adds another 0.4 because diagonal movements are longer
@@ -223,10 +223,8 @@ public abstract class Person extends SuperSmoothMover
                     cellData[newRow][newCol].setParent(r, c);
                 }
             }
-            
-            
         }
-        //System.out.println("done");
+
         return pathFound;
     }
             
@@ -262,6 +260,42 @@ public abstract class Person extends SuperSmoothMover
     }
     
     /**
+     * Calculate the angle from the current position to the target position.
+     * @param targetX The x-coordinate of the target position
+     * @param targetY The y-coordinate of the target position
+     * @return The angle in degrees from the current position to the target position.
+     */
+    public int calculateAngleToTarget(int targetX, int targetY) {
+        int dx = targetX - getX(); // Change in x
+        int dy = targetY - getY(); // Change in y
+    
+        // Calculate the angle using arctan, converting from radians to degrees
+        double angle = Math.toDegrees(Math.atan2(dy, dx));
+    
+        // Normalize the angle into a 0-360 range
+        return (int)((angle + 360) % 360);
+    }
+
+    
+        /**
+     * Clears the current path of the person
+     * Useful when you want to stop a person
+     *
+     */
+    public void clearPath() {
+        currentPath = new LinkedList<int[]>();
+    }
+    
+    /**
+     * Returns the size of the path of this person
+     *
+     * @return The size of the current path
+     */
+    public int getPathSize() {
+        return currentPath.size();
+    }
+    
+    /**
      * Gets the distance from one (x, y) pair to another (x, y) pair
      *
      * @param one The first position
@@ -277,11 +311,6 @@ public abstract class Person extends SuperSmoothMover
 }
 
 class Cell {
-    /**
-     * f - total estimated cost (g+h)
-     * g - distance traveled from starting node
-     * h - estimated cost to get to end node
-     */
     private int parent_i, parent_j;
     private double f, g, h;
     

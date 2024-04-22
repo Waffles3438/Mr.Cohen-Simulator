@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 
 public abstract class Fader extends Actor{
+
     private int maxTransparency = 255;
     private int minTransparency = 1;
     private int fadeSpeed = 1;
@@ -39,6 +40,7 @@ public abstract class Fader extends Actor{
         }
     }
     
+
     public void fadeInAndOut(int duration){
         if(!done){
             if(getImage().getTransparency() + fadeSpeed <= maxTransparency){
@@ -48,6 +50,7 @@ public abstract class Fader extends Actor{
             else{
                 done = true;
                 sleepFor(duration);
+
             }
         } else{
             if(getImage().getTransparency() - fadeSpeed >= minTransparency){
