@@ -3,55 +3,58 @@ import java.util.List;
 /**
  * Write a description of class Robber here.
  * 
- * @author (your name) 
+ * @author Evan Xi 
  * @version (a version number or a date)
  */
-public class Robber extends Person
-{
-    private int counter = 0; 
-    Black black = new Black();
-    ExclamationMark mark = new ExclamationMark();
-    private boolean robbed;
-    public Robber()
-    {
+public class Robber extends Person{
+    private boolean hasRobbed = false;
+    private boolean hasEntered = false;
+    
+    Smokescreen smokescreen = new Smokescreen("smokescreen.png", 250, 5, 3); 
+    
+    public Robber(){
         super();
-        getImage().rotate(90);
-        robbed = false;
+        getImage().scale(45, 45);
+        
+              
     }
-
-    public void act()
-    {
+    
+    public void act(){
         super.act();
-        steal();
-    }
-
-    // Add code to steal laptop
-    protected void steal()
-    {
-        if (!robbed) {
-            pathFind(360, 150, 120, true);
-            robbed = true;
+        if(!hasEntered){
+            chooseRandomWindow();
+            throwSmokeBomb();
         }
         
-        if (currentPath.size() == 0) 
-        {
-
-            getWorld().addObject(black, 420, getWorld().getHeight()/2);
-            counter++;
-            if (counter >= 70) 
-            {
-                getWorld().removeObject(black);
-                getWorld().addObject(mark, getWorld().getWidth()/2-50, 100);
-            }
-            if (counter >= 400) 
-            {
-                getWorld().removeObject(mark);
-            }
-
-         }
+        if(!hasRobbed){
+            pathFind(360, 195, 0, false);
+        }    
+        
+        if(this.getX() == 360){
+            hasRobbed = true;
+            sleepFor(100);
+            chooseRandomWindow();
+        }
+        
+        if((this.getX() == 0) && hasRobbed){
+            getWorld().removeObject(this);
+        }
+            
     }
-
-    private void shock(){
-        List<Student> student = getWorld().getObjects(Student.class);
+    
+    private void throwSmokeBomb(){
+        getWorld().addObject(smokescreen, 415, 355);
+        Simulator.setSmoked(true);  
+        hasEntered = true;
+    }
+    
+    private void chooseRandomWindow(){
+        int windowChoice = Greenfoot.getRandomNumber(2);
+        if(windowChoice == 0){
+            pathFind(0, 220, 0, true);
+        }
+        else if(windowChoice == 1){
+            pathFind(0, 510, 0, true);
+        }
     }
 }

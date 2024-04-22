@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * 
  * @author Felix Zhao 
  * @author Benny Wang
+ * edited by Evan Xi
  * @version 1.0.0
  * 
  */
@@ -24,6 +25,9 @@ public class Student extends Person
     private int deskX;
     private int deskY;
     private boolean atDesk;
+
+    private boolean isSlipping = false;
+
 
     private int workTimer;
 
@@ -63,19 +67,30 @@ public class Student extends Person
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {   
-        if (frozen) {
-            return;
+    public void act(){
+        if(isSlipping){
+            for(int i = 0; i < 12; i++){
+                setRotation(getRotation() + (i * 5));
+                sleepFor(5);
+            }
+            
         }
-        super.act();
-        handleRandomSpeedChange();
-        handleRandomMovement();
-        handleReturnToDesk();
-        handleWorkBehavior();
-        handleTimers();
-        handleTalking();
+        else{                   
+          if (frozen) {
+              return;
+          }
+          super.act();
+          handleRandomSpeedChange();
+          handleRandomMovement();
+          handleReturnToDesk();
+          handleWorkBehavior();
+          handleTimers();
+          handleTalking();
+        }
     }
+        
+        
+
     
     private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
@@ -180,6 +195,7 @@ public class Student extends Person
             pathFind(deskX, deskY, 0, true);
         }
     }
+
     
     protected void work() {
         if (speech != null) {
@@ -298,5 +314,11 @@ public class Student extends Person
     
     public int getIQ() {
         return iq;
+    }
+    
+    private void checkFall(){
+        if(isTouching(Puddle.class)){
+            isSlipping = true;
+        }
     }
 }

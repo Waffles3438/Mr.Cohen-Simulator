@@ -35,7 +35,7 @@ public abstract class Person extends SuperSmoothMover
         avoidList = new ArrayList<Class<?>>();
         avoidList.add(Image.class);
         moved = false;
-        getImage().scale(66, 66);
+        getImage().scale(60, 60);
     }
     
     /**
