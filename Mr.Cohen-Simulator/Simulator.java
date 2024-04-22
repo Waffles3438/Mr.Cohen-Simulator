@@ -29,8 +29,11 @@ public class Simulator extends World
     private static boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
+    private boolean hasJanitors;
+    private boolean hasRobbers;
     private int actsCount = 0;
     private int dayCount = 1;
+    private int janitorCounter;
     private Label day = new Label("Day: " + dayCount, 50);
 
     private SuperStatBar averageProjectedMark;
@@ -76,6 +79,8 @@ public class Simulator extends World
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
+        this.hasJanitors = hasJanitors;
+        this.hasRobbers = hasRobbers;
         
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
@@ -118,7 +123,7 @@ public class Simulator extends World
         addObject(averageProjectedMark, 1050, 100);
         addObject(cohenAngerMeter, 1050, 140);
         addObject(computerDurability, 1050, 180);
-
+        janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
@@ -133,10 +138,9 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        int dayChecker = dayNumber-1;
-        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
-            //System.out.println(dayNumber);
-            //removeObject(computerImage);
+        if (hasJanitors && janitorCounter > 0 && Greenfoot.getRandomNumber(600) == 0) {
+            addObject(new Janitor(), 800, 600);
+            janitorCounter--;
         }
 
         double mark = 0;
@@ -170,6 +174,7 @@ public class Simulator extends World
                         computer.breakComputer();
                     }
                     cohen.returnToDesk();
+                    janitorCounter = 1;
                 }
             }
             
