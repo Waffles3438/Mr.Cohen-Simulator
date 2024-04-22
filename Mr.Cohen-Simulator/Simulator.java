@@ -14,6 +14,8 @@ public class Simulator extends World
     private int numDays;
     private int chanceOfComputerBreaking;
     private int chaosNumber;
+    private static boolean smoked = false;
+    
     /**
      * Starts the simulation. Draws borders
      * Spawns the students and Mr. Cohen
@@ -68,5 +70,13 @@ public class Simulator extends World
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
+    }
+    
+    public static void setSmoked(boolean status){
+        smoked = status;
+    }
+    
+    public static boolean isSmoked(){
+        return smoked;
     }
 }

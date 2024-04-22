@@ -6,6 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao 
  * @author Benny Wang
+ * edited by Evan Xi
  * @version 1.0.0
  */
 public class Student extends Person
@@ -20,6 +21,7 @@ public class Student extends Person
     private int deskX;
     private int deskY;
     private boolean atDesk;
+    private boolean isSlipping = false;
     
     /**
      * Creates a student which an iq close to the given iq
@@ -45,47 +47,68 @@ public class Student extends Person
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {
-        // Add your action code here.
-        if(Greenfoot.getRandomNumber(100) == 0){
-            slowerOrFaster();
-        }
-        
-        super.act();
-        if (currentPath.size() == 0) {
-            randomMoveCounter++;
-        }
-        
-        if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork) {
-            atDesk = false;
-            if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
-                randomMoveCounter = 0;
-            } else {
-                randomMoveCounter = randomMoveCooldown / 2;
+    public void act(){
+        if(isSlipping){
+            for(int i = 0; i < 12; i++){
+                setRotation(getRotation() + (i * 5));
+                sleepFor(5);
             }
             
         }
-        
-        if(Greenfoot.getRandomNumber(1000) == 0){
-            goingBackToWork = true;
-            pathFind(deskX, deskY, 0, true);
-        }
-        
-        if (goingBackToWork && currentPath.size() == 0) {
-            goingBackToWork = false;
-            atDesk = true;
-            setRotation(-90);
-            randomMoveCounter = 0;
-        }
-        // Change to if IQ is a certain amount or greater, so smart students study
-        if (atDesk)
-        {
-            work();
+        else{                   
+            if(Greenfoot.getRandomNumber(100) == 0){
+                slowerOrFaster();
+            }
+            
+            if(Simulator.isSmoked()){
+                sleepFor(400);
+            }
+            
+            checkFall();
+            
+            super.act();
+            if (currentPath.size() == 0) {
+                randomMoveCounter++;
+            }
+            
+            if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork) {
+                atDesk = false;
+                if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
+                    randomMoveCounter = 0;
+                } else {
+                    randomMoveCounter = randomMoveCooldown / 2;
+                }
+                
+            }
+            
+            if(Greenfoot.getRandomNumber(1000) == 0){
+                goingBackToWork = true;
+                pathFind(deskX, deskY, 0, true);
+            }
+            
+            if (goingBackToWork && currentPath.size() == 0) {
+                goingBackToWork = false;
+                atDesk = true;
+                setRotation(-90);
+                randomMoveCounter = 0;
+            }
+            // Change to if IQ is a certain amount or greater, so smart students study
+            if (atDesk)
+            {
+                work();
+            }
         }
     }
+        
+        
     
     protected void work() {
         
+    }
+    
+    private void checkFall(){
+        if(isTouching(Puddle.class)){
+            isSlipping = true;
+        }
     }
 }

@@ -1,23 +1,24 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Puddle here.
+ * Write a description of class Smokescreen here.
  * 
- * @author Evan Xi 
+ * @author Evan Xi
  * @version (a version number or a date)
  */
-public class Puddle extends Fader{
+public class Smokescreen extends Fader{
     private int maxTransparency = 250;
     private int minTransparency = 5;
     private int fadeSpeed = 1;
     
-    public Puddle(String image, int max, int min, int speed){
+    public Smokescreen(String image, int max, int min, int speed){
         super(image, max, min, speed);
         this.getImage().setTransparency(minTransparency);
     }   
     
     
     public void act(){        
-        fadeInAndOut(500);
+        fadeInAndOut(200);
+        Simulator.setSmoked(false);
     }
 }

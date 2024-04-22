@@ -2,37 +2,83 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * The janitor
+ * Walks around the classroom for 6 seconds and leaves a puddle on the ground
  * 
- * @author (your name) 
+ * @author Evan Xi 
  * @version (a version number or a date)
  */
-public class Janitor extends Person
-{
-    private int spillChance;
+public class Janitor extends Person{
+    private int spillCount = 0;
+    private boolean isCleaning = true;
     
-    public Janitor()
-    {
+    SimpleTimer timer = new SimpleTimer();
+    Puddle puddle = new Puddle("puddle.png", 250, 0, 2);
+    
+    public Janitor(){
         super();
-        spillChance = Greenfoot.getRandomNumber(101);
-    }
-    
-    public void act()
-    {
+        timer.mark();
+        spillCount = 0;
         
     }
     
-    protected void spill()
-    {
+    public void act(){
+        super.act();
+        if(isCleaning){
+            cleanFloor();
+            attemptSpill();
+        }
         
+        exitRoom();
     }
     
-    protected void cleanFloor()
-    {
-        
+    private void attemptSpill(){
+        if(spillCount < 3){
+            if(Greenfoot.getRandomNumber(60) == 1){
+                getWorld().addObject(puddle, this.getX(), this.getY());
+                spillCount++;
+            }
+        }
     }
     
-    public int getSpillChance()
-    {
-        return spillChance;
+    private void cleanFloor(){
+        int location = Greenfoot.getRandomNumber(8);
+        switch(location){
+            case 1:
+                pathFind(685, 630, 20, false);
+                break;
+            case 2:
+                pathFind(685, 325, 20, false);
+                break;
+            case 3:
+                pathFind(455, 325, 20, false);
+                break;
+            case 4:
+                pathFind(455, 630, 20, false);
+                break;                
+            case 5:
+                pathFind(250, 630, 20, false);
+                break;
+            case 6:
+                pathFind(250, 325, 20, false);
+                break;
+            case 7:
+                pathFind(40, 325, 20, false);
+                break;
+            case 8:
+                pathFind(40, 630, 20, false);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private void exitRoom(){
+        if(timer.millisElapsed() >= 6000){
+            isCleaning = false;
+            pathFind(820, 585, 20, true);
+        }
+        if((this.getX() > 780) && (!isCleaning)){
+            getWorld().removeObject(this);  
+        }
     }
 }
