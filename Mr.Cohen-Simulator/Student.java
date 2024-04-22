@@ -80,6 +80,7 @@ public class Student extends Person
               return;
           }
           super.act();
+          checkFall();
           handleRandomSpeedChange();
           handleRandomMovement();
           handleReturnToDesk();

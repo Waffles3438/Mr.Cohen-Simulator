@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Edited by Benny Wang
  */
 
-public abstract class Fader extends Actor{
+public class Fader extends Actor{
 
     private int maxTransparency = 255;
     private int minTransparency = 1;
