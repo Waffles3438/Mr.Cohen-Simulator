@@ -4,10 +4,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * For simple fade in or fade out effects
  * Can control speed and max/min transparency
  * 
- * @Author Evan Xi
+ * @author Evan Xi
+ * Edited by Benny Wang
  */
 
 public class Fader extends Actor{
+
     private int maxTransparency = 255;
     private int minTransparency = 1;
     private int fadeSpeed = 1;
@@ -38,7 +40,8 @@ public class Fader extends Actor{
         }
     }
     
-    public void fadeInAndOut(){
+
+    public void fadeInAndOut(int duration){
         if(!done){
             if(getImage().getTransparency() + fadeSpeed <= maxTransparency){
                 this.getImage().setTransparency(getImage().getTransparency() + fadeSpeed);
@@ -46,7 +49,8 @@ public class Fader extends Actor{
             
             else{
                 done = true;
-                sleepFor(30);
+                sleepFor(duration);
+
             }
         } else{
             if(getImage().getTransparency() - fadeSpeed >= minTransparency){

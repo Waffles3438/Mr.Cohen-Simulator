@@ -5,15 +5,19 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs
  * 
+ * * Edited by Andy Feng
+ * 
  * @author Felix Zhao 
  * @author Benny Wang
+ * edited by Evan Xi
  * @version 1.0.0
+ * 
  */
 public class Student extends Person
 {
     private int iq;
     private int randomMoveCounter = 0;
-    private int randomMoveCooldown = 240;
+    private int randomMoveCooldown = 360;
     private double projectedMark;
     private static int variation;
     private boolean counter = false;
@@ -22,12 +26,15 @@ public class Student extends Person
     private int deskY;
     private boolean atDesk;
 
+    private int slippingTimer;
+
     private int workTimer;
 
     private int wasteTimeCounter;
 
-    private int talkingCounter;
-    private Student talkStudent;
+    private int talkingTimer;
+    private Person talkPerson;
+    private boolean frozen;
 
     
     /**
@@ -48,40 +55,67 @@ public class Student extends Person
         this.deskX = deskX;
         this.deskY = deskY;
         atDesk = true;
-        //isWorking = false;
         workTimer = -1;
-        //isWastingTime = false;
         wasteTimeCounter = -1;
-        //isTalking = false;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
+        slippingTimer = -1;
+        frozen = false;
     }
     
     /**
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {   
+    public void act(){
+        checkFall();
+        if(slippingTimer > 0) {
+            setRotation(getRotation() + 5);
+            slippingTimer--;
+            return;
+        } else if (slippingTimer == 0) {
+            slippingTimer--;
+            
+        }
+        if (frozen) {
+          return;
+        }
         super.act();
+      
+        handleRandomSpeedChange();
+        handleRandomMovement();
+        handleReturnToDesk();
+        handleWorkBehavior();
+        handleTimers();
+        handleTalking();
+        
+    }
+        
+    
+    private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
-        
+    }
+    
+    private void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
         
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
-            int task = Greenfoot.getRandomNumber(2);
+            int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
                 moveRandom();
             } else if (task == 1) {
                 talkToSomeone();
+            } else if (task == 2) {
+                talkToCohen();
             }
-            
         }
-        
+    }
+    
+    private void handleReturnToDesk() {
         if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
@@ -93,10 +127,11 @@ public class Student extends Person
             setRotation(-90);
             randomMoveCounter = 0;
         }
+    }
 
+    private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
-            // Added a curve so people with low iq don't study way less
-            double chance = Math.sqrt(Greenfoot.getRandomNumber(iq))*10;
+            double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
             if (chance >= 70) {
                 work();
             } else if (chance <= 30) {
@@ -104,17 +139,16 @@ public class Student extends Person
             } else if (chance <= 10) {
                 moveRandom();
             }
-            
         }
-        
+    }
+    
+    private void handleTimers() {
         if (workTimer > 0) {
             workTimer -= 1;
         } else if (workTimer == 0) {
             workTimer--;
             getWorld().removeObject(speech);
             speech = null;
-
-            //moveRandom();
         }
         
         if (wasteTimeCounter > 0) {
@@ -123,44 +157,52 @@ public class Student extends Person
             wasteTimeCounter --;
             getWorld().removeObject(speech);
             speech = null;
-
         }
-        
-        
-        
-        if (talkStudent != null && currentPath.size() == 0 && talkStudent.getPathSize() == 0 && talkingCounter == -1) {
-            turnTowards(talkStudent);
-            talkingCounter = 80;
+    }
+    
+    private void handleTalking() {
+        if (talkPerson != null && currentPath.size() == 0 && talkPerson.getPathSize() == 0 && talkingTimer == -1) {
+            turnTowards(talkPerson);
+            talkingTimer = 80;
             if (speech != null) {
                 getWorld().removeObject(speech);
             }
             speech = new BubbleSpeech("talk_bubble.png");
-            if (Greenfoot.getRandomNumber(2) == 0) {
-                projectedMark += (iq + talkStudent.getIQ()) / 100.0;
-            } else {
-                projectedMark += 100.0 / (iq + talkStudent.getIQ());
-                speech = new BubbleSpeech("happy_emotion0.png");
+            if (talkPerson instanceof Student) {
+                Student talkStudent = (Student) talkPerson;
+                if (Greenfoot.getRandomNumber(2) == 0) {
+                    projectedMark += (iq + talkStudent.getIQ()) / 100.0;
+                } else {
+                    projectedMark += 100.0 / (iq + talkStudent.getIQ());
+                    speech = new BubbleSpeech("happy_emotion0.png");
+                }
+            } else if (talkPerson instanceof MrCohen) {
+                changedProjectedMark(10);
             }
+            
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
-        if (talkingCounter > 0) {
-            talkingCounter--;
-        } else if (talkingCounter == 0) {
-            talkingCounter--;
-            talkStudent = null;
+        if (talkingTimer > 0) {
+            talkingTimer--;
+        } else if (talkingTimer == 0) {
+            talkingTimer--;
+            
+            talkPerson = null;
             getWorld().removeObject(speech);
             speech = null;
-            moveRandom();
+            goingBackToWork = true;
+            pathFind(deskX, deskY, 0, true);
         }
     }
+
     
     protected void work() {
         if (speech != null) {
             getWorld().removeObject(speech);
         }
         workTimer = Greenfoot.getRandomNumber(iq)+50;
-        projectedMark += workTimer / 100.0;
+        projectedMark += workTimer / 200.0;
         speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
@@ -195,18 +237,24 @@ public class Student extends Person
             if (!student.isTalking() && student != this) {
                 if (pathFind(student, 75, true)) {
                     student.requestToTalk(this);
-                    talkStudent = student;
+                    talkPerson = student;
                 } 
-                
                 break;
             }
         }
-        
-        
+    }
+    
+    private void talkToCohen() {
+        MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
+        if (cohen.doingNothing()) {
+            cohen.requestToTalk(this);
+            pathFind(cohen, 80, true);
+            talkPerson = cohen;
+        }
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkStudent == null && talkingCounter == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1;
     }
     
     /**
@@ -214,10 +262,19 @@ public class Student extends Person
      *
      * @param student The student that requested to talk
      */
-    public void requestToTalk(Student student) {
+    public void requestToTalk(Person person) {
         clearPath();
         goingBackToWork = false;
-        talkStudent = student;
+        talkPerson = person;
+    }
+    
+    /**
+     * Cancel Talking
+     *
+     */
+    public void cancelTalk() {
+        clearPath();
+        talkPerson = null;
     }
     
     /**
@@ -229,11 +286,11 @@ public class Student extends Person
         clearPath();
         workTimer = -1;
         wasteTimeCounter = -1;
-        talkStudent = null;
-        talkingCounter = -1;
+        talkPerson = null;
+        talkingTimer = -1;
+        slippingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
-        //System.out.println("should return to desk");
     }
     
     /**
@@ -241,7 +298,7 @@ public class Student extends Person
      *
      */
     public boolean isTalking() {
-        return talkStudent != null || talkingCounter >= 0;
+        return talkPerson != null || talkingTimer >= 0;
     }
     
     /**
@@ -255,18 +312,42 @@ public class Student extends Person
         } else {
             projectedMark += amountLearned * 100.0 / iq;
         }
-
     }
     
     /**
      * Returns the student's projected mark
      *
+     * @return Returns projected mark
      */
     public double getProjectedMark() {
         return projectedMark;
     }
     
+    /**
+     * Returns IQ
+     *
+     * @return Returns the IQ of the student
+     */
     public int getIQ() {
         return iq;
+    }
+    
+    private void checkFall(){
+        Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
+        if(puddle != null){
+            getWorld().removeObject(puddle);
+            slippingTimer = 80;
+            projectedMark -= 5;
+            if (talkPerson != null) {
+                cancelTalk();
+                if (talkPerson instanceof Student) {
+                    ((Student)talkPerson).cancelTalk();
+                } else if (talkPerson instanceof MrCohen) {
+                    ((MrCohen)talkPerson).cancelTalk();
+                }
+            }
+            getWorld().removeObject(speech);
+            speech = null;
+        }
     }
 }

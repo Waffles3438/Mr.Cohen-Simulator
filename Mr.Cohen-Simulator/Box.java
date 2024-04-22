@@ -24,5 +24,6 @@ public class Box extends Actor
      */
     public Box(){
         setImage(box);
+        box.scale(240 * 10 / 11, 240);
     }
 }
