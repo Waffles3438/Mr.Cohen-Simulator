@@ -18,7 +18,7 @@ public class Janitor extends Person{
         super();
         timer.mark();
         spillCount = 0;
-        
+        getImage().rotate(90);
     }
     
     public void act(){

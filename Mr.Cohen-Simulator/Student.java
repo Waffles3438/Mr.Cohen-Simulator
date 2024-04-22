@@ -26,8 +26,7 @@ public class Student extends Person
     private int deskY;
     private boolean atDesk;
 
-    private boolean isSlipping = false;
-
+    private int slippingTimer;
 
     private int workTimer;
 
@@ -60,6 +59,7 @@ public class Student extends Person
         wasteTimeCounter = -1;
         talkPerson = null;
         talkingTimer = -1;
+        slippingTimer = -1;
         frozen = false;
     }
     
@@ -68,30 +68,29 @@ public class Student extends Person
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act(){
-        if(isSlipping){
-            for(int i = 0; i < 12; i++){
-                setRotation(getRotation() + (i * 5));
-                sleepFor(5);
-            }
+        checkFall();
+        if(slippingTimer > 0) {
+            setRotation(getRotation() + 5);
+            slippingTimer--;
+            return;
+        } else if (slippingTimer == 0) {
+            slippingTimer--;
             
         }
-        else{                   
-          if (frozen) {
-              return;
-          }
-          super.act();
-          checkFall();
-          handleRandomSpeedChange();
-          handleRandomMovement();
-          handleReturnToDesk();
-          handleWorkBehavior();
-          handleTimers();
-          handleTalking();
+        if (frozen) {
+          return;
         }
+        super.act();
+      
+        handleRandomSpeedChange();
+        handleRandomMovement();
+        handleReturnToDesk();
+        handleWorkBehavior();
+        handleTimers();
+        handleTalking();
+        
     }
         
-        
-
     
     private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
@@ -255,7 +254,7 @@ public class Student extends Person
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1;
     }
     
     /**
@@ -270,6 +269,15 @@ public class Student extends Person
     }
     
     /**
+     * Cancel Talking
+     *
+     */
+    public void cancelTalk() {
+        clearPath();
+        talkPerson = null;
+    }
+    
+    /**
      * Returns students to desk
      */
     public void returnToDesk(){
@@ -280,6 +288,7 @@ public class Student extends Person
         wasteTimeCounter = -1;
         talkPerson = null;
         talkingTimer = -1;
+        slippingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
     }
@@ -308,18 +317,37 @@ public class Student extends Person
     /**
      * Returns the student's projected mark
      *
+     * @return Returns projected mark
      */
     public double getProjectedMark() {
         return projectedMark;
     }
     
+    /**
+     * Returns IQ
+     *
+     * @return Returns the IQ of the student
+     */
     public int getIQ() {
         return iq;
     }
     
     private void checkFall(){
-        if(isTouching(Puddle.class)){
-            isSlipping = true;
+        Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
+        if(puddle != null){
+            getWorld().removeObject(puddle);
+            slippingTimer = 80;
+            projectedMark -= 5;
+            if (talkPerson != null) {
+                cancelTalk();
+                if (talkPerson instanceof Student) {
+                    ((Student)talkPerson).cancelTalk();
+                } else if (talkPerson instanceof MrCohen) {
+                    ((MrCohen)talkPerson).cancelTalk();
+                }
+            }
+            getWorld().removeObject(speech);
+            speech = null;
         }
     }
 }
