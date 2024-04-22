@@ -75,7 +75,6 @@ public class Student extends Person
             return;
         } else if (slippingTimer == 0) {
             slippingTimer--;
-            
         }
         if (frozen) {
           return;

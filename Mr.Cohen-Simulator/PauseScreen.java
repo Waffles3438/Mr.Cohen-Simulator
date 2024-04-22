@@ -21,7 +21,7 @@ public class PauseScreen extends World
      * Constructor for objects of class PauseScreen.
      * 
      */
-    public PauseScreen(TitleScreen titleScreen, Simulator simulator, ArrayList<Actor> actors)
+    public PauseScreen(TitleScreen titleScreen, Simulator simulator, ArrayList<Actor> actors, Fader blackScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1);
@@ -39,6 +39,7 @@ public class PauseScreen extends World
         addObject(menu, getWidth()/2, getHeight()/2);
         addObject(resume, getWidth()/2, getHeight()/2 + 150);
         pauseLocation = actors;
+        getActorImage(blackScreen);
     }
     
     public void act(){
@@ -50,14 +51,23 @@ public class PauseScreen extends World
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
-        getActorImage();
+        
     }
     
-    private void getActorImage(){
+    private void getActorImage(Fader blackScreen){
         for(Actor actor : pauseLocation){
-            GreenfootImage image = actor.getImage();
+            if (actor == blackScreen) {
+                continue;
+            }
+            GreenfootImage image = new GreenfootImage(actor.getImage());
+            
+            image.rotate(actor.getRotation());
+            image.setTransparency(actor.getImage().getTransparency());
             drawImage(image, actor.getX() - image.getWidth()/2, actor.getY() - image.getHeight()/2);
         }
+        GreenfootImage fader = new GreenfootImage(blackScreen.getImage());
+        fader.setTransparency(blackScreen.getImage().getTransparency());
+        drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
     }
     
     private void drawImage(GreenfootImage image, int x, int y){

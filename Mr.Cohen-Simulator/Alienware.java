@@ -46,7 +46,7 @@ public class Alienware extends Computer
         super.act();
         if(Greenfoot.getRandomNumber(75000) <= Modifier.getchanceOfLaptopBreaking() && durability > 0){
             screenImage = new GreenfootImage("bsod.png");
-            fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
+            fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2+screenX, screenY);
             setImage(fullImage);
             getWorld().removeObject(mouse);
             breakComputer();
