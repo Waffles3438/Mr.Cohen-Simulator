@@ -25,6 +25,8 @@ public class Simulator extends World
     private int dayNumber;
     private int numDays;
     private int chanceOfComputerBreaking;
+    private int chaosNumber;
+    private static boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
     private int actsCount = 0;
@@ -222,6 +224,14 @@ public class Simulator extends World
         if(Greenfoot.mouseClicked(null)){
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList));
         }
+    }
+    
+    public static void setSmoked(boolean status){
+        smoked = status;
+    }
+    
+    public static boolean isSmoked(){
+        return smoked;
     }
 }
 

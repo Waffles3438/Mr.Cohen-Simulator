@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * 
  * @author Felix Zhao 
  * @author Benny Wang
+ * edited by Evan Xi
  * @version 1.0.0
  * 
  */
@@ -24,6 +25,8 @@ public class Student extends Person
     private int deskX;
     private int deskY;
     private boolean atDesk;
+
+    private int slippingTimer;
 
     private int workTimer;
 
@@ -56,6 +59,7 @@ public class Student extends Person
         wasteTimeCounter = -1;
         talkPerson = null;
         talkingTimer = -1;
+        slippingTimer = -1;
         frozen = false;
     }
     
@@ -63,19 +67,30 @@ public class Student extends Person
      * Act - do whatever the Student wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {   
-        if (frozen) {
+    public void act(){
+        checkFall();
+        if(slippingTimer > 0) {
+            setRotation(getRotation() + 5);
+            slippingTimer--;
             return;
+        } else if (slippingTimer == 0) {
+            slippingTimer--;
+            
+        }
+        if (frozen) {
+          return;
         }
         super.act();
+      
         handleRandomSpeedChange();
         handleRandomMovement();
         handleReturnToDesk();
         handleWorkBehavior();
         handleTimers();
         handleTalking();
+        
     }
+        
     
     private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
@@ -180,6 +195,7 @@ public class Student extends Person
             pathFind(deskX, deskY, 0, true);
         }
     }
+
     
     protected void work() {
         if (speech != null) {
@@ -238,7 +254,7 @@ public class Student extends Person
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1;
     }
     
     /**
@@ -253,6 +269,15 @@ public class Student extends Person
     }
     
     /**
+     * Cancel Talking
+     *
+     */
+    public void cancelTalk() {
+        clearPath();
+        talkPerson = null;
+    }
+    
+    /**
      * Returns students to desk
      */
     public void returnToDesk(){
@@ -263,6 +288,7 @@ public class Student extends Person
         wasteTimeCounter = -1;
         talkPerson = null;
         talkingTimer = -1;
+        slippingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
     }
@@ -291,12 +317,37 @@ public class Student extends Person
     /**
      * Returns the student's projected mark
      *
+     * @return Returns projected mark
      */
     public double getProjectedMark() {
         return projectedMark;
     }
     
+    /**
+     * Returns IQ
+     *
+     * @return Returns the IQ of the student
+     */
     public int getIQ() {
         return iq;
+    }
+    
+    private void checkFall(){
+        Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
+        if(puddle != null){
+            getWorld().removeObject(puddle);
+            slippingTimer = 80;
+            projectedMark -= 5;
+            if (talkPerson != null) {
+                cancelTalk();
+                if (talkPerson instanceof Student) {
+                    ((Student)talkPerson).cancelTalk();
+                } else if (talkPerson instanceof MrCohen) {
+                    ((MrCohen)talkPerson).cancelTalk();
+                }
+            }
+            getWorld().removeObject(speech);
+            speech = null;
+        }
     }
 }

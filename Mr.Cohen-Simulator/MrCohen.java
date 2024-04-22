@@ -179,6 +179,11 @@ public class MrCohen extends Person
         talkStudent = student;
     }
     
+    public void cancelTalk() {
+        clearPath();
+        talkStudent = null;
+    }
+    
     /**
      * Sets Mr Cohen for the beginning of a new day
      *

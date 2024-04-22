@@ -8,7 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Alienware extends Computer
 {
-    private boolean broken = false;
     
     /**
      * Creates an alienware laptop to be used in the simulation
@@ -45,12 +44,12 @@ public class Alienware extends Computer
     public void act()
     {
         super.act();
-        if(Greenfoot.getRandomNumber(50000) <= Modifier.getchanceOfLaptopBreaking() && !broken){
+        if(Greenfoot.getRandomNumber(75000) <= Modifier.getchanceOfLaptopBreaking() && durability > 0){
             screenImage = new GreenfootImage("bsod.png");
             fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
             setImage(fullImage);
             getWorld().removeObject(mouse);
-            broken = true;
+            breakComputer();
         }
     }
     
