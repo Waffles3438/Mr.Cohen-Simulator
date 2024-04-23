@@ -80,7 +80,7 @@ public class Simulator extends World
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
-        addObject(computerImage, 360, 150); 
+        addObject(computerImage, 360, 140); 
         
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
@@ -212,7 +212,7 @@ public class Simulator extends World
      * @param computer The new computer
      */
     public void updateComputer(Computer newComputer) {
-        System.out.println(computer);
+        //System.out.println(computer);
         computer.deleteMouse();
         removeObject(computer);
         this.computer = newComputer;
@@ -222,7 +222,7 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
-            Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList));
+            Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }
     
