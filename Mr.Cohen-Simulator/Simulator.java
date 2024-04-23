@@ -212,7 +212,7 @@ public class Simulator extends World
      * @param computer The new computer
      */
     public void updateComputer(Computer newComputer) {
-        System.out.println(computer);
+        //System.out.println(computer);
         computer.deleteMouse();
         removeObject(computer);
         this.computer = newComputer;
