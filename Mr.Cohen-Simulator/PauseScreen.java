@@ -65,12 +65,10 @@ public class PauseScreen extends World
             image.setTransparency(actor.getImage().getTransparency());
             drawImage(image, actor.getX() - image.getWidth()/2, actor.getY() - image.getHeight()/2);
         }
-        if (blackScreen.getWorld() != null) {
-            GreenfootImage fader = new GreenfootImage(blackScreen.getImage());
-            fader.setTransparency(blackScreen.getImage().getTransparency());
-            drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
-        }
-        
+        if(blackScreen.getWorld() == null) return;
+        GreenfootImage fader = new GreenfootImage(blackScreen.getImage());
+        fader.setTransparency(blackScreen.getImage().getTransparency());
+        drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
     }
     
     private void drawImage(GreenfootImage image, int x, int y){
