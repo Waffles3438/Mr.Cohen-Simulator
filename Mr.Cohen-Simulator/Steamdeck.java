@@ -39,6 +39,12 @@ public class Steamdeck extends Computer
     
     public void act()
     {
-        // Add your action code here.
+        super.act();
+    }
+    
+    public void setScreen() {
+        fullImage = new GreenfootImage(deviceImage);
+        fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, screenY);
+        setImage(fullImage);
     }
 }

@@ -41,4 +41,10 @@ public class Desktop extends Computer
     {
         // Add your action code here.
     }
+    
+    public void setScreen() {
+        fullImage = new GreenfootImage(deviceImage);
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
+        setImage(fullImage);
+    }
 }

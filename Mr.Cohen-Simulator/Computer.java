@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Felix Zhao
  * @version 0.0.1
  */
-public class Computer extends Actor
+public abstract class Computer extends Actor
 {
     protected int durability;
     protected int maxDurability;
@@ -46,6 +46,18 @@ public class Computer extends Actor
         int screenTopBound = screenY-screenImage.getHeight()/2;
         int screenBottomBound = screenY+screenImage.getHeight()/2;
         
+        GreenfootImage newScreenImage = new GreenfootImage("screen_1.png");
+        double newRatio = newScreenImage.getHeight() / (double) newScreenImage.getWidth();
+        double oldRatio = screenImage.getHeight() / (double) screenImage.getWidth();
+        if (oldRatio >= newRatio) {
+            newScreenImage.scale((int)(screenImage.getHeight()*(1/newRatio)), screenImage.getHeight());
+        } else {
+            newScreenImage.scale(screenImage.getWidth(), (int)(newRatio*screenImage.getWidth()));
+        }
+        
+        
+        screenImage.drawImage(newScreenImage, screenImage.getWidth()/2-newScreenImage.getWidth()/2, screenImage.getHeight()/2 - newScreenImage.getHeight()/2);
+        setScreen();
     }
     
     /**
@@ -62,9 +74,7 @@ public class Computer extends Actor
         return true;
     }
     
-    public void setScreen() {
-        
-    }
+    public abstract void setScreen();
     
     /**
      * Deletes the mouse from the screen

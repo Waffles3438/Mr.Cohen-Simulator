@@ -54,6 +54,8 @@ public class Alienware extends Computer
     }
     
     public void setScreen() {
-        
+        fullImage = new GreenfootImage(deviceImage);
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2+screenX, screenY);
+        setImage(fullImage);
     }
 }

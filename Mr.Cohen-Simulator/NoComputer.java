@@ -74,5 +74,7 @@ public class NoComputer extends Computer
         durability = 1;
     }
     
-  
+    public void setScreen() {
+        
+    }
 }
