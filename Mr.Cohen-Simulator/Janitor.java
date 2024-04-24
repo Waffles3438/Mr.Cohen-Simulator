@@ -10,20 +10,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Janitor extends Person{
     private int spillCount = 0;
     private boolean isCleaning = true;
+    private int cleaningTimer = 0;
     
-    SimpleTimer timer = new SimpleTimer();
     Puddle puddle = new Puddle("puddle.png", 250, 0, 2);
     
     public Janitor(){
         super();
-        timer.mark();
         spillCount = 0;
-        
+        getImage().rotate(90);
     }
     
     public void act(){
         super.act();
         if(isCleaning){
+            cleaningTimer++;
             cleanFloor();
             attemptSpill();
         }
@@ -73,7 +73,7 @@ public class Janitor extends Person{
     }
     
     private void exitRoom(){
-        if(timer.millisElapsed() >= 6000){
+        if(cleaningTimer >= 360){
             isCleaning = false;
             pathFind(820, 585, 20, true);
         }

@@ -18,6 +18,7 @@ public class MrCohen extends Person
     private int talkingTimer;
     private Student talkStudent;
     private boolean frozen;
+    private boolean brokeToday;
     
     
     /**
@@ -39,6 +40,7 @@ public class MrCohen extends Person
         talkStudent = null;
         setRotation(90);
         frozen = false;
+        brokeToday = false;
     }
     
     public void addedToWorld(World w) {
@@ -80,6 +82,9 @@ public class MrCohen extends Person
             setRotation(90);
             if (Greenfoot.getRandomNumber(500) == 0) {
                 talkToStudent();
+            } else if (currentComputer.getDurability() == 0 && !brokeToday) {
+                rage(2);
+                brokeToday = true;
             }
             
         }
@@ -123,6 +128,8 @@ public class MrCohen extends Person
 
             if (Greenfoot.getRandomNumber(100)+1 <= world.getSupportChance()) {
                 computer.fixComputer();
+            } else {
+                angerMeter += 1;
             }
         }
         
@@ -162,10 +169,11 @@ public class MrCohen extends Person
                 target = student;
             }
         } 
-        if (target != null) {
+        if (target != null && pathFind(target, 80, true)) {
+            
             target.requestToTalk(this);
             talkStudent = target;
-            pathFind(target, 80, true);
+            
         }
         
     }
@@ -177,6 +185,11 @@ public class MrCohen extends Person
      */
     public void requestToTalk(Student student) {
         talkStudent = student;
+    }
+    
+    public void cancelTalk() {
+        clearPath();
+        talkStudent = null;
     }
     
     /**
@@ -236,6 +249,7 @@ public class MrCohen extends Person
         talkStudent = null;
         setRotation(90);
         frozen = true;
+        brokeToday = false;
     }
     
     /**

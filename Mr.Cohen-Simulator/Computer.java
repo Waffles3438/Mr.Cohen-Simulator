@@ -1,13 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /** 
- * This is the computer class
+ * This is the computer class <br>
  * A subclass instance will be seen during the simulation
  * 
  * @author Felix Zhao
  * @version 0.0.1
  */
-public class Computer extends Actor
+public abstract class Computer extends Actor
 {
     protected int durability;
     protected int maxDurability;
@@ -16,6 +16,7 @@ public class Computer extends Actor
     // change this possbily to a list
     protected GreenfootImage screenImage;
     protected GreenfootImage fullImage;
+    private int changeScreenCounter;
 
     /*
      * Offset of the screen image
@@ -27,6 +28,8 @@ public class Computer extends Actor
     
     public Computer() {
         screenY = 0;
+        screenX = 0;
+        changeScreenCounter = 120;
     }
     
     public void addedToWorld(World w) {
@@ -41,11 +44,12 @@ public class Computer extends Actor
      */
     public void act()
     {
-        int screenLeftBound = getX()-screenImage.getWidth()/2;
-        int screenRightBound = getX()+screenImage.getWidth()/2;
-        int screenTopBound = screenY-screenImage.getHeight()/2;
-        int screenBottomBound = screenY+screenImage.getHeight()/2;
-        
+        changeScreenCounter--;
+        if (durability > 0 && changeScreenCounter <= 0) {
+            changeScreenCounter = 180;
+            setScreen(new GreenfootImage("screen_" + (Greenfoot.getRandomNumber(3)+1) + ".png"));
+        }
+        //setScreen(new GreenfootImage("screen_1.png"));
     }
     
     /**
@@ -62,9 +66,7 @@ public class Computer extends Actor
         return true;
     }
     
-    public void setScreen() {
-        
-    }
+    public abstract void setScreen(GreenfootImage image);
     
     /**
      * Deletes the mouse from the screen
@@ -84,11 +86,15 @@ public class Computer extends Actor
     }
     
     /**
-     * Instantly breaks the computer
+     * Instantly breaks the computer and turns off the screen
      *
      */
     public void breakComputer() {
         durability = 0;
+        GreenfootImage blackScreen = new GreenfootImage(100, 100);
+        blackScreen.setColor(new Color(0, 0, 0));
+        blackScreen.fillRect(0, 0, 100, 100);
+        setScreen(blackScreen);
     }
     
     /**

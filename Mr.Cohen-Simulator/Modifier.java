@@ -106,8 +106,8 @@ public class Modifier extends World
         
         computerImage = new Image(deviceImages[computerType]);
         computerImage.adjustSize(250);
-        janitorImage.adjustSize(170);
-        robberImage.adjustSize(175);
+        janitorImage.getImage().scale(175, 175);
+        robberImage.getImage().scale(140, 140);
         chaosModeImage.getImage().scale(150, 150);
         
         if(firstTime){

@@ -6,8 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * This class makes it more simple to have no computer as it implements all the methods with no use
  * </p>
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version 0.0.1
  */
 public class NoComputer extends Computer
 {
@@ -40,8 +40,7 @@ public class NoComputer extends Computer
     }
     
     /**
-     * Act - do whatever the NoComputer wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Does nothing
      */
     public void act()
     {
@@ -74,5 +73,12 @@ public class NoComputer extends Computer
         durability = 1;
     }
     
-  
+    /**
+     * Does nothing in no computer
+     *
+     * @param newScreenImage The new screen image
+     */
+    public void setScreen(GreenfootImage newScreenImage) {
+        
+    }
 }

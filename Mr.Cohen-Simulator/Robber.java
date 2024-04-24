@@ -28,15 +28,15 @@ public class Robber extends Person{
         
         if(!hasRobbed){
             pathFind(360, 195, 0, false);
+            hasRobbed = true;
         }    
         
         if(this.getX() == 360){
-            hasRobbed = true;
             sleepFor(100);
             chooseRandomWindow();
         }
         
-        if((this.getX() == 0) && hasRobbed){
+        if((this.getX() == 0) && hasRobbed && currentPath.size() == 0){
             getWorld().removeObject(this);
         }
             
@@ -44,7 +44,7 @@ public class Robber extends Person{
     
     private void throwSmokeBomb(){
         getWorld().addObject(smokescreen, 415, 355);
-        Simulator.setSmoked(true);  
+        ((Simulator)getWorld()).setSmoked(true);  
         hasEntered = true;
     }
     

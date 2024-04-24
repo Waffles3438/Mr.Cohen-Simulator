@@ -26,11 +26,14 @@ public class Simulator extends World
     private int numDays;
     private int chanceOfComputerBreaking;
     private int chaosNumber;
-    private static boolean smoked = false;
+    private boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
+    private boolean hasJanitors;
+    private boolean hasRobbers;
     private int actsCount = 0;
     private int dayCount = 1;
+    private int janitorCounter;
     private Label day = new Label("Day: " + dayCount, 50);
 
     private SuperStatBar averageProjectedMark;
@@ -70,17 +73,20 @@ public class Simulator extends World
         setBackground(image);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
         finishedWorld = new FinishedWorld();
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
+        this.hasJanitors = hasJanitors;
+        this.hasRobbers = hasRobbers;
         
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
         computerImage.adjustSize(70);
-        addObject(computerImage, 360, 150); 
+        addObject(computerImage, 360, 140); 
         
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
@@ -115,10 +121,13 @@ public class Simulator extends World
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
         cohenAngerMeter = new SuperStatBar(100, 0, null, 360, 20, 0, ORANGE, BLACK);
         computerDurability = new SuperStatBar(computer.getMaxDurability(), 0, null, 360, 20, 0, BLUE, BLACK);
-        addObject(averageProjectedMark, 1050, 100);
-        addObject(cohenAngerMeter, 1050, 140);
-        addObject(computerDurability, 1050, 180);
-
+        addObject(new Label("Projected Mark", 30), 1050, 60);
+        addObject(averageProjectedMark, 1050, 90);
+        addObject(new Label("Anger Meter", 30), 1050, 120);
+        addObject(cohenAngerMeter, 1050, 150);
+        addObject(new Label("Computer Durability", 30), 1050, 180);
+        addObject(computerDurability, 1050, 210);
+        janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
@@ -133,10 +142,9 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        int dayChecker = dayNumber-1;
-        if (Greenfoot.getRandomNumber(100) < chanceOfComputerBreaking && dayChecker < dayNumber) {
-            //System.out.println(dayNumber);
-            //removeObject(computerImage);
+        if (hasJanitors && janitorCounter > 0 && Greenfoot.getRandomNumber(600) == 0) {
+            addObject(new Janitor(), 800, 600);
+            janitorCounter--;
         }
 
         double mark = 0;
@@ -170,6 +178,11 @@ public class Simulator extends World
                         computer.breakComputer();
                     }
                     cohen.returnToDesk();
+                    janitorCounter = 1;
+                    
+                    for (Janitor janitor : getObjects(Janitor.class)) {
+                        removeObject(janitor);
+                    }
                 }
             }
             
@@ -212,7 +225,7 @@ public class Simulator extends World
      * @param computer The new computer
      */
     public void updateComputer(Computer newComputer) {
-        System.out.println(computer);
+        //System.out.println(computer);
         computer.deleteMouse();
         removeObject(computer);
         this.computer = newComputer;
@@ -222,16 +235,35 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
-            Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList));
+            Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }
     
-    public static void setSmoked(boolean status){
+    /**
+     * Sets the smoke status
+     *
+     * @param status The status of the smoke
+     */
+    public void setSmoked(boolean status){
         smoked = status;
     }
     
-    public static boolean isSmoked(){
+    /**
+     * Returns if the room is smoked
+     *
+     * @return Returns true if smoked
+     */
+    public boolean isSmoked(){
         return smoked;
+    }
+    
+    /**
+     * Returns if chaos mode is enabled or not
+     *
+     * @return Returns true if chaos mode is enabled
+     */
+    public boolean chaosEnabled() {
+        return chaosMode;
     }
 }
 
