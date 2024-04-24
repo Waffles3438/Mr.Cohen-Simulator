@@ -173,7 +173,6 @@ public class Modifier extends World
         addObject(rightFlipButton, 1190,360);
         addObject(changeDeviceRight, 400 - 2*1260, 200);
         addObject(changeDeviceLeft, 860 - 2*1260, 200);
-        leftFlipButton.setLocation(75,369);
         addObject(computerImage, 630 - 2*1260, 200);
         
         numOfDaysText = new Label("# Of Days", 30);
@@ -234,6 +233,7 @@ public class Modifier extends World
 
     protected void startFromFirstPage(){
         if(flipTimes > 0){
+            addObject(rightFlipButton, 1190,360);
             for(int i = 0; i < flipTimes; i++){
                 leftFlipButton.action();
                 computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
@@ -242,7 +242,6 @@ public class Modifier extends World
             }
             flipTimes = 0;
         }
-        else return;
     }
 
     /**
@@ -251,6 +250,7 @@ public class Modifier extends World
      */
     private void checkButton(){
         if(back.isPressed()){
+            startFromFirstPage();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
