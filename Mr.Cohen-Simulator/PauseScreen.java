@@ -18,6 +18,8 @@ public class PauseScreen extends World
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
     private ValueBox volumeSlider;
+    Image soundOnImg = new Image("sound_on.png");; 
+    Image soundOffImg = new Image("sound_off.png");;
     protected static int volume;
     /**
      * Constructor for objects of class PauseScreen.
@@ -38,13 +40,16 @@ public class PauseScreen extends World
         image.setColor(new Color(0, 0, 0));
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
-        setBackground(image);
+        setBackground(image); 
         addObject(menu, getWidth()/2, getHeight()/2);
         addObject(resume, getWidth()/2, getHeight()/2 + 150);
         pauseLocation = actors;
         getActorImage(blackScreen);
         volumeSlider = new ValueBox(0, 100, 35);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
+        
+        soundOnImg = new Image(100, 100); 
+        soundOffImg = new Image(100, 100); 
     }
     
     public void act(){
