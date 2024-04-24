@@ -17,6 +17,8 @@ public class PauseScreen extends World
     private ArrayList<Actor> pauseLocation;
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
+    private ValueBox volumeSlider;
+    protected static int volume;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -25,6 +27,7 @@ public class PauseScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1);
+        volume = 0;
         addObject(new Panel(), getWidth() / 2, getHeight() / 2);
         this.titleScreen = titleScreen;
         this.simulator = simulator;
@@ -40,6 +43,8 @@ public class PauseScreen extends World
         addObject(resume, getWidth()/2, getHeight()/2 + 150);
         pauseLocation = actors;
         getActorImage(blackScreen);
+        volumeSlider = new ValueBox(0, 100, 35);
+        addObject(volumeSlider, getWidth()/2, getHeight()-70);
     }
     
     public void act(){
@@ -51,7 +56,7 @@ public class PauseScreen extends World
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
-        
+        volume = volumeSlider.getValue();
     }
     
     private void getActorImage(Fader blackScreen){

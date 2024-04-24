@@ -88,7 +88,6 @@ public class Slider extends Actor
      * and the original position
      */
     private void changeAndUpdateValue(){
-        Modifier settings = (Modifier) getWorld();
         int distance = getX() - originalX;
         // if(variable.equals("numDays")){
             // int increase = (int) (distance / 6.4);
