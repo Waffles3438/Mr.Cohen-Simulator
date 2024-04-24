@@ -60,8 +60,10 @@ public class PauseScreen extends World
                 continue;
             }
             GreenfootImage image = new GreenfootImage(actor.getImage());
+            if (!(actor instanceof Mouse)) {
+                image.rotate(actor.getRotation());
+            }
             
-            image.rotate(actor.getRotation());
             image.setTransparency(actor.getImage().getTransparency());
             drawImage(image, actor.getX() - image.getWidth()/2, actor.getY() - image.getHeight()/2);
         }

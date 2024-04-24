@@ -26,7 +26,7 @@ public class Simulator extends World
     private int numDays;
     private int chanceOfComputerBreaking;
     private int chaosNumber;
-    private static boolean smoked = false;
+    private boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
     private boolean hasJanitors;
@@ -73,6 +73,7 @@ public class Simulator extends World
         setBackground(image);
         this.titleScreen = titleScreen;
         this.numDays = days;
+        smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
         finishedWorld = new FinishedWorld();
@@ -178,6 +179,10 @@ public class Simulator extends World
                     }
                     cohen.returnToDesk();
                     janitorCounter = 1;
+                    
+                    for (Janitor janitor : getObjects(Janitor.class)) {
+                        removeObject(janitor);
+                    }
                 }
             }
             
@@ -234,12 +239,31 @@ public class Simulator extends World
         }
     }
     
-    public static void setSmoked(boolean status){
+    /**
+     * Sets the smoke status
+     *
+     * @param status The status of the smoke
+     */
+    public void setSmoked(boolean status){
         smoked = status;
     }
     
-    public static boolean isSmoked(){
+    /**
+     * Returns if the room is smoked
+     *
+     * @return Returns true if smoked
+     */
+    public boolean isSmoked(){
         return smoked;
+    }
+    
+    /**
+     * Returns if chaos mode is enabled or not
+     *
+     * @return Returns true if chaos mode is enabled
+     */
+    public boolean chaosEnabled() {
+        return chaosMode;
     }
 }
 

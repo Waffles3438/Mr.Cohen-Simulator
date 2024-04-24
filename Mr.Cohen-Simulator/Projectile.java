@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Projectile extends SuperSmoothMover
 {
     protected double speed;
+    protected int pointX;
+    protected int pointY;
     /**
      * Obstacle Constructor
      *
@@ -18,6 +20,12 @@ public class Projectile extends SuperSmoothMover
      */
     public Projectile(double speed, int pointX, int pointY) {
         this.speed = speed;
+        this.pointX = pointX;
+        this.pointY = pointY;
+    }
+    
+    public void addedToWorld(World w) {
+        turnTowards(pointX, pointY);
     }
     
     /**
@@ -29,6 +37,8 @@ public class Projectile extends SuperSmoothMover
         move(speed);
         
         if (isAtEdge()) {
+            getWorld().removeObject(this);
+        } else if (getX() > 840) {
             getWorld().removeObject(this);
         }
     }

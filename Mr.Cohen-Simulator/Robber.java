@@ -44,7 +44,7 @@ public class Robber extends Person{
     
     private void throwSmokeBomb(){
         getWorld().addObject(smokescreen, 415, 355);
-        Simulator.setSmoked(true);  
+        ((Simulator)getWorld()).setSmoked(true);  
         hasEntered = true;
     }
     

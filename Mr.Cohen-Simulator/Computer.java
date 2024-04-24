@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /** 
- * This is the computer class
+ * This is the computer class <br>
  * A subclass instance will be seen during the simulation
  * 
  * @author Felix Zhao
@@ -16,6 +16,7 @@ public abstract class Computer extends Actor
     // change this possbily to a list
     protected GreenfootImage screenImage;
     protected GreenfootImage fullImage;
+    private int changeScreenCounter;
 
     /*
      * Offset of the screen image
@@ -27,6 +28,8 @@ public abstract class Computer extends Actor
     
     public Computer() {
         screenY = 0;
+        screenX = 0;
+        changeScreenCounter = 120;
     }
     
     public void addedToWorld(World w) {
@@ -41,23 +44,12 @@ public abstract class Computer extends Actor
      */
     public void act()
     {
-        int screenLeftBound = getX()-screenImage.getWidth()/2;
-        int screenRightBound = getX()+screenImage.getWidth()/2;
-        int screenTopBound = screenY-screenImage.getHeight()/2;
-        int screenBottomBound = screenY+screenImage.getHeight()/2;
-        
-        GreenfootImage newScreenImage = new GreenfootImage("screen_1.png");
-        double newRatio = newScreenImage.getHeight() / (double) newScreenImage.getWidth();
-        double oldRatio = screenImage.getHeight() / (double) screenImage.getWidth();
-        if (oldRatio >= newRatio) {
-            newScreenImage.scale((int)(screenImage.getHeight()*(1/newRatio)), screenImage.getHeight());
-        } else {
-            newScreenImage.scale(screenImage.getWidth(), (int)(newRatio*screenImage.getWidth()));
+        changeScreenCounter--;
+        if (durability > 0 && changeScreenCounter <= 0) {
+            changeScreenCounter = 180;
+            setScreen(new GreenfootImage("screen_" + (Greenfoot.getRandomNumber(3)+1) + ".png"));
         }
-        
-        
-        screenImage.drawImage(newScreenImage, screenImage.getWidth()/2-newScreenImage.getWidth()/2, screenImage.getHeight()/2 - newScreenImage.getHeight()/2);
-        setScreen();
+        //setScreen(new GreenfootImage("screen_1.png"));
     }
     
     /**
@@ -74,7 +66,7 @@ public abstract class Computer extends Actor
         return true;
     }
     
-    public abstract void setScreen();
+    public abstract void setScreen(GreenfootImage image);
     
     /**
      * Deletes the mouse from the screen
@@ -94,11 +86,15 @@ public abstract class Computer extends Actor
     }
     
     /**
-     * Instantly breaks the computer
+     * Instantly breaks the computer and turns off the screen
      *
      */
     public void breakComputer() {
         durability = 0;
+        GreenfootImage blackScreen = new GreenfootImage(100, 100);
+        blackScreen.setColor(new Color(0, 0, 0));
+        blackScreen.fillRect(0, 0, 100, 100);
+        setScreen(blackScreen);
     }
     
     /**

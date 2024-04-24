@@ -219,7 +219,8 @@ public class Student extends Person
         if (speech != null) {
             getWorld().removeObject(speech);
         }
-        if(Greenfoot.getRandomNumber(2) == 0){
+        int randomValue = Greenfoot.getRandomNumber(2);
+        if(randomValue == 0){
             speech = new BubbleSpeech("happy_emotion0.png");
         } else {
             speech = new BubbleSpeech("happy_emotion1.png");
@@ -228,15 +229,20 @@ public class Student extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
+        
+        if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(3) == 0) {
+            getWorld().addObject(new Book(8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+        }
     }
     
     private void talkToSomeone() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         for (Student student : students) {
             if (!student.isTalking() && student != this) {
-                if (pathFind(student, 75, true)) {
+                if (pathFind(student, 80, true)) {
                     student.requestToTalk(this);
                     talkPerson = student;
+                    atDesk = false;
                 } 
                 break;
             }
@@ -246,6 +252,7 @@ public class Student extends Person
     private void talkToCohen() {
         MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
         if (cohen.doingNothing()) {
+            atDesk = false;
             cohen.requestToTalk(this);
             pathFind(cohen, 80, true);
             talkPerson = cohen;
@@ -264,6 +271,7 @@ public class Student extends Person
     public void requestToTalk(Person person) {
         clearPath();
         goingBackToWork = false;
+        atDesk = false;
         talkPerson = person;
     }
     
@@ -290,6 +298,7 @@ public class Student extends Person
         slippingTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
+        atDesk = true;
     }
     
     /**
