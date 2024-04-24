@@ -9,8 +9,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Book extends Projectile
 {
     
-    public Book(double speed, int pointX, int pointY) {
-        super(speed, pointX, pointY);
+    /**
+     * Book Constructor
+     *
+     * @param owner The owner
+     * @param speed The speed
+     * @param pointX The x target
+     * @param pointY The y target
+     */
+    public Book(Actor owner, double speed, int pointX, int pointY) {
+        super(owner, speed, pointX, pointY);
     }
     
     
@@ -21,5 +29,13 @@ public class Book extends Projectile
     public void act()
     {
         super.act();
+        if (getWorld() != null) {
+            return;
+        }
+        Student student = (Student)getOneIntersectingObject(Student.class);
+        if (student != null && student != owner) {
+            student.changeProjectedMark(-10);
+            
+        }
     }
 }

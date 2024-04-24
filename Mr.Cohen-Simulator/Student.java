@@ -27,10 +27,9 @@ public class Student extends Person
     private boolean atDesk;
 
     private int slippingTimer;
-
     private int workTimer;
-
     private int wasteTimeCounter;
+    private int dazeTimer;
 
     private int talkingTimer;
     private Person talkPerson;
@@ -60,6 +59,7 @@ public class Student extends Person
         talkPerson = null;
         talkingTimer = -1;
         slippingTimer = -1;
+        dazeTimer = -1;
         frozen = false;
     }
     
@@ -68,6 +68,10 @@ public class Student extends Person
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act(){
+        if (frozen) {
+          return;
+        }
+        
         checkFall();
         if(slippingTimer > 0) {
             setRotation(getRotation() + 5);
@@ -76,9 +80,15 @@ public class Student extends Person
         } else if (slippingTimer == 0) {
             slippingTimer--;
         }
-        if (frozen) {
-          return;
+        
+        if (dazeTimer > 0) {
+            dazeTimer--;
+        } else if (dazeTimer == 0) {
+            dazeTimer--;
+            getWorld().removeObject(speech);
+            speech = null;
         }
+        
         super.act();
       
         handleRandomSpeedChange();
@@ -176,8 +186,10 @@ public class Student extends Person
                     speech = new BubbleSpeech("happy_emotion0.png");
                 }
             } else if (talkPerson instanceof MrCohen) {
-                changedProjectedMark(10);
+                changeProjectedMark(10);
             }
+            workTimer = -1;
+            wasteTimeCounter = -1;
             
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
@@ -220,7 +232,7 @@ public class Student extends Person
             getWorld().removeObject(speech);
         }
         int randomValue = Greenfoot.getRandomNumber(2);
-        if(randomValue == 0){
+        if(randomValue == 0) {
             speech = new BubbleSpeech("happy_emotion0.png");
         } else {
             speech = new BubbleSpeech("happy_emotion1.png");
@@ -231,14 +243,14 @@ public class Student extends Person
         projectedMark -= (double)wasteTimeCounter / iq;
         
         if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(3) == 0) {
-            getWorld().addObject(new Book(8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            getWorld().addObject(new Book(this, 8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
         }
     }
     
     private void talkToSomeone() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         for (Student student : students) {
-            if (!student.isTalking() && student != this) {
+            if (student.canTalk() && student != this) {
                 if (pathFind(student, 80, true)) {
                     student.requestToTalk(this);
                     talkPerson = student;
@@ -260,7 +272,7 @@ public class Student extends Person
     }
     
     private boolean doingNothing() {
-        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1;
+        return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1 && dazeTimer == -1;
     }
     
     /**
@@ -281,6 +293,14 @@ public class Student extends Person
      */
     public void cancelTalk() {
         clearPath();
+        if (talkPerson != null) {
+            if (talkPerson instanceof Student) {
+                ((Student)talkPerson).cancelTalk();
+            } else if (talkPerson instanceof MrCohen) {
+                ((MrCohen)talkPerson).cancelTalk();
+            }
+        }
+        
         talkPerson = null;
     }
     
@@ -296,6 +316,7 @@ public class Student extends Person
         talkPerson = null;
         talkingTimer = -1;
         slippingTimer = -1;
+        dazeTimer = -1;
         getWorld().removeObject(speech);
         speech = null;
         atDesk = true;
@@ -304,9 +325,10 @@ public class Student extends Person
     /**
      * Returns if the student is talking or not
      *
+     * @return Returns true if the person can talk
      */
-    public boolean isTalking() {
-        return talkPerson != null || talkingTimer >= 0;
+    public boolean canTalk() {
+        return talkPerson == null && talkingTimer == -1 && dazeTimer == -1 && slippingTimer == -1;
     }
     
     /**
@@ -314,7 +336,7 @@ public class Student extends Person
      *
      * @param amountLearned How much to change it by, the amount actually gained/lost is determined by IQ
      */
-    public void changedProjectedMark(double amountLearned) {
+    public void changeProjectedMark(double amountLearned) {
         if (amountLearned > 0) {
             projectedMark += amountLearned * iq / 150.0;
         } else {
@@ -348,14 +370,21 @@ public class Student extends Person
             projectedMark -= 5;
             if (talkPerson != null) {
                 cancelTalk();
-                if (talkPerson instanceof Student) {
-                    ((Student)talkPerson).cancelTalk();
-                } else if (talkPerson instanceof MrCohen) {
-                    ((MrCohen)talkPerson).cancelTalk();
-                }
             }
             getWorld().removeObject(speech);
             speech = null;
         }
+    }
+    
+    /**
+     * Dazes the student
+     *
+     */
+    public void daze() {
+        cancelTalk();
+        atDesk = false;
+        getWorld().removeObject(speech);
+        speech = new BubbleSpeech("dazed_emotion.png");
+        dazeTimer = 60;
     }
 }

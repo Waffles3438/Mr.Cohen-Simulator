@@ -240,9 +240,11 @@ public class Modifier extends World
                 changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
                 changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             }
+            if (rightFlipButton.getWorld() == null) {
+                addObject(rightFlipButton, 1190, 360);
+            }
             flipTimes = 0;
         }
-        else return;
     }
 
     /**
@@ -310,7 +312,9 @@ public class Modifier extends World
     private int frame = 1;
     private SimpleTimer timer = new SimpleTimer();
     private void updateImageEffect(){
-        if(timer.millisElapsed() < 600) return;
+        if(timer.millisElapsed() < 600) {
+           return; 
+        }
         timer.mark();
         student.setImage(student.list.get(frame % 9));
         frame++;

@@ -139,7 +139,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changedProjectedMark(Greenfoot.getRandomNumber(5)+1);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(5)+1);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
@@ -150,9 +150,9 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         angerMeter += 2*brokenCount;
         for (Student student : students) {
-            student.changedProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
+            student.changeProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
             if (angerMeter >= 100) {
-                student.changedProjectedMark(-5);
+                student.changeProjectedMark(-5);
             }
         }
         
@@ -165,7 +165,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         Student target = null;
         for (Student student : students) {
-            if (!student.isTalking() && (target == null || student.getProjectedMark() < target.getProjectedMark())) {
+            if (student.canTalk() && (target == null || student.getProjectedMark() < target.getProjectedMark())) {
                 target = student;
             }
         } 
