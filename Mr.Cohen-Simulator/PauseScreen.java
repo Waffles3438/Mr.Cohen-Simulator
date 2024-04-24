@@ -49,6 +49,8 @@ public class PauseScreen extends World
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
         
         soundOnImg = new Image(100, 100); 
+        addObject(soundOnImg, 100, 100);
+        //soundOnImg.setLocation(getWidth()/2, getHeight()/2);
         soundOffImg = new Image(100, 100); 
     }
     
@@ -83,5 +85,10 @@ public class PauseScreen extends World
     
     private void drawImage(GreenfootImage image, int x, int y){
         getBackground().drawImage(image, x, y);
+    }
+    
+    public static int getVolume()
+    {
+        return volume;
     }
 }
