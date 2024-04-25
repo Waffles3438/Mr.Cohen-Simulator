@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Has the logic to detect the mouse relation to the button
  * </p>
  * 
- * Click sound from: Minecraft
+ * Sounds by Minecraft
  * Editied by Benny Wang, Andy Feng and Evan Xi
  * 
  * @author Felix Zhao

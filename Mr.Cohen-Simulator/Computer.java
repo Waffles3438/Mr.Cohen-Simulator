@@ -4,10 +4,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * This is the computer class <br>
  * A subclass instance will be seen during the simulation
  * 
+ * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0"> Link to Sound</a>
+ * Sound by Rush
+ * 
  * @author Felix Zhao
  * @version 0.0.1
  * 
- * Sound by Rush, https://www.youtube.com/watch?v=f8mL0_4GeV0
  */
 public abstract class Computer extends Actor
 {

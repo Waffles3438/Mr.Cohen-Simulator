@@ -10,7 +10,7 @@ import java.util.List;
  * 
  * Edited by Andy Feng <br>
  * 
- * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a>
+ * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
  * Music by Pokemon
  * 
  * @author Felix Zhao
@@ -294,6 +294,13 @@ public class Simulator extends World
      */
     public static void playMusic(){
         music.playLoop();
+    }
+    
+    /**
+     * Pause music
+     */
+    public static void pauseMusic(){
+        music.pause();
     }
     
     public static void setMusicVolume(int volume){

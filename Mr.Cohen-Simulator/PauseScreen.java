@@ -1,12 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
- * Write a description of class PauseScreen here.
+ * <p>
+ * The pause screen
+ * </p>
  * 
  * @author Andy Feng
  * @version (a version number or a date)
- * 
- * 
  */
 public class PauseScreen extends World
 {
@@ -21,7 +21,6 @@ public class PauseScreen extends World
     private Image soundOnImg = new Image("sound_on.png");; 
     private Image soundOffImg = new Image("sound_off.png");;
     protected static int volume = 100;
-
     private boolean soundOn = true;
     private int previousVolume;
     /**
@@ -68,6 +67,9 @@ public class PauseScreen extends World
 
     public void act(){
         if(menu.isPressed()){
+            Simulator.pauseMusic();
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
             menu.setPressedCondition(false);
         }

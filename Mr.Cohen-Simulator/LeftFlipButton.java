@@ -3,8 +3,6 @@ import java.util.List;
 import greenfoot.Actor;
 
 /**
- * Write a description of class LeftFlipButton here.
- * 
  * @author Andy Feng
  * @version 1.0.0
  */

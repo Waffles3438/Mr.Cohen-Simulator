@@ -3,10 +3,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <p>
  * The slider which is used to change the value in the modifier world
  * </p>
- * reference: 
- * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
- * Slider and bar image from vecteezy.com
+ * 
+ * <a href="https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style"> Link to image</a>
+ * Image from vecteezy
  * <br>
+ * 
  * Edited by Felix Zhao
  * 
  * @author Andy Feng

@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Mr.Cohen starts with.
  * </p>
  * 
- * 
- * Desktop image from vectorstock:
- * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a>
+ * Image by VectorStock
  * 
  * @ Author: Andy Feng
  * @ version 1.1 (Apr 6th, 2024)
@@ -253,11 +252,14 @@ public class Modifier extends World
      */
     private void checkButton(){
         if(back.isPressed()){
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             startFromFirstPage();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
+            TitleScreen.pauseMusic();
             simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, computerType, janitors, robbers);
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);

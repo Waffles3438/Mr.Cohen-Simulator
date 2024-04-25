@@ -1,7 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * The screen with credits / the creators
+ * </p>
+ * 
+ * <a href="https://pc98backgrounds.tumblr.com/image/172810349592"> Link to image</a>
+ * Image by Tumblr
  * 
  * @author Benny
  * @version 1.0.0
@@ -23,9 +28,10 @@ public class CreditsScreen extends World
     
     public void act(){
         if(back.isPressed()){
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
-            
         }
     }
 }
