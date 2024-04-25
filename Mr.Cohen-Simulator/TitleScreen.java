@@ -52,13 +52,13 @@ public class TitleScreen extends World{
      */
     private void checkButtons(){
         if(start.isPressed()){
-            mainmenu.pause();
+            mainmenu.setVolume(20);
             Greenfoot.setWorld(modifier);
             start.setPressedCondition(false);
         }
         
         if(credits.isPressed()){
-            mainmenu.setVolume(10);
+            mainmenu.setVolume(15);
             Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);
         }
