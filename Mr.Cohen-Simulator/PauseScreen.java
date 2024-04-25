@@ -20,7 +20,7 @@ public class PauseScreen extends World
     private ValueBox volumeSlider;
     Image soundOnImg = new Image("sound_on.png");; 
     Image soundOffImg = new Image("sound_off.png");;
-    protected static int volume;
+    protected static int volume = 15;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -29,7 +29,6 @@ public class PauseScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1);
-        volume = 0;
         addObject(new Panel(), getWidth() / 2, getHeight() / 2);
         this.titleScreen = titleScreen;
         this.simulator = simulator;
@@ -47,7 +46,7 @@ public class PauseScreen extends World
         getActorImage(blackScreen);
         volumeSlider = new ValueBox(0, 100, 35);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
-        volumeSlider.update(1);
+        volumeSlider.update((double)volume/100);
         
         soundOnImg = new Image(100, 100); 
         addObject(soundOnImg, 100, 100);
@@ -93,6 +92,7 @@ public class PauseScreen extends World
     private void drawImage(GreenfootImage image, int x, int y){
         getBackground().drawImage(image, x, y);
     }
+    
     
     public static int getVolume()
     {
