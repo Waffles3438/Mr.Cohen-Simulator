@@ -108,6 +108,18 @@ public abstract class Computer extends Actor
     }
     
     /**
+     * Makes the computer take some damage
+     *
+     * @param damage The damage the computer will take
+     */
+    public void takeDamage(int damage) {
+        durability -= damage;
+        if (durability <= 0) {
+            breakComputer();
+        }
+    }
+    
+    /**
      * Fixes the computer with a random durability ranging from 5 to default for the computer
      *
      */
@@ -125,6 +137,11 @@ public abstract class Computer extends Actor
         return maxDurability;
     }
     
+    /**
+     * Sets the volume
+     *
+     * @param volume The new volume
+     */
     public static void setBreakingVolume(int volume){
         breaking.setVolume(volume);
     }

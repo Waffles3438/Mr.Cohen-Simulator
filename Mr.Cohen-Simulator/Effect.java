@@ -2,10 +2,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Loops through sprites to create an animation
- * Can control speed/size of effect
+ * <p>
+ * Loops through sprites to create an animation.
+ * Can control speed/size of effect.
+ * </p>
  * 
- * @Author Evan Xi
+ * @author Evan Xi
  */
 public class Effect extends Actor{
     

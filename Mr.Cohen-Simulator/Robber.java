@@ -24,7 +24,6 @@ public class Robber extends Person{
     public void act(){
         super.act();
         if(!hasEntered){
-            chooseRandomWindow();
             throwSmokeBomb();
         }
         
@@ -59,4 +58,5 @@ public class Robber extends Person{
             pathFind(0, 510, 0, true);
         }
     }
+
 }

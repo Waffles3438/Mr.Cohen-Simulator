@@ -5,9 +5,9 @@ import java.util.List;
  * <p>
  * This is the world that contains the simulation
  * </p>
- * 
+ * <p>
  * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
- * 
+ * </p>
  * Edited by Andy Feng <br>
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a>
@@ -23,7 +23,7 @@ public class Simulator extends World
     public final static Color ORANGE = new Color(240, 100, 10);
     public final static Color BLUE = new Color(80, 80, 255);
     
-    Image computerImage; 
+    private Image computerImage; 
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
@@ -47,6 +47,7 @@ public class Simulator extends World
     private boolean transitionToNextDay = false;
     private boolean fadeIn = false;
     private boolean fadeOut = false;
+    private boolean robbing = false;
     private boolean firstTime = true;
     private FinishedWorld finishedWorld;
     private MrCohen cohen;
@@ -135,6 +136,7 @@ public class Simulator extends World
         addObject(cohenAngerMeter, 1050, 150);
         addObject(new Label("Computer Durability", 30), 1050, 180);
         addObject(computerDurability, 1050, 210);
+        addObject(new Label("Mr. Cohen's Computer", 30), 1050, 420);
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
@@ -174,6 +176,12 @@ public class Simulator extends World
             actsCount = 0;
         }
         
+        Projectile projectile = (Projectile) computerImage.getIntersection(Projectile.class);
+        if (projectile != null) {
+            removeObject(projectile);
+            computer.takeDamage(10);
+        }
+        Robber robber = null;
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
                 Greenfoot.setWorld(finishedWorld);
@@ -197,18 +205,29 @@ public class Simulator extends World
                     for (Puddle puddle : getObjects(Puddle.class)) {
                         removeObject(puddle);
                     }
-                }
-            }
-            
-            if(fadeOut){
-                if(firstTime){
                     day.setValue("Day: " + dayCount);
                     for(Student student : getObjects(Student.class)){
                         student.returnToDesk();
                     }
-                    firstTime = false;
                     
+                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
+                        robbing = true;
+                        robber = new Robber();
+                        if (Greenfoot.getRandomNumber(2) == 0) {
+                            addObject(robber, 10, 220);
+                        } else {
+                            addObject(robber, 10, 510);
+                        }
+                        
+                    }
                 }
+            }
+            
+            if (robbing) {
+                if (blackScreen.getImage().getTransparency() > 200) {
+                    blackScreen.fadeOut();
+                }
+            } else if(fadeOut){
                 blackScreen.fadeOut();
             }
             

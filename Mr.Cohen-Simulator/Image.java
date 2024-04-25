@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author Benny
  * @author Felix
  * @author Andy
+ * @version 0.0.2
  */
 public class Image extends Actor
 {
@@ -56,10 +57,6 @@ public class Image extends Actor
         }
     }
     
-    public void act(){
-        
-    }
-    
     /**
      * Changes the width of the image to x and height is changed according the ratio and x
      *
@@ -80,5 +77,15 @@ public class Image extends Actor
     protected void addImage(Image other, int gap){
         setLocation(getX() - gap, getY());
         other.setLocation(getX() + gap, getY());
+    }
+    
+    /**
+     * Makes getOneIntersectingObject "public"
+     *
+     * @param cls The class type
+     * @return Returns the object that intersects this image
+     */
+    public Object getIntersection(Class<?> cls) {
+        return getOneIntersectingObject(cls);
     }
 }
