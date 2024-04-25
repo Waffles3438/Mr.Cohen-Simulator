@@ -10,7 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Reference: <br>
  * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
  * </div>
- * Slider and bar image from vecteezy.com and image edited by Benny Wang
+ * Slider and bar image from vecteezy.com and image edited by Benny Wang<br>
  * 
  * Edited by Felix Zhao
  * 
@@ -43,12 +43,16 @@ public class Bar extends Actor
         bar.scale((int) (getImage().getWidth() * 1.25), (int) (getImage().getHeight() * 1.4));      
         s = new Slider(valueBox, this);
     }
+    
+    public void addedToWorld(World w) {
+        w.addObject(s, getX() - getImage().getWidth() / 2, getY());
+    }
 
     
     public void act()
     {
         // Add your action code here.
-        getWorld().addObject(s, getX() - getImage().getWidth() / 2, getY());
+        
         mouse = Greenfoot.getMouseInfo();
         setSliderLocation();
     }
@@ -67,7 +71,8 @@ public class Bar extends Actor
     }
     
     /**
-     * Setter for X
+     * Setter for the percent
+     * 
      * @param percent what percent it is at
      */
     public void updateValue(double percent) {

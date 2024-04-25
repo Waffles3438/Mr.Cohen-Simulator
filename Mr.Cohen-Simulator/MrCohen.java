@@ -108,7 +108,7 @@ public class MrCohen extends Person
             talkStudent = null;
             getWorld().removeObject(speech);
             speech = null;
-            pathFind(360, 35, 0, true);
+            pathFind(360, 55, 0, true);
         }
     }
     
@@ -139,7 +139,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changeProjectedMark(Greenfoot.getRandomNumber(5)+1);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(7)+3);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
@@ -239,7 +239,7 @@ public class MrCohen extends Person
      *
      */
     public void returnToDesk() {
-        setLocation(360, 35);
+        setLocation(360, 55);
         getWorld().removeObject(speech);
         speech = null;
         clearPath();

@@ -29,13 +29,14 @@ public class Book extends Projectile
     public void act()
     {
         super.act();
-        if (getWorld() != null) {
+        if (getWorld() == null) {
             return;
         }
         Student student = (Student)getOneIntersectingObject(Student.class);
         if (student != null && student != owner) {
             student.changeProjectedMark(-10);
-            
+            student.daze();
+            getWorld().removeObject(this);
         }
     }
 }

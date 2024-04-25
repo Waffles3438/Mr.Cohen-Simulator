@@ -47,6 +47,7 @@ public class PauseScreen extends World
         getActorImage(blackScreen);
         volumeSlider = new ValueBox(0, 100, 35);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
+        volumeSlider.update(1);
         
         soundOnImg = new Image(100, 100); 
         addObject(soundOnImg, 100, 100);

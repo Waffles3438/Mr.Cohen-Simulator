@@ -3,14 +3,13 @@ import java.util.ArrayList;
 
 /**
  * <div>Students will walk around in the simulation and doing different tasks</div>
- * They have different IQs
+ * They have different IQs<br>
  * 
- * * Edited by Andy Feng
+ * Edited by Andy Feng
  * 
  * @author Felix Zhao 
  * @author Benny Wang
- * edited by Evan Xi
- * @version 1.0.0
+ * @version 0.0.
  * 
  */
 public class Student extends Person
@@ -64,8 +63,7 @@ public class Student extends Person
     }
     
     /**
-     * Act - do whatever the Student wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * This act method controls the logic of the student and how they behave
      */
     public void act(){
         if (frozen) {
@@ -100,13 +98,14 @@ public class Student extends Person
         
     }
         
-    
+    // Handles random speed changes
     private void handleRandomSpeedChange() {
         if(Greenfoot.getRandomNumber(200) == 0){
             slowerOrFaster();
         }
     }
     
+    // Handles random movement
     private void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
@@ -124,6 +123,7 @@ public class Student extends Person
         }
     }
     
+    // Handles the returning to their desk
     private void handleReturnToDesk() {
         if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
@@ -137,7 +137,8 @@ public class Student extends Person
             randomMoveCounter = 0;
         }
     }
-
+    
+    // Handles what the student will do at their desk
     private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
@@ -151,6 +152,7 @@ public class Student extends Person
         }
     }
     
+    // Handles some of the timers
     private void handleTimers() {
         if (workTimer > 0) {
             workTimer -= 1;
@@ -169,6 +171,7 @@ public class Student extends Person
         }
     }
     
+    // Handles talking
     private void handleTalking() {
         if (talkPerson != null && currentPath.size() == 0 && talkPerson.getPathSize() == 0 && talkingTimer == -1) {
             turnTowards(talkPerson);
@@ -207,8 +210,8 @@ public class Student extends Person
         }
     }
 
-    
-    protected void work() {
+    // works
+    private void work() {
         if (speech != null) {
             getWorld().removeObject(speech);
         }
@@ -218,6 +221,7 @@ public class Student extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
+    // Random Movement
     private void moveRandom() {
         atDesk = false;
         if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
@@ -227,6 +231,7 @@ public class Student extends Person
         }
     }
     
+    // Handles student wasting time
     private void wasteTime() {
         if (speech != null) {
             getWorld().removeObject(speech);
@@ -242,11 +247,12 @@ public class Student extends Person
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
         
-        if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(3) == 0) {
+        if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(2) == 0) {
             getWorld().addObject(new Book(this, 8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
         }
     }
     
+    // Trys to talk to someone
     private void talkToSomeone() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         for (Student student : students) {
@@ -261,6 +267,7 @@ public class Student extends Person
         }
     }
     
+    // Handles talking to cohen
     private void talkToCohen() {
         MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
         if (cohen.doingNothing()) {
@@ -271,7 +278,13 @@ public class Student extends Person
         }
     }
     
-    private boolean doingNothing() {
+    
+    /**
+     * Returns true if the student is doing nothing
+     *
+     * @return Returns true if doing nothing
+     */
+    public boolean doingNothing() {
         return workTimer == -1 && wasteTimeCounter == -1 && talkPerson == null && talkingTimer == -1 && slippingTimer == -1 && dazeTimer == -1;
     }
     
@@ -293,14 +306,6 @@ public class Student extends Person
      */
     public void cancelTalk() {
         clearPath();
-        if (talkPerson != null) {
-            if (talkPerson instanceof Student) {
-                ((Student)talkPerson).cancelTalk();
-            } else if (talkPerson instanceof MrCohen) {
-                ((MrCohen)talkPerson).cancelTalk();
-            }
-        }
-        
         talkPerson = null;
     }
     
@@ -362,6 +367,7 @@ public class Student extends Person
         return iq;
     }
     
+    // Checks for puddles
     private void checkFall(){
         Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
         if(puddle != null){
@@ -384,7 +390,16 @@ public class Student extends Person
         cancelTalk();
         atDesk = false;
         getWorld().removeObject(speech);
-        speech = new BubbleSpeech("dazed_emotion.png");
+        speech = new BubbleSpeech("dazed_bubble.png");
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         dazeTimer = 60;
+        cancelTalk();
+        if (talkPerson != null) {
+            if (talkPerson instanceof Student) {
+                ((Student)talkPerson).cancelTalk();
+            } else if (talkPerson instanceof MrCohen) {
+                ((MrCohen)talkPerson).cancelTalk();
+            }
+        }
     }
 }

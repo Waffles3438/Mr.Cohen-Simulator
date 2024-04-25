@@ -91,7 +91,7 @@ public class Simulator extends World
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 110), 354 + i*211, 360 + j*146 + 110);
+                addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 132), 354 + i*211, 360 + j*146 + 132);
             } 
         }
         computer = new Alienware();
@@ -109,14 +109,14 @@ public class Simulator extends World
         // starts are negative one as the coords are based in the middle
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                addObject(new Image(125, 60), 354 + i*211, 360 + j*146+38);
+                addObject(new Image(125, 60), 354 + i*211, 360 + j*146+60);
             }
         }
         addObject(new Image(75, 317), 807, 283);
-        addObject(new Image(275, 85), 351, 118);
+        addObject(new Image(275, 85), 351, 140);
         cohen = new MrCohen(computer, startType);
         addObject(computer, 0, 0);
-        addObject(cohen, 360, 35);
+        addObject(cohen, 360, 55);
         
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
         cohenAngerMeter = new SuperStatBar(100, 0, null, 360, 20, 0, ORANGE, BLACK);
@@ -142,7 +142,7 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        if (hasJanitors && janitorCounter > 0 && Greenfoot.getRandomNumber(600) == 0) {
+        if (hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
             addObject(new Janitor(), 800, 600);
             janitorCounter--;
         }

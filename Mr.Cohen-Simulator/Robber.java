@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class Robber here.
+ * The robber will rob Mr Cohen's current computer
  * 
  * @author Evan Xi 
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class Robber extends Person{
     private boolean hasRobbed = false;
@@ -12,11 +12,13 @@ public class Robber extends Person{
     
     Smokescreen smokescreen = new Smokescreen("smokescreen.png", 250, 5, 3); 
     
+    /**
+     * Creates the robber
+     *
+     */
     public Robber(){
         super();
         getImage().scale(45, 45);
-        
-              
     }
     
     public void act(){
@@ -27,7 +29,7 @@ public class Robber extends Person{
         }
         
         if(!hasRobbed){
-            pathFind(360, 195, 0, false);
+            pathFind(360, 217, 0, false);
             hasRobbed = true;
         }    
         

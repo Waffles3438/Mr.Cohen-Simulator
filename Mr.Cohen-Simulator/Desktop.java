@@ -9,13 +9,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Desktop extends Computer
 {
     
+    /**
+     * Creates the desktop with the right screen size
+     *
+     */
     public Desktop() {
         super();
         durability = 100;
         maxDurability = 100;
         
         deviceImage = new GreenfootImage("Desktop.png");
-        // width is 440, height is 245
         deviceImage.scale(400, 325);
 
         screenImage = new GreenfootImage(deviceImage.getWidth()*57/64, deviceImage.getHeight()*50/90);

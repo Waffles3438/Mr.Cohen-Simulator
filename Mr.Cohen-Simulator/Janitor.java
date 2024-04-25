@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Walks around the classroom for 6 seconds and leaves a puddle on the ground
  * 
  * @author Evan Xi 
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class Janitor extends Person{
     private int spillCount = 0;
@@ -14,6 +14,10 @@ public class Janitor extends Person{
     
     Puddle puddle = new Puddle("puddle.png", 250, 0, 2);
     
+    /**
+     * Creates the janitor
+     *
+     */
     public Janitor(){
         super();
         spillCount = 0;
