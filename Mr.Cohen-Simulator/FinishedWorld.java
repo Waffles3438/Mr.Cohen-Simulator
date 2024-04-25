@@ -19,6 +19,8 @@ public class FinishedWorld extends World
     private boolean hasJanitor;
     private boolean chaosMode;
     
+    private MrCohen cohen;
+    
     /**
      * Constructor for objects of class FinishedWorld.
      * 
@@ -36,6 +38,19 @@ public class FinishedWorld extends World
         image.setColor(new Color(0, 0, 0, 10));
         setBackground(image);
         
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 132), 354 + i*211, 360 + j*146 + 132);
+            } 
+        }
+        
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                addObject(new Image(125, 60), 354 + i*211, 360 + j*146+60);
+            }
+        }
+        addObject(new Image(75, 317), 807, 283);
+        addObject(new Image(275, 85), 351, 140);
         
         this.averageMark = averageMark;
     }

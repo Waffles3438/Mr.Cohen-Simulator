@@ -43,6 +43,10 @@ public class MrCohen extends Person
         brokeToday = false;
     }
     
+    public MrCohen(int rageValue){
+        angerMeter = rageValue;
+    }
+    
     public void addedToWorld(World w) {
         newDay();
     }
@@ -113,6 +117,7 @@ public class MrCohen extends Person
     }
     
     private void callSupport() {
+        if(getWorld() instanceof FinishedWorld) return;
         Simulator world = (Simulator)getWorld();
         callingTimer = 80;
         if (speech != null) {

@@ -247,6 +247,7 @@ public class Student extends Person
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
         
+        if(getWorld() instanceof FinishedWorld) return;
         if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(2) == 0) {
             getWorld().addObject(new Book(this, 8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
         }
@@ -269,6 +270,7 @@ public class Student extends Person
     
     // Handles talking to cohen
     private void talkToCohen() {
+        if(getWorld() instanceof FinishedWorld) return;
         MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
         if (cohen.doingNothing()) {
             atDesk = false;
