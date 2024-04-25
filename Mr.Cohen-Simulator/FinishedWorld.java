@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class FinishedWorld here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy Feng
+ * @version 0.0.1 (April 25th, 2024)
  */
 public class FinishedWorld extends World
 {
@@ -21,6 +22,8 @@ public class FinishedWorld extends World
     }
     
     public void act(){
+        // the average mark the class has determine the type of ending 
+        // of the simulation.
         if(averageMark >= 85) {
             endingOne();
         } else if(averageMark >= 65 && averageMark < 85) {

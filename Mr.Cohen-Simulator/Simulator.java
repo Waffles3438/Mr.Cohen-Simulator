@@ -84,7 +84,7 @@ public class Simulator extends World
         smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
-        finishedWorld = new FinishedWorld(currentAverageMark);
+        //finishedWorld = new FinishedWorld(currentAverageMark);
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
@@ -177,7 +177,7 @@ public class Simulator extends World
         
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
-                Greenfoot.setWorld(finishedWorld);
+                Greenfoot.setWorld(new FinishedWorld(currentAverageMark));
             }
             
             if(fadeIn){
