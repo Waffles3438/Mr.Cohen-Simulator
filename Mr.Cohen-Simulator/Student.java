@@ -70,6 +70,8 @@ public class Student extends Person
           return;
         }
         
+        super.act();
+        
         checkFall();
         if(slippingTimer > 0) {
             setRotation(getRotation() + 5);
@@ -87,15 +89,12 @@ public class Student extends Person
             speech = null;
         }
         
-        super.act();
-      
         handleRandomSpeedChange();
         handleRandomMovement();
         handleReturnToDesk();
         handleWorkBehavior();
         handleTimers();
         handleTalking();
-        
     }
         
     // Handles random speed changes
@@ -142,7 +141,7 @@ public class Student extends Person
     private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
-            if (chance >= 70) {
+            if (chance >= 70 && getWorld() instanceof Simulator) {
                 work();
             } else if (chance <= 30) {
                 wasteTime();
@@ -270,7 +269,6 @@ public class Student extends Person
     
     // Handles talking to cohen
     private void talkToCohen() {
-        if(getWorld() instanceof FinishedWorld) return;
         MrCohen cohen = (getWorld().getObjects(MrCohen.class)).get(0);
         if (cohen.doingNothing()) {
             atDesk = false;

@@ -58,6 +58,7 @@ public class MrCohen extends Person
             return;
         }
         super.act();
+        if(getWorld() instanceof FinishedWorld) return;
         if (teachingTimer > 0) {
             teachingTimer --;
         } else if (teachingTimer == 0) {

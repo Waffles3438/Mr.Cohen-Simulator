@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
-
+import java.util.ArrayList;
 /**
  * Write a description of class FinishedWorld here.
  * 
@@ -19,23 +19,30 @@ public class FinishedWorld extends World
     private boolean hasJanitor;
     private boolean chaosMode;
     
-    private MrCohen cohen;
+    private boolean added = false;
     
+    private Image pizza;
+    
+    private MrCohen cohen;
+    private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
+    private BubbleSpeech sleepy = new BubbleSpeech("happy_emotion1.png");
+    private BubbleSpeech rage = new BubbleSpeech("angry_emotion.png");
+    
+    private SimpleTimer timer = new SimpleTimer();
     /**
      * Constructor for objects of class FinishedWorld.
      * 
      */
-    public FinishedWorld(int averageMark)
+    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int laptopBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1260, 720, 1); 
+        super(1260, 720, 1, true); 
         GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
         image.drawImage(new GreenfootImage("school_image.png"), 0, 0);
         image.setColor(new Color(0, 0, 0));
-        image.fillRect(getWidth()/3*2, 0, getWidth()/3, getHeight());
-        image.setColor(new Color(0, 0, 0, 10));
+        image.fillRect(getWidth()/3*2, 0, getWidth(), getHeight());
         setBackground(image);
         
         for (int i = -1; i < 2; i++) {
@@ -51,6 +58,8 @@ public class FinishedWorld extends World
         }
         addObject(new Image(75, 317), 807, 283);
         addObject(new Image(275, 85), 351, 140);
+        cohen = new MrCohen(new Alienware(), 0);
+        addObject(cohen, 360, 55);
         
         this.averageMark = averageMark;
     }
@@ -70,7 +79,11 @@ public class FinishedWorld extends World
     }
     
     private void endingOne(){
-        
+        if(!added){
+            addObject(happy, cohen.getX()+cohen.getImage().getWidth()/2, cohen.getY()-cohen.getImage().getHeight());
+            added = true;
+        }
+        spawnPizza();
     }
     
     private void endingTwo(){
@@ -79,5 +92,14 @@ public class FinishedWorld extends World
     
     private void endingThree(){
         
+    }
+    
+    private void spawnPizza(){
+        if(timer.millisElapsed() < 100) return;
+        timer.mark();
+        int xLocation = Greenfoot.getRandomNumber(getWidth()/3*2 - 5) + 5;
+        pizza = new Image("Pizza.png");
+        pizza.getImage().scale(70, 70);
+        addObject(pizza, xLocation, 0);
     }
 }

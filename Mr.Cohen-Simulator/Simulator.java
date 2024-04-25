@@ -27,8 +27,8 @@ public class Simulator extends World
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
-    private int chanceOfComputerBreaking;
-    private int chaosNumber;
+    private int chanceOfComputerBreaking; 
+    private int studentIQ;
     private boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
@@ -92,6 +92,7 @@ public class Simulator extends World
         this.chaosMode = chaosMode;
         this.hasJanitors = hasJanitors;
         this.hasRobbers = hasRobbers;
+        this.studentIQ = studentIQ;
         
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
@@ -104,7 +105,7 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 132), 354 + i*211, 360 + j*146 + 132);
             } 
         }
-        computer = new Alienware();
+        //computer = new Alienware();
         
         if (startType == 0) {
             computer = new Alienware();
@@ -179,7 +180,7 @@ public class Simulator extends World
         
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
-                Greenfoot.setWorld(new FinishedWorld(currentAverageMark));
+                Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));
                 mark = 0;
             }
             

@@ -15,6 +15,7 @@ public class Image extends Actor
 {
     
     private double ratio;
+    private String imageName;
     protected ArrayList<GreenfootImage> list = new ArrayList<GreenfootImage>();
     
     /**
@@ -22,6 +23,7 @@ public class Image extends Actor
      */
     public Image(String imageName){
         setImage(imageName);
+        this.imageName = imageName;
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
     
@@ -59,7 +61,8 @@ public class Image extends Actor
     }
     
     public void act(){
-        
+        if(getWorld() instanceof FinishedWorld && "Pizza.png".equals(imageName)) moveDown();
+        if(getY() >= 700) getWorld().removeObject(this);
     }
     
     /**
@@ -82,5 +85,9 @@ public class Image extends Actor
     protected void addImage(Image other, int gap){
         setLocation(getX() - gap, getY());
         other.setLocation(getX() + gap, getY());
+    }
+    
+    protected void moveDown() {
+        setLocation(getX(), getY() + 3);
     }
 }
