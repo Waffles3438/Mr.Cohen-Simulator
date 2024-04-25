@@ -84,6 +84,8 @@ public class Simulator extends World
         smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
+        mark = 0;
+        
         //finishedWorld = new FinishedWorld(currentAverageMark);
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
@@ -178,6 +180,7 @@ public class Simulator extends World
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
                 Greenfoot.setWorld(new FinishedWorld(currentAverageMark));
+                mark = 0;
             }
             
             if(fadeIn){
@@ -300,7 +303,7 @@ public class Simulator extends World
         music.setVolume(volume);
     }
     
-    private int mark = 0;
+    private int mark;
     private void calculateAverageMark(){
         average = (List<Student>) getObjects(Student.class);
         for(Student studentMark : average){

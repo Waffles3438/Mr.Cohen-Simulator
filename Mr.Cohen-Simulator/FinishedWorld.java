@@ -10,6 +10,15 @@ import java.util.List;
 public class FinishedWorld extends World
 {
     private int averageMark;
+    private int numDays;
+    private int studentIQ;
+    private int customerSupportChance;
+    private int laptopBreakingChance;
+
+    private boolean hasRobber;
+    private boolean hasJanitor;
+    private boolean chaosMode;
+    
     /**
      * Constructor for objects of class FinishedWorld.
      * 
@@ -17,13 +26,25 @@ public class FinishedWorld extends World
     public FinishedWorld(int averageMark)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1260, 400, 1); 
+        super(1260, 720, 1); 
+        GreenfootImage image = new GreenfootImage(1260, 720);
+        image.setColor(new Color(255, 255, 255));
+        image.fillRect(0, 0, getWidth(), getHeight());
+        image.drawImage(new GreenfootImage("school_image.png"), 0, 0);
+        image.setColor(new Color(0, 0, 0));
+        image.fillRect(getWidth()/3*2, 0, getWidth()/3, getHeight());
+        image.setColor(new Color(0, 0, 0, 10));
+        setBackground(image);
+        
+        
         this.averageMark = averageMark;
     }
     
     public void act(){
         // the average mark the class has determine the type of ending 
         // of the simulation.
+        if(averageMark > 100) averageMark = 100;
+        if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
             endingOne();
         } else if(averageMark >= 65 && averageMark < 85) {
