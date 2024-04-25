@@ -183,6 +183,10 @@ public class Simulator extends World
                     for (Janitor janitor : getObjects(Janitor.class)) {
                         removeObject(janitor);
                     }
+                    
+                    for (Puddle puddle : getObjects(Puddle.class)) {
+                        removeObject(puddle);
+                    }
                 }
             }
             

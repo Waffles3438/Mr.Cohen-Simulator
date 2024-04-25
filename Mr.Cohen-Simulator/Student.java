@@ -5,11 +5,10 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs<br>
  * 
- * Edited by Andy Feng
+ * Edited slightly by Andy Feng & Benny Wang
  * 
  * @author Felix Zhao 
- * @author Benny Wang
- * @version 0.0.
+ * @version 0.0.1
  * 
  */
 public class Student extends Person
@@ -389,11 +388,11 @@ public class Student extends Person
     public void daze() {
         cancelTalk();
         atDesk = false;
+        goingBackToWork = false;
         getWorld().removeObject(speech);
         speech = new BubbleSpeech("dazed_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         dazeTimer = 60;
-        cancelTalk();
         if (talkPerson != null) {
             if (talkPerson instanceof Student) {
                 ((Student)talkPerson).cancelTalk();

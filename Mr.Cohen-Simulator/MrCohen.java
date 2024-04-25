@@ -83,7 +83,7 @@ public class MrCohen extends Person
             if (Greenfoot.getRandomNumber(500) == 0) {
                 talkToStudent();
             } else if (currentComputer.getDurability() == 0 && !brokeToday) {
-                rage(2);
+                rage(1);
                 brokeToday = true;
             }
             
@@ -148,7 +148,7 @@ public class MrCohen extends Person
     
     private void rage(int brokenCount) {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
-        angerMeter += 2*brokenCount;
+        angerMeter += brokenCount;
         for (Student student : students) {
             student.changeProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
             if (angerMeter >= 100) {
@@ -204,7 +204,7 @@ public class MrCohen extends Person
             currentComputer = startingComputer;
         }
         if (currentComputer.isBroken()) {
-
+            angerMeter++;
             for (Computer computer : computerList) {
                 if (!computer.isBroken()) {
                     currentComputer = computer;
@@ -225,7 +225,7 @@ public class MrCohen extends Person
                 brokenCount++;
             }
         }
-        if (brokenCount > 0) {
+        if (brokenCount > 1) {
             rage(brokenCount);
         } else {
             teachStudents();

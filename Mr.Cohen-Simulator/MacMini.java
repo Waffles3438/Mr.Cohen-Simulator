@@ -26,6 +26,8 @@ public class MacMini extends Computer
         screenY = 10;
         fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
         setImage(fullImage);
+        durability = 120;
+        maxDurability = 120;
     }
     
     public void addedToWorld(World w) {
