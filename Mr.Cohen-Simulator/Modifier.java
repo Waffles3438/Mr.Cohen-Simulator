@@ -173,7 +173,6 @@ public class Modifier extends World
         addObject(rightFlipButton, 1190,360);
         addObject(changeDeviceRight, 400 - 2*1260, 200);
         addObject(changeDeviceLeft, 860 - 2*1260, 200);
-        leftFlipButton.setLocation(75,369);
         addObject(computerImage, 630 - 2*1260, 200);
         
         numOfDaysText = new Label("# Of Days", 30);
@@ -234,15 +233,18 @@ public class Modifier extends World
 
     protected void startFromFirstPage(){
         if(flipTimes > 0){
+            addObject(rightFlipButton, 1190,360);
             for(int i = 0; i < flipTimes; i++){
                 leftFlipButton.action();
                 computerImage.setLocation(computerImage.getX() - 1260, computerImage.getY());
                 changeDeviceLeft.setLocation(changeDeviceLeft.getX() - 1260, changeDeviceLeft.getY());
                 changeDeviceRight.setLocation(changeDeviceRight.getX() - 1260, changeDeviceRight.getY());
             }
+            if (rightFlipButton.getWorld() == null) {
+                addObject(rightFlipButton, 1190, 360);
+            }
             flipTimes = 0;
         }
-        else return;
     }
 
     /**
@@ -251,6 +253,7 @@ public class Modifier extends World
      */
     private void checkButton(){
         if(back.isPressed()){
+            startFromFirstPage();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
@@ -310,7 +313,9 @@ public class Modifier extends World
     private int frame = 1;
     private SimpleTimer timer = new SimpleTimer();
     private void updateImageEffect(){
-        if(timer.millisElapsed() < 600) return;
+        if(timer.millisElapsed() < 600) {
+           return; 
+        }
         timer.mark();
         student.setImage(student.list.get(frame % 9));
         frame++;

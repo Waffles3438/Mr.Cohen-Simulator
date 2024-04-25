@@ -154,10 +154,11 @@ public class ValueBox extends Actor
         currentVal = (int)(minVal*(1-percent)+maxVal*percent);
         textLabel.setValue(currentVal);
         setImage(textLabel.getImage());
+        bar.updateValue(percent);
     }
     
     /**
-     * returns the current value of the instance
+     * Returns the current value of the instance
      *
      * @return Returns the current value
      */

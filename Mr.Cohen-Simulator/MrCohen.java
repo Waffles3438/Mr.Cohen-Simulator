@@ -18,6 +18,7 @@ public class MrCohen extends Person
     private int talkingTimer;
     private Student talkStudent;
     private boolean frozen;
+    private boolean brokeToday;
     
     
     /**
@@ -39,6 +40,7 @@ public class MrCohen extends Person
         talkStudent = null;
         setRotation(90);
         frozen = false;
+        brokeToday = false;
     }
     
     public void addedToWorld(World w) {
@@ -80,6 +82,9 @@ public class MrCohen extends Person
             setRotation(90);
             if (Greenfoot.getRandomNumber(500) == 0) {
                 talkToStudent();
+            } else if (currentComputer.getDurability() == 0 && !brokeToday) {
+                rage(2);
+                brokeToday = true;
             }
             
         }
@@ -103,7 +108,7 @@ public class MrCohen extends Person
             talkStudent = null;
             getWorld().removeObject(speech);
             speech = null;
-            pathFind(360, 35, 0, true);
+            pathFind(360, 55, 0, true);
         }
     }
     
@@ -123,6 +128,8 @@ public class MrCohen extends Person
 
             if (Greenfoot.getRandomNumber(100)+1 <= world.getSupportChance()) {
                 computer.fixComputer();
+            } else {
+                angerMeter += 1;
             }
         }
         
@@ -132,7 +139,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changedProjectedMark(Greenfoot.getRandomNumber(5)+1);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(7)+3);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
@@ -143,9 +150,9 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         angerMeter += 2*brokenCount;
         for (Student student : students) {
-            student.changedProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
+            student.changeProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
             if (angerMeter >= 100) {
-                student.changedProjectedMark(-5);
+                student.changeProjectedMark(-5);
             }
         }
         
@@ -158,14 +165,15 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         Student target = null;
         for (Student student : students) {
-            if (!student.isTalking() && (target == null || student.getProjectedMark() < target.getProjectedMark())) {
+            if (student.canTalk() && (target == null || student.getProjectedMark() < target.getProjectedMark())) {
                 target = student;
             }
         } 
-        if (target != null) {
+        if (target != null && pathFind(target, 80, true)) {
+            
             target.requestToTalk(this);
             talkStudent = target;
-            pathFind(target, 80, true);
+            
         }
         
     }
@@ -231,7 +239,7 @@ public class MrCohen extends Person
      *
      */
     public void returnToDesk() {
-        setLocation(360, 35);
+        setLocation(360, 55);
         getWorld().removeObject(speech);
         speech = null;
         clearPath();
@@ -241,6 +249,7 @@ public class MrCohen extends Person
         talkStudent = null;
         setRotation(90);
         frozen = true;
+        brokeToday = false;
     }
     
     /**

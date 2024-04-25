@@ -17,8 +17,9 @@ public class Smokescreen extends Fader{
     }   
     
     
-    public void act(){        
+    public void act(){    
+        Simulator world = (Simulator)getWorld();
         fadeInAndOut(200);
-        Simulator.setSmoked(false);
+        world.setSmoked(false);
     }
 }

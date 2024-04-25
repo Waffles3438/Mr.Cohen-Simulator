@@ -17,6 +17,10 @@ public class PauseScreen extends World
     private ArrayList<Actor> pauseLocation;
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
+    private ValueBox volumeSlider;
+    Image soundOnImg = new Image("sound_on.png");; 
+    Image soundOffImg = new Image("sound_off.png");;
+    protected static int volume;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -25,6 +29,7 @@ public class PauseScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1);
+        volume = 0;
         addObject(new Panel(), getWidth() / 2, getHeight() / 2);
         this.titleScreen = titleScreen;
         this.simulator = simulator;
@@ -35,11 +40,19 @@ public class PauseScreen extends World
         image.setColor(new Color(0, 0, 0));
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
         image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
-        setBackground(image);
+        setBackground(image); 
         addObject(menu, getWidth()/2, getHeight()/2);
         addObject(resume, getWidth()/2, getHeight()/2 + 150);
         pauseLocation = actors;
         getActorImage(blackScreen);
+        volumeSlider = new ValueBox(0, 100, 35);
+        addObject(volumeSlider, getWidth()/2, getHeight()-70);
+        volumeSlider.update(1);
+        
+        soundOnImg = new Image(100, 100); 
+        addObject(soundOnImg, 100, 100);
+        //soundOnImg.setLocation(getWidth()/2, getHeight()/2);
+        soundOffImg = new Image(100, 100); 
     }
     
     public void act(){
@@ -51,7 +64,7 @@ public class PauseScreen extends World
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
-        
+        volume = volumeSlider.getValue();
     }
     
     private void getActorImage(Fader blackScreen){
@@ -60,12 +73,16 @@ public class PauseScreen extends World
                 continue;
             }
             GreenfootImage image = new GreenfootImage(actor.getImage());
+            if (!(actor instanceof Mouse)) {
+                image.rotate(actor.getRotation());
+            }
             
-            image.rotate(actor.getRotation());
             image.setTransparency(actor.getImage().getTransparency());
             drawImage(image, actor.getX() - image.getWidth()/2, actor.getY() - image.getHeight()/2);
         }
-        if(blackScreen.getWorld() == null) return;
+        if(blackScreen.getWorld() == null) {
+            return;
+        }
         GreenfootImage fader = new GreenfootImage(blackScreen.getImage());
         fader.setTransparency(blackScreen.getImage().getTransparency());
         drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
@@ -73,5 +90,10 @@ public class PauseScreen extends World
     
     private void drawImage(GreenfootImage image, int x, int y){
         getBackground().drawImage(image, x, y);
+    }
+    
+    public static int getVolume()
+    {
+        return volume;
     }
 }

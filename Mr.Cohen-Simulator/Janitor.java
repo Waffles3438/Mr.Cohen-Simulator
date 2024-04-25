@@ -5,18 +5,21 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Walks around the classroom for 6 seconds and leaves a puddle on the ground
  * 
  * @author Evan Xi 
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class Janitor extends Person{
     private int spillCount = 0;
     private boolean isCleaning = true;
+    private int cleaningTimer = 0;
     
-    SimpleTimer timer = new SimpleTimer();
     Puddle puddle = new Puddle("puddle.png", 250, 0, 2);
     
+    /**
+     * Creates the janitor
+     *
+     */
     public Janitor(){
         super();
-        timer.mark();
         spillCount = 0;
         getImage().rotate(90);
     }
@@ -24,6 +27,7 @@ public class Janitor extends Person{
     public void act(){
         super.act();
         if(isCleaning){
+            cleaningTimer++;
             cleanFloor();
             attemptSpill();
         }
@@ -73,7 +77,7 @@ public class Janitor extends Person{
     }
     
     private void exitRoom(){
-        if(timer.millisElapsed() >= 6000){
+        if(cleaningTimer >= 360){
             isCleaning = false;
             pathFind(820, 585, 20, true);
         }
