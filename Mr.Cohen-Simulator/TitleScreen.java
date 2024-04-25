@@ -1,14 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * The title screen of the simulation
+ * </p>
  * 
- * Image from: https://pc98backgrounds.tumblr.com/image/172810349592
+ * <a href="https://pc98backgrounds.tumblr.com/image/172810349592"> Link to image</a>
+ * Image by Tumblr
  * 
  * @author Benny
  * @version 1.0.0
- * 
- * 
  */
 public class TitleScreen extends World{
     private Button start = new Button("start", 3, ".png");

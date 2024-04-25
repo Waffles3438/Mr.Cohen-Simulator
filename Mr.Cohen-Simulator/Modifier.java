@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Mr.Cohen starts with.
  * </p>
  * 
- * 
- * Desktop image from vectorstock:
- * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a>
+ * Image by VectorStock
  * 
  * @ Author: Andy Feng
  * @ version 1.1 (Apr 6th, 2024)

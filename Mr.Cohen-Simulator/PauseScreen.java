@@ -1,12 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
- * Write a description of class PauseScreen here.
+ * <p>
+ * The pause screen
+ * </p>
  * 
  * @author Andy Feng
  * @version (a version number or a date)
- * 
- * 
  */
 public class PauseScreen extends World
 {

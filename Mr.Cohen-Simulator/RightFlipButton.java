@@ -1,10 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class RightFlipButton here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andy Feng
+ * @version 1.0.0
  */
 public class RightFlipButton extends Button
 {

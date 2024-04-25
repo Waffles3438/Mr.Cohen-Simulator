@@ -4,8 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * For simple fade in or fade out effects
  * Can control speed and max/min transparency
  * 
- * @author Evan Xi
- * Edited by Benny Wang
+ * @author Benny Wang
  */
 
 public class Fader extends Actor{

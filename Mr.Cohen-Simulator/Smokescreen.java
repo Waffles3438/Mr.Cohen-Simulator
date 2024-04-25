@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Smokescreen here.
  * 
  * @author Evan Xi
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class Smokescreen extends Fader{
     private int maxTransparency = 250;

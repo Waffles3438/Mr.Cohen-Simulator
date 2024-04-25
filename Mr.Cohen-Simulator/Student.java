@@ -7,6 +7,8 @@ import java.util.ArrayList;
  * 
  * Edited slightly by Andy Feng & Benny Wang
  * 
+ * Art by Benny Wang
+ * 
  * @author Felix Zhao 
  * @version 0.0.1
  * 
