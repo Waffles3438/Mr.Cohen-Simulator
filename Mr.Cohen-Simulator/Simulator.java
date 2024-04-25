@@ -23,7 +23,7 @@ public class Simulator extends World
     public final static Color ORANGE = new Color(240, 100, 10);
     public final static Color BLUE = new Color(80, 80, 255);
     
-    Image computerImage; 
+    private Image computerImage; 
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
