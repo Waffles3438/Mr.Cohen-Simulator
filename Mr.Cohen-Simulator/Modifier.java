@@ -178,16 +178,16 @@ public class Modifier extends World
         addObject(numOfDaysText, 460, 385);
         chaosMode = new Label("Chaos Mode", 30);
         addObject(chaosMode, 820, 385);
-        studentIQText = new Label("Average \n Student IQ", 20);
-        addObject(studentIQText, 360 - 1260, 400);
+        studentIQText = new Label("Average Student IQ", 20);
+        addObject(studentIQText, 360 - 1260, 390);
         janitorsText = new Label("Has Janitors", 30);
         addObject(janitorsText, 630 - 1260, 385);
         robberText = new Label("Has Robbers", 30);
         addObject(robberText, 900 - 1260, 385);
-        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 25);
-        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 390);
-        customerSupportRespond = new Label("customer support \n respond chance", 25);
-        addObject(customerSupportRespond, (820 - 2*1260), 390);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 18);
+        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 385);
+        customerSupportRespond = new Label("Customer Support \n Responce Chance", 18);
+        addObject(customerSupportRespond, (820 - 2*1260), 385);
     }
 
     //just an act method

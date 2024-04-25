@@ -32,7 +32,7 @@ public abstract class Computer extends Actor
     
     public Computer() {
         screenY = 0;
-        breaking.setVolume(10);
+        breaking.setVolume(20);
         screenX = 0;
         changeScreenCounter = 120;
     }

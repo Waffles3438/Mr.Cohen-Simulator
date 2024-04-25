@@ -318,7 +318,7 @@ public class Simulator extends World
         }
         currentAverageMark = (int) mark / 9;
         mark = 0;
-        System.out.println(currentAverageMark);
+        //System.out.println(currentAverageMark);
     }
 }
 
