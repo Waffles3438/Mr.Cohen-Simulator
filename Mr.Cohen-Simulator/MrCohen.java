@@ -41,6 +41,7 @@ public class MrCohen extends Person
         setRotation(90);
         frozen = false;
         brokeToday = false;
+        getImage().scale(66, 66);
     }
     
     public void addedToWorld(World w) {
