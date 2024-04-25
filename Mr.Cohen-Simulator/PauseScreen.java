@@ -53,7 +53,7 @@ public class PauseScreen extends World
         addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
         soundOnImg.getImage().scale(40, 40);
         
-        soundOffImg = new Image("sound_off.png");; 
+        soundOffImg = new Image("sound_off.png");
         addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
         soundOffImg.getImage().scale(40, 40);
     }
