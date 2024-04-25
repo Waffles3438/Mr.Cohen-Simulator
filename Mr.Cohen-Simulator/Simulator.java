@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.List;
 /**
  * <p>
  * This is the world that contains the simulation
@@ -55,6 +56,9 @@ public class Simulator extends World
     
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
+    private List<Student> average;
+    
+    private int currentAverageMark;
     
     private static GreenfootSound music = new GreenfootSound("music.mp3");
     
@@ -80,7 +84,7 @@ public class Simulator extends World
         smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
-        finishedWorld = new FinishedWorld();
+        finishedWorld = new FinishedWorld(currentAverageMark);
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
@@ -294,6 +298,10 @@ public class Simulator extends World
     
     public static void setMusicVolume(int volume){
         music.setVolume(volume);
+    }
+    
+    private void calculateAverageMark(){
+        
     }
 }
 
