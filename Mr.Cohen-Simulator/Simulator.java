@@ -147,6 +147,7 @@ public class Simulator extends World
         /*if(Greenfoot.isKeyDown("escape")){
             Greenfoot.setWorld(pause);
         }*/
+        calculateAverageMark();
         
         actorList = (ArrayList<Actor>) getObjects(Actor.class);
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
@@ -299,8 +300,15 @@ public class Simulator extends World
         music.setVolume(volume);
     }
     
+    private int mark = 0;
     private void calculateAverageMark(){
-        
+        average = (List<Student>) getObjects(Student.class);
+        for(Student studentMark : average){
+            mark += studentMark.projectedMark;
+        }
+        currentAverageMark = (int) mark / 9;
+        mark = 0;
+        System.out.println(currentAverageMark);
     }
 }
 
