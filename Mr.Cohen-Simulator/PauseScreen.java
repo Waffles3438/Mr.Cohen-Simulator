@@ -18,10 +18,12 @@ public class PauseScreen extends World
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
     private ValueBox volumeSlider;
-    Image soundOnImg = new Image("sound_on.png");; 
-    Image soundOffImg = new Image("sound_off.png");;
+
     protected static int volume = 100;
-    /**
+    Image soundOnImg;
+    Image soundOffImg;
+    private boolean soundOn;
+
      * Constructor for objects of class PauseScreen.
      * 
      */
@@ -45,14 +47,17 @@ public class PauseScreen extends World
         pauseLocation = actors;
         getActorImage(blackScreen);
         volumeSlider = new ValueBox(0, 100, 35);
+        // volumeSlider.update(1);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
-        volumeSlider.update((double)volume/100);
+        volumeSlider.update((double)volume/100);        
+        soundOnImg = new Image("sound_on.png"); 
+        addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
+        soundOnImg.getImage().scale(40, 40);
         
-        soundOnImg = new Image(100, 100); 
-        addObject(soundOnImg, 100, 100);
-        //soundOnImg.setLocation(getWidth()/2, getHeight()/2);
-        soundOffImg = new Image(100, 100);
         Simulator.setMusicVolume((int) volume/8);
+        soundOffImg = new Image("sound_off.png");; 
+        addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
+        soundOffImg.getImage().scale(40, 40);
     }
     
     public void act(){
@@ -67,6 +72,14 @@ public class PauseScreen extends World
             resume.setPressedCondition(false);
         }
         volume = volumeSlider.getValue();
+        if (volume > 0)
+        {
+            soundOn = true;
+        }
+        else
+        {
+            soundOn = false;
+        }
     }
     
     private void getActorImage(Fader blackScreen){
