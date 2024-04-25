@@ -6,6 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao
  * @version 0.0.1
+ * 
+ * Sound by Rush, https://www.youtube.com/watch?v=f8mL0_4GeV0
  */
 public abstract class Computer extends Actor
 {
@@ -24,10 +26,11 @@ public abstract class Computer extends Actor
     protected int screenX;
     protected int screenY;
     protected Mouse mouse;
-    
+    protected GreenfootSound breaking = new GreenfootSound("computer_breaking.mp3");
     
     public Computer() {
         screenY = 0;
+        breaking.setVolume(50);
         screenX = 0;
         changeScreenCounter = 120;
     }
@@ -36,7 +39,7 @@ public abstract class Computer extends Actor
         mouse = new Mouse(getX()-screenImage.getWidth()/2+screenX, getX()+screenImage.getWidth()/2+screenX, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 15);
         w.addObject(mouse, getX(), getY()-getImage().getHeight()/2+screenY+screenImage.getHeight()/2);
         changeScreenCounter = 180;
-        setScreen(new GreenfootImage("screen_" + (Greenfoot.getRandomNumber(3)+1) + ".png"));
+        setScreen(new GreenfootImage("screen_" + (Greenfoot.getRandomNumber(4)+1) + ".png"));
     }
 
     
@@ -46,6 +49,10 @@ public abstract class Computer extends Actor
      */
     public void act()
     {
+        int screenLeftBound = getX()-screenImage.getWidth()/2;
+        int screenRightBound = getX()+screenImage.getWidth()/2;
+        int screenTopBound = screenY-screenImage.getHeight()/2;
+        int screenBottomBound = screenY+screenImage.getHeight()/2;
         changeScreenCounter--;
         if (durability > 0 && changeScreenCounter <= 0) {
             changeScreenCounter = 180;
@@ -92,6 +99,7 @@ public abstract class Computer extends Actor
      *
      */
     public void breakComputer() {
+        breaking.play();
         durability = 0;
         GreenfootImage blackScreen = new GreenfootImage(100, 100);
         blackScreen.setColor(new Color(0, 0, 0));
