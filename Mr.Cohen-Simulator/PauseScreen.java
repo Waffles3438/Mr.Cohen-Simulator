@@ -3,10 +3,10 @@ import java.util.ArrayList;
 /**
  * Write a description of class PauseScreen here.
  * 
- * @author (your name) 
+ * @author Andy Feng
  * @version (a version number or a date)
  * 
- * edited by Andy Feng
+ * 
  */
 public class PauseScreen extends World
 {
