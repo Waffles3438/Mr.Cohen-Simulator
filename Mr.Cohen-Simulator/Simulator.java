@@ -135,7 +135,7 @@ public class Simulator extends World
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
-        music.setVolume(15);
+        music.setVolume(25);
         music.playLoop();
     }
     
@@ -218,6 +218,14 @@ public class Simulator extends World
                 
             }
         }
+    }
+    
+    public void stopped(){
+        music.pause();
+    }
+    
+    public void started(){
+        music.playLoop();
     }
     
     /**

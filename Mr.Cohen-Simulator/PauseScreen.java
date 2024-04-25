@@ -20,7 +20,7 @@ public class PauseScreen extends World
     private ValueBox volumeSlider;
     Image soundOnImg = new Image("sound_on.png");; 
     Image soundOffImg = new Image("sound_off.png");;
-    protected static int volume = 15;
+    protected static int volume = 100;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -51,7 +51,8 @@ public class PauseScreen extends World
         soundOnImg = new Image(100, 100); 
         addObject(soundOnImg, 100, 100);
         //soundOnImg.setLocation(getWidth()/2, getHeight()/2);
-        soundOffImg = new Image(100, 100); 
+        soundOffImg = new Image(100, 100);
+        Simulator.setMusicVolume((int) volume/8);
     }
     
     public void act(){
@@ -60,8 +61,8 @@ public class PauseScreen extends World
             menu.setPressedCondition(false);
         }
         if(resume.isPressed()){
-            Simulator.setMusicVolume(volume);
-            Simulator.playMusic();
+            Simulator.setMusicVolume((int) volume/4);
+            Computer.setBreakingVolume((int) volume/10);
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
