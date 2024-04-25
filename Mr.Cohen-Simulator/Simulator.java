@@ -56,7 +56,7 @@ public class Simulator extends World
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
     
-    private GreenfootSound music = new GreenfootSound("music.mp3");
+    private static GreenfootSound music = new GreenfootSound("music.mp3");
     
     /**
      * Starts the simulation. Draws borders
@@ -135,8 +135,7 @@ public class Simulator extends World
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
-        
-        music.setVolume(25);
+        music.setVolume(12);
         music.playLoop();
     }
     
@@ -242,6 +241,7 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
+            music.pause();
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }
@@ -271,6 +271,17 @@ public class Simulator extends World
      */
     public boolean chaosEnabled() {
         return chaosMode;
+    }
+    
+    /**
+     * Plays music
+     */
+    public static void playMusic(){
+        music.playLoop();
+    }
+    
+    public static void setMusicVolume(int volume){
+        music.setVolume(volume);
     }
 }
 

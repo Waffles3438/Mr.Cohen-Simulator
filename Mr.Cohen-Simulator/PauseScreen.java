@@ -61,6 +61,8 @@ public class PauseScreen extends World
             menu.setPressedCondition(false);
         }
         if(resume.isPressed()){
+            Simulator.setMusicVolume(volume);
+            Simulator.playMusic();
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
@@ -96,4 +98,6 @@ public class PauseScreen extends World
     {
         return volume;
     }
+    
+    
 }
