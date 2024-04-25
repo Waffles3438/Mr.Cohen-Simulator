@@ -18,7 +18,9 @@ public class PauseScreen extends World
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
     private ValueBox volumeSlider;
-    protected static int volume = 15;
+    Image soundOnImg = new Image("sound_on.png");; 
+    Image soundOffImg = new Image("sound_off.png");;
+    protected static int volume = 100;
     Image soundOnImg;
     Image soundOffImg;
     private boolean soundOn = true;
@@ -48,6 +50,7 @@ public class PauseScreen extends World
         volumeSlider = new ValueBox(0, 100, 35);
         // volumeSlider.update(1);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
+        Simulator.setMusicVolume((int) volume/8);
         volumeSlider.update((double)volume/100);   
         soundOnImg = new Image("sound_on.png"); 
         if (soundOn)
@@ -69,8 +72,8 @@ public class PauseScreen extends World
             menu.setPressedCondition(false);
         }
         if(resume.isPressed()){
-            Simulator.setMusicVolume(volume);
-            Simulator.playMusic();
+            Simulator.setMusicVolume((int) volume/4);
+            Computer.setBreakingVolume((int) volume/10);
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }

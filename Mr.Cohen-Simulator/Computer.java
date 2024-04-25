@@ -26,11 +26,11 @@ public abstract class Computer extends Actor
     protected int screenX;
     protected int screenY;
     protected Mouse mouse;
-    protected GreenfootSound breaking = new GreenfootSound("computer_breaking.mp3");
+    protected static GreenfootSound breaking = new GreenfootSound("computer_breaking.mp3");
     
     public Computer() {
         screenY = 0;
-        breaking.setVolume(50);
+        breaking.setVolume(10);
         screenX = 0;
         changeScreenCounter = 120;
     }
@@ -123,5 +123,9 @@ public abstract class Computer extends Actor
      */
     public int getMaxDurability() {
         return maxDurability;
+    }
+    
+    public static void setBreakingVolume(int volume){
+        breaking.setVolume(volume);
     }
 }
