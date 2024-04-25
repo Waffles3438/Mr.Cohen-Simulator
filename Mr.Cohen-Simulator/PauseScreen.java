@@ -18,12 +18,12 @@ public class PauseScreen extends World
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
     private ValueBox volumeSlider;
-    Image soundOnImg = new Image("sound_on.png");; 
-    Image soundOffImg = new Image("sound_off.png");;
+    private Image soundOnImg = new Image("sound_on.png");; 
+    private Image soundOffImg = new Image("sound_off.png");;
     protected static int volume = 100;
-    Image soundOnImg;
-    Image soundOffImg;
+
     private boolean soundOn = true;
+    private int previousVolume;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -102,6 +102,17 @@ public class PauseScreen extends World
                 addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
                 soundOffImg.getImage().scale(40, 40);
             }
+        }
+        if (Greenfoot.mouseClicked(soundOnImg))
+        {
+            previousVolume = volume;
+            volume = 0;
+            volumeSlider.update((double)volume/100);
+        }
+        if (Greenfoot.mouseClicked(soundOffImg))
+        {
+            volume = previousVolume; 
+            volumeSlider.update((double)volume/100.0);
         }
     }
 
