@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <a href="https://pc98backgrounds.tumblr.com/image/172810349592"> Link to image</a>
  * Image by Tumblr
  * 
+ * <a href="https://www.youtube.com/watch?v=atgjKEgSqSU"> Link to music</a>
+ * Music by C418
+ * 
  * @author Benny
  * @version 1.0.0
  */
@@ -20,7 +23,7 @@ public class TitleScreen extends World{
     protected Modifier modifier;
 
     public static boolean firstTime = true;
-    
+    private static GreenfootSound mainmenu = new GreenfootSound("mainmenu.mp3");
     /**
      * Constructor for TitleScreen
      */
@@ -36,6 +39,8 @@ public class TitleScreen extends World{
         }
         creditsScreen = new CreditsScreen(this);
         modifier = new Modifier(this);
+        mainmenu.setVolume(25);
+        mainmenu.playLoop();
     }
     
     public void act(){
@@ -47,13 +52,33 @@ public class TitleScreen extends World{
      */
     private void checkButtons(){
         if(start.isPressed()){
+            mainmenu.pause();
             Greenfoot.setWorld(modifier);
             start.setPressedCondition(false);
         }
         
         if(credits.isPressed()){
+            mainmenu.setVolume(10);
             Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);
         }
+    }
+    
+    /**
+     * Plays music
+     */
+    public static void playMusic(){
+        mainmenu.playLoop();
+    }
+    
+    /**
+     * Pauses music
+     */
+    public static void pauseMusic(){
+        mainmenu.pause();
+    }
+    
+    public static void setMusicVolume(int volume){
+        mainmenu.setVolume(volume);
     }
 }

@@ -67,6 +67,9 @@ public class PauseScreen extends World
 
     public void act(){
         if(menu.isPressed()){
+            Simulator.pauseMusic();
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
             menu.setPressedCondition(false);
         }

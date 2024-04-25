@@ -28,9 +28,10 @@ public class CreditsScreen extends World
     
     public void act(){
         if(back.isPressed()){
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
-            
         }
     }
 }

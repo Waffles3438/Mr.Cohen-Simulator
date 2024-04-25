@@ -295,6 +295,13 @@ public class Simulator extends World
         music.playLoop();
     }
     
+    /**
+     * Pause music
+     */
+    public static void pauseMusic(){
+        music.pause();
+    }
+    
     public static void setMusicVolume(int volume){
         music.setVolume(volume);
     }

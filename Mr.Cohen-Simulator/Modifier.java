@@ -252,6 +252,8 @@ public class Modifier extends World
      */
     private void checkButton(){
         if(back.isPressed()){
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             startFromFirstPage();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
