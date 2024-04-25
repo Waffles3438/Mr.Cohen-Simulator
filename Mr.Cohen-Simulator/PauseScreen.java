@@ -18,12 +18,11 @@ public class PauseScreen extends World
     private GreenfootImage overlay = new GreenfootImage("images/overlay.png");
     private GreenfootImage classroom = new GreenfootImage("school_image.png");
     private ValueBox volumeSlider;
-
+    private Image soundOnImg = new Image("sound_on.png");; 
+    private Image soundOffImg = new Image("sound_off.png");;
     protected static int volume = 100;
-    Image soundOnImg;
-    Image soundOffImg;
-    private boolean soundOn;
-
+    private boolean soundOn = true;
+    /**
      * Constructor for objects of class PauseScreen.
      * 
      */
@@ -49,17 +48,22 @@ public class PauseScreen extends World
         volumeSlider = new ValueBox(0, 100, 35);
         // volumeSlider.update(1);
         addObject(volumeSlider, getWidth()/2, getHeight()-70);
-        volumeSlider.update((double)volume/100);        
-        soundOnImg = new Image("sound_on.png"); 
-        addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
-        soundOnImg.getImage().scale(40, 40);
-        
         Simulator.setMusicVolume((int) volume/8);
-        soundOffImg = new Image("sound_off.png");; 
-        addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
-        soundOffImg.getImage().scale(40, 40);
+        volumeSlider.update((double)volume/100);   
+        soundOnImg = new Image("sound_on.png"); 
+        if (soundOn)
+        {
+            addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
+            soundOnImg.getImage().scale(40, 40);
+        }
+        soundOffImg = new Image("sound_off.png");
+        if (!soundOn)
+        {
+            addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
+            soundOffImg.getImage().scale(40, 40);
+        }
     }
-    
+
     public void act(){
         if(menu.isPressed()){
             Greenfoot.setWorld(titleScreen);
@@ -75,13 +79,30 @@ public class PauseScreen extends World
         if (volume > 0)
         {
             soundOn = true;
+            if (soundOffImg.getWorld() != null)
+            {
+                removeObject(soundOffImg);
+            }
+            if (soundOnImg.getWorld() == null)
+            {
+                addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
+            }
         }
         else
         {
             soundOn = false;
+            if (soundOnImg.getWorld() != null)
+            {
+                removeObject(soundOnImg);
+            }
+            if (soundOffImg.getWorld() == null)
+            {
+                addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
+                soundOffImg.getImage().scale(40, 40);
+            }
         }
     }
-    
+
     private void getActorImage(Fader blackScreen){
         for(Actor actor : pauseLocation){
             if (actor == blackScreen) {
@@ -91,7 +112,7 @@ public class PauseScreen extends World
             if (!(actor instanceof Mouse)) {
                 image.rotate(actor.getRotation());
             }
-            
+
             image.setTransparency(actor.getImage().getTransparency());
             drawImage(image, actor.getX() - image.getWidth()/2, actor.getY() - image.getHeight()/2);
         }
@@ -102,16 +123,14 @@ public class PauseScreen extends World
         fader.setTransparency(blackScreen.getImage().getTransparency());
         drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
     }
-    
+
     private void drawImage(GreenfootImage image, int x, int y){
         getBackground().drawImage(image, x, y);
     }
-    
-    
+
     public static int getVolume()
     {
         return volume;
     }
-    
-    
+
 }
