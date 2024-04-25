@@ -10,19 +10,18 @@ public class MacMini extends Computer
 {
     public MacMini() {
         super();
-        deviceImage = new GreenfootImage("images/MacMini.png");
-        //setImage(deviceImage);
-        deviceImage.scale(392, 156);
         
-        screenImage = new GreenfootImage(deviceImage.getWidth() / 2 + 10, (int) deviceImage.getHeight() * 95 / 117);
+        deviceImage = new GreenfootImage("Desktop.png");
+        // width is 440, height is 245
+        deviceImage.scale(400, 325);
+
+        screenImage = new GreenfootImage(deviceImage.getWidth()*57/64, deviceImage.getHeight()*50/90);
         screenImage.setColor(new Color(0, 0, 0));
         screenImage.fillRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
         fullImage = new GreenfootImage(deviceImage);
-        fullImage.drawImage(screenImage, deviceImage.getWidth() / 2 - screenImage.getWidth() / 2 - 1, 14);
+        screenY = 10;
+        fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
         setImage(fullImage);
-
-        durability = 120;
-        maxDurability = 120;
     }
     
     public void addedToWorld(World w) {
