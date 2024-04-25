@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
  * 
  * 
- * Edited by Andy Feng
+ * Edited by Andy Feng, Evan Xi
  * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
@@ -34,6 +34,7 @@ public class Simulator extends World
     private int actsCount = 0;
     private int dayCount = 1;
     private int janitorCounter;
+    private int robberCounter;  
     private Label day = new Label("Day: " + dayCount, 50);
 
     private SuperStatBar averageProjectedMark;
@@ -128,6 +129,7 @@ public class Simulator extends World
         addObject(new Label("Computer Durability", 30), 1050, 180);
         addObject(computerDurability, 1050, 210);
         janitorCounter = 1;
+        robberCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
@@ -144,6 +146,10 @@ public class Simulator extends World
         
         if (hasJanitors && janitorCounter > 0 && Greenfoot.getRandomNumber(600) == 0) {
             addObject(new Janitor(), 800, 600);
+            janitorCounter--;
+        }
+        if (hasRobbers && robberCounter > 0 && Greenfoot.getRandomNumber(600) == 0) {
+            addObject(new Robber(), -20, 260);
             janitorCounter--;
         }
 
@@ -179,9 +185,13 @@ public class Simulator extends World
                     }
                     cohen.returnToDesk();
                     janitorCounter = 1;
+                    robberCounter = 1;
                     
                     for (Janitor janitor : getObjects(Janitor.class)) {
                         removeObject(janitor);
+                    }
+                    for (Robber robber : getObjects(Robber.class)) {
+                        removeObject(robber);
                     }
                 }
             }

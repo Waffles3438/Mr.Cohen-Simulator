@@ -1,24 +1,23 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Fades in and out, summoned by the Robber upon entrance
+ * Appears beside a window upon Robber break-in, fades out
  * 
  * @author Evan Xi
  * Art by Evan Xi
  */
-public class Smokescreen extends Fader{
+public class Glass extends Fader{
     private int maxTransparency = 250;
     private int minTransparency = 5;
     private int fadeSpeed = 1;
     
-    public Smokescreen(String image, int max, int min, int speed){
+    public Glass(String image, int max, int min, int speed){
         super(image, max, min, speed);
         this.getImage().setTransparency(minTransparency);
     }   
     
     
     public void act(){        
-        fadeInAndOut(200);
-        ((Simulator)getWorld()).setSmoked(false);
+        fadeOut();
     }
 }

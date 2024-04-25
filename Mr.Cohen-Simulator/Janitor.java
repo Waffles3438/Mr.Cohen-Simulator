@@ -1,11 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The janitor
  * Walks around the classroom for 6 seconds and leaves a puddle on the ground
+ * The puddle 
  * 
  * @author Evan Xi 
- * @version (a version number or a date)
+ * Art by Evan Xi
  */
 public class Janitor extends Person{
     private int spillCount = 0;
@@ -40,6 +40,9 @@ public class Janitor extends Person{
         }
     }
     
+    /**
+     * Finds one of 8 random locations to pathfind towards
+     */
     private void cleanFloor(){
         int location = Greenfoot.getRandomNumber(8);
         switch(location){
@@ -72,6 +75,9 @@ public class Janitor extends Person{
         }
     }
     
+    /**
+     * If it has been in the room for long enough, immediately override the current path and leave
+     */
     private void exitRoom(){
         if(cleaningTimer >= 360){
             isCleaning = false;

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Puddle here.
+ * x
  * 
  * @author Evan Xi 
- * @version (a version number or a date)
+ * Art by Evan Xi
  */
 public class Puddle extends Fader{
     private int maxTransparency = 250;

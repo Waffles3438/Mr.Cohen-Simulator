@@ -5,11 +5,11 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs
  * 
- * * Edited by Andy Feng
+ * Edited by Andy Feng, Evan Xi
  * 
  * @author Felix Zhao 
  * @author Benny Wang
- * edited by Evan Xi
+ * 
  * @version 1.0.0
  * 
  */
@@ -195,6 +195,15 @@ public class Student extends Person
         }
     }
 
+    private void reactRobber(){
+        if(((Simulator)getWorld()).isSmoked()){
+            sleepFor(400);
+            setRotation(270);
+            speech = new BubbleSpeech("exclation_bubble.png");
+            getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+            sleepFor(100);
+        }
+    }
     
     protected void work() {
         if (speech != null) {
