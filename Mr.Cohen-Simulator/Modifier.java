@@ -409,4 +409,12 @@ public class Modifier extends World
     public static int getchanceOfLaptopBreaking(){
         return chanceOfComputerBreaking;
     }
+    
+    public void stopped(){
+        TitleScreen.pauseMusic();
+    }
+    
+    public void started(){
+        TitleScreen.playMusic();
+    }
 }

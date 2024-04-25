@@ -34,4 +34,12 @@ public class CreditsScreen extends World
             back.setPressedCondition(false);
         }
     }
+    
+    public void stopped(){
+        TitleScreen.pauseMusic();
+    }
+    
+    public void started(){
+        TitleScreen.playMusic();
+    }
 }

@@ -47,6 +47,14 @@ public class TitleScreen extends World{
         checkButtons();
     }
     
+    public void stopped(){
+        mainmenu.pause();
+    }
+    
+    public void started(){
+        mainmenu.playLoop();
+    }
+    
     /**
      * Check if buttons are pressed
      */
