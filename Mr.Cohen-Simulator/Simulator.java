@@ -7,8 +7,10 @@ import java.util.ArrayList;
  * 
  * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
  * 
+ * Edited by Andy Feng <br>
  * 
- * Edited by Andy Feng
+ * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a>
+ * Music by Pokemon
  * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
@@ -50,6 +52,8 @@ public class Simulator extends World
     
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
+    
+    private GreenfootSound music = new GreenfootSound("music.mp3");
     
     /**
      * Starts the simulation. Draws borders
@@ -122,6 +126,9 @@ public class Simulator extends World
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
+        
+        music.setVolume(25);
+        music.playLoop();
     }
     
     public void act(){

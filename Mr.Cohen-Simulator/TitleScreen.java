@@ -30,6 +30,7 @@ public class TitleScreen extends World{
         addObject(new Image("Banner.png"), getWidth()/2, getHeight()/2 - 200);
         if(firstTime){
             Button.init();
+            CheckBox.init();
             firstTime = false;
         }
         creditsScreen = new CreditsScreen(this);

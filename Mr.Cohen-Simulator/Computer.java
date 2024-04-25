@@ -6,6 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Felix Zhao
  * @version 0.0.1
+ * 
+ * Sound by Rush, https://www.youtube.com/watch?v=f8mL0_4GeV0
  */
 public class Computer extends Actor
 {
@@ -23,10 +25,11 @@ public class Computer extends Actor
     protected int screenX;
     protected int screenY;
     protected Mouse mouse;
-    
+    protected GreenfootSound breaking = new GreenfootSound("computer_breaking.mp3");
     
     public Computer() {
         screenY = 0;
+        breaking.setVolume(50);
     }
     
     public void addedToWorld(World w) {
@@ -45,7 +48,6 @@ public class Computer extends Actor
         int screenRightBound = getX()+screenImage.getWidth()/2;
         int screenTopBound = screenY-screenImage.getHeight()/2;
         int screenBottomBound = screenY+screenImage.getHeight()/2;
-        
     }
     
     /**
@@ -88,6 +90,7 @@ public class Computer extends Actor
      *
      */
     public void breakComputer() {
+        breaking.play();
         durability = 0;
     }
     
