@@ -135,7 +135,7 @@ public class Simulator extends World
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         
         setPaintOrder(Fader.class);
-        music.setVolume(25);
+        music.setVolume(PauseScreen.getVolume()/4);
         music.playLoop();
     }
     
@@ -253,7 +253,6 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
-            music.pause();
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }
