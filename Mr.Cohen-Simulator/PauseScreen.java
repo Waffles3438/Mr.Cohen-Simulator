@@ -22,6 +22,7 @@ public class PauseScreen extends World
     private Image soundOffImg = new Image("sound_off.png");;
     protected static int volume = 100;
     private boolean soundOn = true;
+    private int previousVolume;
     /**
      * Constructor for objects of class PauseScreen.
      * 
@@ -100,6 +101,17 @@ public class PauseScreen extends World
                 addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
                 soundOffImg.getImage().scale(40, 40);
             }
+        }
+        if (Greenfoot.mouseClicked(soundOnImg))
+        {
+            previousVolume = volume;
+            volume = 0;
+            volumeSlider.update((double)volume/100);
+        }
+        if (Greenfoot.mouseClicked(soundOffImg))
+        {
+            volume = previousVolume; 
+            volumeSlider.update((double)volume/100.0);
         }
     }
 
