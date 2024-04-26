@@ -148,7 +148,7 @@ public class Simulator extends World
         if(Modifier.getChaos()){
             music = new GreenfootSound("chaosmode.mp3");
         }
-        music.setVolume(PauseScreen.getVolume()/4);
+        music.setVolume((int)PauseScreen.getVolume()/7);
         music.playLoop();
     }
     
@@ -303,6 +303,7 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
+            MrCohen.pauseTyping();
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }

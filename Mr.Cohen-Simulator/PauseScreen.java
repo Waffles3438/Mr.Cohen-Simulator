@@ -28,7 +28,6 @@ public class PauseScreen extends World
     private int previousVolume;
     /**
      * Constructor for objects of class PauseScreen.
-     * 
      */
     public PauseScreen(TitleScreen titleScreen, Simulator simulator, ArrayList<Actor> actors, Fader blackScreen)
     {    
@@ -76,8 +75,9 @@ public class PauseScreen extends World
             Greenfoot.setWorld(titleScreen);
         }
         if(resume.isPressed()) {
-            Simulator.setMusicVolume((int) volume/4);
+            Simulator.setMusicVolume((int) volume/7);
             Computer.setBreakingVolume((int) volume/10);
+            MrCohen.setTypingVolume(volume);
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
