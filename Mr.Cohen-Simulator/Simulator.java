@@ -58,7 +58,6 @@ public class Simulator extends World
     
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
-    private List<Student> average;
     
     private int currentAverageMark;
     
@@ -161,11 +160,8 @@ public class Simulator extends World
             janitorCounter--;
         }
 
-        double mark = 0;
-        for (Student student : getObjects(Student.class)) {
-            mark += student.getProjectedMark();
-        }
-        averageProjectedMark.update((int)(mark/9));
+        
+        averageProjectedMark.update(currentAverageMark);
         cohenAngerMeter.update(cohen.getAnger());
         computerDurability.update(computer.getDurability());
         
@@ -344,15 +340,14 @@ public class Simulator extends World
         music.setVolume(volume);
     }
     
-    private int mark = 0;
+
     private void calculateAverageMark(){
-        average = (List<Student>) getObjects(Student.class);
-        for(Student studentMark : average){
-            mark += studentMark.projectedMark;
+        int mark = 0;
+        ArrayList<Student> students = (ArrayList<Student>) getObjects(Student.class);
+        for(Student student : students){
+            mark += student.projectedMark;
         }
         currentAverageMark = (int) mark / 9;
-        mark = 0;
-        //System.out.println(currentAverageMark);
     }
 }
 

@@ -1,12 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The mouse class is paired up with the computer class and will move around randomly
+ * The mouse class is paired up with the computer class and will move around randomly<br>
+ * 
+ * Editied by Andy Feng
  * 
  * @author Felix Zhao
  * @version (a version number or a date)
  * 
- * Editied by Andy Feng
  */
 public class Mouse extends SuperSmoothMover
 {

@@ -1,7 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * The Alienware computer
+ * </p>
+ * 
+ * <a href="https://www.vectorstock.com/royalty-free-vector/online-laptop-gaming-game-pixel-art-vector-47158987">Link to art</a>
  * 
  * @author Felix Zhao
  * @version 0.0.1

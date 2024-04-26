@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /** 
  * This is the computer class <br>
  * A subclass instance will be seen during the simulation
- * 
- * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0"> Link to Sound</a>
+ * <br>
+ * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0">Link to Sound</a>
  * Sound by Rush
  * 
  * @author Felix Zhao

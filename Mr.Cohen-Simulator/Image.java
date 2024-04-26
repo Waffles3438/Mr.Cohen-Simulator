@@ -1,8 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
+ * <p>
  * An actor that displays an image and/or acts as a hitbox for the people pathfinding
- * 
+ * </p>
  * Wooden banner: 
  * <a href="https://en.ac-illust.com/clip-art/1354907/pixelated-banner-set"> Link to image</a>
  * Image by aimu

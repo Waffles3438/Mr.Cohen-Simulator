@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs<br>
  * 
- * Edited slightly by Andy Feng
+ * Edited slightly by Andy Feng<br>
  * Art by Benny Wang
  * 
  * @author Felix Zhao 

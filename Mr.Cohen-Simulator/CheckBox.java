@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class CheckBox here.
+ * Used to toggle settings for the simulation in the modifier world
  * 
  * @author Andy Feng
  * @version 0.0.1
