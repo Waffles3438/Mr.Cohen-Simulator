@@ -171,12 +171,25 @@ public class FinishedWorld extends World
         }
     }
 
+    // Meh Ending
     private void endingTwo(){
 
     }
 
+    // Sad ending
     private void endingThree(){
-
+        if (!added) {
+            showStats();
+            // Add the happy speech bubble
+            addObject(rage, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            // Add pizzas to students
+            for (Student student : students) {
+                student.freezeState(true);
+            }
+            // Add a flashing overlay
+            added = true;
+        }
+        
     }
 
     private void showStats() {

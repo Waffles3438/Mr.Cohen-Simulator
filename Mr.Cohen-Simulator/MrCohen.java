@@ -200,7 +200,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changeProjectedMark(Greenfoot.getRandomNumber(7)+3);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(4)+2);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
