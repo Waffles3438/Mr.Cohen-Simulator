@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Confetti extends Actor
 {
-    private GreenfootImage[] confettiArrays = new GreenfootImage[100];
+    private GreenfootImage[] confettiArrays = new GreenfootImage[9];
 
     //public GifImage confettiAnimation = new GifImage("confetti.gif");
 
@@ -22,7 +22,8 @@ public class Confetti extends Actor
         for (int i = 0; i < confettiArrays.length; i++)
         {
             confettiArrays[i] = new GreenfootImage("frame_00" + i + "_delay-0.01s.png");
-            confettiArrays[i].scale(100, 100);
+            //confettiArrays[i].scale(500, 500);
+            setImage(confettiArrays[i]);
         }
     }
 }
