@@ -182,8 +182,8 @@ public class Modifier extends World
         addObject(new Box(), 460 - 2*1260, 485);
         addObject(new Box(), 820 - 2*1260, 485);
 
-        days = new ValueBox(10, 30,offSetT);
-        breakingChance = new ValueBox(25, 100, offSetT);
+        days = new ValueBox(5, 12, offSetT);
+        breakingChance = new ValueBox(35, 100, offSetT);
         IQ = new ValueBox(80, 120, offSetT);
         supportChance = new ValueBox(0, 50, offSetT);
         hasJanitors = new CheckBox();

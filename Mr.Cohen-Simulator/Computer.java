@@ -99,6 +99,7 @@ public abstract class Computer extends Actor
     public void breakComputer() {
         breaking.play();
         durability = 0;
+        deleteMouse();
         GreenfootImage blackScreen = new GreenfootImage(100, 100);
         blackScreen.setColor(new Color(0, 0, 0));
         blackScreen.fillRect(0, 0, 100, 100);

@@ -73,6 +73,13 @@ public class Alienware extends Computer
     }
     
     /**
+     * Pause sounds
+     */
+    public static void pauseSounds(){
+        beep.pause();
+    }
+    
+    /**
      * Sets a new screen for the computer
      *
      * @param newScreenImage The new screen image

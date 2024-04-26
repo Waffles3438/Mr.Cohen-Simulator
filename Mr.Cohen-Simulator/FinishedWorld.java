@@ -4,9 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Write a description of class FinishedWorld here.
+ * <p>
+ * This is the finished world which appears after the simulation. Depending on the results, there are different endings
+ * </p>
+ * Edited By Dylan Dinesh
+ * 
+ * <a href="https://www.youtube.com/watch?v=jRtDGwmgCR8">Link to music</a>
+ * Music by Nintendo from New Super Mario Bros. Wii
+ * 
+ * <a href="https://www.youtube.com/watch?v=Y2qFzWLlOi8">Link to music</a>
+ * Music by Nintendo from New Super Mario Bros. Wii
  * 
  * @author Andy Feng
+ * @author Felix Zhao
  * @version 0.0.1 (April 25th, 2024)
  */
 public class FinishedWorld extends World
@@ -29,7 +39,7 @@ public class FinishedWorld extends World
     private boolean added = false;
 
     private Image pizza;
-    private Label displayText = new Label("", 31);
+    private Label displayText = new Label("", 30);
     private Button backToMenu = new Button("menu", 3, ".png");
     private Button tryAgain = new Button("tryagain", 3, ".png");
 
@@ -37,6 +47,7 @@ public class FinishedWorld extends World
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
     private BubbleSpeech sleepy = new BubbleSpeech("happy_emotion1.png");
     private BubbleSpeech rage = new BubbleSpeech("angry_emotion.png");
+    private static GreenfootSound music;
 
     private ArrayList<Student> students;
     private HashMap<Student, Image> studentPizzaMap = new HashMap<>();
@@ -78,10 +89,12 @@ public class FinishedWorld extends World
         if (averageMark >= 85)
         {
             addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
-        }
-        if (averageMark >= 65 && averageMark < 85)
+            music = new GreenfootSound("party.mp3");
+        } else if (averageMark >= 65 && averageMark < 85)
         {
             addObject(new Confetti(550, 400), getWidth()/2-250, getHeight()/2+100);
+        } else {
+            music = new GreenfootSound("class-did-bad.mp3");
         }
         this.averageMark = averageMark;
         this.numDays = numDays;
@@ -91,6 +104,16 @@ public class FinishedWorld extends World
         this.hasRobber = hasRobber;
         this.hasJanitor = hasJanitor;
         this.chaosMode = chaosMode;
+        music.setVolume((int) PauseScreen.getVolume() / 4);
+        music.playLoop();
+    }
+    
+    public void stopped(){
+        music.pause();
+    }
+    
+    public void started(){
+        music.playLoop();
     }
 
     public void act(){
@@ -99,7 +122,7 @@ public class FinishedWorld extends World
         if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
             endingOne();
-        } else if(averageMark >= 65 && averageMark < 85) {
+        } else if(averageMark >= 60 && averageMark < 85) {
             endingTwo();
         } else {
             endingThree();
@@ -201,7 +224,15 @@ public class FinishedWorld extends World
             }
             // Add a flashing overlay
             added = true;
+            addFlashingOverlay();
+            GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
+            overlayImage.setColor(new Color(0, 0, 100, 64));
+            overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+            overlay = new Image(overlayImage);
+            addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2);
         }
+        
+        
         
     }
 
@@ -228,9 +259,5 @@ public class FinishedWorld extends World
         if(Greenfoot.mouseClicked(tryAgain)){
             Greenfoot.setWorld(new Modifier());
         }
-    }
-
-    public void stopped(){
-
     }
 }

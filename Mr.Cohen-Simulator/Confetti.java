@@ -18,10 +18,6 @@ public class Confetti extends Actor
     {
         this.width = width;
         this.height = height;
-    }
-    
-    public void act()
-    {
         for (int i = 0; i < confettiArrays.length; i++)
         {
             if (i < 10)
@@ -35,6 +31,10 @@ public class Confetti extends Actor
             confettiArrays[i].scale(width, height);
             //setImage(confettiArrays[i]);
         }
+    }
+    
+    public void act()
+    {
         animateConfetti();
     }
 
