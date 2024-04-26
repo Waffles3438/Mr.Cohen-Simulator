@@ -6,12 +6,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </p>
  * 
  * <a href="https://www.vectorstock.com/royalty-free-vector/online-laptop-gaming-game-pixel-art-vector-47158987">Link to art</a>
+ * Art by Vectorstock
+ * 
+ * <a href="https://www.youtube.com/watch?v=Nobn5wAenro&t=4s">Link to sound</a>
+ * Sound by Bob Pellerin
  * 
  * @author Felix Zhao
  * @version 0.0.1
  */
 public class Alienware extends Computer
 {
+    private static GreenfootSound beep = new GreenfootSound("beep.mp3");
     
     /**
      * Creates an alienware laptop to be used in the simulation
@@ -34,6 +39,7 @@ public class Alienware extends Computer
         setImage(fullImage);
         durability = 80;
         maxDurability = 80;
+        beep.setVolume(20);
     }
     
     public void addedToWorld(World w) {
@@ -51,8 +57,18 @@ public class Alienware extends Computer
         if(Greenfoot.getRandomNumber(100000) <= Modifier.getchanceOfLaptopBreaking() && durability > 0){
             setScreen(new GreenfootImage("bsod.png"));
             getWorld().removeObject(mouse);
+            beep.play();
             durability = 0;
         }
+    }
+    
+    /**
+     * Set beep volume
+     * 
+     * @param volume New volume
+     */
+    public static void setBeepVolume(int volume){
+        beep.setVolume(volume);
     }
     
     /**

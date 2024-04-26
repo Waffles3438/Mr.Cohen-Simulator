@@ -68,12 +68,18 @@ public class Robber extends Person{
             
     }
     
+    /**
+     * Throws a smoke bomb
+     */
     private void throwSmokeBomb(){
         getWorld().addObject(smokescreen, 415, 355);
         ((Simulator)getWorld()).setSmoked(true);  
         hasEntered = true;
     }
     
+    /**
+     * Choses a random windo to leave from
+     */
     private void chooseRandomWindow(){
         int windowChoice = Greenfoot.getRandomNumber(2);
         if(windowChoice == 0){

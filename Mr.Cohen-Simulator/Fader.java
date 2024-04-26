@@ -25,6 +25,9 @@ public class Fader extends Actor{
         this.getImage().setTransparency(minTransparency);
     }
 
+    /**
+     * Fade out
+     */
     public void fadeOut(){        
         if(getImage().getTransparency() - fadeSpeed >= minTransparency){
             this.getImage().setTransparency(getImage().getTransparency() - fadeSpeed);
@@ -35,13 +38,18 @@ public class Fader extends Actor{
         }
     }
     
+    /**
+     * Fade in
+     */
     public void fadeIn(){        
         if(getImage().getTransparency() + fadeSpeed <= maxTransparency){
             this.getImage().setTransparency(getImage().getTransparency() + fadeSpeed);
         }
     }
     
-
+    /**
+     * Fades in and out
+     */
     public void fadeInAndOut(int duration){
         if(!done){
             if(getImage().getTransparency() + fadeSpeed <= maxTransparency){
@@ -65,6 +73,9 @@ public class Fader extends Actor{
         }
     }
     
+    /**
+     * Returns finished
+     */
     public boolean getFinished(){
         return finished;
     }
