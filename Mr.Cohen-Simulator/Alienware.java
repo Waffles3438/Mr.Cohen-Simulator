@@ -75,7 +75,7 @@ public class Alienware extends Computer
     /**
      * Pause sounds
      */
-    public static void pauseSounds(){
+    public static void pauseBeep(){
         beep.pause();
     }
     

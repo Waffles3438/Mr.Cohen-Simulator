@@ -192,7 +192,8 @@ public class Simulator extends World
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
                 MrCohen.pauseSounds();
-                Alienware.pauseSounds();
+                Alienware.pauseBeep();
+                Computer.pauseSounds();
                 stopped();
                 
                 Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));

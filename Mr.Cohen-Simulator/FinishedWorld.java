@@ -15,6 +15,9 @@ import java.util.HashMap;
  * <a href="https://www.youtube.com/watch?v=Y2qFzWLlOi8">Link to music</a>
  * Music by Nintendo from New Super Mario Bros. Wii
  * 
+ * <a href="https://www.youtube.com/watch?v=po-0n1BKW2w">Link to music</a>
+ * Music by Nintendo Wii
+ * 
  * @author Andy Feng
  * @author Felix Zhao
  * @version 0.0.1 (April 25th, 2024)
@@ -93,6 +96,7 @@ public class FinishedWorld extends World
         } else if (averageMark >= 65 && averageMark < 85)
         {
             addObject(new Confetti(550, 400), getWidth()/2-250, getHeight()/2+100);
+            music = new GreenfootSound("mid.mp3");
         } else {
             music = new GreenfootSound("class-did-bad.mp3");
         }
@@ -122,7 +126,7 @@ public class FinishedWorld extends World
         if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
             endingOne();
-        } else if(averageMark >= 60 && averageMark < 85) {
+        } else if(averageMark >= 65 && averageMark < 85) {
             endingTwo();
         } else {
             endingThree();
