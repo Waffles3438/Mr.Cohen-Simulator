@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Felix Zhao
  * @version 0.0.1
  */
-public class Projectile extends SuperSmoothMover
+public abstract class Projectile extends SuperSmoothMover
 {
     protected double speed;
     protected int pointX;
@@ -27,6 +27,11 @@ public class Projectile extends SuperSmoothMover
         this.owner = owner;
     }
     
+    /**
+     * This method makes the projectile turn toward the target
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         turnTowards(pointX, pointY);
     }

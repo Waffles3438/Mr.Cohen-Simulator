@@ -32,6 +32,8 @@ public class Janitor extends Person{
             attemptSpill();
         }
         
+        removeTouching(BrokenGlass.class);
+        
         exitRoom();
     }
     

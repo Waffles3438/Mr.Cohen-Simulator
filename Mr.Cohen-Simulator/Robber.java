@@ -29,6 +29,9 @@ public class Robber extends Person{
         super.act();
         if(!hasEntered){
             throwSmokeBomb();
+            for (int i = 0; i < 3; i++) {
+                getWorld().addObject(new BrokenGlass(this, 2, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            }
         }
         
         if(!hasRobbed){
@@ -47,7 +50,11 @@ public class Robber extends Person{
         }
         
         if((this.getX() == 0) && hasRobbed && currentPath.size() == 0){
+            for (int i = 0; i < 3; i++) {
+                getWorld().addObject(new BrokenGlass(this, 5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            }
             getWorld().removeObject(this);
+            
         }
             
     }

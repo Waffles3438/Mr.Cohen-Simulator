@@ -19,6 +19,7 @@ public class MrCohen extends Person
     private Student talkStudent;
     private boolean frozen;
     private boolean brokeToday;
+    private int dazeTimer;
     
     
     /**
@@ -35,6 +36,7 @@ public class MrCohen extends Person
         teachingTimer = -1;
         callingTimer = -1;
         talkingTimer = -1;
+        dazeTimer = -1;
         angerMeter = 0;
         speed = 3;
         talkStudent = null;
@@ -49,6 +51,11 @@ public class MrCohen extends Person
         angerMeter = rageValue;
     }
     
+    /**
+     * Sets up Mr Cohen when added to the world
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         newDay();
     }
@@ -113,6 +120,15 @@ public class MrCohen extends Person
         } else if (talkingTimer == 0) {
             talkingTimer--;
             talkStudent = null;
+            getWorld().removeObject(speech);
+            speech = null;
+            pathFind(360, 55, 0, true);
+        }
+        
+        if (dazeTimer > 0) {
+            dazeTimer--;
+        } else if (dazeTimer == 0) {
+            dazeTimer--;
             getWorld().removeObject(speech);
             speech = null;
             pathFind(360, 55, 0, true);
@@ -195,6 +211,10 @@ public class MrCohen extends Person
         talkStudent = student;
     }
     
+    /**
+     * Cancels the talk request
+     *
+     */
     public void cancelTalk() {
         clearPath();
         talkStudent = null;
@@ -255,6 +275,7 @@ public class MrCohen extends Person
         teachingTimer = -1;
         talkingTimer = -1;
         callingTimer = -1;
+        dazeTimer = -1;
         talkStudent = null;
         setRotation(90);
         frozen = true;
@@ -276,7 +297,7 @@ public class MrCohen extends Person
      * @return Returns true if Mr Cohen is doing nothing
      */
     public boolean doingNothing() {
-        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen && currentPath.size() == 0;
+        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen && currentPath.size() == 0 && dazeTimer == -1;
     }
     
     /**
@@ -287,5 +308,25 @@ public class MrCohen extends Person
         currentComputer.breakComputer();
         currentComputer = new NoComputer();
         ((Simulator)getWorld()).updateComputer(currentComputer);
+    }
+    
+    /**
+     * Dazes Mr Cohen
+     *
+     */
+    public void daze() {
+        cancelTalk();
+        teachingTimer = -1;
+        callingTimer = -1;
+        talkingTimer = -1;
+        getWorld().removeObject(speech);
+        speech = new BubbleSpeech("dazed_bubble.png");
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        dazeTimer = 60;
+        if (talkStudent != null) {
+            talkStudent.cancelTalk();
+        }
+        
+        angerMeter += 5;
     }
 }

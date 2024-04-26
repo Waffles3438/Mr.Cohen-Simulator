@@ -156,7 +156,7 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        if (!transitionToNextDay && hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
+        if ((!transitionToNextDay || chaosMode) && hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
             addObject(new Janitor(), 800, 600);
             janitorCounter--;
         }
@@ -192,7 +192,12 @@ public class Simulator extends World
                     fadeIn = false;
                     fadeOut = true;
                     if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
-                        computer.breakComputer();
+                        if (Greenfoot.getRandomNumber(4) == 3) {
+                            computer.breakComputer();
+                        } else {
+                            computer.takeDamage(20);
+                        }
+                        
                     }
                     cohen.returnToDesk();
                     janitorCounter = 1;
