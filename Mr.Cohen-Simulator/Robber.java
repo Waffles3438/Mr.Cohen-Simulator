@@ -19,6 +19,7 @@ public class Robber extends Person{
     public Robber(){
         super();
         getImage().scale(45, 45);
+        speed = 2.5;
     }
     
     public void act(){

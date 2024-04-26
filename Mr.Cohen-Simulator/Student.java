@@ -401,4 +401,15 @@ public class Student extends Person
             }
         }
     }
+    
+    /**
+     * Sets the frozen state of the person. 
+     * If frozen, students have no interactions
+     *
+     */
+    public void freezeState(boolean state) {
+        frozen = state;
+    }
+    
+    
 }

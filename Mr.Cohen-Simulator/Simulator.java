@@ -54,6 +54,7 @@ public class Simulator extends World
     private Computer computer;
     private int secondsPerDay = 20; 
     //private PauseScreen pause;
+    Robber robber;
     
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
@@ -70,8 +71,8 @@ public class Simulator extends World
      */
     public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType, boolean hasJanitors, boolean hasRobbers)
     {   
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1260, 720, 1); 
+       
+        super(1260, 720, 1, false); 
         GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
@@ -139,8 +140,8 @@ public class Simulator extends World
         addObject(new Label("Mr. Cohen's Computer", 30), 1050, 420);
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
-        
-        setPaintOrder(Fader.class);
+        robber = null;
+        setPaintOrder(Fader.class, Smokescreen.class);
         music.setVolume(PauseScreen.getVolume()/4);
         music.playLoop();
     }
@@ -181,7 +182,7 @@ public class Simulator extends World
             removeObject(projectile);
             computer.takeDamage(10);
         }
-        Robber robber = null;
+        
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
                 Greenfoot.setWorld(finishedWorld);
@@ -210,7 +211,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(1) == 0) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {
@@ -218,16 +219,33 @@ public class Simulator extends World
                         } else {
                             addObject(robber, 10, 510);
                         }
-                        
+                        for(Student student : getObjects(Student.class)){
+                            student.freezeState(true);
+                            student.setLocation(-200, -200);
+                        }
+                        cohen.setLocation(-200, -200);
                     }
                 }
             }
             
             if (robbing) {
-                if (blackScreen.getImage().getTransparency() > 200) {
+                
+                if (robber.getWorld() == null) {
+                    blackScreen.fadeIn();
+                    
+                    if (blackScreen.getImage().getTransparency() >= 254) {
+                        robbing = false;
+                        for(Student student : getObjects(Student.class)){
+                            student.freezeState(false);
+                            student.returnToDesk();
+                        }
+                        cohen.returnToDesk();
+                    }
+                    
+                } else if (blackScreen.getImage().getTransparency() > 150) {
                     blackScreen.fadeOut();
                 }
-            } else if(fadeOut){
+            } else if (fadeOut) {
                 blackScreen.fadeOut();
             }
             
