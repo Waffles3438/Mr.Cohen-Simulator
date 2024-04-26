@@ -104,7 +104,7 @@ public class Student extends Person
     }
     
     // Handles random movement
-    private void handleRandomMovement() {
+    public void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
         }
@@ -141,9 +141,9 @@ public class Student extends Person
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
             if (chance >= 70) {
-                work();
+                if(getWorld() instanceof Simulator) work();
             } else if (chance <= 30) {
-                wasteTime();
+                if(getWorld() instanceof Simulator) wasteTime();
             } else if (chance <= 10) {
                 moveRandom();
             }
@@ -220,7 +220,7 @@ public class Student extends Person
     }
     
     // Random Movement
-    private void moveRandom() {
+    public void moveRandom() {
         atDesk = false;
         if (pathFind(Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(640)+40, 0, true)) {
             randomMoveCounter = 0;
