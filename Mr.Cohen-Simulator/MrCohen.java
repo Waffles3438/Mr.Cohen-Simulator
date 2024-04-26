@@ -224,7 +224,8 @@ public class MrCohen extends Person
             if (!found) {
                 // switch to nothing
                 // and have to check for nothing
-                ((Simulator)getWorld()).updateComputer(new NoComputer());
+                currentComputer = new NoComputer();
+                ((Simulator)getWorld()).updateComputer(currentComputer);
             }
         }
         int brokenCount = 0;
@@ -275,6 +276,16 @@ public class MrCohen extends Person
      * @return Returns true if Mr Cohen is doing nothing
      */
     public boolean doingNothing() {
-        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen;
+        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen && currentPath.size() == 0;
+    }
+    
+    /**
+     * Gets called when Mr Cohen gets robbed. The computer disappears
+     *
+     */
+    public void getRobbed() {
+        currentComputer.breakComputer();
+        currentComputer = new NoComputer();
+        ((Simulator)getWorld()).updateComputer(currentComputer);
     }
 }

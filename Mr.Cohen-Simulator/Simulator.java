@@ -156,7 +156,7 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        if (hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
+        if (!transitionToNextDay && hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
             addObject(new Janitor(), 800, 600);
             janitorCounter--;
         }

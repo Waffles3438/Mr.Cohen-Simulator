@@ -67,6 +67,7 @@ public class PauseScreen extends World
     }
 
     public void act(){
+        Simulator.setMusicVolume((int) volume/8);
         if(menu.isPressed()) {
             menu.setPressedCondition(false);
             Simulator.pauseMusic();
@@ -118,6 +119,7 @@ public class PauseScreen extends World
             volume = previousVolume; 
             volumeSlider.update((double)volume/100.0);
         }
+        
     }
 
     private void getActorImage(Fader blackScreen){
