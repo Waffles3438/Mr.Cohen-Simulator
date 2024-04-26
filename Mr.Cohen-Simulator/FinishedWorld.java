@@ -113,6 +113,7 @@ public class FinishedWorld extends World
             // Add the happy speech bubble
             addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight()+40);
             // Add pizzas to students
+            
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
                 student.happy();

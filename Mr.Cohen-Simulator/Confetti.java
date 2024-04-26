@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Confetti here.
+ * Confetti appears when students do well
  * 
  * @author Dylan Dinesh
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class Confetti extends Actor
 {

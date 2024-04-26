@@ -91,9 +91,11 @@ public class Student extends Person
         
         handleRandomSpeedChange();
         handleRandomMovement();
+        handleReturnToDesk();
         handleWorkBehavior();
-        handleTimers();
+        
         handleTalking();
+        handleTimers();
     }
         
     // Handles random speed changes
@@ -107,15 +109,18 @@ public class Student extends Person
     private void handleRandomMovement() {
         if (currentPath.size() == 0) {
             randomMoveCounter++;
+            if (getWorld() instanceof FinishedWorld) {
+                randomMoveCounter += 10;
+            }
         }
-        
+        System.out.println(randomMoveCounter);
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
             int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
                 moveRandom();
-            } else if (task == 1) {
+            } else if (task == 1 && getWorld() instanceof Simulator) {
                 talkToSomeone();
-            } else if (task == 2) {
+            } else if (task == 2 && getWorld() instanceof Simulator) {
                 talkToCohen();
             }
         }
@@ -123,6 +128,9 @@ public class Student extends Person
     
     // Handles the returning to their desk
     private void handleReturnToDesk() {
+        if (getWorld() instanceof FinishedWorld) {
+            return;
+        }
         if(Greenfoot.getRandomNumber(500) == 0 && !atDesk && !goingBackToWork && doingNothing()){
             goingBackToWork = true;
             pathFind(deskX, deskY, 0, true);
@@ -140,9 +148,9 @@ public class Student extends Person
     private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
-            if (chance >= 70) {
+            if (chance >= 70 && getWorld() instanceof Simulator) {
                 work();
-            } else if (chance <= 30) {
+            } else if (chance <= 30 && getWorld() instanceof Simulator) {
                 wasteTime();
             } else if (chance <= 10) {
                 moveRandom();
