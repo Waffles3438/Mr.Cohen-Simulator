@@ -108,7 +108,7 @@ public class MrCohen extends Person
             if (Greenfoot.getRandomNumber(500) == 0) {
                 talkToStudent();
             } else if (currentComputer.getDurability() == 0 && !brokeToday) {
-                rage(2);
+                rage(1);
                 brokeToday = true;
             }
             
@@ -121,7 +121,7 @@ public class MrCohen extends Person
                 getWorld().removeObject(speech);
             }
             speech = new BubbleSpeech("talk_bubble.png");
-            angerMeter = Math.max(angerMeter-1, 0);
+            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)), 0);
             
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
@@ -298,7 +298,7 @@ public class MrCohen extends Person
             rage(brokenCount);
         } else {
             teachStudents();
-            angerMeter = Math.max(angerMeter-5, 0);
+            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)/2), 0);
         }
     }
     
@@ -316,6 +316,7 @@ public class MrCohen extends Person
         talkingTimer = -1;
         callingTimer = -1;
         dazeTimer = -1;
+        angerMeter = Math.max(0, (int)(angerMeter-Math.sqrt(angerMeter)));
         talkStudent = null;
         setRotation(90);
         frozen = true;

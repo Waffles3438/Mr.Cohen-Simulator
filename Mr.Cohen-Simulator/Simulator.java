@@ -11,7 +11,7 @@ import java.util.List;
  * Edited by Andy Feng <br>
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
- * Music by Pokemon
+ * Music by Pokemon<br>
  * 
  * <a href="https://www.youtube.com/watch?v=m5x_mxPsHx8"> Link to music</a>
  * Music by Nintendo from New Super Mario Bros. Wii
@@ -221,7 +221,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(2) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(5) >= 3) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {

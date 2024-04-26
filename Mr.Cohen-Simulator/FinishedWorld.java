@@ -103,7 +103,7 @@ public class FinishedWorld extends World
         if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
             endingOne();
-        } else if(averageMark >= 65 && averageMark < 85) {
+        } else if(averageMark >= 60 && averageMark < 85) {
             endingTwo();
         } else {
             endingThree();
