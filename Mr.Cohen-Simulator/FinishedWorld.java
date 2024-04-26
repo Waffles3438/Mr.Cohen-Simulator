@@ -87,16 +87,16 @@ public class FinishedWorld extends World
         addObject(new Image(275, 85), 351, 140);
         cohen = new MrCohen(new Alienware(), 0);
         addObject(cohen, 360, 55);
-        
 
         students = (ArrayList<Student>) getObjects(Student.class);
-        if (averageMark >= 65)
-        {
-            addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
+        if (averageMark >= 65) {
+            addObject(new Confetti(getWidth()*2/3, getHeight()), getWidth()/3, getHeight()/2);
+            System.out.println(true);
+        } 
+
+        if(averageMark >= 85){
             music = new GreenfootSound("party.mp3");
-        } else if (averageMark >= 65 && averageMark < 85)
-        {
-            addObject(new Confetti(550, 400), getWidth()/2-250, getHeight()/2+100);
+        } else if (averageMark >= 65 && averageMark < 85) {
             music = new GreenfootSound("mid.mp3");
         } else {
             music = new GreenfootSound("class-did-bad.mp3");
@@ -111,6 +111,9 @@ public class FinishedWorld extends World
         this.chaosMode = chaosMode;
         music.setVolume((int) PauseScreen.getVolume() / 4);
         music.playLoop();
+        
+        addObject(backToMenu, getWidth()*5/6, getHeight() - backToMenu.getImage().getHeight()/2 - 15);
+        addObject(tryAgain, getWidth()*5/6, tryAgain.getImage().getHeight() / 2 + 15);
     }
     
     public void stopped(){
@@ -240,7 +243,6 @@ public class FinishedWorld extends World
                     }
                 }
             }
-    
             added = true;
         }
     }
@@ -286,7 +288,7 @@ public class FinishedWorld extends World
 
         displayText.setValue(stats);
         displayText.setFillColor(Color.WHITE);
-        displayText.setLineColor(Color.BLACK); // Make the text visible
+        displayText.setLineColor(Color.WHITE); // Make the text visible
     }
     
     private void checkButton(){
