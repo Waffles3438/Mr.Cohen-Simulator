@@ -254,7 +254,7 @@ public class MrCohen extends Person
     /**
      * Path finds to worst performing student and talks to them
      */
-    private void talkToStudent() {
+    public void talkToStudent() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         Student target = null;
         for (Student student : students) {
@@ -268,7 +268,6 @@ public class MrCohen extends Person
             talkStudent = target;
             
         }
-        
     }
     
     /**

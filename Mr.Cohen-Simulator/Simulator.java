@@ -278,6 +278,7 @@ public class Simulator extends World
     }
     
     public void stopped(){
+        
         music.pause();
     }
     
