@@ -29,7 +29,7 @@ public class FinishedWorld extends World
     private boolean added = false;
 
     private Image pizza;
-    private Label displayText = new Label("", 25);
+    private Label displayText = new Label("", 31);
     private Button backToMenu = new Button("menu", 3, ".png");
     private Button tryAgain = new Button("tryagain", 3, ".png");
 
@@ -135,8 +135,8 @@ public class FinishedWorld extends World
         overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
         overlay = new Image(overlayImage);
         addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
-        addObject(backToMenu, getWidth()/3, getHeight()/2 + 130);
-        addObject(tryAgain, getWidth()/3, getHeight()/2 - 40);
+        addObject(backToMenu, getWidth()/3 + 635, getHeight() - 75);
+        addObject(tryAgain, getWidth()/3 + 635, 75);
     }
 
     private SimpleTimer timer = new SimpleTimer();
@@ -216,7 +216,7 @@ public class FinishedWorld extends World
 
         displayText.setValue(stats);
         displayText.setFillColor(Color.WHITE);
-        displayText.setLineColor(Color.WHITE); // Make the text visible
+        displayText.setLineColor(Color.BLACK); // Make the text visible
     }
 
     private void checkButton(){
