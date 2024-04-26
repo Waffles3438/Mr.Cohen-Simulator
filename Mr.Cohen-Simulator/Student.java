@@ -91,7 +91,6 @@ public class Student extends Person
         
         handleRandomSpeedChange();
         handleRandomMovement();
-        handleReturnToDesk();
         handleWorkBehavior();
         handleTimers();
         handleTalking();
@@ -141,7 +140,7 @@ public class Student extends Person
     private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
-            if (chance >= 70 && getWorld() instanceof Simulator) {
+            if (chance >= 70) {
                 work();
             } else if (chance <= 30) {
                 wasteTime();
@@ -252,6 +251,39 @@ public class Student extends Person
         }
     }
     
+    public void happy() {
+        if (speech != null) {
+            getWorld().removeObject(speech);
+        }
+        speech = new BubbleSpeech("happy_emotion0.png");
+        
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
+        projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
+    public void feelNothing(){
+        if(speech != null){
+            getWorld().removeObject(speech);
+        }
+        speech = new BubbleSpeech("happy_emotion1.png");
+        
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
+        projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
+    public void sad(){
+        if(speech != null){
+            getWorld().removeObject(speech);
+        }
+        speech = new BubbleSpeech("sad_emotion.png");
+        
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
+        projectedMark -= (double)wasteTimeCounter / iq;
+    }
+    
     // Trys to talk to someone
     private void talkToSomeone() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
@@ -277,7 +309,6 @@ public class Student extends Person
             talkPerson = cohen;
         }
     }
-    
     
     /**
      * Returns true if the student is doing nothing

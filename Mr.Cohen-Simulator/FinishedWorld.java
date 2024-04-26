@@ -16,7 +16,7 @@ public class FinishedWorld extends World
     private final int OVERLAY_HEIGHT = getHeight();
     private final int OVERLAY_X = getWidth() / 3; // X-coordinate to center the overlay horizontally
 
-    private int averageMark;
+    protected int averageMark;
     private int numDays;
     private int studentIQ;
     private int customerSupportChance;
@@ -114,6 +114,7 @@ public class FinishedWorld extends World
             // Add pizzas to students
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
+                student.happy();
                 pizza.getImage().scale(45, 45);
                 addObject(pizza, student.getX(), student.getY() - student.getImage().getHeight() / 2 - pizza.getImage().getHeight() / 2 - 10);
                 studentPizzaMap.put(student, pizza);
@@ -144,11 +145,11 @@ public class FinishedWorld extends World
     private void updateFlashingOverlay() {
         GreenfootImage overlayImage = overlay.getImage();
         // Change overlay color with a flashing effect
-        if(timer.millisElapsed() < 50) return;
-        timer.mark();
-        int red = 128 + Greenfoot.getRandomNumber(128); // Random red color component in the range 128-255
-        int green = 128 + Greenfoot.getRandomNumber(128); // Random green color component in the range 128-255
-        int blue = 128 + Greenfoot.getRandomNumber(128); // Random blue color component in the range 128-255
+        //if(timer.millisElapsed() < 50) return;
+        //timer.mark();
+        int red = 200 + Greenfoot.getRandomNumber(56); // Random red color component in the range 128-255
+        int green = 200 + Greenfoot.getRandomNumber(56); // Random green color component in the range 128-255
+        int blue = 200 + Greenfoot.getRandomNumber(56); // Random blue color component in the range 128-255
         overlayImage.setColor(new Color(red, green, blue, 7)); // Set the color with transparency
         overlayImage.fillRect(0, 0, overlayImage.getWidth(), overlayImage.getHeight()); // Fill the overlay with the color
     }
@@ -173,7 +174,13 @@ public class FinishedWorld extends World
 
     // Meh Ending
     private void endingTwo(){
-
+        if(!added){
+            showStats();
+            for(Student student : students){
+                student.feelNothing();
+            }
+            addObject(sleepy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+        }
     }
 
     // Sad ending
