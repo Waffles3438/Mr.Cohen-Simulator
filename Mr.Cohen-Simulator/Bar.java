@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </p>
  * <div>
  * Reference: <br>
- * https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style
+ * <a href="https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style">Link to art</a>
  * </div>
  * Slider and bar image from vecteezy.com and image edited by Benny Wang<br>
  * 

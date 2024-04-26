@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * <p>
  * An actor that displays an image and/or acts as a hitbox for the people pathfinding
- * 
+ * </p>
  * Wooden banner: 
  * <a href="https://en.ac-illust.com/clip-art/1354907/pixelated-banner-set"> Link to image</a>
  * Image by aimu
@@ -12,6 +13,7 @@ import java.util.HashMap;
  * @author Benny
  * @author Felix
  * @author Andy
+ * @version 0.0.2
  */
 public class Image extends Actor
 {
@@ -62,9 +64,6 @@ public class Image extends Actor
         }
     }
     
-    public void act(){
-    }
-    
     /**
      * Changes the width of the image to x and height is changed according the ratio and x
      *
@@ -89,5 +88,15 @@ public class Image extends Actor
     
     protected void moveDown() {
         setLocation(getX(), getY() + 3);
+    }
+    
+    /**
+     * Makes getOneIntersectingObject "public"
+     *
+     * @param cls The class type
+     * @return Returns the object that intersects this image
+     */
+    public Object getIntersection(Class<?> cls) {
+        return getOneIntersectingObject(cls);
     }
 }

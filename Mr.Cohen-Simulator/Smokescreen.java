@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Smokescreen here.
+ * This is an effect that is used by the robber
  * 
  * @author Evan Xi
  * @version 0.0.1

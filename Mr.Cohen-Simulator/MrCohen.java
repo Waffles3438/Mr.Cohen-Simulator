@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Mr Cohen is the teacher of the class
  * 
  * @author Felix Zhao
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class MrCohen extends Person
 {
