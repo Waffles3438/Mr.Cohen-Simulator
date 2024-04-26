@@ -32,6 +32,7 @@ public class FinishedWorld extends World
     
     private ArrayList<Student> students;
     private HashMap<Student, Image> studentPizzaMap = new HashMap<>();
+    
     /**
      * Constructor for objects of class FinishedWorld.
      * 
@@ -65,7 +66,7 @@ public class FinishedWorld extends World
         addObject(cohen, 360, 55);
         
         students = (ArrayList<Student>) getObjects(Student.class);
-        
+        addObject(new Confetti(), getWidth()/2, getHeight()/2);
         this.averageMark = averageMark;
     }
     
