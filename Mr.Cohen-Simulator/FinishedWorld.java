@@ -76,12 +76,11 @@ public class FinishedWorld extends World
         students = (ArrayList<Student>) getObjects(Student.class);
         if (averageMark >= 85)
         {
-            //addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
-            addObject(new Confetti(400, 400), getWidth()/2-200, getHeight()/2);
+            addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
         }
         if (averageMark >= 65 && averageMark < 85)
         {
-            addObject(new Confetti(400, 400), getWidth()/2-200, getHeight()/2);
+            addObject(new Confetti(550, 400), getWidth()/2-250, getHeight()/2+100);
         }
         this.averageMark = averageMark;
         this.numDays = numDays;
