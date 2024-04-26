@@ -31,7 +31,7 @@ public class FinishedWorld extends World
     private Image pizza;
     private Label displayText = new Label("", 25);
     private Button backToMenu = new Button("menu", 3, ".png");
-    //private Button tryAgain = new Button("");
+    private Button tryAgain = new Button("tryagain", 3, ".png");
     
     private MrCohen cohen;
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
@@ -95,6 +95,7 @@ public class FinishedWorld extends World
         } else {
             endingThree();
         }
+        checkButton();
     }
     
     private void endingOne() {
@@ -127,7 +128,8 @@ public class FinishedWorld extends World
         overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
         overlay = new Image(overlayImage);
         addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
-        addObject(backToMenu, getWidth()/3, getHeight()/3 + 20);
+        addObject(backToMenu, getWidth()/3, getHeight()/2 + 130);
+        addObject(tryAgain, getWidth()/3, getHeight()/2 - 40);
     }
 
     private SimpleTimer timer = new SimpleTimer();
@@ -136,11 +138,10 @@ public class FinishedWorld extends World
         // Change overlay color with a flashing effect
         if(timer.millisElapsed() < 50) return;
         timer.mark();
-        int alpha = Greenfoot.getRandomNumber(6); // Random alpha value for transparency
-        int red = Greenfoot.getRandomNumber(256); // Random red color component
-        int green = Greenfoot.getRandomNumber(256); // Random green color component
-        int blue = Greenfoot.getRandomNumber(256); // Random blue color component
-        overlayImage.setColor(new Color(red, green, blue, alpha)); // Set the color with transparency
+        int red = 128 + Greenfoot.getRandomNumber(128); // Random red color component in the range 128-255
+        int green = 128 + Greenfoot.getRandomNumber(128); // Random green color component in the range 128-255
+        int blue = 128 + Greenfoot.getRandomNumber(128); // Random blue color component in the range 128-255
+        overlayImage.setColor(new Color(red, green, blue, 7)); // Set the color with transparency
         overlayImage.fillRect(0, 0, overlayImage.getWidth(), overlayImage.getHeight()); // Fill the overlay with the color
     }
 
@@ -189,6 +190,13 @@ public class FinishedWorld extends World
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
             Greenfoot.setWorld(new TitleScreen());
+        } 
+        if(Greenfoot.mouseClicked(tryAgain)){
+            Greenfoot.setWorld(new Modifier());
         }
+    }
+    
+    public void stopped(){
+        
     }
 }

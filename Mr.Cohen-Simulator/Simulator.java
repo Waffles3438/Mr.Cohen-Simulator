@@ -189,6 +189,7 @@ public class Simulator extends World
         
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
+                stopped();
                 Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));
             }
             

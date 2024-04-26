@@ -120,6 +120,39 @@ public class Modifier extends World
         
         
     }
+    
+    public Modifier(){
+        super(1260, 720, 1, false);
+        setBackground(background);
+        numDays = 10;
+        chanceOfComputerBreaking = 25;
+        studentIQ = 60;
+        customerSupportRespondChance = 0;
+        chaos = false;
+        computerType = 0;
+        janitors = false;
+        robbers = false;
+        
+        deviceImages = new GreenfootImage[] {
+            new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
+            new GreenfootImage("images/SteamDeck.png"),    // SteamDeck -> 1
+            new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
+            new GreenfootImage("images/Desktop.png")       // Desktop -> 3
+        };
+        
+        computerImage = new Image(deviceImages[computerType]);
+        computerImage.adjustSize(250);
+        janitorImage.getImage().scale(175, 175);
+        robberImage.getImage().scale(140, 140);
+        chaosModeImage.getImage().scale(150, 150);
+        
+        if(firstTime){
+            Button.init();
+            firstTime = false;
+        }
+
+        prepare();
+    }
 
     private int y = 485;
     private int offSetT = 90;
