@@ -258,9 +258,11 @@ public class FinishedWorld extends World
 
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
+            music.pause();
             Greenfoot.setWorld(new TitleScreen());
         } 
         if(Greenfoot.mouseClicked(tryAgain)){
+            music.pause();
             Greenfoot.setWorld(new Modifier());
         }
     }
