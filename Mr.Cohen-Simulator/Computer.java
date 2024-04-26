@@ -97,6 +97,7 @@ public abstract class Computer extends Actor
      *
      */
     public void breakComputer() {
+        if(getWorld() instanceof FinishedWorld) breaking.pause();
         breaking.play();
         durability = 0;
         GreenfootImage blackScreen = new GreenfootImage(100, 100);

@@ -40,6 +40,7 @@ public class FinishedWorld extends World
 
     private ArrayList<Student> students;
     private HashMap<Student, Image> studentPizzaMap = new HashMap<>();
+    private HashMap<Student, String> studentEmotions = new HashMap<>();
 
     /**
      * Constructor for objects of class FinishedWorld.
@@ -79,7 +80,7 @@ public class FinishedWorld extends World
         {
             addObject(new Confetti(getWidth()*2/3, getHeight()), getWidth()/3, getHeight()/2);
         }
-        this.averageMark = averageMark;
+        this.averageMark = 75;
         this.numDays = numDays;
         this.studentIQ = studentIQ;
         this.customerSupportChance = customerSupportChance;
@@ -87,6 +88,9 @@ public class FinishedWorld extends World
         this.hasRobber = hasRobber;
         this.hasJanitor = hasJanitor;
         this.chaosMode = chaosMode;
+        
+        addObject(backToMenu, getWidth()/3 + 635, getHeight() - 75);
+        addObject(tryAgain, getWidth()/3 + 635, 75);
     }
 
     public void act(){
@@ -135,8 +139,6 @@ public class FinishedWorld extends World
         overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
         overlay = new Image(overlayImage);
         addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
-        addObject(backToMenu, getWidth()/3 + 635, getHeight() - 75);
-        addObject(tryAgain, getWidth()/3 + 635, 75);
     }
 
     private SimpleTimer timer = new SimpleTimer();
@@ -173,16 +175,48 @@ public class FinishedWorld extends World
     }
 
     // Meh Ending
-    private void endingTwo(){
-        if(!added){
+    private void endingTwo() {
+        if (!added) {
             showStats();
-            for(Student student : students){
-                student.feelNothing();
-            }
             addObject(displayText, getWidth() * 5/6, getHeight() / 2);
             addObject(sleepy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+    
+            for (Student student : students) {
+                if (!studentEmotions.containsKey(student)) {
+                    int emotion = Greenfoot.getRandomNumber(3); // Generates a random number (0, 1, 2)
+                    if (emotion == 0) {
+                        student.happy();
+                        studentEmotions.put(student, "happy");
+                    } else if (emotion == 1) {
+                        student.feelNothing(); // Assuming there is a 'neutral' method in the Student class
+                        studentEmotions.put(student, "neutral");
+                    } else {
+                        student.sad();
+                        studentEmotions.put(student, "sad");
+                    }
+                } else {
+                    // Apply the stored emotion
+                    switch (studentEmotions.get(student)) {
+                        case "happy":
+                            student.happy();
+                            student.speed = 4;
+                            break;
+                        case "neutral":
+                            student.feelNothing();
+                            student.speed = 1.5; 
+                            break;
+                        case "sad":
+                            student.sad();
+                            student.freezeState(true);
+                            break;
+                    }
+                }
+            }
+    
+            added = true;
         }
     }
+
 
     // Sad ending
     private void endingThree(){
@@ -218,7 +252,7 @@ public class FinishedWorld extends World
         displayText.setFillColor(Color.WHITE);
         displayText.setLineColor(Color.BLACK); // Make the text visible
     }
-
+    
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
             Greenfoot.setWorld(new TitleScreen());
@@ -229,6 +263,6 @@ public class FinishedWorld extends World
     }
 
     public void stopped(){
-
+        
     }
 }
