@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Write a description of class FinishedWorld here.
+ * <p>
+ * This is the finished world which appears after the simulation. Depending on the results, there are different endings
+ * </p>
+ * Edited By Dylan Dinesh
  * 
  * @author Andy Feng
+ * @author Felix Zhao
  * @version 0.0.1 (April 25th, 2024)
  */
 public class FinishedWorld extends World
@@ -201,7 +205,11 @@ public class FinishedWorld extends World
             }
             // Add a flashing overlay
             added = true;
+            addFlashingOverlay();
+            
         }
+        
+        
         
     }
 

@@ -113,7 +113,7 @@ public class Student extends Person
                 randomMoveCounter += 10;
             }
         }
-        System.out.println(randomMoveCounter);
+
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
             int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
@@ -222,7 +222,7 @@ public class Student extends Person
             getWorld().removeObject(speech);
         }
         workTimer = Greenfoot.getRandomNumber(iq)+50;
-        projectedMark += workTimer / 200.0;
+        projectedMark += workTimer / 300.0;
         speech = new BubbleSpeech("study_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }

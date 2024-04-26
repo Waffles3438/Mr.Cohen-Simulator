@@ -199,10 +199,10 @@ public class Simulator extends World
                     fadeIn = false;
                     fadeOut = true;
                     if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
-                        if (Greenfoot.getRandomNumber(4) == 3) {
+                        if (Greenfoot.getRandomNumber(2) == 0) {
                             computer.breakComputer();
                         } else {
-                            computer.takeDamage(20);
+                            computer.takeDamage(50);
                         }
                         
                     }
@@ -221,7 +221,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(2) == 0) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {
