@@ -74,7 +74,7 @@ public class PauseScreen extends World
             Greenfoot.setWorld(titleScreen);
         }
         if(resume.isPressed()) {
-            Simulator.setMusicVolume((int) volume/7);
+            Simulator.setMusicVolume((int) volume/5);
             Computer.setBreakingVolume((int) volume/10);
             MrCohen.setTypingVolume(volume);
             Greenfoot.setWorld(simulator);

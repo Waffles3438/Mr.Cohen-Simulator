@@ -148,7 +148,7 @@ public class Simulator extends World
         if(Modifier.getChaos()){
             music = new GreenfootSound("chaosmode.mp3");
         }
-        music.setVolume((int)PauseScreen.getVolume()/7);
+        music.setVolume((int)PauseScreen.getVolume()/5);
         music.playLoop();
     }
     
