@@ -248,7 +248,7 @@ public class Student extends Person
         
         if(getWorld() instanceof FinishedWorld) return;
         if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(2) == 0) {
-            getWorld().addObject(new Book(this, 8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            getWorld().addObject(new Book(this, 6, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
         }
     }
     
@@ -390,6 +390,9 @@ public class Student extends Person
         cancelTalk();
         atDesk = false;
         goingBackToWork = false;
+        workTimer = -1;
+        wasteTimeCounter = -1;
+        talkingTimer = -1;
         getWorld().removeObject(speech);
         speech = new BubbleSpeech("dazed_bubble.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());

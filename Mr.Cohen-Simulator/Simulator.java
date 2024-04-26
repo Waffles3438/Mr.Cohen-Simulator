@@ -148,7 +148,7 @@ public class Simulator extends World
         if(Modifier.getChaos()){
             music = new GreenfootSound("chaosmode.mp3");
         }
-        music.setVolume(PauseScreen.getVolume()/4);
+        music.setVolume((int)PauseScreen.getVolume()/5);
         music.playLoop();
     }
     
@@ -162,7 +162,7 @@ public class Simulator extends World
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
         pause();
         
-        if (hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
+        if ((!transitionToNextDay || chaosMode) && hasJanitors && (janitorCounter > 0 || chaosMode) && Greenfoot.getRandomNumber(600) == 0) {
             addObject(new Janitor(), 800, 600);
             janitorCounter--;
         }
@@ -199,7 +199,12 @@ public class Simulator extends World
                     fadeIn = false;
                     fadeOut = true;
                     if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
-                        computer.breakComputer();
+                        if (Greenfoot.getRandomNumber(4) == 3) {
+                            computer.breakComputer();
+                        } else {
+                            computer.takeDamage(20);
+                        }
+                        
                     }
                     cohen.returnToDesk();
                     janitorCounter = 1;
@@ -216,7 +221,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(1) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {
@@ -299,6 +304,7 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
+            MrCohen.pauseTyping();
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }

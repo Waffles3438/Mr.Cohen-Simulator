@@ -211,7 +211,7 @@ public class Modifier extends World
         addObject(numOfDaysText, 460, 385);
         chaosMode = new Label("Chaos Mode", 30);
         addObject(chaosMode, 820, 385);
-        studentIQText = new Label("Average Student IQ", 20);
+        studentIQText = new Label("Average Student IQ", 24);
         addObject(studentIQText, 360 - 1260, 390);
         janitorsText = new Label("Has Janitors", 30);
         addObject(janitorsText, 630 - 1260, 385);
@@ -350,7 +350,7 @@ public class Modifier extends World
     private int frame = 1;
     private SimpleTimer timer = new SimpleTimer();
     private void updateImageEffect(){
-        if(timer.millisElapsed() < 600) {
+        if(timer.millisElapsed() < 300) {
            return; 
         }
         timer.mark();

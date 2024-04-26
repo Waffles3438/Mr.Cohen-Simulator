@@ -4,6 +4,9 @@ import java.util.ArrayList;
 /**
  * Mr Cohen is the teacher of the class
  * 
+ * <a href="https://www.youtube.com/watch?v=C6UkVtPGKxc">Link to Sound</a>
+ * Sound by ChilledKeebs
+ * 
  * @author Felix Zhao
  * @version 0.0.1
  */
@@ -19,7 +22,10 @@ public class MrCohen extends Person
     private Student talkStudent;
     private boolean frozen;
     private boolean brokeToday;
+    private int dazeTimer;
     
+    private int actCount = 0;
+    private static GreenfootSound typing = new GreenfootSound("working.mp3");
     
     /**
      * Creates Mr Cohen
@@ -36,6 +42,7 @@ public class MrCohen extends Person
         teachingTimer = -1;
         callingTimer = -1;
         talkingTimer = -1;
+        dazeTimer = -1;
         angerMeter = 0;
         speed = 3;
         talkStudent = null;
@@ -44,17 +51,24 @@ public class MrCohen extends Person
         getImage().scale(66, 66);
         getImage().rotate(-90);
         setRotation(90);
+        typing.setVolume(100);
     }
     
     public MrCohen(int rageValue){
         angerMeter = rageValue;
     }
     
+    /**
+     * Sets up Mr Cohen when added to the world
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         newDay();
     }
     
     public void act() {
+        actCount++;
         if (frozen) {
             return;
         }
@@ -118,6 +132,44 @@ public class MrCohen extends Person
             speech = null;
             pathFind(360, 55, 0, true);
         }
+        
+        if (dazeTimer > 0) {
+            dazeTimer--;
+        } else if (dazeTimer == 0) {
+            dazeTimer--;
+            getWorld().removeObject(speech);
+            speech = null;
+            pathFind(360, 55, 0, true);
+        }
+        if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(60) == 0 && actCount >= 370){
+            typing.play();
+            actCount = 0;
+        } else if(getX() != 360 && getY() != 55){
+            typing.pause();
+        } 
+    }
+    
+    /**
+     * Play typing sounds
+     */
+    public static void playTyping(){
+        typing.play();
+    }
+    
+    /**
+     * Pause typing sounds
+     */
+    public static void pauseTyping(){
+        typing.pause();
+    }
+    
+    /**
+     * Set typing volume
+     * 
+     * @param volume New volume for typing
+     */
+    public static void setTypingVolume(int volume){
+        typing.setVolume(volume);
     }
     
     private void callSupport() {
@@ -196,6 +248,10 @@ public class MrCohen extends Person
         talkStudent = student;
     }
     
+    /**
+     * Cancels the talk request
+     *
+     */
     public void cancelTalk() {
         clearPath();
         talkStudent = null;
@@ -225,7 +281,8 @@ public class MrCohen extends Person
             if (!found) {
                 // switch to nothing
                 // and have to check for nothing
-                ((Simulator)getWorld()).updateComputer(new NoComputer());
+                currentComputer = new NoComputer();
+                ((Simulator)getWorld()).updateComputer(currentComputer);
             }
         }
         int brokenCount = 0;
@@ -255,6 +312,7 @@ public class MrCohen extends Person
         teachingTimer = -1;
         talkingTimer = -1;
         callingTimer = -1;
+        dazeTimer = -1;
         talkStudent = null;
         setRotation(90);
         frozen = true;
@@ -276,6 +334,36 @@ public class MrCohen extends Person
      * @return Returns true if Mr Cohen is doing nothing
      */
     public boolean doingNothing() {
-        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen;
+        return teachingTimer == -1 && callingTimer == -1 && talkingTimer == -1 && talkStudent == null && !frozen && currentPath.size() == 0 && dazeTimer == -1;
+    }
+    
+    /**
+     * Gets called when Mr Cohen gets robbed. The computer disappears
+     *
+     */
+    public void getRobbed() {
+        currentComputer.breakComputer();
+        currentComputer = new NoComputer();
+        ((Simulator)getWorld()).updateComputer(currentComputer);
+    }
+    
+    /**
+     * Dazes Mr Cohen
+     *
+     */
+    public void daze() {
+        cancelTalk();
+        teachingTimer = -1;
+        callingTimer = -1;
+        talkingTimer = -1;
+        getWorld().removeObject(speech);
+        speech = new BubbleSpeech("dazed_bubble.png");
+        getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        dazeTimer = 60;
+        if (talkStudent != null) {
+            talkStudent.cancelTalk();
+        }
+        
+        angerMeter += 5;
     }
 }

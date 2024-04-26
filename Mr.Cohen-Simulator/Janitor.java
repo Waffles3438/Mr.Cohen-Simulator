@@ -32,11 +32,13 @@ public class Janitor extends Person{
             attemptSpill();
         }
         
+        removeTouching(BrokenGlass.class);
+        
         exitRoom();
     }
     
     private void attemptSpill(){
-        if(spillCount < 3){
+        if(spillCount < 3 || ((Simulator)getWorld()).chaosEnabled()){
             if(Greenfoot.getRandomNumber(60) == 1){
                 getWorld().addObject(puddle, this.getX(), this.getY());
                 spillCount++;

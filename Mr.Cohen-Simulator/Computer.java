@@ -32,7 +32,7 @@ public abstract class Computer extends Actor
     
     public Computer() {
         screenY = 0;
-        breaking.setVolume(20);
+        breaking.setVolume(10);
         screenX = 0;
         changeScreenCounter = 120;
     }
@@ -51,10 +51,6 @@ public abstract class Computer extends Actor
      */
     public void act()
     {
-        int screenLeftBound = getX()-screenImage.getWidth()/2;
-        int screenRightBound = getX()+screenImage.getWidth()/2;
-        int screenTopBound = screenY-screenImage.getHeight()/2;
-        int screenBottomBound = screenY+screenImage.getHeight()/2;
         changeScreenCounter--;
         if (durability > 0 && changeScreenCounter <= 0) {
             changeScreenCounter = 180;
