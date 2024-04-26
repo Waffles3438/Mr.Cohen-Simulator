@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs<br>
  * 
- * Edited slightly by Andy Feng
+ * Edited slightly by Andy Feng<br>
  * Art by Benny Wang
  * 
  * @author Felix Zhao 
@@ -70,6 +70,8 @@ public class Student extends Person
           return;
         }
         
+        super.act();
+        
         checkFall();
         if(slippingTimer > 0) {
             setRotation(getRotation() + 5);
@@ -87,15 +89,12 @@ public class Student extends Person
             speech = null;
         }
         
-        super.act();
-      
         handleRandomSpeedChange();
         handleRandomMovement();
         handleReturnToDesk();
         handleWorkBehavior();
         handleTimers();
         handleTalking();
-        
     }
         
     // Handles random speed changes
@@ -142,7 +141,7 @@ public class Student extends Person
     private void handleWorkBehavior() {
         if (atDesk && doingNothing()) {
             double chance = Math.sqrt(Greenfoot.getRandomNumber(Math.max(iq, 1)))*10;
-            if (chance >= 70) {
+            if (chance >= 70 && getWorld() instanceof Simulator) {
                 work();
             } else if (chance <= 30) {
                 wasteTime();
@@ -247,6 +246,7 @@ public class Student extends Person
         wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
         projectedMark -= (double)wasteTimeCounter / iq;
         
+        if(getWorld() instanceof FinishedWorld) return;
         if (((Simulator)getWorld()).chaosEnabled() && randomValue == 0 && Greenfoot.getRandomNumber(2) == 0) {
             getWorld().addObject(new Book(this, 8.5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
         }
@@ -402,4 +402,15 @@ public class Student extends Person
             }
         }
     }
+    
+    /**
+     * Sets the frozen state of the person. 
+     * If frozen, students have no interactions
+     *
+     */
+    public void freezeState(boolean state) {
+        frozen = state;
+    }
+    
+    
 }

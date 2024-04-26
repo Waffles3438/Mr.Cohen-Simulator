@@ -5,9 +5,9 @@ import java.util.List;
  * <p>
  * This is the world that contains the simulation
  * </p>
- * 
+ * <p>
  * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
- * 
+ * </p>
  * Edited by Andy Feng <br>
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
@@ -27,8 +27,8 @@ public class Simulator extends World
     private TitleScreen titleScreen;
     private int dayNumber;
     private int numDays;
-    private int chanceOfComputerBreaking;
-    private int chaosNumber;
+    private int chanceOfComputerBreaking; 
+    private int studentIQ;
     private boolean smoked = false;
     private int customerSupportRespondChance;
     private boolean chaosMode;
@@ -47,16 +47,17 @@ public class Simulator extends World
     private boolean transitionToNextDay = false;
     private boolean fadeIn = false;
     private boolean fadeOut = false;
+    private boolean robbing = false;
     private boolean firstTime = true;
     private FinishedWorld finishedWorld;
     private MrCohen cohen;
     private Computer computer;
     private int secondsPerDay = 20; 
     //private PauseScreen pause;
+    Robber robber;
     
     private ArrayList<Actor> actorList;
     private ArrayList<GreenfootImage> images;
-    private List<Student> average;
     
     private int currentAverageMark;
     
@@ -69,8 +70,8 @@ public class Simulator extends World
      */
     public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType, boolean hasJanitors, boolean hasRobbers)
     {   
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1260, 720, 1); 
+       
+        super(1260, 720, 1, false); 
         GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
@@ -90,6 +91,7 @@ public class Simulator extends World
         this.chaosMode = chaosMode;
         this.hasJanitors = hasJanitors;
         this.hasRobbers = hasRobbers;
+        this.studentIQ = studentIQ;
         
         addObject(day, 1175, 30);
         computerImage = new Image("temp_computer.png");
@@ -102,7 +104,7 @@ public class Simulator extends World
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 132), 354 + i*211, 360 + j*146 + 132);
             } 
         }
-        computer = new Alienware();
+        //computer = new Alienware();
         
         if (startType == 0) {
             computer = new Alienware();
@@ -135,10 +137,11 @@ public class Simulator extends World
         addObject(cohenAngerMeter, 1050, 150);
         addObject(new Label("Computer Durability", 30), 1050, 180);
         addObject(computerDurability, 1050, 210);
+        addObject(new Label("Mr. Cohen's Computer", 30), 1050, 420);
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
-        
-        setPaintOrder(Fader.class);
+        robber = null;
+        setPaintOrder(Fader.class, Smokescreen.class);
         music.setVolume(PauseScreen.getVolume()/4);
         music.playLoop();
     }
@@ -158,11 +161,8 @@ public class Simulator extends World
             janitorCounter--;
         }
 
-        double mark = 0;
-        for (Student student : getObjects(Student.class)) {
-            mark += student.getProjectedMark();
-        }
-        averageProjectedMark.update((int)(mark/9));
+        
+        averageProjectedMark.update(currentAverageMark);
         cohenAngerMeter.update(cohen.getAnger());
         computerDurability.update(computer.getDurability());
         
@@ -175,9 +175,15 @@ public class Simulator extends World
             actsCount = 0;
         }
         
+        Projectile projectile = (Projectile) computerImage.getIntersection(Projectile.class);
+        if (projectile != null) {
+            removeObject(projectile);
+            computer.takeDamage(10);
+        }
+        
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
-                Greenfoot.setWorld(new FinishedWorld(currentAverageMark));
+                Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));
             }
             
             if(fadeIn){
@@ -198,18 +204,46 @@ public class Simulator extends World
                     for (Puddle puddle : getObjects(Puddle.class)) {
                         removeObject(puddle);
                     }
-                }
-            }
-            
-            if(fadeOut){
-                if(firstTime){
                     day.setValue("Day: " + dayCount);
                     for(Student student : getObjects(Student.class)){
                         student.returnToDesk();
                     }
-                    firstTime = false;
                     
+                    if (hasRobbers && Greenfoot.getRandomNumber(1) == 0) {
+                        robbing = true;
+                        robber = new Robber();
+                        if (Greenfoot.getRandomNumber(2) == 0) {
+                            addObject(robber, 10, 220);
+                        } else {
+                            addObject(robber, 10, 510);
+                        }
+                        for(Student student : getObjects(Student.class)){
+                            student.freezeState(true);
+                            student.setLocation(-200, -200);
+                        }
+                        cohen.setLocation(-200, -200);
+                    }
                 }
+            }
+            
+            if (robbing) {
+                
+                if (robber.getWorld() == null) {
+                    blackScreen.fadeIn();
+                    
+                    if (blackScreen.getImage().getTransparency() >= 254) {
+                        robbing = false;
+                        for(Student student : getObjects(Student.class)){
+                            student.freezeState(false);
+                            student.returnToDesk();
+                        }
+                        cohen.returnToDesk();
+                    }
+                    
+                } else if (blackScreen.getImage().getTransparency() > 150) {
+                    blackScreen.fadeOut();
+                }
+            } else if (fadeOut) {
                 blackScreen.fadeOut();
             }
             
@@ -307,15 +341,13 @@ public class Simulator extends World
         music.setVolume(volume);
     }
     
-    private int mark = 0;
     private void calculateAverageMark(){
-        average = (List<Student>) getObjects(Student.class);
-        for(Student studentMark : average){
-            mark += studentMark.projectedMark;
+        int mark = 0;
+        ArrayList<Student> students = (ArrayList<Student>) getObjects(Student.class);
+        for(Student student : students){
+            mark += student.projectedMark;
         }
         currentAverageMark = (int) mark / 9;
-        mark = 0;
-        //System.out.println(currentAverageMark);
     }
 }
 

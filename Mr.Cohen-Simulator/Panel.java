@@ -1,10 +1,11 @@
 import greenfoot.*;
 
 /**
- * the Panel is for the pause world, it is used to "cover" the painting
+ * The Panel is for the pause world, it is used to "cover" the painting
  * on top of the pauseScreen. 
  * 
- * @ param 
+ * @ Author Andy Feng
+ * @ version 0.0.1
  */
 public class Panel extends Actor
 {

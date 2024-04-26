@@ -9,11 +9,11 @@ import java.util.ArrayList;
  * Mr.Cohen starts with.
  * </p>
  * 
- * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a>
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a> <br>
  * Image by VectorStock
  * 
- * @ Author: Andy Feng
- * @ version 1.1 (Apr 6th, 2024)
+ * @author Andy Feng
+ * @version 1.1 (Apr 6th, 2024)
  * 
  */
 public class Modifier extends World
@@ -77,9 +77,9 @@ public class Modifier extends World
     private ArrayList<Image> secondPageImage = new ArrayList<Image>();
 
     /**
-     * contructor of Modifier World
-     * @ parameter
-     * @ TitleScreen titleScreen: tell Modifier world which world it comes
+     * Contructor of Modifier World
+     * 
+     * @titleScreen TitleScreen: tell Modifier world which world it comes
      * from, so that we dont need to constantly creating new world
      */
     public Modifier(TitleScreen titleScreen){
@@ -130,7 +130,7 @@ public class Modifier extends World
      */
     private void prepare()
     {
-        /**
+        /*
          * Old positioning
          * addObject(new Box(), 280, 355);
          * addObject(new Box(), 245 + 390, 355);
@@ -178,20 +178,22 @@ public class Modifier extends World
         addObject(numOfDaysText, 460, 385);
         chaosMode = new Label("Chaos Mode", 30);
         addObject(chaosMode, 820, 385);
-        studentIQText = new Label("Average \n Student IQ", 20);
-        addObject(studentIQText, 360 - 1260, 400);
+        studentIQText = new Label("Average Student IQ", 20);
+        addObject(studentIQText, 360 - 1260, 390);
         janitorsText = new Label("Has Janitors", 30);
         addObject(janitorsText, 630 - 1260, 385);
         robberText = new Label("Has Robbers", 30);
         addObject(robberText, 900 - 1260, 385);
-        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 25);
-        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 390);
-        customerSupportRespond = new Label("customer support \n respond chance", 25);
-        addObject(customerSupportRespond, (820 - 2*1260), 390);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 18);
+        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 385);
+        customerSupportRespond = new Label("Customer Support \n Responce Chance", 18);
+        addObject(customerSupportRespond, (820 - 2*1260), 385);
     }
 
-    //just an act method
-
+    
+    /**
+     * This act method deals with everything that changes in the modifier world
+     */
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateImageEffect();
@@ -402,19 +404,37 @@ public class Modifier extends World
         return numDays;
     }
     
+    /**
+     * Returns simulator world
+     *
+     * @return Returns the simulator world
+     */
     public Simulator getSimulatorWorld(){
         return simulator;
     }
     
+    /**
+     * Returns the chance of laptop breaking
+     *
+     * @return Returns the chance of laptop breaking
+     */
     public static int getchanceOfLaptopBreaking(){
         return chanceOfComputerBreaking;
     }
     
-    public void stopped(){
-        TitleScreen.pauseMusic();
+    /**
+     * Stops main menu music when greenfoot is stopped
+     *
+     */
+    public void stopped() {
+        titleScreen.pauseMusic();
     }
     
-    public void started(){
-        TitleScreen.playMusic();
+    /**
+     * Starts main menu music when greenfoot is started
+     *
+     */
+    public void started() {
+        titleScreen.playMusic();
     }
 }

@@ -1,7 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * The desktop computer
+ * </p>
+ * 
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299">Art from Vectorstock</a>
  * 
  * @author Felix Zhao
  * @version 0.0.1

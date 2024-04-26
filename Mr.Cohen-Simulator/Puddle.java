@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Puddle here.
+ * Puddles will make students slip
  * 
  * @author Evan Xi 
  * @version 0.0.1

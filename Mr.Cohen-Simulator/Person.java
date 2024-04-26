@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * <div>
@@ -12,6 +13,8 @@ import java.util.Deque;
  * </div>
  * Uses A* for path finding. <br>
  * Some information on the algorithm: <a href="https://en.wikipedia.org/wiki/A*_search_algorithm"> A* Star</a><br>
+ * 
+ * Slightly Edited by Andy Feng (path find and avoid algorithm)
  * 
  * @author Felix Zhao
  * @version April 8th 2024
@@ -192,8 +195,18 @@ public abstract class Person extends SuperSmoothMover
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
-                        valid = false;
-                        break; 
+                        List<Image> touchingImages = getIntersectingObjects(Image.class);
+                        for(Image current : touchingImages){
+                            if(current.getImage().getWidth() == 125 && current.getImage().getHeight() == 60 ||
+                               current.getImage().getWidth() == 275 && current.getImage().getHeight() == 85 ||
+                               current.getImage().getWidth() == 75 && current.getImage().getHeight() == 317){
+                                valid = false;
+                                break; 
+                            } else if(current.getImage().toString().substring(17, 26).equals("Pizza.png")
+                             || (current.getImage().getWidth() == 2 * getWorld().getWidth() / 3 && current.getImage().getHeight() == getWorld().getHeight() && current.getImage().getColor().getAlpha() == 10)){
+                                 continue;
+                            }
+                        }
                     }
                 }
                 setLocation(currentX, currentY);

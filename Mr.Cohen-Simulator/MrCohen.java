@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Mr Cohen is the teacher of the class
  * 
  * @author Felix Zhao
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class MrCohen extends Person
 {
@@ -45,6 +45,10 @@ public class MrCohen extends Person
         setRotation(90);
     }
     
+    public MrCohen(int rageValue){
+        angerMeter = rageValue;
+    }
+    
     public void addedToWorld(World w) {
         newDay();
     }
@@ -54,6 +58,7 @@ public class MrCohen extends Person
             return;
         }
         super.act();
+        if(getWorld() instanceof FinishedWorld) return;
         if (teachingTimer > 0) {
             teachingTimer --;
         } else if (teachingTimer == 0) {
@@ -115,6 +120,7 @@ public class MrCohen extends Person
     }
     
     private void callSupport() {
+        if(getWorld() instanceof FinishedWorld) return;
         Simulator world = (Simulator)getWorld();
         callingTimer = 80;
         if (speech != null) {

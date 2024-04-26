@@ -1,6 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
+ * Used for switching pages in the modifier world
+ * 
  * @author Andy Feng
  * @version 1.0.0
  */
