@@ -152,7 +152,7 @@ public class MrCohen extends Person
         if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(600) == 0 && actCount >= 370){
             typing.play();
             actCount = 0;
-        } else if(getX() != 360 && getY() != 55){
+        } else if(getX() != 360 || getY() != 55){
             typing.pause();
         } 
     }
