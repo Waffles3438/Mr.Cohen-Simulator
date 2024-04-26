@@ -11,7 +11,7 @@ import java.util.List;
  * Edited by Andy Feng <br>
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
- * Music by Pokemon
+ * Music by Pokemon<br>
  * 
  * <a href="https://www.youtube.com/watch?v=m5x_mxPsHx8"> Link to music</a>
  * Music by Nintendo from New Super Mario Bros. Wii
@@ -143,10 +143,12 @@ public class Simulator extends World
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         robber = null;
-        setPaintOrder(Fader.class, Smokescreen.class);
+        setPaintOrder(Fader.class, Smokescreen.class, Puddle.class);
         
         if(Modifier.getChaos()){
             music = new GreenfootSound("chaosmode.mp3");
+        } else {
+            music = new GreenfootSound("music.mp3");
         }
         music.setVolume((int)PauseScreen.getVolume()/5);
         music.playLoop();
@@ -201,10 +203,10 @@ public class Simulator extends World
                     fadeIn = false;
                     fadeOut = true;
                     if (Greenfoot.getRandomNumber(100)+1 <= chanceOfComputerBreaking) {
-                        if (Greenfoot.getRandomNumber(4) == 3) {
+                        if (Greenfoot.getRandomNumber(2) == 0) {
                             computer.breakComputer();
                         } else {
-                            computer.takeDamage(20);
+                            computer.takeDamage(50);
                         }
                         
                     }
@@ -223,7 +225,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(5) >= 3) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {

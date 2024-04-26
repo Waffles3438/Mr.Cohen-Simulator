@@ -58,10 +58,7 @@ public class MrCohen extends Person
         typing.setVolume(75);
         anger.setVolume(50);
     }
-    
-    public MrCohen(int rageValue){
-        angerMeter = rageValue;
-    }
+
     
     /**
      * Sets up Mr Cohen when added to the world
@@ -126,8 +123,7 @@ public class MrCohen extends Person
                 getWorld().removeObject(speech);
             }
             speech = new BubbleSpeech("talk_bubble.png");
-            angerMeter = Math.max(angerMeter-1, 0);
-            
+            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)), 0);
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
@@ -139,6 +135,13 @@ public class MrCohen extends Person
             getWorld().removeObject(speech);
             speech = null;
             pathFind(360, 55, 0, true);
+        }
+        
+        Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
+        if(puddle != null){
+            getWorld().removeObject(speech);
+            speech = null;
+            daze();
         }
         
         if (dazeTimer > 0) {
@@ -220,7 +223,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changeProjectedMark(Greenfoot.getRandomNumber(4)+2);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(5)+3);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
@@ -232,7 +235,7 @@ public class MrCohen extends Person
      */
     private void rage(int brokenCount) {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
-        angerMeter += brokenCount;
+        angerMeter += 3*brokenCount;
         for (Student student : students) {
             student.changeProjectedMark(Greenfoot.getRandomNumber(angerMeter/10+5)-(angerMeter/10+5));
             if (angerMeter >= 100) {
@@ -318,11 +321,11 @@ public class MrCohen extends Person
                 brokenCount++;
             }
         }
-        if (brokenCount > 1) {
+        if (brokenCount > 0) {
             rage(brokenCount);
         } else {
             teachStudents();
-            angerMeter = Math.max(angerMeter-5, 0);
+            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)/2), 0);
         }
     }
     
@@ -340,6 +343,7 @@ public class MrCohen extends Person
         talkingTimer = -1;
         callingTimer = -1;
         dazeTimer = -1;
+        angerMeter = Math.max(0, (int)(angerMeter-Math.sqrt(angerMeter)));
         talkStudent = null;
         setRotation(90);
         frozen = true;
