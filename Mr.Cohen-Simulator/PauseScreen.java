@@ -2,11 +2,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
  * <p>
- * The pause screen
+ * The pause screen main which pauses the simulation.
+ * This menu allows the user to go back to the title screen or change the volume
  * </p>
  * 
+ * Editied By: Felix Zhao, Benny Wang & Dylan Dinesh
+ * 
  * @author Andy Feng
- * @version (a version number or a date)
+ * @version 0.0.1
  */
 public class PauseScreen extends World
 {
@@ -25,7 +28,6 @@ public class PauseScreen extends World
     private int previousVolume;
     /**
      * Constructor for objects of class PauseScreen.
-     * 
      */
     public PauseScreen(TitleScreen titleScreen, Simulator simulator, ArrayList<Actor> actors, Fader blackScreen)
     {    
@@ -52,30 +54,30 @@ public class PauseScreen extends World
         Simulator.setMusicVolume((int) volume/8);
         volumeSlider.update((double)volume/100);   
         soundOnImg = new Image("sound_on.png"); 
-        if (soundOn)
-        {
+        if (soundOn) {
             addObject(soundOnImg, getWidth()/2-110, getHeight()-25);
             soundOnImg.getImage().scale(40, 40);
         }
         soundOffImg = new Image("sound_off.png");
-        if (!soundOn)
-        {
+        if (!soundOn) {
             addObject(soundOffImg, getWidth()/2-110, getHeight()-25);
             soundOffImg.getImage().scale(40, 40);
         }
     }
 
     public void act(){
-        if(menu.isPressed()){
+        Simulator.setMusicVolume((int) volume/8);
+        if(menu.isPressed()) {
+            menu.setPressedCondition(false);
             Simulator.pauseMusic();
             TitleScreen.setMusicVolume(25);
             TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
-            menu.setPressedCondition(false);
         }
-        if(resume.isPressed()){
-            Simulator.setMusicVolume((int) volume/4);
+        if(resume.isPressed()) {
+            Simulator.setMusicVolume((int) volume/5);
             Computer.setBreakingVolume((int) volume/10);
+            MrCohen.setTypingVolume(volume);
             Greenfoot.setWorld(simulator);
             resume.setPressedCondition(false);
         }
@@ -116,6 +118,7 @@ public class PauseScreen extends World
             volume = previousVolume; 
             volumeSlider.update((double)volume/100.0);
         }
+        
     }
 
     private void getActorImage(Fader blackScreen){

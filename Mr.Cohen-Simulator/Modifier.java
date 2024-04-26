@@ -9,11 +9,11 @@ import java.util.ArrayList;
  * Mr.Cohen starts with.
  * </p>
  * 
- * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a>
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a> <br>
  * Image by VectorStock
  * 
- * @ Author: Andy Feng
- * @ version 1.1 (Apr 6th, 2024)
+ * @author Andy Feng
+ * @version 1.1 (Apr 6th, 2024)
  * 
  */
 public class Modifier extends World
@@ -77,9 +77,9 @@ public class Modifier extends World
     private ArrayList<Image> secondPageImage = new ArrayList<Image>();
 
     /**
-     * contructor of Modifier World
-     * @ parameter
-     * @ TitleScreen titleScreen: tell Modifier world which world it comes
+     * Contructor of Modifier World
+     * 
+     * @titleScreen TitleScreen: tell Modifier world which world it comes
      * from, so that we dont need to constantly creating new world
      */
     public Modifier(TitleScreen titleScreen){
@@ -120,6 +120,39 @@ public class Modifier extends World
         
         
     }
+    
+    public Modifier(){
+        super(1260, 720, 1, false);
+        setBackground(background);
+        numDays = 10;
+        chanceOfComputerBreaking = 25;
+        studentIQ = 60;
+        customerSupportRespondChance = 0;
+        chaos = false;
+        computerType = 0;
+        janitors = false;
+        robbers = false;
+        
+        deviceImages = new GreenfootImage[] {
+            new GreenfootImage("images/GamingLaptop.png"), // AlienWare -> 0
+            new GreenfootImage("images/SteamDeck.png"),    // SteamDeck -> 1
+            new GreenfootImage("images/MacMini.png"),      // MacMini -> 2
+            new GreenfootImage("images/Desktop.png")       // Desktop -> 3
+        };
+        
+        computerImage = new Image(deviceImages[computerType]);
+        computerImage.adjustSize(250);
+        janitorImage.getImage().scale(175, 175);
+        robberImage.getImage().scale(140, 140);
+        chaosModeImage.getImage().scale(150, 150);
+        
+        if(firstTime){
+            Button.init();
+            firstTime = false;
+        }
+
+        prepare();
+    }
 
     private int y = 485;
     private int offSetT = 90;
@@ -130,7 +163,7 @@ public class Modifier extends World
      */
     private void prepare()
     {
-        /**
+        /*
          * Old positioning
          * addObject(new Box(), 280, 355);
          * addObject(new Box(), 245 + 390, 355);
@@ -178,7 +211,7 @@ public class Modifier extends World
         addObject(numOfDaysText, 460, 385);
         chaosMode = new Label("Chaos Mode", 30);
         addObject(chaosMode, 820, 385);
-        studentIQText = new Label("Average Student IQ", 20);
+        studentIQText = new Label("Average Student IQ", 24);
         addObject(studentIQText, 360 - 1260, 390);
         janitorsText = new Label("Has Janitors", 30);
         addObject(janitorsText, 630 - 1260, 385);
@@ -190,8 +223,10 @@ public class Modifier extends World
         addObject(customerSupportRespond, (820 - 2*1260), 385);
     }
 
-    //just an act method
-
+    
+    /**
+     * This act method deals with everything that changes in the modifier world
+     */
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         updateImageEffect();
@@ -315,7 +350,7 @@ public class Modifier extends World
     private int frame = 1;
     private SimpleTimer timer = new SimpleTimer();
     private void updateImageEffect(){
-        if(timer.millisElapsed() < 600) {
+        if(timer.millisElapsed() < 300) {
            return; 
         }
         timer.mark();
@@ -398,15 +433,51 @@ public class Modifier extends World
         }
     }
     
+    /**
+     * Returns number of days
+     */
     public static int getNumberOfDays(){
         return numDays;
     }
     
+    /**
+     * Returns simulator world
+     *
+     * @return Returns the simulator world
+     */
     public Simulator getSimulatorWorld(){
         return simulator;
     }
     
+    /**
+     * Returns the chance of laptop breaking
+     *
+     * @return Returns the chance of laptop breaking
+     */
     public static int getchanceOfLaptopBreaking(){
         return chanceOfComputerBreaking;
+    }
+    
+    /**
+     * Stops main menu music when greenfoot is stopped
+     *
+     */
+    public void stopped() {
+        titleScreen.pauseMusic();
+    }
+    
+    /**
+     * Starts main menu music when greenfoot is started
+     *
+     */
+    public void started() {
+        titleScreen.playMusic();
+    }
+    
+    /**
+     * Returns chaos
+     */
+    public static boolean getChaos(){
+        return chaos;
     }
 }

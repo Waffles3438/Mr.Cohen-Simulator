@@ -40,7 +40,7 @@ public class NoComputer extends Computer
     }
     
     /**
-     * Does nothing
+     * Does nothing but is needed so the superclass method isn't called
      */
     public void act()
     {
@@ -70,7 +70,7 @@ public class NoComputer extends Computer
      *
      */
     public void breakComputer() {
-        durability = 1;
+        durability = 0;
     }
     
     /**
@@ -81,4 +81,6 @@ public class NoComputer extends Computer
     public void setScreen(GreenfootImage newScreenImage) {
         
     }
+    
+    
 }

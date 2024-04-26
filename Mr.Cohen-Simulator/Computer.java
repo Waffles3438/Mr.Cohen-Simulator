@@ -3,8 +3,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /** 
  * This is the computer class <br>
  * A subclass instance will be seen during the simulation
- * 
- * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0"> Link to Sound</a>
+ * <br>
+ * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0">Link to Sound</a>
  * Sound by Rush
  * 
  * @author Felix Zhao
@@ -32,7 +32,7 @@ public abstract class Computer extends Actor
     
     public Computer() {
         screenY = 0;
-        breaking.setVolume(20);
+        breaking.setVolume(10);
         screenX = 0;
         changeScreenCounter = 120;
     }
@@ -51,10 +51,6 @@ public abstract class Computer extends Actor
      */
     public void act()
     {
-        int screenLeftBound = getX()-screenImage.getWidth()/2;
-        int screenRightBound = getX()+screenImage.getWidth()/2;
-        int screenTopBound = screenY-screenImage.getHeight()/2;
-        int screenBottomBound = screenY+screenImage.getHeight()/2;
         changeScreenCounter--;
         if (durability > 0 && changeScreenCounter <= 0) {
             changeScreenCounter = 180;
@@ -110,6 +106,18 @@ public abstract class Computer extends Actor
     }
     
     /**
+     * Makes the computer take some damage
+     *
+     * @param damage The damage the computer will take
+     */
+    public void takeDamage(int damage) {
+        durability -= damage;
+        if (durability <= 0) {
+            breakComputer();
+        }
+    }
+    
+    /**
      * Fixes the computer with a random durability ranging from 5 to default for the computer
      *
      */
@@ -127,6 +135,11 @@ public abstract class Computer extends Actor
         return maxDurability;
     }
     
+    /**
+     * Sets the volume
+     *
+     * @param volume The new volume
+     */
     public static void setBreakingVolume(int volume){
         breaking.setVolume(volume);
     }

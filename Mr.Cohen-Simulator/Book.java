@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Book here.
+ * This book is a projectile that moves and can hit students and cohen
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version 0.0.1
  */
 public class Book extends Projectile
 {
@@ -19,12 +19,13 @@ public class Book extends Projectile
      */
     public Book(Actor owner, double speed, int pointX, int pointY) {
         super(owner, speed, pointX, pointY);
+        setImage("cs_book.png");
     }
     
     
     /**
-     * Act - do whatever the Book wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Calls the superclass and then checks if it hits a student/cohen.
+     * The book can also break the computer
      */
     public void act()
     {
@@ -33,9 +34,13 @@ public class Book extends Projectile
             return;
         }
         Student student = (Student)getOneIntersectingObject(Student.class);
+        MrCohen cohen = (MrCohen)getOneIntersectingObject(MrCohen.class);
         if (student != null && student != owner) {
             student.changeProjectedMark(-10);
             student.daze();
+            getWorld().removeObject(this);
+        } else if (cohen != null) {
+            cohen.daze();
             getWorld().removeObject(this);
         }
     }

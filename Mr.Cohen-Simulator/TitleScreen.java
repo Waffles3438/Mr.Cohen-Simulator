@@ -4,12 +4,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <p>
  * The title screen of the simulation
  * </p>
- * 
+ * <div>
  * <a href="https://pc98backgrounds.tumblr.com/image/172810349592"> Link to image</a>
  * Image by Tumblr
+ * </div>
+ * <a href="https://www.youtube.com/watch?v=idztNHePKMo"> Link to music</a>
+ * Music by Nintendo from New Super Mario Bros. Wii
  * 
- * <a href="https://www.youtube.com/watch?v=atgjKEgSqSU"> Link to music</a>
- * Music by C418
+ * startMusic method by Andy Feng
  * 
  * @author Benny
  * @version 1.0.0
@@ -40,11 +42,31 @@ public class TitleScreen extends World{
         creditsScreen = new CreditsScreen(this);
         modifier = new Modifier(this);
         mainmenu.setVolume(25);
+    }
+    
+    /**
+     * Stops music when greenfoot is stopped
+     *
+     */
+    public void stopped() {
+        mainmenu.pause();
+    }
+    
+    /**
+     * Starts playing music when greenfoot is started
+     *
+     */
+    public void started() {
         mainmenu.playLoop();
     }
     
+    /**
+     * Checks the button every act
+     *
+     */
     public void act(){
         checkButtons();
+        startMusic();
     }
     
     /**
@@ -63,6 +85,18 @@ public class TitleScreen extends World{
             credits.setPressedCondition(false);
         }
     }
+    private boolean musicStarted = false;
+    
+    /**
+     * Start background music
+     */
+    public void startMusic(){
+        if (!musicStarted) { // Start music only once
+            mainmenu.setVolume(25);
+            mainmenu.playLoop();
+            musicStarted = true;
+        }
+    }
     
     /**
      * Plays music
@@ -78,6 +112,11 @@ public class TitleScreen extends World{
         mainmenu.pause();
     }
     
+    /**
+     * Setter for mainmenu volume
+     * 
+     * @param volume New volume
+     */
     public static void setMusicVolume(int volume){
         mainmenu.setVolume(volume);
     }

@@ -3,6 +3,8 @@ import java.util.List;
 import greenfoot.Actor;
 
 /**
+ * Used for switching pages in the modifier world
+ * 
  * @author Andy Feng
  * @version 1.0.0
  */

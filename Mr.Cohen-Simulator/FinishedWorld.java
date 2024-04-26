@@ -11,11 +11,16 @@ import java.util.HashMap;
  */
 public class FinishedWorld extends World
 {
+    private static final Color OVERLAY_COLOR = new Color(0, 0, 0, 128); // Translucent black color
+    private final int OVERLAY_WIDTH = 2 * getWidth() / 3; // Width covering 2/3 of the screen
+    private final int OVERLAY_HEIGHT = getHeight();
+    private final int OVERLAY_X = getWidth() / 3; // X-coordinate to center the overlay horizontally
+
     private int averageMark;
     private int numDays;
     private int studentIQ;
     private int customerSupportChance;
-    private int laptopBreakingChance;
+    private int computerBreakingChance;
 
     private boolean hasRobber;
     private boolean hasJanitor;
@@ -24,6 +29,9 @@ public class FinishedWorld extends World
     private boolean added = false;
     
     private Image pizza;
+    private Label displayText = new Label("", 25);
+    private Button backToMenu = new Button("menu", 3, ".png");
+    private Button tryAgain = new Button("tryagain", 3, ".png");
     
     private MrCohen cohen;
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
@@ -37,7 +45,7 @@ public class FinishedWorld extends World
      * Constructor for objects of class FinishedWorld.
      * 
      */
-    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int laptopBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
+    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int computerBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1, true); 
@@ -68,11 +76,17 @@ public class FinishedWorld extends World
         students = (ArrayList<Student>) getObjects(Student.class);
         addObject(new Confetti(), getWidth()/2, getHeight()/2);
         this.averageMark = averageMark;
+        this.numDays = numDays;
+        this.studentIQ = studentIQ;
+        this.customerSupportChance = customerSupportChance;
+        this.computerBreakingChance = computerBreakingChance;
+        this.hasRobber = hasRobber;
+        this.hasJanitor = hasJanitor;
+        this.chaosMode = chaosMode;
     }
     
     public void act(){
-        // the average mark the class has determine the type of ending 
-        // of the simulation.
+        // the average mark the class has determine the type of ending of the simulation.
         if(averageMark > 100) averageMark = 100;
         if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
@@ -82,20 +96,54 @@ public class FinishedWorld extends World
         } else {
             endingThree();
         }
+        checkButton();
     }
     
     private void endingOne() {
         if (!added) {
+            showStats();
+            // Add the happy speech bubble
             addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            // Add pizzas to students
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
                 pizza.getImage().scale(45, 45);
                 addObject(pizza, student.getX(), student.getY() - student.getImage().getHeight() / 2 - pizza.getImage().getHeight() / 2 - 10);
                 studentPizzaMap.put(student, pizza);
             }
+            // Add a flashing overlay
+            addFlashingOverlay();
             added = true;
         }
+        // Update pizzas position
         updatePizzas();
+        // Update flashing overlay
+        updateFlashingOverlay();
+        addObject(displayText, getWidth() * 5/6, getHeight() / 2);
+    }
+    
+    private Image overlay;
+    private void addFlashingOverlay() {
+        GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlayImage.setColor(OVERLAY_COLOR);
+        overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlay = new Image(overlayImage);
+        addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
+        addObject(backToMenu, getWidth()/3, getHeight()/2 + 130);
+        addObject(tryAgain, getWidth()/3, getHeight()/2 - 40);
+    }
+
+    private SimpleTimer timer = new SimpleTimer();
+    private void updateFlashingOverlay() {
+        GreenfootImage overlayImage = overlay.getImage();
+        // Change overlay color with a flashing effect
+        if(timer.millisElapsed() < 50) return;
+        timer.mark();
+        int red = 128 + Greenfoot.getRandomNumber(128); // Random red color component in the range 128-255
+        int green = 128 + Greenfoot.getRandomNumber(128); // Random green color component in the range 128-255
+        int blue = 128 + Greenfoot.getRandomNumber(128); // Random blue color component in the range 128-255
+        overlayImage.setColor(new Color(red, green, blue, 7)); // Set the color with transparency
+        overlayImage.fillRect(0, 0, overlayImage.getWidth(), overlayImage.getHeight()); // Fill the overlay with the color
     }
 
     private void updatePizzas() {
@@ -121,6 +169,35 @@ public class FinishedWorld extends World
     }
     
     private void endingThree(){
+        
+    }
+    
+    private void showStats() {
+        String stats = "";
+        stats += "Average mark: " + averageMark + "\n\n";
+        stats += "Number of Days: " + numDays + "\n\n";
+        stats += "Student IQ: " + studentIQ + "\n\n";
+        stats += "Customer Support Chance: " + customerSupportChance + "\n\n";
+        stats += "Computer Breaking Chance: " + computerBreakingChance + "\n\n";
+        stats += "Has Robber: " + hasRobber + "\n\n";
+        stats += "Has Janitor: " + hasJanitor + "\n\n";
+        stats += "Chaos Mode: " + chaosMode + "\n\n";
+        
+        displayText.setValue(stats);
+        displayText.setFillColor(Color.WHITE);
+        displayText.setLineColor(Color.WHITE); // Make the text visible
+    }
+    
+    private void checkButton(){
+        if(Greenfoot.mouseClicked(backToMenu)){
+            Greenfoot.setWorld(new TitleScreen());
+        } 
+        if(Greenfoot.mouseClicked(tryAgain)){
+            Greenfoot.setWorld(new Modifier());
+        }
+    }
+    
+    public void stopped(){
         
     }
 }

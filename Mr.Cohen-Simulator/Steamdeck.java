@@ -1,7 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SteamDeck here.
+ * <p>
+ * The steamdeck computer
+ * </p>
+ * 
+ * <a href="https://www.reddit.com/r/Steam/comments/tvofg5/steam_deck_pixel_art_i_made_this_a_few_days_ago/">Art from reddit</a>
  * 
  * @author Felix
  * @author Andy
