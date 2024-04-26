@@ -191,7 +191,7 @@ public class Simulator extends World
         
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
-                MrCohen.pauseTyping();
+                MrCohen.pauseSounds();
                 stopped();
                 
                 Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));
@@ -308,7 +308,7 @@ public class Simulator extends World
     
     private void pause(){
         if(Greenfoot.mouseClicked(null)){
-            MrCohen.pauseTyping();
+            MrCohen.pauseSounds();
             Greenfoot.setWorld(new PauseScreen(titleScreen, this, actorList, blackScreen));
         }
     }

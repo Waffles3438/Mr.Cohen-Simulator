@@ -172,15 +172,17 @@ public class MrCohen extends Person
     /**
      * Play typing sounds
      */
-    public static void playTyping(){
+    public static void playSounds(){
         typing.play();
+        anger.play();
     }
     
     /**
      * Pause typing sounds
      */
-    public static void pauseTyping(){
+    public static void pauseSounds(){
         typing.pause();
+        anger.pause();
     }
     
     /**
