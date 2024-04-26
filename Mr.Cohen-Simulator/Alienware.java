@@ -55,9 +55,10 @@ public class Alienware extends Computer
     {
         super.act();
         if(Greenfoot.getRandomNumber(100000) <= Modifier.getchanceOfLaptopBreaking() && durability > 0){
+            beep.play();
             setScreen(new GreenfootImage("bsod.png"));
             getWorld().removeObject(mouse);
-            beep.play();
+            //System.out.println("beep!");
             durability = 0;
         }
     }
