@@ -196,6 +196,9 @@ public class MrCohen extends Person
         
     }
     
+    /**
+     * Teaches students increases their grades
+     */
     private void teachStudents() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
@@ -222,6 +225,9 @@ public class MrCohen extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
+    /**
+     * Path finds to worst performing student and talks to them
+     */
     private void talkToStudent() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         Student target = null;

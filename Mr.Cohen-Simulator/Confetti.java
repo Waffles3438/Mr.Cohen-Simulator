@@ -38,7 +38,9 @@ public class Confetti extends Actor
         animateConfetti();
     }
 
-    
+    /**
+     * Animates confetti
+     */
     public void animateConfetti()
     {
         if (animationTimer.millisElapsed() < 100)

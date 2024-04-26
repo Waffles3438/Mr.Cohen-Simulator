@@ -147,6 +147,11 @@ public class PauseScreen extends World
         getBackground().drawImage(image, x, y);
     }
 
+    /**
+     * Returns volume
+     * 
+     * @return Returns volume
+     */
     public static int getVolume()
     {
         return volume;

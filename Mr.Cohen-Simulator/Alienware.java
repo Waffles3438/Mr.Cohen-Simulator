@@ -39,7 +39,7 @@ public class Alienware extends Computer
         setImage(fullImage);
         durability = 80;
         maxDurability = 80;
-        beep.setVolume(20);
+        beep.setVolume(100);
     }
     
     public void addedToWorld(World w) {
@@ -58,6 +58,7 @@ public class Alienware extends Computer
             setScreen(new GreenfootImage("bsod.png"));
             getWorld().removeObject(mouse);
             beep.play();
+            System.out.println("beep!");
             durability = 0;
         }
     }
