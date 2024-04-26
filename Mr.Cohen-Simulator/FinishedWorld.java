@@ -75,11 +75,15 @@ public class FinishedWorld extends World
         
 
         students = (ArrayList<Student>) getObjects(Student.class);
-        /*if (averageMark >= 85)
+        if (averageMark >= 85)
         {
-            addObject(new Confetti(getWidth()/3*2, getHeight()), getWidth()/3, getHeight()/2);
-        }*/
-        this.averageMark = 70;
+            addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
+        }
+        if (averageMark >= 65 && averageMark < 85)
+        {
+            addObject(new Confetti(550, 400), getWidth()/2-250, getHeight()/2+100);
+        }
+        this.averageMark = averageMark;
         this.numDays = numDays;
         this.studentIQ = studentIQ;
         this.customerSupportChance = customerSupportChance;
@@ -109,6 +113,7 @@ public class FinishedWorld extends World
             // Add the happy speech bubble
             addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight()+40);
             // Add pizzas to students
+            
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
                 student.happy();

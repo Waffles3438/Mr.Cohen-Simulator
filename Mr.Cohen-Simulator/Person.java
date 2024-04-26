@@ -200,13 +200,17 @@ public abstract class Person extends SuperSmoothMover
                     if (isTouching(avoidList.get(i))) {
                         ArrayList<Image> touchingImages = (ArrayList<Image>)getIntersectingObjects(Image.class);
                         for(Image current : touchingImages){
-                            if(current.getImage().toString().substring(17, 26).equals("Pizza.png")
-                             || (current.getImage().getWidth() == getWorld().getWidth()*2/3 && current.getImage().getHeight() == getWorld().getHeight() && current.getImage().getColor().getAlpha() == 120)){
+                            
+                            if((current.getImage().toString().substring(17, 26).equals("Pizza.png"))
+                             || (current.getImage().getWidth() == 2 * getWorld().getWidth() / 3 && current.getImage().getHeight() == getWorld().getHeight() && current.getImage().getColor().getAlpha() == 120)){
                                  continue;
                             } else {
                                 valid = false;
                                 break;
                             }
+                        }
+                        if (!valid) {
+                            break;
                         }
                     }
                 }
