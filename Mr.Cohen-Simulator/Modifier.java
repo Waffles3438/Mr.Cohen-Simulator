@@ -400,6 +400,9 @@ public class Modifier extends World
         }
     }
     
+    /**
+     * Returns number of days
+     */
     public static int getNumberOfDays(){
         return numDays;
     }
@@ -436,5 +439,12 @@ public class Modifier extends World
      */
     public void started() {
         titleScreen.playMusic();
+    }
+    
+    /**
+     * Returns chaos
+     */
+    public static boolean getChaos(){
+        return chaos;
     }
 }

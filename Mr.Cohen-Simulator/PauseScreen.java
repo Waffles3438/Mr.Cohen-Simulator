@@ -73,7 +73,6 @@ public class PauseScreen extends World
             TitleScreen.setMusicVolume(25);
             TitleScreen.playMusic();
             Greenfoot.setWorld(titleScreen);
-            
         }
         if(resume.isPressed()) {
             Simulator.setMusicVolume((int) volume/4);
