@@ -251,6 +251,10 @@ public class Student extends Person
         }
     }
     
+    /**
+     * Spawns in a happy face, used in the finished world
+     *
+     */
     public void happy() {
         if (speech != null) {
             getWorld().removeObject(speech);
@@ -258,10 +262,12 @@ public class Student extends Person
         speech = new BubbleSpeech("happy_emotion0.png");
         
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
-        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
-        projectedMark -= (double)wasteTimeCounter / iq;
     }
     
+    /**
+     * Spawns in a sleepy face, used in the finished world
+     *
+     */
     public void feelNothing(){
         if(speech != null){
             getWorld().removeObject(speech);
@@ -269,10 +275,13 @@ public class Student extends Person
         speech = new BubbleSpeech("happy_emotion1.png");
         
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
-        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
-        projectedMark -= (double)wasteTimeCounter / iq;
+        
     }
     
+    /**
+     * Spawns in a sad face, used in the finished world
+     *
+     */
     public void sad(){
         if(speech != null){
             getWorld().removeObject(speech);
@@ -280,8 +289,7 @@ public class Student extends Person
         speech = new BubbleSpeech("sad_emotion.png");
         
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
-        wasteTimeCounter = Greenfoot.getRandomNumber(80)+40;
-        projectedMark -= (double)wasteTimeCounter / iq;
+        
     }
     
     // Trys to talk to someone

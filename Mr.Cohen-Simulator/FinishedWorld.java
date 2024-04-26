@@ -72,6 +72,7 @@ public class FinishedWorld extends World
         addObject(new Image(275, 85), 351, 140);
         cohen = new MrCohen(new Alienware(), 0);
         addObject(cohen, 360, 55);
+        
 
         students = (ArrayList<Student>) getObjects(Student.class);
         if (averageMark >= 85)
@@ -110,7 +111,7 @@ public class FinishedWorld extends World
         if (!added) {
             showStats();
             // Add the happy speech bubble
-            addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight()+40);
             // Add pizzas to students
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
@@ -143,15 +144,17 @@ public class FinishedWorld extends World
 
     private SimpleTimer timer = new SimpleTimer();
     private void updateFlashingOverlay() {
-        GreenfootImage overlayImage = overlay.getImage();
-        // Change overlay color with a flashing effect
-        //if(timer.millisElapsed() < 50) return;
-        //timer.mark();
+        GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        //Change overlay color with a flashing effect
+        if(timer.millisElapsed() < 100) return;
+        timer.mark();
         int red = 200 + Greenfoot.getRandomNumber(56); // Random red color component in the range 128-255
         int green = 200 + Greenfoot.getRandomNumber(56); // Random green color component in the range 128-255
         int blue = 200 + Greenfoot.getRandomNumber(56); // Random blue color component in the range 128-255
-        overlayImage.setColor(new Color(red, green, blue, 7)); // Set the color with transparency
+        
+        overlayImage.setColor(new Color(red, green, blue, 120)); // Set the color with transparency
         overlayImage.fillRect(0, 0, overlayImage.getWidth(), overlayImage.getHeight()); // Fill the overlay with the color
+        overlay.setImage(overlayImage);
     }
 
     private void updatePizzas() {
@@ -186,12 +189,14 @@ public class FinishedWorld extends World
     // Sad ending
     private void endingThree(){
         if (!added) {
+            addObject(displayText, getWidth() * 5/6, getHeight() / 2);
             showStats();
             // Add the happy speech bubble
-            addObject(rage, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            addObject(rage, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight()+40);
             // Add pizzas to students
             for (Student student : students) {
                 student.freezeState(true);
+                student.sad();
             }
             // Add a flashing overlay
             added = true;

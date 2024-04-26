@@ -64,6 +64,9 @@ public class MrCohen extends Person
      * @param w The world
      */
     public void addedToWorld(World w) {
+        if (w instanceof FinishedWorld) {
+            return;
+        }
         newDay();
     }
     
