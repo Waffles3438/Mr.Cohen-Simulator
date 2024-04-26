@@ -28,6 +28,7 @@ public class MrCohen extends Person
      * @Param startType The number that coresponds to the computer
      */
     public MrCohen(Computer computer, int startType) {
+        setImage("mrcohen.png");
         computerList = new Computer[]{new Alienware(),  new Steamdeck(), new MacMini(), new Desktop()};
         currentComputer = computer;
         startingComputer = computer;

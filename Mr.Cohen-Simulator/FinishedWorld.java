@@ -20,7 +20,7 @@ public class FinishedWorld extends World
     private int numDays;
     private int studentIQ;
     private int customerSupportChance;
-    private int laptopBreakingChance;
+    private int computerBreakingChance;
 
     private boolean hasRobber;
     private boolean hasJanitor;
@@ -29,6 +29,9 @@ public class FinishedWorld extends World
     private boolean added = false;
     
     private Image pizza;
+    private Label displayText = new Label("", 25);
+    private Button backToMenu = new Button("menu", 3, ".png");
+    //private Button tryAgain = new Button("");
     
     private MrCohen cohen;
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
@@ -41,7 +44,7 @@ public class FinishedWorld extends World
      * Constructor for objects of class FinishedWorld.
      * 
      */
-    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int laptopBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
+    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int computerBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1, true); 
@@ -72,6 +75,13 @@ public class FinishedWorld extends World
         students = (ArrayList<Student>) getObjects(Student.class);
         
         this.averageMark = averageMark;
+        this.numDays = numDays;
+        this.studentIQ = studentIQ;
+        this.customerSupportChance = customerSupportChance;
+        this.computerBreakingChance = computerBreakingChance;
+        this.hasRobber = hasRobber;
+        this.hasJanitor = hasJanitor;
+        this.chaosMode = chaosMode;
     }
     
     public void act(){
@@ -89,6 +99,7 @@ public class FinishedWorld extends World
     
     private void endingOne() {
         if (!added) {
+            showStats();
             // Add the happy speech bubble
             addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
             // Add pizzas to students
@@ -106,6 +117,7 @@ public class FinishedWorld extends World
         updatePizzas();
         // Update flashing overlay
         updateFlashingOverlay();
+        addObject(displayText, getWidth() * 5/6, getHeight() / 2);
     }
     
     private Image overlay;
@@ -115,12 +127,16 @@ public class FinishedWorld extends World
         overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
         overlay = new Image(overlayImage);
         addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
+        addObject(backToMenu, getWidth()/3, getHeight()/3 + 20);
     }
 
+    private SimpleTimer timer = new SimpleTimer();
     private void updateFlashingOverlay() {
         GreenfootImage overlayImage = overlay.getImage();
         // Change overlay color with a flashing effect
-        int alpha = Greenfoot.getRandomNumber(5); // Random alpha value for transparency
+        if(timer.millisElapsed() < 50) return;
+        timer.mark();
+        int alpha = Greenfoot.getRandomNumber(6); // Random alpha value for transparency
         int red = Greenfoot.getRandomNumber(256); // Random red color component
         int green = Greenfoot.getRandomNumber(256); // Random green color component
         int blue = Greenfoot.getRandomNumber(256); // Random blue color component
@@ -154,7 +170,25 @@ public class FinishedWorld extends World
         
     }
     
-    private void showStats(){
+    private void showStats() {
+        String stats = "";
+        stats += "Average mark: " + averageMark + "\n\n";
+        stats += "Number of Days: " + numDays + "\n\n";
+        stats += "Student IQ: " + studentIQ + "\n\n";
+        stats += "Customer Support Chance: " + customerSupportChance + "\n\n";
+        stats += "Computer Breaking Chance: " + computerBreakingChance + "\n\n";
+        stats += "Has Robber: " + hasRobber + "\n\n";
+        stats += "Has Janitor: " + hasJanitor + "\n\n";
+        stats += "Chaos Mode: " + chaosMode + "\n\n";
         
+        displayText.setValue(stats);
+        displayText.setFillColor(Color.WHITE);
+        displayText.setLineColor(Color.WHITE); // Make the text visible
+    }
+    
+    private void checkButton(){
+        if(Greenfoot.mouseClicked(backToMenu)){
+            Greenfoot.setWorld(new TitleScreen());
+        }
     }
 }
