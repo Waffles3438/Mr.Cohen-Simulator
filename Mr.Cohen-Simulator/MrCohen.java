@@ -58,10 +58,7 @@ public class MrCohen extends Person
         typing.setVolume(75);
         anger.setVolume(50);
     }
-    
-    public MrCohen(int rageValue){
-        angerMeter = rageValue;
-    }
+
     
     /**
      * Sets up Mr Cohen when added to the world
@@ -127,7 +124,6 @@ public class MrCohen extends Person
             }
             speech = new BubbleSpeech("talk_bubble.png");
             angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)), 0);
-            
             getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
         }
         
@@ -143,7 +139,6 @@ public class MrCohen extends Person
         
         Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
         if(puddle != null){
-            
             getWorld().removeObject(speech);
             speech = null;
             daze();
@@ -160,8 +155,8 @@ public class MrCohen extends Person
         if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(600) == 0 && actCount >= 370){
             typing.play();
             actCount = 0;
-        } else if(getX() != 360 && getY() != 55){
-            typing.pause();
+        } else if (getX() != 360 && getY() != 55){
+            typing.stop();
         } 
     }
     
@@ -228,7 +223,7 @@ public class MrCohen extends Person
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
         for (Student student : students) {
-            student.changeProjectedMark(Greenfoot.getRandomNumber(4)+2);
+            student.changeProjectedMark(Greenfoot.getRandomNumber(5)+3);
         }
         teachingTimer = 80;
         speech = new BubbleSpeech("study_bubble.png");
