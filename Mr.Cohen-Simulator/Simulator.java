@@ -220,7 +220,7 @@ public class Simulator extends World
                         student.returnToDesk();
                     }
                     
-                    if (hasRobbers && Greenfoot.getRandomNumber(1) == 0) {
+                    if (hasRobbers && Greenfoot.getRandomNumber(3) == 0) {
                         robbing = true;
                         robber = new Robber();
                         if (Greenfoot.getRandomNumber(2) == 0) {
