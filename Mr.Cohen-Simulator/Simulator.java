@@ -13,6 +13,9 @@ import java.util.List;
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
  * Music by Pokemon
  * 
+ * <a href="https://www.youtube.com/watch?v=m5x_mxPsHx8"> Link to music</a>
+ * Music by Nintendo from New Super Mario Bros. Wii
+ * 
  * @author Felix Zhao
  * @version 0.0.1 April 11th, 2024
  */
@@ -70,7 +73,6 @@ public class Simulator extends World
      */
     public Simulator(TitleScreen titleScreen, int days, int chanceOfComputerBreaking, int studentIQ, int customerSupportRespondChance, boolean chaosMode, int startType, boolean hasJanitors, boolean hasRobbers)
     {   
-       
         super(1260, 720, 1, false); 
         GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
@@ -78,7 +80,7 @@ public class Simulator extends World
         image.drawImage(new GreenfootImage("school_image.png"), 0, 0);
         image.setColor(new Color(0, 0, 0));
         image.fillRect(getWidth()/3*2, 0, 5, getHeight());
-        image.fillRect(getWidth()/3*2, getHeight()/5*3, getWidth()/3, 5);
+        image.fillRect(getWidth()/3*2, getHeight()/5*3-50, getWidth()/3, 5);
         setBackground(image);
         this.titleScreen = titleScreen;
         this.numDays = days;
@@ -142,6 +144,10 @@ public class Simulator extends World
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         robber = null;
         setPaintOrder(Fader.class, Smokescreen.class);
+        
+        if(Modifier.getChaos()){
+            music = new GreenfootSound("chaosmode.mp3");
+        }
         music.setVolume(PauseScreen.getVolume()/4);
         music.playLoop();
     }

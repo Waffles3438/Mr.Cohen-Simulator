@@ -11,6 +11,11 @@ import java.util.HashMap;
  */
 public class FinishedWorld extends World
 {
+    private static final Color OVERLAY_COLOR = new Color(0, 0, 0, 128); // Translucent black color
+    private final int OVERLAY_WIDTH = 2 * getWidth() / 3; // Width covering 2/3 of the screen
+    private final int OVERLAY_HEIGHT = getHeight();
+    private final int OVERLAY_X = getWidth() / 3; // X-coordinate to center the overlay horizontally
+
     private int averageMark;
     private int numDays;
     private int studentIQ;
@@ -70,8 +75,7 @@ public class FinishedWorld extends World
     }
     
     public void act(){
-        // the average mark the class has determine the type of ending 
-        // of the simulation.
+        // the average mark the class has determine the type of ending of the simulation.
         if(averageMark > 100) averageMark = 100;
         if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
@@ -85,16 +89,43 @@ public class FinishedWorld extends World
     
     private void endingOne() {
         if (!added) {
+            // Add the happy speech bubble
             addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            // Add pizzas to students
             for (Student student : students) {
                 Image pizza = new Image("Pizza.png");
                 pizza.getImage().scale(45, 45);
                 addObject(pizza, student.getX(), student.getY() - student.getImage().getHeight() / 2 - pizza.getImage().getHeight() / 2 - 10);
                 studentPizzaMap.put(student, pizza);
             }
+            // Add a flashing overlay
+            addFlashingOverlay();
             added = true;
         }
+        // Update pizzas position
         updatePizzas();
+        // Update flashing overlay
+        updateFlashingOverlay();
+    }
+    
+    private Image overlay;
+    private void addFlashingOverlay() {
+        GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlayImage.setColor(OVERLAY_COLOR);
+        overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlay = new Image(overlayImage);
+        addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2); // Add the overlay at the center of the screen
+    }
+
+    private void updateFlashingOverlay() {
+        GreenfootImage overlayImage = overlay.getImage();
+        // Change overlay color with a flashing effect
+        int alpha = Greenfoot.getRandomNumber(5); // Random alpha value for transparency
+        int red = Greenfoot.getRandomNumber(256); // Random red color component
+        int green = Greenfoot.getRandomNumber(256); // Random green color component
+        int blue = Greenfoot.getRandomNumber(256); // Random blue color component
+        overlayImage.setColor(new Color(red, green, blue, alpha)); // Set the color with transparency
+        overlayImage.fillRect(0, 0, overlayImage.getWidth(), overlayImage.getHeight()); // Fill the overlay with the color
     }
 
     private void updatePizzas() {
@@ -120,6 +151,10 @@ public class FinishedWorld extends World
     }
     
     private void endingThree(){
+        
+    }
+    
+    private void showStats(){
         
     }
 }

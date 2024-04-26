@@ -6,6 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Editied by Andy Feng
  * 
  * @author Felix Zhao
+ * @author Andy Feng
  * @version (a version number or a date)
  * 
  */
