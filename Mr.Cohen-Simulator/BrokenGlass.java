@@ -6,12 +6,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Broken glass is caused by robbers breaking in through the windows
  * </p>
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Felix Zhao
+ * @version 0.0.1
  */
 public class BrokenGlass extends Projectile
 {
-    
+    private double maxDistacne;
     
     /**
      * BrokenGlass Constructor
@@ -23,13 +23,34 @@ public class BrokenGlass extends Projectile
      */
     public BrokenGlass(Actor owner , double speed, int pointX, int pointY) {
         super(owner, speed, pointX, pointY);
+        maxDistacne = Greenfoot.getRandomNumber(400)+20;
+        setImage("broken_glass.png");
     }
+    
     /**
-     * Act - do whatever the BrokenGlass wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Calls super class act and then checks for students / cohen.
+     * This projectile also stops moving after a certain distance
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
+        maxDistacne -= speed;
+        if (maxDistacne <= 0 && !isTouching(Image.class)) {
+            speed = 0;
+        }
+        
+        if (getWorld() == null) {
+            return;
+        }
+        Student student = (Student)getOneIntersectingObject(Student.class);
+        MrCohen cohen = (MrCohen)getOneIntersectingObject(MrCohen.class);
+        if (student != null && student != owner) {
+            student.changeProjectedMark(-10);
+            student.daze();
+            getWorld().removeObject(this);
+        } else if (cohen != null) {
+            cohen.daze();
+            getWorld().removeObject(this);
+        }
     }
 }

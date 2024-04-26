@@ -98,6 +98,9 @@ public abstract class Person extends SuperSmoothMover
         
         if (speech != null) {
             speech.setLocation(getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+            if (speech.getY() < 40) {
+                speech.setLocation(getX()+getImage().getWidth()/2, getY()-getImage().getHeight()+40);
+            }
         }
     }
     
@@ -195,16 +198,14 @@ public abstract class Person extends SuperSmoothMover
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
-                        List<Image> touchingImages = getIntersectingObjects(Image.class);
+                        ArrayList<Image> touchingImages = (ArrayList<Image>)getIntersectingObjects(Image.class);
                         for(Image current : touchingImages){
-                            if(current.getImage().getWidth() == 125 && current.getImage().getHeight() == 60 ||
-                               current.getImage().getWidth() == 275 && current.getImage().getHeight() == 85 ||
-                               current.getImage().getWidth() == 75 && current.getImage().getHeight() == 317){
-                                valid = false;
-                                break; 
-                            } else if(current.getImage().toString().substring(17, 26).equals("Pizza.png")
+                            if(current.getImage().toString().substring(17, 26).equals("Pizza.png")
                              || (current.getImage().getWidth() == 2 * getWorld().getWidth() / 3 && current.getImage().getHeight() == getWorld().getHeight() && current.getImage().getColor().getAlpha() == 10)){
                                  continue;
+                            } else {
+                                valid = false;
+                                break;
                             }
                         }
                     }
@@ -273,7 +274,7 @@ public abstract class Person extends SuperSmoothMover
     
 
     
-        /**
+    /**
      * Clears the current path of the person
      * Useful when you want to stop a person
      *
@@ -310,6 +311,10 @@ class Cell {
     private int parent_i, parent_j;
     private double f, g, h;
     
+    /**
+     * Creates a new cell for pathfinding
+     *
+     */
     public Cell() {
         this.parent_i = -1;
         this.parent_j = -1;

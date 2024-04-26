@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
+import java.util.ArrayList;
+
 /**
  * The robber will rob Mr Cohen's current computer
  * 
@@ -20,12 +22,21 @@ public class Robber extends Person{
         super();
         getImage().scale(45, 45);
         speed = 2.5;
+        getImage().rotate(90);
     }
     
     public void act(){
         super.act();
         if(!hasEntered){
             throwSmokeBomb();
+            int shardsCap = 3;
+            
+            if (((Simulator)getWorld()).chaosEnabled()) {
+                shardsCap *= 2;
+            }
+            for (int i = 0; i < shardsCap; i++) {
+                getWorld().addObject(new BrokenGlass(this, 2, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            }
         }
         
         if(!hasRobbed){
@@ -34,12 +45,25 @@ public class Robber extends Person{
         }    
         
         if(this.getX() == 360){
+            ArrayList<MrCohen> cohenList = (ArrayList<MrCohen>)getWorld().getObjects(MrCohen.class);
+            if (cohenList.size() > 0) {
+                cohenList.get(0).getRobbed();
+            }
+            
             sleepFor(100);
             chooseRandomWindow();
         }
         
         if((this.getX() == 0) && hasRobbed && currentPath.size() == 0){
+            int shardsCap = 3;
+            if (((Simulator)getWorld()).chaosEnabled()) {
+                shardsCap *= 2;
+            }
+            for (int i = 0; i < shardsCap; i++) {
+                getWorld().addObject(new BrokenGlass(this, 5, Greenfoot.getRandomNumber(720)+60, Greenfoot.getRandomNumber(600)+60), getX(), getY());
+            }
             getWorld().removeObject(this);
+            
         }
             
     }
