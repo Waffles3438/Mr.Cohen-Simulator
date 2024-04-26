@@ -265,6 +265,9 @@ public class Modifier extends World
         chaos = chaosModeCheckBox.updateBoolean();
     }
 
+    /**
+     * Start from the first page
+     */
     protected void startFromFirstPage(){
         if(flipTimes > 0){
             addObject(rightFlipButton, 1190,360);
@@ -331,6 +334,9 @@ public class Modifier extends World
         }
     }
     
+    /**
+     * Change the computer to the next computer
+     */
     private void changeComputerType(boolean next) {
         if (next) {
             computerType = (computerType + 1) % deviceImages.length; // Move to next type, cycle to 0 if at the end
@@ -340,6 +346,9 @@ public class Modifier extends World
         updateDeviceImage();
     }
     
+    /**
+     * Updates device image
+     */
     private void updateDeviceImage() {
         GreenfootImage chosenDeviceImage = deviceImages[computerType];
         computerImage.setImage(chosenDeviceImage);

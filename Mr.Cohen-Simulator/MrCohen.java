@@ -7,6 +7,9 @@ import java.util.ArrayList;
  * <a href="https://www.youtube.com/watch?v=C6UkVtPGKxc">Link to Sound</a>
  * Sound by ChilledKeebs
  * 
+ * <a href="https://www.youtube.com/watch?v=vvxSErVEQGA">Link to Sound</a>
+ * Sound by Meme Archive
+ * 
  * @author Felix Zhao
  * @version 0.0.1
  */
@@ -26,6 +29,7 @@ public class MrCohen extends Person
     
     private int actCount = 0;
     private static GreenfootSound typing = new GreenfootSound("working.mp3");
+    private static GreenfootSound anger = new GreenfootSound("anger.mp3");
     
     /**
      * Creates Mr Cohen
@@ -51,7 +55,8 @@ public class MrCohen extends Person
         getImage().scale(66, 66);
         getImage().rotate(-90);
         setRotation(90);
-        typing.setVolume(100);
+        typing.setVolume(75);
+        anger.setVolume(50);
     }
     
     public MrCohen(int rageValue){
@@ -144,12 +149,21 @@ public class MrCohen extends Person
             speech = null;
             pathFind(360, 55, 0, true);
         }
-        if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(60) == 0 && actCount >= 370){
+        if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(600) == 0 && actCount >= 370){
             typing.play();
             actCount = 0;
         } else if(getX() != 360 && getY() != 55){
             typing.pause();
         } 
+    }
+    
+    /**
+     * Set volume
+     * 
+     * @param Volume New volume
+     */
+    public static void setAngerVolume(int volume){
+        anger.setVolume(volume);
     }
     
     /**
@@ -199,6 +213,9 @@ public class MrCohen extends Person
         
     }
     
+    /**
+     * Teaches students increases their grades
+     */
     private void teachStudents() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         
@@ -210,6 +227,9 @@ public class MrCohen extends Person
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
     }
     
+    /**
+     * Makes Mr. Cohen rage
+     */
     private void rage(int brokenCount) {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         angerMeter += 3*brokenCount;
@@ -223,8 +243,12 @@ public class MrCohen extends Person
         teachingTimer = 80;
         speech = new BubbleSpeech("angry_emotion.png");
         getWorld().addObject(speech, getX()+getImage().getWidth()/2, getY()-getImage().getHeight());
+        anger.play();
     }
     
+    /**
+     * Path finds to worst performing student and talks to them
+     */
     private void talkToStudent() {
         ArrayList<Student> students = (ArrayList<Student>)getWorld().getObjects(Student.class);
         Student target = null;

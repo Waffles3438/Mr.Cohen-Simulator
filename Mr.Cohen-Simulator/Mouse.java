@@ -61,6 +61,9 @@ public class Mouse extends SuperSmoothMover
         }
     }
     
+    /**
+     * Finds a random location to go to
+     */
     private void checkAndInitiateMovement() {
         if (mouseMoveCounter >= mouseMoveCooldown) {
             targetX = Greenfoot.getRandomNumber(rightBound - leftBound) + leftBound;
@@ -73,6 +76,9 @@ public class Mouse extends SuperSmoothMover
         }
     }
     
+    /**
+     * Goes to random location
+     */
     private void executeMovement() {
         double distance = Math.hypot(targetX - getX(), targetY - getY());
         if (mouseSpeed >= distance) {
