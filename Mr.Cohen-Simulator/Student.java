@@ -113,7 +113,7 @@ public class Student extends Person
                 randomMoveCounter += 10;
             }
         }
-        System.out.println(randomMoveCounter);
+        //System.out.println(randomMoveCounter);
         if (randomMoveCounter >= randomMoveCooldown && !goingBackToWork && doingNothing()) {
             int task = Greenfoot.getRandomNumber(3);
             if (task == 0) {
