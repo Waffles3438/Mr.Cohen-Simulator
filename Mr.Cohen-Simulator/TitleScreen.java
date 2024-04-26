@@ -11,6 +11,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <a href="https://www.youtube.com/watch?v=atgjKEgSqSU"> Link to music</a>
  * Music by C418
  * 
+ * startMusic method by Andy Feng
+ * 
  * @author Benny
  * @version 1.0.0
  */
@@ -40,11 +42,12 @@ public class TitleScreen extends World{
         creditsScreen = new CreditsScreen(this);
         modifier = new Modifier(this);
         mainmenu.setVolume(25);
-        mainmenu.playLoop();
+        //mainmenu.playLoop();
     }
     
     public void act(){
         checkButtons();
+        startMusic();
     }
     
     /**
@@ -61,6 +64,14 @@ public class TitleScreen extends World{
             mainmenu.setVolume(15);
             Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);
+        }
+    }
+    private boolean musicStarted = false;
+    public void startMusic(){
+        if (!musicStarted) { // Start music only once
+            mainmenu.setVolume(25);
+            mainmenu.playLoop();
+            musicStarted = true;
         }
     }
     
