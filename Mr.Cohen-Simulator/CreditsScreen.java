@@ -35,10 +35,16 @@ public class CreditsScreen extends World
         }
     }
     
+    /**
+     * Stop music when paused
+     */
     public void stopped(){
         TitleScreen.pauseMusic();
     }
     
+    /**
+     * Play music when started
+     */
     public void started(){
         TitleScreen.playMusic();
     }

@@ -51,6 +51,9 @@ public abstract class Person extends SuperSmoothMover
         speed = a;
     }
     
+    /**
+     * Randomly makes them slower or faster
+     */
     public void slowerOrFaster(){
         if(Greenfoot.getRandomNumber(2) == 0){
             speed = speed - Math.random();

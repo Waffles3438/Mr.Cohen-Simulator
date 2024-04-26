@@ -37,6 +37,9 @@ public class Janitor extends Person{
         exitRoom();
     }
     
+    /**
+     * Trys to make a puddle
+     */
     private void attemptSpill(){
         if(spillCount < 3 || ((Simulator)getWorld()).chaosEnabled()){
             if(Greenfoot.getRandomNumber(60) == 1){
@@ -46,6 +49,9 @@ public class Janitor extends Person{
         }
     }
     
+    /**
+     * Cleans floor
+     */
     private void cleanFloor(){
         int location = Greenfoot.getRandomNumber(8);
         switch(location){
@@ -78,6 +84,9 @@ public class Janitor extends Person{
         }
     }
     
+    /**
+     * Leaves the puddle
+     */
     private void exitRoom(){
         if(cleaningTimer >= 360){
             isCleaning = false;
