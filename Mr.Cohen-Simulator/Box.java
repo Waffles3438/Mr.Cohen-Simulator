@@ -4,8 +4,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * <div>
  * The box used to hold the different modifers 
  * </div>
- * Art from vecteezy.com
- * https://www.vecteezy.com/vector-art/5146435-old-paper-in-pixel-art-style
+ * 
+ * <a href="https://www.vecteezy.com/vector-art/5146435-old-paper-in-pixel-art-style"> Link to image</a>
+ * Image by Vecteezy
  * 
  * @author Andy Feng
  * @version 1.0.0

@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </p>
  * Edited by Benny Wang
  * 
- * @author Evan Xi
+ * @author Benny Wang
  */
 
 public class Fader extends Actor{

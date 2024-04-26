@@ -5,7 +5,8 @@ import java.util.ArrayList;
  * <div>Students will walk around in the simulation and doing different tasks</div>
  * They have different IQs<br>
  * 
- * Edited slightly by Andy Feng & Benny Wang
+ * Edited slightly by Andy Feng
+ * Art by Benny Wang
  * 
  * @author Felix Zhao 
  * @version 0.0.1
@@ -16,7 +17,7 @@ public class Student extends Person
     private int iq;
     private int randomMoveCounter = 0;
     private int randomMoveCooldown = 360;
-    private double projectedMark;
+    protected double projectedMark;
     private static int variation;
     private boolean counter = false;
     private boolean goingBackToWork = false;

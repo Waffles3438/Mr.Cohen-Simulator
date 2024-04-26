@@ -10,7 +10,7 @@ import java.util.List;
  * </p>
  * Edited by Andy Feng <br>
  * 
- * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a>
+ * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
  * Music by Pokemon
  * 
  * @author Felix Zhao
@@ -86,7 +86,7 @@ public class Simulator extends World
         smoked = false;
         //pause = new PauseScreen(titleScreen, this);
         
-        finishedWorld = new FinishedWorld(currentAverageMark);
+        //finishedWorld = new FinishedWorld(currentAverageMark);
         this.customerSupportRespondChance = customerSupportRespondChance;
         this.chanceOfComputerBreaking = chanceOfComputerBreaking;
         this.chaosMode = chaosMode;
@@ -150,6 +150,7 @@ public class Simulator extends World
         /*if(Greenfoot.isKeyDown("escape")){
             Greenfoot.setWorld(pause);
         }*/
+        calculateAverageMark();
         
         actorList = (ArrayList<Actor>) getObjects(Actor.class);
         images = (ArrayList<GreenfootImage>) getObjects(GreenfootImage.class);
@@ -185,7 +186,7 @@ public class Simulator extends World
         
         if(transitionToNextDay){
             if(dayCount > Modifier.getNumberOfDays()){
-                Greenfoot.setWorld(finishedWorld);
+                Greenfoot.setWorld(new FinishedWorld(currentAverageMark));
             }
             
             if(fadeIn){
@@ -332,12 +333,26 @@ public class Simulator extends World
         music.playLoop();
     }
     
+    /**
+     * Pause music
+     */
+    public static void pauseMusic(){
+        music.pause();
+    }
+    
     public static void setMusicVolume(int volume){
         music.setVolume(volume);
     }
     
+    private int mark = 0;
     private void calculateAverageMark(){
-        
+        average = (List<Student>) getObjects(Student.class);
+        for(Student studentMark : average){
+            mark += studentMark.projectedMark;
+        }
+        currentAverageMark = (int) mark / 9;
+        mark = 0;
+        //System.out.println(currentAverageMark);
     }
 }
 

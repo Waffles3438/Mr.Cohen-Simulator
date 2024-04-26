@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Mr.Cohen starts with.
  * </p>
  * 
- * 
- * Desktop image from vectorstock:
- * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299
+ * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a>
+ * Image by VectorStock
  * 
  * @ Author: Andy Feng
  * @ version 1.1 (Apr 6th, 2024)
@@ -179,16 +178,16 @@ public class Modifier extends World
         addObject(numOfDaysText, 460, 385);
         chaosMode = new Label("Chaos Mode", 30);
         addObject(chaosMode, 820, 385);
-        studentIQText = new Label("Average \n Student IQ", 30);
-        addObject(studentIQText, 360 - 1260, 400);
-        janitorsText = new Label("has Janitors", 30);
+        studentIQText = new Label("Average Student IQ", 20);
+        addObject(studentIQText, 360 - 1260, 390);
+        janitorsText = new Label("Has Janitors", 30);
         addObject(janitorsText, 630 - 1260, 385);
-        robberText = new Label("has Robbers", 30);
+        robberText = new Label("Has Robbers", 30);
         addObject(robberText, 900 - 1260, 385);
-        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 25);
-        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 390);
-        customerSupportRespond = new Label("customer support \n respond chance", 25);
-        addObject(customerSupportRespond, (820 - 2*1260), 390);
+        chanceOfLaptopBreakingText = new Label("Chance of \n Laptop Breaking", 18);
+        addObject(chanceOfLaptopBreakingText, 460 - 2*1260, 385);
+        customerSupportRespond = new Label("Customer Support \n Responce Chance", 18);
+        addObject(customerSupportRespond, (820 - 2*1260), 385);
     }
 
     //just an act method
@@ -253,11 +252,14 @@ public class Modifier extends World
      */
     private void checkButton(){
         if(back.isPressed()){
+            TitleScreen.setMusicVolume(25);
+            TitleScreen.playMusic();
             startFromFirstPage();
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
         if(startSim.isPressed()){
+            TitleScreen.pauseMusic();
             simulator = new Simulator(titleScreen, numDays, chanceOfComputerBreaking, studentIQ, customerSupportRespondChance, chaos, computerType, janitors, robbers);
             Greenfoot.setWorld(simulator);
             startSim.setPressedCondition(false);

@@ -38,9 +38,11 @@ public class MrCohen extends Person
         angerMeter = 0;
         speed = 3;
         talkStudent = null;
-        setRotation(90);
         frozen = false;
         brokeToday = false;
+        getImage().scale(66, 66);
+        getImage().rotate(-90);
+        setRotation(90);
     }
     
     public void addedToWorld(World w) {
