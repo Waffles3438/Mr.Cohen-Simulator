@@ -3,27 +3,50 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class Confetti here.
  * 
- * @author (your name) 
+ * @author Dylan Dinesh
  * @version (a version number or a date)
  */
 public class Confetti extends Actor
 {
-    private GreenfootImage[] confettiArrays = new GreenfootImage[9];
-
-    //public GifImage confettiAnimation = new GifImage("confetti.gif");
-
-    public Confetti()
+    private GreenfootImage[] confettiArrays = new GreenfootImage[100];
+    private SimpleTimer animationTimer = new SimpleTimer();
+    private int imageIndex = 0;
+    private int width;
+    private int height; 
+    
+    public Confetti(int width, int height)
     {
-        //confettiAnimation = new GifImage("confetti.gif");
+        this.width = width;
+        this.height = height;
     }
-
+    
     public void act()
     {
         for (int i = 0; i < confettiArrays.length; i++)
         {
-            confettiArrays[i] = new GreenfootImage("frame_00" + i + "_delay-0.01s.png");
-            //confettiArrays[i].scale(500, 500);
-            setImage(confettiArrays[i]);
+            if (i < 10)
+            {
+                confettiArrays[i] = new GreenfootImage("frame_00" + i + "_delay-0.01s.png");
+            }
+            else
+            {
+                confettiArrays[i] = new GreenfootImage("frame_0" + i + "_delay-0.01s.png");
+            }
+            confettiArrays[i].scale(width, height);
+            //setImage(confettiArrays[i]);
         }
+        animateConfetti();
+    }
+
+    
+    public void animateConfetti()
+    {
+        if (animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        setImage(confettiArrays[imageIndex]);
+        imageIndex = ((imageIndex + 1) % confettiArrays.length);
+        animationTimer.mark();
     }
 }

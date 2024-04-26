@@ -25,22 +25,22 @@ public class FinishedWorld extends World
     private boolean hasRobber;
     private boolean hasJanitor;
     private boolean chaosMode;
-    
+
     private boolean added = false;
-    
+
     private Image pizza;
     private Label displayText = new Label("", 25);
     private Button backToMenu = new Button("menu", 3, ".png");
     private Button tryAgain = new Button("tryagain", 3, ".png");
-    
+
     private MrCohen cohen;
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
     private BubbleSpeech sleepy = new BubbleSpeech("happy_emotion1.png");
     private BubbleSpeech rage = new BubbleSpeech("angry_emotion.png");
-    
+
     private ArrayList<Student> students;
     private HashMap<Student, Image> studentPizzaMap = new HashMap<>();
-    
+
     /**
      * Constructor for objects of class FinishedWorld.
      * 
@@ -56,13 +56,13 @@ public class FinishedWorld extends World
         image.setColor(new Color(0, 0, 0));
         image.fillRect(getWidth()/3*2, 0, getWidth(), getHeight());
         setBackground(image);
-        
+
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 addObject(new Student(studentIQ, 354 + i*211, 360 + j*146 + 132), 354 + i*211, 360 + j*146 + 132);
             } 
         }
-        
+
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 addObject(new Image(125, 60), 354 + i*211, 360 + j*146+60);
@@ -72,9 +72,17 @@ public class FinishedWorld extends World
         addObject(new Image(275, 85), 351, 140);
         cohen = new MrCohen(new Alienware(), 0);
         addObject(cohen, 360, 55);
-        
+
         students = (ArrayList<Student>) getObjects(Student.class);
-        addObject(new Confetti(), getWidth()/2, getHeight()/2);
+        if (averageMark >= 85)
+        {
+            //addObject(new Confetti(800, 900), getWidth()/2-220, getHeight()/2);
+            addObject(new Confetti(400, 400), getWidth()/2-200, getHeight()/2);
+        }
+        if (averageMark >= 65 && averageMark < 85)
+        {
+            addObject(new Confetti(400, 400), getWidth()/2-200, getHeight()/2);
+        }
         this.averageMark = averageMark;
         this.numDays = numDays;
         this.studentIQ = studentIQ;
@@ -84,7 +92,7 @@ public class FinishedWorld extends World
         this.hasJanitor = hasJanitor;
         this.chaosMode = chaosMode;
     }
-    
+
     public void act(){
         // the average mark the class has determine the type of ending of the simulation.
         if(averageMark > 100) averageMark = 100;
@@ -98,7 +106,7 @@ public class FinishedWorld extends World
         }
         checkButton();
     }
-    
+
     private void endingOne() {
         if (!added) {
             showStats();
@@ -121,7 +129,7 @@ public class FinishedWorld extends World
         updateFlashingOverlay();
         addObject(displayText, getWidth() * 5/6, getHeight() / 2);
     }
-    
+
     private Image overlay;
     private void addFlashingOverlay() {
         GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
@@ -152,26 +160,26 @@ public class FinishedWorld extends World
             // Adjust these offsets as necessary
             int pizzaOffsetX = student.getImage().getWidth() / 2 + pizza.getImage().getWidth() / 2 - 10;  // Offset to put pizza in front of the student
             int pizzaOffsetY = 0;  // No vertical offset
-            
+
             // Calculate the new pizza position based on student rotation
             double angleRadians = Math.toRadians(student.getRotation());
             int dx = (int) (pizzaOffsetX * Math.cos(angleRadians));  // horizontal shift based on rotation
             int dy = (int) (pizzaOffsetX * Math.sin(angleRadians));  // vertical shift based on rotation
-    
+
             // Set pizza location relative to the student's front side
             pizza.setLocation(student.getX() + dx, student.getY() + dy);
             pizza.setRotation(student.getRotation());
         }
     }
-    
+
     private void endingTwo(){
-        
+
     }
-    
+
     private void endingThree(){
-        
+
     }
-    
+
     private void showStats() {
         String stats = "";
         stats += "Average mark: " + averageMark + "\n\n";
@@ -182,12 +190,12 @@ public class FinishedWorld extends World
         stats += "Has Robber: " + hasRobber + "\n\n";
         stats += "Has Janitor: " + hasJanitor + "\n\n";
         stats += "Chaos Mode: " + chaosMode + "\n\n";
-        
+
         displayText.setValue(stats);
         displayText.setFillColor(Color.WHITE);
         displayText.setLineColor(Color.WHITE); // Make the text visible
     }
-    
+
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
             Greenfoot.setWorld(new TitleScreen());
@@ -196,8 +204,8 @@ public class FinishedWorld extends World
             Greenfoot.setWorld(new Modifier());
         }
     }
-    
+
     public void stopped(){
-        
+
     }
 }
