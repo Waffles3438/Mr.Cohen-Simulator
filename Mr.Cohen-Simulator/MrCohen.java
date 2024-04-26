@@ -141,6 +141,14 @@ public class MrCohen extends Person
             pathFind(360, 55, 0, true);
         }
         
+        Puddle puddle = (Puddle)getOneIntersectingObject(Puddle.class);
+        if(puddle != null){
+            
+            getWorld().removeObject(speech);
+            speech = null;
+            daze();
+        }
+        
         if (dazeTimer > 0) {
             dazeTimer--;
         } else if (dazeTimer == 0) {

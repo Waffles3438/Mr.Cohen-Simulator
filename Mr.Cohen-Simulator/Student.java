@@ -447,6 +447,9 @@ public class Student extends Person
                 cancelTalk();
             }
             getWorld().removeObject(speech);
+            clearPath();
+            goingBackToWork = false;
+            atDesk = false;
             speech = null;
         }
     }
