@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * <div>
@@ -12,6 +13,8 @@ import java.util.Deque;
  * </div>
  * Uses A* for path finding. <br>
  * Some information on the algorithm: <a href="https://en.wikipedia.org/wiki/A*_search_algorithm"> A* Star</a><br>
+ * 
+ * Slightly Edited by Andy Feng (path find and avoid algorithm)
  * 
  * @author Felix Zhao
  * @version April 8th 2024
@@ -192,6 +195,12 @@ public abstract class Person extends SuperSmoothMover
                 boolean valid = true;
                 for (int i = 0; i < avoidList.size(); i++) {
                     if (isTouching(avoidList.get(i))) {
+                        List<Image> touchingImage = getIntersectingObjects(Image.class);
+                        Image current = touchingImage.get(0);
+                        if(current.getImage().toString().substring(17, 26).equals("Pizza.png")){
+                            valid = true;
+                            break;
+                        }
                         valid = false;
                         break; 
                     }

@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * An actor that displays an image and/or acts as a hitbox for the people pathfinding
  * 
@@ -15,7 +17,7 @@ public class Image extends Actor
 {
     
     private double ratio;
-    private String imageName;
+    protected String imageName;
     protected ArrayList<GreenfootImage> list = new ArrayList<GreenfootImage>();
     
     /**
@@ -61,8 +63,6 @@ public class Image extends Actor
     }
     
     public void act(){
-        if(getWorld() instanceof FinishedWorld && "Pizza.png".equals(imageName)) moveDown();
-        if(getY() >= 700) getWorld().removeObject(this);
     }
     
     /**

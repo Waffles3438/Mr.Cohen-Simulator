@@ -1,6 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Write a description of class FinishedWorld here.
  * 
@@ -28,7 +30,8 @@ public class FinishedWorld extends World
     private BubbleSpeech sleepy = new BubbleSpeech("happy_emotion1.png");
     private BubbleSpeech rage = new BubbleSpeech("angry_emotion.png");
     
-    private SimpleTimer timer = new SimpleTimer();
+    private ArrayList<Student> students;
+    private HashMap<Student, Image> studentPizzaMap = new HashMap<>();
     /**
      * Constructor for objects of class FinishedWorld.
      * 
@@ -61,6 +64,8 @@ public class FinishedWorld extends World
         cohen = new MrCohen(new Alienware(), 0);
         addObject(cohen, 360, 55);
         
+        students = (ArrayList<Student>) getObjects(Student.class);
+        
         this.averageMark = averageMark;
     }
     
@@ -78,12 +83,36 @@ public class FinishedWorld extends World
         }
     }
     
-    private void endingOne(){
-        if(!added){
-            addObject(happy, cohen.getX()+cohen.getImage().getWidth()/2, cohen.getY()-cohen.getImage().getHeight());
+    private void endingOne() {
+        if (!added) {
+            addObject(happy, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight());
+            for (Student student : students) {
+                Image pizza = new Image("Pizza.png");
+                pizza.getImage().scale(45, 45);
+                addObject(pizza, student.getX(), student.getY() - student.getImage().getHeight() / 2 - pizza.getImage().getHeight() / 2 - 10);
+                studentPizzaMap.put(student, pizza);
+            }
             added = true;
         }
-        spawnPizza();
+        updatePizzas();
+    }
+
+    private void updatePizzas() {
+        for (Student student : studentPizzaMap.keySet()) {
+            Image pizza = studentPizzaMap.get(student);
+            // Adjust these offsets as necessary
+            int pizzaOffsetX = student.getImage().getWidth() / 2 + pizza.getImage().getWidth() / 2 - 10;  // Offset to put pizza in front of the student
+            int pizzaOffsetY = 0;  // No vertical offset
+            
+            // Calculate the new pizza position based on student rotation
+            double angleRadians = Math.toRadians(student.getRotation());
+            int dx = (int) (pizzaOffsetX * Math.cos(angleRadians));  // horizontal shift based on rotation
+            int dy = (int) (pizzaOffsetX * Math.sin(angleRadians));  // vertical shift based on rotation
+    
+            // Set pizza location relative to the student's front side
+            pizza.setLocation(student.getX() + dx, student.getY() + dy);
+            pizza.setRotation(student.getRotation());
+        }
     }
     
     private void endingTwo(){
@@ -92,14 +121,5 @@ public class FinishedWorld extends World
     
     private void endingThree(){
         
-    }
-    
-    private void spawnPizza(){
-        if(timer.millisElapsed() < 100) return;
-        timer.mark();
-        int xLocation = Greenfoot.getRandomNumber(getWidth()/3*2 - 5) + 5;
-        pizza = new Image("Pizza.png");
-        pizza.getImage().scale(70, 70);
-        addObject(pizza, xLocation, 0);
     }
 }
