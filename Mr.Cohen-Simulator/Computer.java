@@ -44,6 +44,12 @@ public abstract class Computer extends Actor
         setScreen(new GreenfootImage("screen_" + (Greenfoot.getRandomNumber(4)+1) + ".png"));
     }
 
+    /**
+     * Pauses sounds
+     */
+    public static void pauseSounds(){
+        breaking.pause();
+    }
     
     /**
      * Act - do whatever the Computer wants to do. This method is called whenever
@@ -100,6 +106,7 @@ public abstract class Computer extends Actor
         if(getWorld() instanceof FinishedWorld) breaking.pause();
         breaking.play();
         durability = 0;
+        deleteMouse();
         GreenfootImage blackScreen = new GreenfootImage(100, 100);
         blackScreen.setColor(new Color(0, 0, 0));
         blackScreen.fillRect(0, 0, 100, 100);
