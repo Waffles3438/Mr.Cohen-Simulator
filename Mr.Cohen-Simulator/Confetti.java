@@ -26,11 +26,11 @@ public class Confetti extends Actor
         {
             if (i < 10)
             {
-                confettiArrays[i] = new GreenfootImage("frame_00" + i + "_delay-0.01s.png");
+                confettiArrays[i] = new GreenfootImage("images/confetti/frame_00" + i + "_delay-0.01s.png");
             }
             else
             {
-                confettiArrays[i] = new GreenfootImage("frame_0" + i + "_delay-0.01s.png");
+                confettiArrays[i] = new GreenfootImage("images/confetti/frame_0" + i + "_delay-0.01s.png");
             }
             confettiArrays[i].scale(width, height);
             //setImage(confettiArrays[i]);
