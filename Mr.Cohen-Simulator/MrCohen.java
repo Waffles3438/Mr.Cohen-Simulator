@@ -51,7 +51,7 @@ public class MrCohen extends Person
         getImage().scale(66, 66);
         getImage().rotate(-90);
         setRotation(90);
-        typing.setVolume(100);
+        typing.setVolume(75);
     }
     
     public MrCohen(int rageValue){
@@ -141,7 +141,7 @@ public class MrCohen extends Person
             speech = null;
             pathFind(360, 55, 0, true);
         }
-        if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(60) == 0 && actCount >= 370){
+        if(getX() == 360 && getY() == 55 && Greenfoot.getRandomNumber(600) == 0 && actCount >= 370){
             typing.play();
             actCount = 0;
         } else if(getX() != 360 && getY() != 55){
