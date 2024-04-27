@@ -9,8 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Image by Tumblr
  * </div>
  * <a href="https://www.youtube.com/watch?v=idztNHePKMo"> Link to music</a>
- * Music by Nintendo from New Super Mario Bros. Wii
- * 
+ * Music by Nintendo from New Super Mario Bros. Wii <br>
  * 
  * startMusic method by Andy Feng
  * 
