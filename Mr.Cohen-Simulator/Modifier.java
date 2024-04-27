@@ -232,9 +232,9 @@ public class Modifier extends World
         studentIQ = IQ.getValue();
         customerSupportRespondChance = supportChance.getValue();
 
-        janitors = hasJanitors.updateBoolean();
-        robbers = hasRobbers.updateBoolean();
-        chaos = chaosModeCheckBox.updateBoolean();
+        janitors = hasJanitors.getBoolean();
+        robbers = hasRobbers.getBoolean();
+        chaos = chaosModeCheckBox.getBoolean();
     }
 
     /**
@@ -333,6 +333,9 @@ public class Modifier extends World
     
     private int frame = 1;
     private SimpleTimer timer = new SimpleTimer();
+    /*
+     * Updates image effect
+     */
     private void updateImageEffect(){
         if(timer.millisElapsed() < 300) {
            return; 
@@ -344,6 +347,9 @@ public class Modifier extends World
     
     private boolean robberImageAdded = false;
     private boolean janitorImageAdded = false;
+    /*
+     * Checks to add the janitors / robbers
+     */
     private void addMoreImage(){
         if(janitors && !janitorImageAdded){
             secondPageImage.add(janitorImage);
@@ -375,6 +381,9 @@ public class Modifier extends World
         drawImage();
     }
     
+    /*
+     * Flips the screen
+     */
     private void drawImage(){
         int length = secondPageImage.size();
         int gap = 200;

@@ -2,10 +2,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
+ * <p>
  * Mr Cohen is the teacher of the class
- * 
+ * </p>
  * <a href="https://www.youtube.com/watch?v=C6UkVtPGKxc">Link to Sound</a>
- * Sound by ChilledKeebs
+ * Sound by ChilledKeebs<br>
  * 
  * <a href="https://www.youtube.com/watch?v=vvxSErVEQGA">Link to Sound</a>
  * Sound by Meme Archive
@@ -72,6 +73,9 @@ public class MrCohen extends Person
         newDay();
     }
     
+    /**
+     * Controls the logic of Mr Cohen
+     */
     public void act() {
         actCount++;
         if (frozen) {

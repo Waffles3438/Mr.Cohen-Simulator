@@ -55,6 +55,13 @@ public class Image extends Actor
         ratio = (double)getImage().getHeight() / getImage().getWidth();
     }
     
+    /**
+     * Image Constructor
+     *
+     * @param name The name
+     * @param numberOfImage The number of images
+     * @param fileType The file type
+     */
     public Image(String name, int numberOfImage, String fileType){
         for(int i = 0; i < numberOfImage; i++){
             list.add(new GreenfootImage(name + (i+1) + fileType));
@@ -86,6 +93,10 @@ public class Image extends Actor
         other.setLocation(getX() + gap, getY());
     }
     
+    /**
+     * Moves down the image
+     *
+     */
     protected void moveDown() {
         setLocation(getX(), getY() + 3);
     }

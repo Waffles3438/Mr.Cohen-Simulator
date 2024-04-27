@@ -13,9 +13,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Steamdeck extends Computer
 {
+    
     /**
-     * Act - do whatever the Steamdeck wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Creates the steamdeck
+     *
      */
     public Steamdeck(){
         super();
@@ -36,11 +37,20 @@ public class Steamdeck extends Computer
         maxDurability = 50;
     }
     
+    /**
+     * Sets it at the right location
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         setLocation(1050, 575);
         super.addedToWorld(w);
     }
     
+    /**
+     * Controls the logic
+     *
+     */
     public void act()
     {
         super.act();

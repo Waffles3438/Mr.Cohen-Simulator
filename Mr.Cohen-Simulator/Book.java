@@ -24,8 +24,7 @@ public class Book extends Projectile
     
     
     /**
-     * Calls the superclass and then checks if it hits a student/cohen.
-     * The book can also break the computer
+     * Checks for students and cohen to hit
      */
     public void act()
     {

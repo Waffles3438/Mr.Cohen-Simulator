@@ -52,6 +52,10 @@ public class Mouse extends SuperSmoothMover
 
     }
     
+    /**
+     * The movement logic
+     *
+     */
     public void act() {
         if (!isMoving) {
             checkAndInitiateMovement();

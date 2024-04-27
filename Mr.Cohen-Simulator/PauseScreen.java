@@ -164,7 +164,8 @@ public class PauseScreen extends World
         fader.setTransparency(blackScreen.getImage().getTransparency());
         drawImage(fader, blackScreen.getX() - fader.getWidth()/2, blackScreen.getY() - fader.getHeight()/2);
     }
-
+    
+    // Draws the image on the background
     private void drawImage(GreenfootImage image, int x, int y){
         getBackground().drawImage(image, x, y);
     }

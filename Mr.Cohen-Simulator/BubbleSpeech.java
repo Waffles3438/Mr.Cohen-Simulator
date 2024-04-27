@@ -1,8 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * <p>
  * A class to show students emotions / actions.
  * Does not use image as image is a hitbox for students
+ * </p>
  * 
  * @author Felix Zhao
  * @version April 15th 2024

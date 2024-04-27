@@ -5,6 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Has the logic to detect the mouse relation to the button
  * </p>
  * 
+ * <a href="https://www.youtube.com/watch?v=h8y0JMVwdmM">Link to sound</a>
  * Sounds by Minecraft<br>
  * Editied by Benny Wang, Andy Feng and Evan Xi
  * 
@@ -38,6 +39,14 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Same as above but with a certain size
+     *
+     * @param imageStates Where the image is located
+     * @param numstates Is how many different states there are of that image (at most 3 are used)
+     * @param imageType The file type (.png, .jpeg, etc.) (Include the dot)
+     * @param initialSize The size
+     */
     public Button(String imagePath, int numStates, String imageType, int initialSize) {
         GreenfootImage image = new GreenfootImage(imagePath + "_1" + imageType);
         image.scale(initialSize, initialSize);
