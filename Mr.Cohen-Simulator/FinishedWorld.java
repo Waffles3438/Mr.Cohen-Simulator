@@ -254,14 +254,14 @@ public class FinishedWorld extends World
             addObject(displayText, getWidth() * 5/6, getHeight() / 2);
             showStats();
             addObject(displayText, getWidth() * 5/6, getHeight() / 2);
-            // Add the happy speech bubble
+            // Add the raging bubble to Mr.Cohen
             addObject(rage, cohen.getX() + cohen.getImage().getWidth() / 2, cohen.getY() - cohen.getImage().getHeight()+40);
-            // Add pizzas to students
             for (Student student : students) {
+                //make sure every student is not moving
                 student.freezeState(true);
                 student.sad();
             }
-            // Add a flashing overlay
+            // Add a blue overlay to show sadness
             added = true;
             addFlashingOverlay();
             GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
@@ -294,10 +294,13 @@ public class FinishedWorld extends World
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
             music.pause();
+            // create a new TitleScreen because the simulation needs
+            // to start again
             Greenfoot.setWorld(new TitleScreen());
         } 
         if(Greenfoot.mouseClicked(tryAgain)){
             music.pause();
+            // a new modifier world, 
             Greenfoot.setWorld(new Modifier());
         }
     }
