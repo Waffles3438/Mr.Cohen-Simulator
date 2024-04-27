@@ -10,6 +10,8 @@ import java.util.ArrayList;
  * <a href="https://www.youtube.com/watch?v=vvxSErVEQGA">Link to Sound</a>
  * Sound by Meme Archive
  * 
+ * Art by Benny Wang
+ * 
  * @author Felix Zhao
  * @version 0.0.1
  */
