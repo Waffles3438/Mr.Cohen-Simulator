@@ -29,14 +29,12 @@ public class Slider extends Actor
     private boolean isDragging;
     
     private double percent;
+    
     /**
-     * the contructor of slider class
-     * 
-     * @ parameter
-     * @ Bar bar: the bar which created it, the bar passed it and the 
-     * slider will be one group of slider and bar
-     * @ String controlVariable: tell the slider which instance variable
-     * in the modifier world it is going to manipulate
+     * Slider Constructor
+     *
+     * @param valueBox The value box that controls this
+     * @param bar The bar that controls this
      */
     public Slider(ValueBox valueBox, Bar bar){
         setImage(slider);
@@ -48,7 +46,11 @@ public class Slider extends Actor
         this.valueBox = valueBox;
     }
     
-    //just an normal act method
+    
+    /**
+     * Handles the logic with changing the values
+     *
+     */
     public void act()
     {
         originalX = scale.getX() - scale.getImage().getWidth() / 2;

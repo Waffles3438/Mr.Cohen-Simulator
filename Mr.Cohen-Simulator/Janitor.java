@@ -24,6 +24,10 @@ public class Janitor extends Person{
         getImage().rotate(90);
     }
     
+    /**
+     * Handles the logic for janitors
+     *
+     */
     public void act(){
         super.act();
         if(isCleaning){

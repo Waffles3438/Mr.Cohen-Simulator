@@ -37,14 +37,18 @@ public class Desktop extends Computer
         beep.setVolume(20);
     }
     
+    /**
+     * Sets it at the right location
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         setLocation(1050, 610);
         super.addedToWorld(w);
     }
     
     /**
-     * Act - do whatever the Decktop wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Controls the logic
      */
     public void act()
     {

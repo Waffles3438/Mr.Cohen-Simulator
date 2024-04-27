@@ -37,6 +37,10 @@ public class Confetti extends Actor
         }
     }
     
+    /**
+     * Animate the confetti
+     *
+     */
     public void act()
     {
         animateConfetti();

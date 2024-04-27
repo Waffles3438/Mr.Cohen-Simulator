@@ -6,9 +6,10 @@ import java.util.List;
  * This is the world that contains the simulation
  * </p>
  * <p>
- * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a>
+ * Edited by Andy Feng
  * </p>
- * Edited by Andy Feng <br>
+ * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a><br>
+ *
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
  * Music by Pokemon<br>

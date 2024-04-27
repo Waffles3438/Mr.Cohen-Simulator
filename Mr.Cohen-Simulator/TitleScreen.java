@@ -72,6 +72,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * https://www.vectorstock.com/royalty-free-vector/online-laptop-gaming-game-pixel-art-vector-47158987 - Vectors Stock<br>
  * https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299 - Vector Stock<br>
  * https://www.reddit.com/r/Steam/comments/tvofg5/steam_deck_pixel_art_i_made_this_a_few_days_ago/ - ExxiIon on Reddit <br>
+ * https://www.vectorstock.com/royalty-free-vectors/computer-top-vectors - VectorStock<br>
  * 
  * <h3>Code</h3>
  * SuperSmoothMover and SuperStatBar taken from Jordan Cohen<br>

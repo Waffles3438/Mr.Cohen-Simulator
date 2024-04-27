@@ -25,6 +25,10 @@ public class Robber extends Person{
         getImage().rotate(90);
     }
     
+    /**
+     * Controls the logic of the robber
+     * 
+     */
     public void act(){
         super.act();
         if(!hasEntered){

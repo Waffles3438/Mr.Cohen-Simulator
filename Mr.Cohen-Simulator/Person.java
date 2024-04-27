@@ -260,6 +260,9 @@ public abstract class Person extends SuperSmoothMover
         return pathFind(actor.getX(), actor.getY(), radius, overWrite);
     }
     
+    /*
+     * Traces the path of the pathfind
+     */
     private ArrayList<int[]> tracePath(Cell[][] cellData, int[] target) {
         ArrayList<int[]> path = new ArrayList<int[]>();
         int row = target[0];

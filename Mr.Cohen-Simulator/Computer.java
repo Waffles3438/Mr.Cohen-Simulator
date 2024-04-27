@@ -21,7 +21,6 @@ public abstract class Computer extends Actor
     protected int maxDurability;
     protected String type;
     protected GreenfootImage deviceImage;
-    // change this possbily to a list
     protected GreenfootImage screenImage;
     protected GreenfootImage fullImage;
     private int changeScreenCounter;
@@ -41,6 +40,11 @@ public abstract class Computer extends Actor
         changeScreenCounter = 120;
     }
     
+    /**
+     * Adds the mouse and screen when added to the world
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         mouse = new Mouse(getX()-screenImage.getWidth()/2+screenX, getX()+screenImage.getWidth()/2+screenX, getY()-getImage().getHeight()/2+screenY, getY()-getImage().getHeight()/2+screenY+screenImage.getHeight(), 15);
         w.addObject(mouse, getX(), getY()-getImage().getHeight()/2+screenY+screenImage.getHeight()/2);

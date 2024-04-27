@@ -16,7 +16,7 @@ import java.util.HashMap;
  * <p>
  * There are two buttons at the right hand side:
  * <ul>
- * <li> Main menu button(<code>backToMenue</code>), this can redirect the user to the <code>titleScreen</code>
+ * <li> Main menu button(<code>backToMenu</code>), this can redirect the user to the <code>titleScreen</code>
  * <li> Try again button(<code>tryAgain</code>), this can redirect the user to the <code>Modifier</code>
  * </ul>
  * </p>
@@ -33,11 +33,11 @@ import java.util.HashMap;
  * Music by Nintendo Wii
  * </p>
  * <p>
- * <a hreft="https://www.freepik.com/free-vector/colorful-round-tasty-pizza_3799722.htm#query=pizza&position=3&from_view=keyword&track=sph&uuid=c6396b5e-3e77-4d78-9945-a6180a7daebd"> Link to Pizza Image</a>
+ * <a href="https://www.freepik.com/free-vector/colorful-round-tasty-pizza_3799722.htm#query=pizza&position=3&from_view=keyword&track=sph&uuid=c6396b5e-3e77-4d78-9945-a6180a7daebd"> Link to Pizza Image</a>
  * Art by macrovector
  * </p>
  * 
- * <a href="https://giphy.com/stickers/water-rain-raining-Wmp1EOzVybWd13s5DB"> Link to rain</a>
+ * <a href="https://giphy.com/stickers/water-rain-raining-Wmp1EOzVybWd13s5DB"> Link to rain from giphy</a>
  * 
  * @author Andy Feng
  * @author Felix Zhao

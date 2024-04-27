@@ -15,11 +15,19 @@ public class CheckBox extends Actor
     private static int clickIndex = 0;
     
     private boolean variable;
+    /**
+     * Creates a check box and intializes it's value to false
+     *
+     */
     public CheckBox(){
         setImage(empty);
         variable = false;
     }
     
+    /**
+     * Checks if the check box gets clicked
+     *
+     */
     public void act()
     {
         // Add your action code here.
@@ -57,7 +65,12 @@ public class CheckBox extends Actor
         }
     }
     
-    public boolean updateBoolean(){
+    /**
+     * Returns the current value
+     *
+     * @return Returns the current value
+     */
+    public boolean getBoolean(){
         return variable;
     }
 }

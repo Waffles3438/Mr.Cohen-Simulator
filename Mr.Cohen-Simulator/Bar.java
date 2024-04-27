@@ -6,10 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * When creating a bar, a slider will be created together, they are one
  * set. So please keep in mind to create a bar instead of a slider
  * </p>
- * <div>
- * Reference: <br>
+ * <p>
  * <a href="https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style">Link to art</a>
- * </div>
+ * </p>
  * Slider and bar image from vecteezy.com and image edited by Benny Wang<br>
  * 
  * Edited by Felix Zhao
@@ -44,11 +43,20 @@ public class Bar extends Actor
         s = new Slider(valueBox, this);
     }
     
+    /**
+     * Addes the slider when this gets added to the world
+     *
+     * @param w The world
+     */
     public void addedToWorld(World w) {
         w.addObject(s, getX() - getImage().getWidth() / 2, getY());
     }
 
     
+    /**
+     * Sets the slider location every act
+     *
+     */
     public void act()
     {
         // Add your action code here.

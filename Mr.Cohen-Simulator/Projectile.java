@@ -13,7 +13,7 @@ public abstract class Projectile extends SuperSmoothMover
     protected int pointY;
     protected Actor owner;
     /**
-     * Obstacle Constructor
+     * Projectile Constructor
      *
      *
      * @param speed The speed of the Obstacle, can be 0
@@ -37,8 +37,7 @@ public abstract class Projectile extends SuperSmoothMover
     }
     
     /**
-     * Act - do whatever the Obstacle wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Moves the projectile and removes it at the edge
      */
     public void act()
     {
