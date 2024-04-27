@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * </p>
  * 
  * <a href="https://www.vecteezy.com/vector-art/22908990-slider-menu-set-with-different-color-in-pixel-art-style"> Link to image</a>
- * Image from vecteezy
+ * Image from vecteezy editied by Benny Wang
  * <br>
  * 
  * Edited by Felix Zhao
