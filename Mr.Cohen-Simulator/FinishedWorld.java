@@ -6,6 +6,12 @@ import java.util.HashMap;
 /**
  * <p>
  * This is the finished world which appears after the simulation. Depending on the results, there are different endings
+ * There are three endings in total:   
+ * <ul>
+ * <li>Ending one: students having pizza party, if <code>averageMark >= 85</code>
+ * <li>Ending two: students walking around in the classroom while Mr.Cohen is sleepy, if <code>65>= averageMark <85</code>
+ * <li>Ending three: students feel sad while Mr.Cohen is angry, if <code>averageMark < 65</code>
+ * </ul>
  * </p>
  * Edited By Dylan Dinesh<br>
  * <p>
@@ -17,6 +23,10 @@ import java.util.HashMap;
  * <p>
  * <a href="https://www.youtube.com/watch?v=po-0n1BKW2w">Link to music</a>
  * Music by Nintendo Wii
+ * </p>
+ * <p>
+ * <a hreft="https://www.freepik.com/free-vector/colorful-round-tasty-pizza_3799722.htm#query=pizza&position=3&from_view=keyword&track=sph&uuid=c6396b5e-3e77-4d78-9945-a6180a7daebd"> Link to Pizza Image</a>
+ * Art by macrovector
  * </p>
  * 
  * <a href="https://giphy.com/stickers/water-rain-raining-Wmp1EOzVybWd13s5DB"> Link to rain</a>

@@ -157,7 +157,7 @@ public class Modifier extends World
     private int y = 485;
     private int offSetT = 90;
 
-    /**
+    /*
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
      */
@@ -268,7 +268,7 @@ public class Modifier extends World
     /**
      * Start from the first page
      */
-    protected void startFromFirstPage(){
+    public void startFromFirstPage(){
         if(flipTimes > 0){
             addObject(rightFlipButton, 1190,360);
             for(int i = 0; i < flipTimes; i++){

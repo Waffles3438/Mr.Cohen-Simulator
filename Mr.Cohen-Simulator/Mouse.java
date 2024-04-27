@@ -76,7 +76,7 @@ public class Mouse extends SuperSmoothMover
     }
     
     /**
-     * Goes to random location
+     * Goes to a random location
      */
     private void executeMovement() {
         double distance = Math.hypot(targetX - getX(), targetY - getY());
