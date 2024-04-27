@@ -37,6 +37,7 @@ public class FinishedWorld extends World
     private int studentIQ;
     private int customerSupportChance;
     private int computerBreakingChance;
+    private TitleScreen titleScreen;
 
     private boolean hasRobber;
     private boolean hasJanitor;
@@ -64,7 +65,7 @@ public class FinishedWorld extends World
      * Constructor for objects of class FinishedWorld.
      * 
      */
-    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int computerBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode)
+    public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int computerBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode, TitleScreen titleScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1, true); 
@@ -114,7 +115,7 @@ public class FinishedWorld extends World
         this.chaosMode = chaosMode;
         music.setVolume((int) PauseScreen.getVolume() / 4);
         music.playLoop();
-        
+        this.titleScreen = titleScreen;
         addObject(backToMenu, getWidth()*5/6, getHeight() - backToMenu.getImage().getHeight()/2 - 15);
         addObject(tryAgain, getWidth()*5/6, tryAgain.getImage().getHeight() / 2 + 15);
     }
@@ -305,11 +306,13 @@ public class FinishedWorld extends World
     private void checkButton(){
         if(Greenfoot.mouseClicked(backToMenu)){
             music.pause();
-            Greenfoot.setWorld(new TitleScreen());
+            titleScreen.playMusic();
+            Greenfoot.setWorld(titleScreen);
         } 
         if(Greenfoot.mouseClicked(tryAgain)){
             music.pause();
-            Greenfoot.setWorld(new Modifier());
+            titleScreen.playMusic();
+            Greenfoot.setWorld(new Modifier(titleScreen));
         }
     }
 }

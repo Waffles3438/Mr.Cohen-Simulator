@@ -12,6 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Desktop extends Computer
 {
+    private static GreenfootSound beep = new GreenfootSound("beep.mp3");
     
     /**
      * Creates the desktop with the right screen size
@@ -32,7 +33,8 @@ public class Desktop extends Computer
         screenY = 10;
         fullImage.drawImage(screenImage, deviceImage.getWidth()/2-screenImage.getWidth()/2, screenY);
         setImage(fullImage);
-
+        
+        beep.setVolume(20);
     }
     
     public void addedToWorld(World w) {
@@ -51,6 +53,7 @@ public class Desktop extends Computer
         if(Greenfoot.getRandomNumber(100000) <= Modifier.getchanceOfLaptopBreaking() && durability > 0){
             setScreen(new GreenfootImage("bsod.png"));
             getWorld().removeObject(mouse);
+            beep.play();
             durability = 0;
         }
     }
