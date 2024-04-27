@@ -11,7 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class BrokenGlass extends Projectile
 {
-    private double maxDistacne;
+    private double maxDistance;
     
     /**
      * BrokenGlass Constructor
@@ -23,7 +23,7 @@ public class BrokenGlass extends Projectile
      */
     public BrokenGlass(Actor owner , double speed, int pointX, int pointY) {
         super(owner, speed, pointX, pointY);
-        maxDistacne = Greenfoot.getRandomNumber(400)+20;
+        maxDistance = Greenfoot.getRandomNumber(400)+20;
         setImage("broken_glass.png");
     }
     
@@ -34,8 +34,8 @@ public class BrokenGlass extends Projectile
     public void act()
     {
         super.act();
-        maxDistacne -= speed;
-        if (maxDistacne <= 0 && !isTouching(Image.class)) {
+        maxDistance -= speed;
+        if (maxDistance <= 0 && !isTouching(Image.class)) {
             speed = 0;
         }
         
