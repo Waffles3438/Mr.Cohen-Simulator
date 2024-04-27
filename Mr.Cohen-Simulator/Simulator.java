@@ -144,7 +144,7 @@ public class Simulator extends World
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);
         robber = null;
-        setPaintOrder(Fader.class, Smokescreen.class, Puddle.class);
+        setPaintOrder(Fader.class, Smokescreen.class, Janitor.class, MrCohen.class, Student.class, Puddle.class);
         
         if(Modifier.getChaos()){
             music = new GreenfootSound("chaosmode.mp3");
