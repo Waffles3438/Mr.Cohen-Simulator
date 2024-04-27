@@ -7,16 +7,19 @@ import java.util.HashMap;
  * <p>
  * This is the finished world which appears after the simulation. Depending on the results, there are different endings
  * </p>
- * Edited By Dylan Dinesh
- * 
+ * Edited By Dylan Dinesh<br>
+ * <p>
  * <a href="https://www.youtube.com/watch?v=jRtDGwmgCR8">Link to music</a>
  * Music by Nintendo from New Super Mario Bros. Wii
- * 
+ * </p>
  * <a href="https://www.youtube.com/watch?v=Y2qFzWLlOi8">Link to music</a>
  * Music by Nintendo from New Super Mario Bros. Wii
- * 
+ * <p>
  * <a href="https://www.youtube.com/watch?v=po-0n1BKW2w">Link to music</a>
  * Music by Nintendo Wii
+ * </p>
+ * 
+ * <a href="https://giphy.com/stickers/water-rain-raining-Wmp1EOzVybWd13s5DB"> Link to rain</a>
  * 
  * @author Andy Feng
  * @author Felix Zhao
@@ -50,6 +53,7 @@ public class FinishedWorld extends World
     private BubbleSpeech happy = new BubbleSpeech("happy_emotion0.png");
     private BubbleSpeech sleepy = new BubbleSpeech("happy_emotion1.png");
     private BubbleSpeech rage = new BubbleSpeech("angry_emotion.png");
+    private GifImage rain = new GifImage("rain.gif");
     private static GreenfootSound music;
 
     private ArrayList<Student> students;
@@ -91,7 +95,6 @@ public class FinishedWorld extends World
         students = (ArrayList<Student>) getObjects(Student.class);
         if (averageMark >= 65) {
             addObject(new Confetti(getWidth()*2/3, getHeight()), getWidth()/3, getHeight()/2);
-            System.out.println(true);
         } 
 
         if(averageMark >= 85){
@@ -263,16 +266,24 @@ public class FinishedWorld extends World
             }
             // Add a flashing overlay
             added = true;
-            addFlashingOverlay();
             GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
-            overlayImage.setColor(new Color(0, 0, 100, 64));
+            overlayImage.setColor(new Color(0, 0, 0, 64));
             overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
             overlay = new Image(overlayImage);
             addObject(overlay, OVERLAY_X, OVERLAY_HEIGHT / 2);
+            
+            for (GreenfootImage image : rain.getImages()) {
+                image.scale(840, 720);
+            }
+            
         }
         
         
-        
+        GreenfootImage overlayImage = new GreenfootImage(OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlayImage.setColor(new Color(0, 0, 100, 64));
+        overlayImage.fillRect(0, 0, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+        overlay.setImage(overlayImage);
+        overlay.getImage().drawImage(rain.getCurrentImage(), 0, 0);
     }
 
     private void showStats() {
