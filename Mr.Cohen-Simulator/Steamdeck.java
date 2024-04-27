@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * <p>
- * The steamdeck computer
+ * The steamdeck computer. The least durable computer. It can randomly take damage every so often
  * </p>
  * 
  * <a href="https://www.reddit.com/r/Steam/comments/tvofg5/steam_deck_pixel_art_i_made_this_a_few_days_ago/">Art from reddit</a>
@@ -44,6 +44,9 @@ public class Steamdeck extends Computer
     public void act()
     {
         super.act();
+        if (Greenfoot.getRandomNumber(600) == 0) {
+            takeDamage(5);
+        }
     }
     
     /**

@@ -133,12 +133,12 @@ public class Simulator extends World
         averageProjectedMark = new SuperStatBar(100, 0, null, 360, 20, 0, GREEN, BLACK);
         cohenAngerMeter = new SuperStatBar(100, 0, null, 360, 20, 0, ORANGE, BLACK);
         computerDurability = new SuperStatBar(computer.getMaxDurability(), 0, null, 360, 20, 0, BLUE, BLACK);
-        addObject(new Label("Projected Mark", 30), 1050, 60);
-        addObject(averageProjectedMark, 1050, 90);
-        addObject(new Label("Anger Meter", 30), 1050, 120);
-        addObject(cohenAngerMeter, 1050, 150);
-        addObject(new Label("Computer Durability", 30), 1050, 180);
-        addObject(computerDurability, 1050, 210);
+        addObject(new Label("Projected Mark", 30), 1050, 80);
+        addObject(averageProjectedMark, 1050, 120);
+        addObject(new Label("Anger Meter", 30), 1050, 160);
+        addObject(cohenAngerMeter, 1050, 200);
+        addObject(new Label("Computer Durability", 30), 1050, 240);
+        addObject(computerDurability, 1050, 280);
         addObject(new Label("Mr. Cohen's Computer", 30), 1050, 420);
         janitorCounter = 1;
         blackScreen = new Fader("Blackscreen.png", 255, 1, 1);

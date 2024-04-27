@@ -442,7 +442,7 @@ public class Student extends Person
         if(puddle != null){
             getWorld().removeObject(puddle);
             slippingTimer = 80;
-            projectedMark -= 5;
+            projectedMark -= 3;
             if (talkPerson != null) {
                 cancelTalk();
             }

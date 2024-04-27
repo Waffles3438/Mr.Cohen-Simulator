@@ -142,6 +142,7 @@ public class MrCohen extends Person
             getWorld().removeObject(speech);
             speech = null;
             daze();
+            getWorld().removeObject(puddle);
         }
         
         if (dazeTimer > 0) {
@@ -158,6 +159,10 @@ public class MrCohen extends Person
         } else if(getX() != 360 || getY() != 55){
             typing.pause();
         } 
+        
+        if (angerMeter > 100) {
+            angerMeter = 100;
+        }
     }
     
     /**
@@ -326,7 +331,7 @@ public class MrCohen extends Person
             rage(brokenCount);
         } else {
             teachStudents();
-            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)/2), 0);
+            angerMeter = Math.max((int)(angerMeter-Math.sqrt(angerMeter)), 0);
         }
     }
     
