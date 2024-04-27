@@ -97,7 +97,7 @@ public class TitleScreen extends World{
     protected Modifier modifier;
 
     public static boolean firstTime = true;
-    private static GreenfootSound mainmenu = new GreenfootSound("mainmenu.mp3");
+    private static GreenfootSound mainMenu = new GreenfootSound("mainmenu.mp3");
     /**
      * Constructor for TitleScreen
      */
@@ -113,7 +113,7 @@ public class TitleScreen extends World{
         }
         creditsScreen = new CreditsScreen(this);
         modifier = new Modifier(this);
-        mainmenu.setVolume(25);
+        mainMenu.setVolume(25);
     }
     
     /**
@@ -121,7 +121,7 @@ public class TitleScreen extends World{
      *
      */
     public void stopped() {
-        mainmenu.pause();
+        mainMenu.pause();
     }
     
     /**
@@ -129,7 +129,7 @@ public class TitleScreen extends World{
      *
      */
     public void started() {
-        mainmenu.playLoop();
+        mainMenu.playLoop();
     }
     
     /**
@@ -146,13 +146,13 @@ public class TitleScreen extends World{
      */
     private void checkButtons(){
         if(start.isPressed()){
-            mainmenu.setVolume(20);
+            mainMenu.setVolume(20);
             Greenfoot.setWorld(modifier);
             start.setPressedCondition(false);
         }
         
         if(credits.isPressed()){
-            mainmenu.setVolume(15);
+            mainMenu.setVolume(15);
             Greenfoot.setWorld(creditsScreen);
             credits.setPressedCondition(false);
         }
@@ -164,8 +164,8 @@ public class TitleScreen extends World{
      */
     public void startMusic(){
         if (!musicStarted) { // Start music only once
-            mainmenu.setVolume(25);
-            mainmenu.playLoop();
+            mainMenu.setVolume(25);
+            mainMenu.playLoop();
             musicStarted = true;
         }
     }
@@ -174,23 +174,23 @@ public class TitleScreen extends World{
      * Plays music
      */
     public static void playMusic(){
-        mainmenu.playLoop();
+        mainMenu.playLoop();
     }
     
     /**
      * Pauses music
      */
     public static void pauseMusic(){
-        mainmenu.pause();
+        mainMenu.pause();
     }
     
     /**
-     * Setter for mainmenu volume
+     * Setter for mainMenu volume
      * 
      * @param volume New volume
      */
     public static void setMusicVolume(int volume){
-        mainmenu.setVolume(volume);
+        mainMenu.setVolume(volume);
     }
     
     public Modifier getModifierWorld() {
