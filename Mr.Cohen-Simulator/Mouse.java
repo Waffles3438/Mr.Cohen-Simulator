@@ -3,7 +3,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * The mouse class is paired up with the computer class and will move around randomly<br>
  * 
- * Editied by Andy Feng
  * 
  * @author Felix Zhao
  * @author Andy Feng
@@ -77,7 +76,7 @@ public class Mouse extends SuperSmoothMover
     }
     
     /**
-     * Goes to random location
+     * Goes to a random location
      */
     private void executeMovement() {
         double distance = Math.hypot(targetX - getX(), targetY - getY());
