@@ -97,6 +97,9 @@ public class Image extends Actor
      * @return Returns the object that intersects this image
      */
     public Object getIntersection(Class<?> cls) {
+        if (getWorld() == null) {
+            return null;
+        }
         return getOneIntersectingObject(cls);
     }
 }

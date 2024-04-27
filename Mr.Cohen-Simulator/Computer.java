@@ -1,11 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /** 
- * This is the computer class <br>
+ * <p>
+ * This is the computer class.
  * A subclass instance will be seen during the simulation
- * <br>
- * <a href="https://www.youtube.com/watch?v=f8mL0_4GeV0">Link to Sound</a>
- * Sound by Rush
+ * </p>
+ * 
+ * <a href="https://mixkit.co/free-sound-effects/break/">Link to Computer breaking sound</a>
+ * Pixabay: Break tech impact<br>
+ * 
+ * <a href="https://www.innersloth.com/games/among-us/">Link to one of the screens</a>
  * 
  * @author Felix Zhao
  * @version 0.0.1
@@ -28,11 +32,11 @@ public abstract class Computer extends Actor
     protected int screenX;
     protected int screenY;
     protected Mouse mouse;
-    protected static GreenfootSound breaking = new GreenfootSound("computer_breaking.mp3");
+    protected static GreenfootSound breaking = new GreenfootSound("computer_breaking.wav");
     
     public Computer() {
         screenY = 0;
-        breaking.setVolume(10);
+        breaking.setVolume(70);
         screenX = 0;
         changeScreenCounter = 120;
     }

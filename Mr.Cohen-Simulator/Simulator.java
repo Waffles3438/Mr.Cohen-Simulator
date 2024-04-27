@@ -196,7 +196,7 @@ public class Simulator extends World
                 Computer.pauseSounds();
                 stopped();
                 
-                Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode));
+                Greenfoot.setWorld(new FinishedWorld(currentAverageMark, numDays, studentIQ, customerSupportRespondChance, chanceOfComputerBreaking, hasRobbers, hasJanitors, chaosMode, titleScreen));
             }
             
             if(fadeIn){
@@ -225,6 +225,11 @@ public class Simulator extends World
                     day.setValue("Day: " + dayCount);
                     for(Student student : getObjects(Student.class)){
                         student.returnToDesk();
+                    }
+                    
+                    // Just in case some speeches are left behind for some reason
+                    for(BubbleSpeech speech : getObjects(BubbleSpeech.class)){
+                        removeObject(speech);
                     }
                     
                     if (hasRobbers && Greenfoot.getRandomNumber(5) >= 3) {
@@ -307,6 +312,11 @@ public class Simulator extends World
         this.computer = newComputer;
         addObject(computer, 0, 0);
         computerDurability.setMaxVal(computer.getMaxDurability());
+        if (newComputer instanceof NoComputer) {
+            removeObject(computerImage);
+        } else if (computerImage.getWorld() == null) {
+            addObject(computerImage, 360, 140);
+        }
     }
     
     private void pause(){
