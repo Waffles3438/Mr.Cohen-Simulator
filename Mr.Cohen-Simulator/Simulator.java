@@ -9,7 +9,7 @@ import java.util.List;
  * Edited by Andy Feng
  * </p>
  * <a href="https://www.freepik.com/premium-vector/pixel-art-illustration-laptop-pixelated-notebook-classic-laptop-computer-icon-pixelated-game_80323384.htm">Link to Art</a><br>
- *
+ * Art by collaborapix
  * 
  * <a href="https://www.youtube.com/watch?v=259C4AaOHn0"> Link to music</a> 
  * Music by Pokemon<br>
