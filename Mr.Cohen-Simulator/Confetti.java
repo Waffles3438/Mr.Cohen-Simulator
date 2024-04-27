@@ -5,7 +5,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Confetti appears when students do well
  * </p>
  * <a href="https://www.pinterest.com/pin/confetti-gifs-find-share-on-giphy--1117948307475324447/">Link to gif</a>
- * 
+ * Gif by Dipali
  * 
  * @author Dylan Dinesh
  * @version 0.0.1
