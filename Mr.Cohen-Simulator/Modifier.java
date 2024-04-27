@@ -293,6 +293,9 @@ public class Modifier extends World
             TitleScreen.setMusicVolume(25);
             TitleScreen.playMusic();
             startFromFirstPage();
+            if(titleScreen == null){
+                titleScreen = new TitleScreen();
+            }
             Greenfoot.setWorld(titleScreen);
             back.setPressedCondition(false);
         }
@@ -403,6 +406,7 @@ public class Modifier extends World
     private void drawImage(){
         int length = secondPageImage.size();
         int gap = 200;
+        //remove the image object and create them again in the right order
         if(length == 1){
             for(Image image : secondPageImage){
                 removeObject(image);

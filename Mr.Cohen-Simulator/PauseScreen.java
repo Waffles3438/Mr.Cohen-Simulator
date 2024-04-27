@@ -122,7 +122,11 @@ public class PauseScreen extends World
         }
         
     }
-
+    
+    /*
+       method which gets the location of every image in the simulator, 
+       and draw it on pauseScreen when the world is paused
+    */
     private void getActorImage(Fader blackScreen){
         for(Actor actor : pauseLocation){
             if (actor == blackScreen) {
