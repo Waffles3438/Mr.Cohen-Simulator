@@ -36,7 +36,7 @@ public class Book extends Projectile
         Student student = (Student)getOneIntersectingObject(Student.class);
         MrCohen cohen = (MrCohen)getOneIntersectingObject(MrCohen.class);
         if (student != null && student != owner) {
-            student.changeProjectedMark(-10);
+            student.changeProjectedMark(-7);
             student.daze();
             getWorld().removeObject(this);
         } else if (cohen != null) {

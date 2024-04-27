@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * <p>
- * The Alienware computer
+ * The Alienware computer, which can have the blue screen of death
  * </p>
  * 
  * <a href="https://www.vectorstock.com/royalty-free-vector/online-laptop-gaming-game-pixel-art-vector-47158987">Link to art</a>

@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * <p>
- * The desktop computer
+ * The desktop computer, which can have the blue screen of death
  * </p>
  * 
  * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299">Art from Vectorstock</a>

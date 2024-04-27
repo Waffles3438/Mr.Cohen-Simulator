@@ -351,7 +351,7 @@ public class FinishedWorld extends World
         if(Greenfoot.mouseClicked(tryAgain)){
             music.pause();
             titleScreen.playMusic();
-            Greenfoot.setWorld(new Modifier(titleScreen));
+            Greenfoot.setWorld(titleScreen.getModifierWorld());
         }
     }
 }
