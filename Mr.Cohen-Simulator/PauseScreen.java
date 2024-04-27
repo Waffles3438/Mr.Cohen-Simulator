@@ -2,8 +2,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
  * <p>
- * The pause screen main which pauses the simulation.
- * This menu allows the user to go back to the title screen or change the volume
+ * The pause screen main which pauses the simulation. If the user wants to pause
+ * the simulation, just clicked the screen.
+ * <br>
+ * <br>
+ * This menu has two buttons and one slider:
+ * <ul>
+ * <li> Resume button <code>resume</code> resumes the simulation
+ * <li> Menu button <code>menu</code> redirect the user to the titleScreen
+ * <li> Slider <code>VolumeSlider</code> allows the user to adjust the volume of the music of the simulation
+ * </ul>
  * </p>
  * 
  * Editied By: Felix Zhao, Benny Wang & Dylan Dinesh
@@ -28,6 +36,11 @@ public class PauseScreen extends World
     private int previousVolume;
     /**
      * Constructor for objects of class PauseScreen.
+     * 
+     * @param TitleScreen titleScreen: make sure the pause world has a titleScreen to go back to
+     * @param Simulator simulator: the simulator world which is acting before it is paused, used for resume button
+     * @param ArrayList<Actor> actors: used for painting actors on the pauseScreen based under these actors' position in the simulation before
+     * @param Fader blackScreen: set the transparency of the image of Fader object 
      */
     public PauseScreen(TitleScreen titleScreen, Simulator simulator, ArrayList<Actor> actors, Fader blackScreen)
     {    
@@ -64,7 +77,11 @@ public class PauseScreen extends World
             soundOffImg.getImage().scale(40, 40);
         }
     }
-
+    /**
+     * This act method update the volume of music base under the volume slider.
+     * <br><br>
+     * It also checks whether or not buttons are clicked
+     */
     public void act(){
         Simulator.setMusicVolume((int) volume/8);
         if(menu.isPressed()) {
@@ -124,9 +141,9 @@ public class PauseScreen extends World
     }
     
     /*
-       method which gets the location of every image in the simulator, 
-       and draw it on pauseScreen when the world is paused
-    */
+     * method which gets the image of actors in the simulation, and draw their 
+     * picture at their location before the simulation is paused
+     */
     private void getActorImage(Fader blackScreen){
         for(Actor actor : pauseLocation){
             if (actor == blackScreen) {

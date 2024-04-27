@@ -2,15 +2,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
  * <p>
- * Modifier world which allows the user to change te startup value of 
- * the simulation. The users can chnage the number of days of the 
- * simulation, chance of Mr.Cohen's computer breaking, student's IQ, the speed
- * customer support respond Mr.Cohen's email and the type of device 
- * Mr.Cohen starts with.
+ * Modifier world which allows the user to change the startup value of 
+ * the simulation. 
+ * The user is allowed to modify the listed value below:
+ * <ul>
+ * <li> Number of days (<code>int numDays</code>)
+ * <li> Average IQ of students in the simulation (<code>int studentIQ</code>)
+ * <li> Mr.Cohen's computer breaking chance (<code>int laptopBreakingChance</code>)
+ * <li> Chance of customer support gets back to Mr.Cohen(<code>customerSupportRespondChance</code>)
+ * <li> Activation of chaos mode (<code>boolean chaosMode</code>)
+ * <li> Whether or not the simulation has robber (<code>boolean robbers</code>)
+ * <li> Whether or not the simulation has janitor (<code>boolean janitors</code>)
+ * <li> Mr.Cohen's startgin device (<code>int computerType</code>)
+ * </ul>
  * </p>
  * 
  * <a href="https://www.vectorstock.com/royalty-free-vector/desktop-monitor-pc-game-pixel-art-vector-47159299"> Link to image</a> <br>
- * Image by VectorStock
+ * Image from VectorStock
  * 
  * @author Andy Feng
  * @version 1.1 (Apr 6th, 2024)

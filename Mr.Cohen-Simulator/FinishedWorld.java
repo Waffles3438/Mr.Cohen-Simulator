@@ -13,6 +13,14 @@ import java.util.HashMap;
  * <li>Ending three: students feel sad while Mr.Cohen is angry, if <code>averageMark < 65</code>
  * </ul>
  * </p>
+ * <p>
+ * There are two buttons at the right hand side:
+ * <ul>
+ * <li> Main menu button(<code>backToMenue</code>), this can redirect the user to the <code>titleScreen</code>
+ * <li> Try again button(<code>tryAgain</code>), this can redirect the user to the <code>Modifier</code>
+ * </ul>
+ * </p>
+ * 
  * Edited By Dylan Dinesh<br>
  * <p>
  * <a href="https://www.youtube.com/watch?v=jRtDGwmgCR8">Link to music</a>
@@ -74,11 +82,23 @@ public class FinishedWorld extends World
     /**
      * Constructor for objects of class FinishedWorld.
      * 
+     * @param int averageMark: average mark of all students after the simulation is done
+     * @param int numDays: number of days during the simulation
+     * @param int studentIQ: average IQ of students during the simulation
+     * @param int customerSupportChance: chance of customer support gets back to Mr.Cohen during the simulation
+     * @param int computerBreakingChance: chance of Mr.Cohen's computer being damaged or stolen during the simulation
+     * @param boolean hasRobber: whether or not the simulation contains robber
+     * @param boolean hasJanitor: whether or not the simulation contains janitor
+     * @param boolean chaosMode: whether or not chaos mode is activated
+     * @param TitleScreen titleScreen: the user will be redirect to this titleWorld if <code>mainMenu</code> button is clicked
      */
     public FinishedWorld(int averageMark, int numDays, int studentIQ, int customerSupportChance, int computerBreakingChance, boolean hasRobber, boolean hasJanitor, boolean chaosMode, TitleScreen titleScreen)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1260, 720, 1, true); 
+        if(averageMark > 100) averageMark = 100;
+        if(averageMark < 0) averageMark = 0;
+        
         GreenfootImage image = new GreenfootImage(1260, 720);
         image.setColor(new Color(255, 255, 255));
         image.fillRect(0, 0, getWidth(), getHeight());
@@ -130,18 +150,27 @@ public class FinishedWorld extends World
         addObject(tryAgain, getWidth()*5/6, tryAgain.getImage().getHeight() / 2 + 15);
     }
     
+    /**
+     * Stop the music which is currently playing
+     */
     public void stopped(){
         music.pause();
     }
     
+    /**
+     * Start playing the music when the FinishedWorld is initialized
+     */
     public void started(){
         music.playLoop();
     }
 
+    /**
+     * this act method determines the ending of the simulation based under the average mark of the simulation.
+     * <br><br>
+     * This method also check whether or not buttons are clicked when the program is running 
+     */
     public void act(){
         // the average mark the class has determine the type of ending of the simulation.
-        if(averageMark > 100) averageMark = 100;
-        if(averageMark < 0) averageMark = 0;
         if(averageMark >= 85) {
             endingOne();
         } else if(averageMark >= 65 && averageMark < 85) {
